@@ -1,0 +1,12 @@
+% upLaTeX 文書
+\documentclass[a4paper,uplatex,dvipdfmx]{jsarticle}
+\usepackage{graphicx}
+\usepackage[twitter]{bxcoloremoji}
+\usepackage[deluxe]{otf}
+\usepackage[ipaex,directunicode]{pxchfon}[2015/08/04]
+\setmarugothicfont{wlcmaru2004emoji.ttf}% 和田研中丸ゴシック
+% カラー絵文字の画像がない場合は \mgfamily のフォントで出す
+\newcommand*{\emj}[1]{{\mgfamily\diruni\coloremoji{#1}}}
+\begin{document}
+注文は\emj{🐙}じゃなくて\emj{🌮}です。
+\end{document}

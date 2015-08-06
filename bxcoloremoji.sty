@@ -1,0 +1,641 @@
+% bxcoloremoji.sty
+
+%% package declarations
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bxcoloremoji}
+
+%% preparatons
+\def\bxce@pkgname{bxcoloremoji}
+\def\bxce@error{\PackageError\bxce@pkgname}
+\def\bxce@warn{\PackageWarning\bxce@pkgname}
+\providecommand\bxDebug[1]{}
+
+%% packages
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\input{binhex.tex}
+
+%% code guard
+\edef\bxce@restore@codes{%
+  \catcode34=\the\catcode34%
+  \catcode39=\the\catcode39%
+  \catcode43=\the\catcode43%
+  \catcode47=\the\catcode47%
+  \catcode58=\the\catcode58%
+  \catcode59=\the\catcode59%
+  \catcode60=\the\catcode60%
+  \catcode62=\the\catcode62%
+  \catcode96=\the\catcode96%
+\relax}
+\catcode34=12 % <">
+\catcode39=12 % <'>
+\catcode43=12 % <+>
+\catcode47=12 % </>
+\catcode58=12 % <:>
+\catcode59=12 % <;>
+\catcode60=12 % <<>
+\catcode62=12 % <>>
+\catcode96=12 % <`>
+\AtEndOfPackage{%
+  \bxce@restore@codes
+  \let\bxce@restore@codes\relax}
+
+%--------------------------------------- package options
+
+%%<*> \coloremojidir : base directory
+\newcommand*\coloremojidir{emoji_images/}
+%% bxce@family : image family
+\def\bxce@family{lowres}
+%% bxce@scale : image scale
+\def\bxce@scale{1}
+
+%% keyval options
+\define@key{bxce}{twitter}[]{%
+  \def\bxce@family{twitter}%
+  \def\bxce@bb{0 0 38 38}%
+}
+\define@key{bxce}{hires}[]{%
+  \def\bxce@family{hires}%
+  \def\bxce@bb{0 0 11.338600 11.338600}%
+}
+\define@key{bxce}{lowres}[]{%
+  \def\bxce@family{lowres}%
+  \def\bxce@bb{0 0 4.535430 4.535430}%
+}
+\define@key{bxce}{scale}{%
+  \def\bxce@scale{#1}%
+}
+\define@key{bxce}{basedir}{%
+  \def\coloremojidir{#1}%
+}
+\DeclareOption*{%
+  \expandafter\bxce@tmpa\CurrentOption\bxce@end
+}
+\def\bxce@tmpa#1\bxce@end{%
+  \setkeys{bxce}{#1}%
+}
+\ProcessOptions*
+
+%--------------------------------------- environment check
+
+%% \bxce@engine : engine type
+\let\bxce@engine\relax
+%% switch 'bxce@ptex' : engine is pTeX-ish?
+\newbool{bxce@ptex}
+%% switch 'bxce@inputenc' : use inputenc?
+\newbool{bxce@inputenc}
+%% switch 'bxce@graphicx' : use graphicx?
+\newbool{bxce@graphicx}
+%% switch 'bxce@use@bb' : use bb parameter?
+\newbool{bxce@use@bb}
+
+%% set \bxce@engine
+\@onlypreamble\bxce@if@primitive
+\def\bxce@if@primitive#1#2{%
+  \edef\bxce@tmpa{\string#1}\edef\bxce@tmpb{\meaning#1}%
+  \ifx\bxce@tmpa\bxce@tmpb #2\fi
+}
+\let\bxce@engine=d
+\bxce@if@primitive\kanjiskip{\let\bxce@engine=p}
+\bxce@if@primitive\enablecjktoken{\let\bxce@engine=u}
+\bxce@if@primitive\XeTeXversion{\let\bxce@engine=x}
+\bxce@if@primitive\luatexversion{\let\bxce@engine=l}
+
+%% set switch 'bxce@ptex'
+\bxce@ptexfalse
+\if p\bxce@engine \bxce@ptextrue \fi
+\if u\bxce@engine \bxce@ptextrue \fi
+
+%% \bxce@check@inputenc
+\let\bxce@check@inputenc\relax
+\ifnum0\ifx p\bxce@engine 1\fi\ifx d\bxce@engine1\fi >0
+  \def\bxce@tmpa{utf8}%
+  \ifx\inputencodingname\bxce@tmpa
+    \bxce@inputenctrue
+  \else
+    \def\bxce@check@inputenc{%
+      \global\let\bxce@check@inputenc\relax
+      \bxce@error
+       {You must load 'inputenc' before this package\MessageBreak
+        and use input encoding 'utf8'}\@ehc
+    }%
+  \fi
+\fi
+
+%% \bxce@resolve@use@bb
+\bxce@use@bbfalse
+\bxce@graphicxtrue
+\def\bxce@resolve@use@bb{%
+  \global\let\bxce@resolve@use@bb\relax
+  \@ifpackageloaded{graphicx}{}{%else
+    \bxce@error
+     {Package 'graphicx' is not loaded}\@ehc
+    \global\bxce@graphicxfalse
+  }%
+  \def\bxce@tmpa{dvipdfmx.def}%
+  \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+  \def\bxce@tmpa{dvipdfm.def}%
+  \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+}
+\AtBeginDocument{\bxce@resolve@use@bb}
+
+%--------------------------------------- helpers
+
+%% variables
+\newcount\bxce@cnta
+\let\bxce@arg\relax
+
+%% unique tokens
+\def\bxce@end{\bxce@end@}
+
+%% \bxce@@BS
+\begingroup \lccode`\*=`\\
+\lowercase{\global\let\bxce@@BS=*}
+\endgroup
+
+%% switch 'bxce@tdir'
+\ifbxce@ptex
+\csletcs{ifbxce@tdir}{iftdir}
+\else
+\csletcs{ifbxce@tdir}{iffalse}
+\fi
+
+%% \bxce@zspc : zenkaku space
+\ifbxce@ptex
+  \chardef\bxce@zspc=\jis"2121\relax
+\fi
+
+%% \bxce@nihil
+\def\bxce@nihil{%
+  \vrule\@width\z@\relax
+}
+
+%% \bxce@cond\ifXXX...\fi{<true>}{<false>}
+\@gobbletwo\if\if \def\bxce@cond#1\fi{%
+  #1\expandafter\@firstoftwo
+  \else \expandafter\@secondoftwo \fi
+}
+
+%% \bxce@skip@space\CScont<space>
+\def\bxce@skip@space#1 {#1}
+
+%--------------------------------------- character database
+
+%% character properties
+\chardef\bxce@cp@base=1 % base char
+\chardef\bxce@cp@comb=2 % combining char
+\chardef\bxce@cp@ris=3 % region indicator
+\chardef\bxce@cp@evs=4 % emoji variant selector
+
+%% variables
+\let\bxce@cp\relax
+
+%% \bxce@@<codevalue>;
+\let\bxce@@\relax % normally unexpandable
+
+%% \bxce@set@cp<cp-value>{<range>,...}
+\@onlypreamble\bxce@set@cp
+\def\bxce@set@cp#1#2{%
+  \let\bxce@cp=#1%
+  \@for\bxce@arg:={#2}\do{%
+    \expandafter\bxce@set@cp@a\bxce@arg--\bxce@end}%
+}
+\@onlypreamble\bxce@set@cp@a
+\def\bxce@set@cp@a#1-#2-#3\bxce@end{%
+  \ifx-#2-\bxce@set@cp@b{#1}{#1}%
+  \else \bxce@set@cp@b{#1}{#2}%
+  \fi
+}
+\@onlypreamble\bxce@set@cp@b
+\def\bxce@set@cp@b#1#2{%
+  \bxce@cnta="#1\relax
+  \numdef\bxce@tmpb{"#2+1}%
+  \@whilenum{\bxce@cnta<\bxce@tmpb}\do{%
+    \edef\bxce@arg{{\the\bxce@cnta}{\hex{\bxce@cnta}}}%
+    \expandafter\bxce@set@cp@c\bxce@arg
+    \advance\bxce@cnta1 }%
+}
+\@onlypreamble\bxce@set@cp@c
+\def\bxce@set@cp@c#1#2{%
+  \cslet{bxce@cp/#1}\bxce@cp
+  \ifbxce@inputenc\ifnum#1>127
+    \DeclareUnicodeCharacter{#2}{\bxce@@#2;}%
+  \fi\fi
+}
+
+%% data
+\bxce@set@cp\bxce@cp@base{%
+  0023,002A,0030-0039,00A9,00AE,203C,2049,2122,2139,2194-2199,%
+  21A9-21AA,231A-231B,2328,23CF,23E9-23F3,23F8-23FA,24C2,25AA-25AB,%
+  25B6,25C0,25FB-25FE,2600-2604,260E,2611,2614-2615,2618,261D,2620,%
+  2622-2623,2626,262A,262E-262F,2638-263A,2648-2653,2660,2663,%
+  2665-2666,2668,267B,267F,2692-2694,2696-2697,2699,269B-269C,%
+  26A0-26A1,26AA-26AB,26B0-26B1,26BD-26BE,26C4-26C5,26C8,26CE-26CF,%
+  26D1,26D3-26D4,26E9-26EA,26F0-26F5,26F7-26FA,26FD,2702,2705,%
+  2708-270D,270F,2712,2714,2716,271D,2721,2728,2733-2734,2744,2747,%
+  274C,274E,2753-2755,2757,2763-2764,2795-2797,27A1,27B0,27BF,%
+  2934-2935,2B05-2B07,2B1B-2B1C,2B50,2B55,3030,303D,3297,3299,1F004,%
+  1F0CF,1F170-1F171,1F17E-1F17F,1F18E,1F191-1F19A,1F201-1F202,1F21A,%
+  1F22F,1F232-1F23A,1F250-1F251,1F300-1F321,1F324-1F393,1F396-1F397,%
+  1F399-1F39B,1F39E-1F3F0,1F3F3-1F3F5,1F3F7-1F4FD,1F4FF-1F53D,%
+  1F549-1F54E,1F550-1F567,1F56F-1F570,1F573-1F579,1F587,1F58A-1F58D,%
+  1F590,1F595-1F596,1F5A5,1F5A8,1F5B1-1F5B2,1F5BC,1F5C2-1F5C4,%
+  1F5D1-1F5D3,1F5DC-1F5DE,1F5E1,1F5E3,1F5EF,1F5F3,1F5FA-1F64F,%
+  1F680-1F6C5,1F6CB-1F6D0,1F6E0-1F6E5,1F6E9,1F6EB-1F6EC,1F6F0,1F6F3,%
+  1F910-1F918,1F980-1F984,1F9C0}
+\bxce@set@cp\bxce@cp@comb{%
+  20E3}
+\bxce@set@cp\bxce@cp@ris{%
+  1F1E6-1F1FF}
+\bxce@set@cp\bxce@cp@evs{%
+  FE0E-FE0F}
+
+%--------------------------------------- user interface
+
+%%<*> \coloremoji*[<option>,...]{<text>}
+\newcommand*{\coloremoji}{%
+  \bxce@enghost\bxce@coloremoji@a
+}
+\def\bxce@coloremoji@a{%
+  \begingroup
+    \@ifnextchar[%]
+      {\bxce@coloremoji@b}%
+      {\bxce@coloremoji@b[]}%
+}
+\def\bxce@coloremoji@b[#1]#2{%
+    \setkeys{bxce}{#1}%
+    \bxce@parse@text{#2}%
+    \bxce@output
+  \endgroup
+  \bxce@postghost
+}
+
+%%<*> \coloremojiucs*[<option>,...]{<codevalue> ...}
+\newcommand*{\coloremojiucs}{%
+  \bxce@enghost\bxce@coloremojiucs@a
+}
+\def\bxce@coloremojiucs@a{%
+  \begingroup
+    \@ifnextchar[%]
+      {\bxce@coloremojiucs@b}%
+      {\bxce@coloremojiucs@b[]}%
+}
+\def\bxce@coloremojiucs@b[#1]#2{%
+    \setkeys{bxce}{#1}%
+    \bxce@parse@ccseq{#2}%
+    \bxce@output
+  \endgroup
+  \bxce@postghost
+}
+
+%--------------------------------------- parse text
+
+%% variables
+\newbool{bxce@escape}
+\let\bxce@text\relax
+
+%% error messages
+\def\bxce@err@intcc#1#2{%
+  \bxce@error{INTERNAL ERROR (#1)\MessageBreak
+      (code = U+#2)}\@ehc
+}
+\def\bxce@warn@locmb#1{%
+  \bxce@warn{Lone combining character found\MessageBreak
+      (code = U+#1)}%
+}
+\def\bxce@warn@loris#1{%
+  \bxce@warn{Unpaired region indicator symbol found\MessageBreak
+      (code = U+#1)}%
+}
+
+%% \bxce@parse@text{<text>}
+\def\bxce@parse@text#1{%
+  \bxce@check@inputenc
+  \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
+  \protected@edef\bxce@text{#1}%
+  \edef\bxce@text{\detokenize\expandafter{\bxce@text}}%
+  \expandafter\bxce@parse@first\bxce@text\bxce@end
+\bxDebug{first=\meaning\bxce@text}%
+  \expandafter\bxce@parse@second\bxce@text\bxce@end
+\bxDebug{second=\meaning\bxce@text}%
+}
+% first stage
+\def\bxce@parse@first{%
+  \let\bxce@text\@empty
+  \bxce@escapefalse
+  \bxce@parse@first@a
+}
+\def\bxce@parse@first@a{%
+  \futurelet\bxce@arg\bxce@parse@first@b
+}
+\def\bxce@parse@first@b{%
+  \bxce@cond\ifx\bxce@arg\bxce@end\fi{%
+    \appto\bxce@text{\bxce@T.}%
+    \@gobble
+  }{\bxce@cond\ifx\bxce@arg\@sptoken\fi{%
+    \bxce@escapefalse
+    \appto\bxce@text{\bxce@S.}%
+    \bxce@skip@space\bxce@parse@first@a
+  }{\bxce@cond\ifbxce@escape\fi{%
+    \bxce@parse@first@c
+  }{%else
+    \bxce@parse@first@d
+  }}}%
+}
+\def\bxce@parse@first@c#1{%
+  \bxce@escapefalse
+  \bxce@cond\if#1"\fi{%
+    \bxce@parse@first@f
+  }{%else
+    \bxce@parse@first@e{#1}%
+    \bxce@parse@first@a
+  }%
+}
+\def\bxce@parse@first@d#1{%
+  \bxce@cond\if#1\bxce@@BS\fi{%
+    \bxce@escapetrue
+  }{%else
+    \bxce@parse@first@e{#1}%
+  }%
+  \bxce@parse@first@a
+}
+\def\bxce@parse@first@e#1{%
+  \bxce@cnta=`#1\relax
+  \@tempcnta\bxce@cnta \divide\@tempcnta"800
+  \ifnum\@tempcnta=27 % surrogate value
+    \bxce@parse@first@surrogate
+  \fi
+  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \ifdefined\bxce@tmpa
+    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\hex{\bxce@cnta}}}%
+  \else
+    \appto\bxce@text{\bxce@O#1}%
+  \fi
+}
+\def\bxce@parse@first@f#1;{%
+  \bxce@cnta="#1\relax
+  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \unless\ifdefined\bxce@tmpa
+    \chardef\bxce@tmpa\z@
+    \bxce@err@intcc{1}{#1}%
+  \fi
+  \eappto\bxce@text{\bxce@E\the\bxce@tmpa{#1}}%
+  \bxce@parse@first@a
+}
+% second stage
+\def\bxce@parse@second{%
+  \let\bxce@text\@empty
+}
+\protected\def\bxce@T{\bxce@parse@second@T}
+\def\bxce@parse@second@T.\bxce@end{}
+\protected\def\bxce@O{\bxce@parse@second@O}
+\def\bxce@parse@second@O#1{%
+  \appto\bxce@text{\bxce@wr{#1}}%
+}
+\protected\def\bxce@S{\bxce@parse@second@S}
+\def\bxce@parse@second@S#1{%
+  \appto\bxce@text{\bxce@wr{ }}%
+}
+\protected\def\bxce@E{\bxce@parse@second@E}
+\def\bxce@parse@second@E#1#2#3#4{%
+  \let\bxce@arg\relax
+  \ifnum#1=\bxce@cp@base
+    \ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@comb 1\fi\fi=1
+      % combining sequence
+      \def\bxce@arg{#1{#2}}%
+    \else
+      \appto\bxce@text{\bxce@put{#2}}%
+    \fi
+  \else\ifnum#1=\bxce@cp@comb
+    \bxce@warn@locmb{#2}%
+    \appto\bxce@text{\bxce@put{#2}}%
+  \else\ifnum#1=\bxce@cp@ris
+    \ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@ris 1\fi\fi=1
+      % region indicator sequence
+      \def\bxce@arg{#1{#2}}%
+    \else
+      \bxce@warn@loris{#2}%
+      \appto\bxce@text{\bxce@put{#2}}%
+    \fi
+  \else\ifnum#1=\bxce@cp@evs
+    % currently EVS is totally ignored
+  \fi\fi\fi\fi
+  \bxce@cond\ifx\bxce@arg\relax\fi{%
+    #3#4%
+  }{%else
+    \expandafter\bxce@parse@second@E@a\bxce@arg
+  }%
+}
+\def\bxce@parse@second@E@a#1#2#3{%
+  \appto\bxce@text{\bxce@put@cs{#2}{#3}}%
+}
+
+%% \bxce@parse@ccseq
+\def\bxce@parse@ccseq#1{%
+  \edef\bxce@tmpa{#1}%
+  \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
+  \expandafter\bxce@parse@first@ccseq\bxce@tmpa
+\bxDebug{first=\meaning\bxce@text}%
+  \expandafter\bxce@parse@second\bxce@text\bxce@end
+\bxDebug{second=\meaning\bxce@text}%
+}
+\def\bxce@parse@first@ccseq{%
+  \let\bxce@text\@empty
+  \bxce@parse@first@ccseq@a
+}
+\def\bxce@parse@first@ccseq@a#1 {%
+  \bxce@cond\ifx @#1\fi{%
+    \appto\bxce@text{\bxce@T.}%
+  }{%else
+    \uppercase{\bxce@zero@suppress\bxce@arg{#1}}%
+    \bxce@parse@first@ccseq@b
+  }%
+}
+\def\bxce@parse@first@ccseq@b{%
+  \bxce@cnta="\bxce@arg\relax
+  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \ifdefined\bxce@tmpa
+    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@arg}}%
+  \else
+    \bxce@char@token\bxce@tmpa\bxce@cnta
+    \eappto\bxce@text{\bxce@O\bxce@tmpa}%
+  \fi
+  \bxce@parse@first@ccseq@a
+}
+
+%% \bxce@zero@suppress\CS{<digits>}
+\def\bxce@zero@suppress#1#2{%
+  \bxce@zero@suppress@a#2\bxce@end#1%
+}
+\def\bxce@zero@suppress@a#1{%
+  \bxce@cond\ifx#1\bxce@end\fi{%
+    \def#1{0}%
+  }{\bxce@cond\ifx#10\fi{%
+    \bxce@zero@suppress@a
+  }{%else
+    \bxce@zero@suppress@b#1%
+  }}%
+}
+\def\bxce@zero@suppress@b#1\bxce@end#2{%
+  \def#2{#1}%
+}
+
+%% Trick to avoid XeTeX anomaly...
+\def\bxce@parse@first@surrogate#1\bxce@parse@first@a#2{%
+  \bxce@cnta=\numexpr\bxce@cnta*"400+`#2-"35FDC00\relax
+  #1\bxce@parse@first@a % continue!
+}
+
+%--------------------------------------- image output
+
+%% variables
+\newdimen\bxce@cwd
+\newskip\bxce@inter@skip
+
+%% \bxce@image@path{<name>}
+\def\bxce@image@path#1{%
+  \coloremojidir\bxce@family/#1.pdf%
+}
+
+%% \bxce@unit / \bxce@disp / \bxce@inter
+\ifbxce@ptex
+\def\bxce@unit{zw}
+\def\bxce@disp{\ifbxce@tdir-.5\else0.12\fi}
+\def\bxce@inter{\kanjiskip}
+\else
+\def\bxce@unit{em}
+\def\bxce@disp{0.12}
+\def\bxce@inter{0pt plus 0.1em}
+\fi
+
+%% \bxce@output
+\def\bxce@output{%
+  \ifmmode \nfss@text{\bxce@output@a}%
+  \else \bxce@output@a
+  \fi
+}
+\def\bxce@output@a{%
+  \bxce@resolve@use@bb
+  \bxce@cwd=\bxce@scale\bxce@unit\relax
+  \bxce@inter@skip=\bxce@inter\relax
+  \bxce@text
+  \unskip
+}
+
+%% \bxce@wr{<char>}
+\def\bxce@wr#1{%
+  #1\hskip\bxce@inter@skip
+}
+
+%% \bxce@put{<code1>}
+\def\bxce@put#1{%
+  \bxce@if@image@exists{#1}{%
+    \bxce@put@image{#1}%
+  }{%else
+    \bxce@char@token\bxce@arg{"#1}%
+    \bxce@arg \hskip\bxce@inter@skip
+  }%
+}
+
+%% \bxce@put@cs{<code1>}{<code2>}
+\def\bxce@put@cs#1#2{%
+  \bxce@if@image@exists{#1-#2}{%
+    \bxce@put@image{#1-#2}%
+  }{%else
+    \bxce@put{#1}%
+    \bxce@put{#2}%
+  }%
+}
+
+%% \bxce@if@image@exists{<name>}
+\def\bxce@if@image@exists#1{%
+  \bxce@cond\ifbxce@graphicx\fi{%
+    \IfFileExists{\bxce@image@path{#1}}%
+  }{%else
+    \@secondoftwo % always false
+  }%
+}
+
+%% \bxce@put@image
+\def\bxce@put@image#1{%
+  \edef\bxce@tmpa{%
+    \lower\bxce@disp\bxce@cwd\hbox{%
+      \noexpand\includegraphics
+      [width=\bxce@cwd \ifbxce@use@bb ,bb=\bxce@bb \fi]%
+      {\bxce@image@path{#1}}}}%
+  \bxce@tmpa \hskip\bxce@inter@skip
+}
+
+%--------------------------------------- character token
+
+%% \bxce@geta : geta mark
+%% \bxce@maxcc : max 'safe' codevalue
+\ifx d\bxce@engine
+\chardef\bxce@geta=`\=\relax
+\chardef\bxce@maxcc="FF
+\else\ifx p\bxce@engine
+\chardef\bxce@geta=\jis"222E\relax
+\chardef\bxce@maxcc="7F
+\else
+\chardef\bxce@geta="3013\relax
+\chardef\bxce@maxcc="10FFFF
+\fi\fi
+
+%% \bxce@char@token\CS{<codvalue>}
+\def\bxce@char@token#1#2{%
+  \begingroup
+    \bxce@cnta=#2\relax
+    \ifnum\bxce@cnta<0 \bxce@cnta=\bxce@geta \fi
+    \ifnum\bxce@cnta>\bxce@maxcc \bxce@cnta=\bxce@geta \fi
+    \ifnum0\ifbxce@ptex\ifnum\bxce@cnta>"7F 1\fi\fi=1
+      \kansujichar1=\bxce@cnta
+      \xdef\@gtempa{\kansuji1}%
+    \else
+      \lccode`\*=\bxce@cnta
+      \lowercase{\xdef\@gtempa{*}}%
+    \fi
+  \endgroup
+  \let#1=\@gtempa
+}
+
+%--------------------------------------- ghost something
+
+%% \bxce@postghost
+\let\bxce@postghost\relax
+
+%% \bxce@enghost\CScont...
+\def\bxce@enghost#1#2#{% brace delimit
+  \bxce@enghost@a{#2}%
+  \@ifstar{#1}{#1}#2%
+}
+\def\bxce@enghost@a#1{%
+  \bxce@cond\ifbxce@ptex\fi{%
+    \bxce@cond\ifmmode\fi{%
+      \let\bxce@postghost\relax
+    }{%else
+      \bxce@with@star{#1}{%
+        \bxce@nihil
+        \let\bxce@postghost\bxce@nihil
+      }{%else
+        \bxce@zspc \kern-1zw\relax
+        \def\bxce@postghost{%
+          \kern-1zw\relax \bxce@zspc}%
+      }%
+    }%
+  }{%else
+    \leavevmode
+    \let\bxce@postghost\relax
+  }%
+}
+
+%% \bxce@with@star{<str>}{<true>}{<false>}
+\def\bxce@with@star#1{%
+  \bxce@with@star@a#1.\bxce@end
+}
+\def\bxce@with@star@a#1#2\bxce@end{%
+  \bxce@cond\ifx*#1\fi
+}
+
+%--------------------------------------- done
+\endinput
+%% EOF

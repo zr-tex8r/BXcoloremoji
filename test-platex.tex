@@ -1,0 +1,21 @@
+% pLaTeX 文書, 文字コードは UTF-8
+\documentclass[a4paper,dvipdfmx]{jsarticle}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[twitter]{bxcoloremoji}
+\begin{document}
+
+吾輩は\coloremoji{🐱}である。名前はまだ無い。
+
+吾輩は\coloremojiucs{1F363}である。意味はまだ無い。
+
+\newcommand*{\xE}[1]{\coloremoji{#1}}
+\begin{equation}
+  e^{\xE{🍣}}
+  = \sum_{\xE{🐟}=0}^{\infty} \frac{\xE{🍣}^{\xE{🐟}}}{\xE{🐟}!}
+  = 1 + \xE{🍣} + \frac{\xE{🍣}^2}{2!} + \frac{\xE{🍣}^3}{3!}
+     + \frac{\xE{🍣}^4}{4!} + \cdots
+\end{equation}
+
+\end{document}

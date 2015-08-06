@@ -1,0 +1,18 @@
+% LuaLaTeX 文書
+\documentclass[a4paper]{ltjsarticle}
+\usepackage{graphicx,amsmath}
+\usepackage[twitter]{bxcoloremoji}
+\newcommand*{\ce}[1]{\coloremoji{#1}}
+\begin{document}
+
+知らず、\ce{🍣}の夢に胡蝶と為れるか、
+胡蝶の夢に\ce{🍣}と為れるか。
+
+\newcommand*\xLam[1]{\lambda#1.\,}
+\[
+\ce{🍣} = \lambda\ce{🐟}.\,
+  (\lambda\ce{🍚}.\,\ce{🐟}(\ce{🍚} \ce{🍚}))
+  (\lambda\ce{🍚}.\,\ce{🐟}(\ce{🍚} \ce{🍚}))
+\]
+
+\end{document}
