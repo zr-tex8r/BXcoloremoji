@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2016/05/03 v0.3]
+\ProvidesPackage{bxcoloremoji}[2016/05/04 v0.3a]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -360,7 +360,8 @@
 \def\bxce@parse@text#1{%
   \bxce@check@inputenc
   \begingroup
-    \ifbxce@CJK \bxce@CJK@preproc \fi
+    \ifbxce@CJK \bxce@CJK@preproc \ponchi \fi
+    \let\PackageError\bxce@PackageError
     \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
     \protected@xdef\@gtempa{#1}%
   \endgroup
@@ -372,6 +373,7 @@
   \expandafter\bxce@parse@third\bxce@text\bxce@end
 \bxDebug{third=\meaning\bxce@text}%
 }
+\def\bxce@PackageError#1#2#3{}
 % first stage
 \let\bxce@T\relax
 \let\bxce@O\relax
@@ -514,7 +516,7 @@
   \let\bxce@J\bxce@parse@third@J
 }
 \protected\def\bxce@parse@third@T\bxce@end{}
-\protected\def\bxce@parse@second@O#1{%
+\protected\def\bxce@parse@third@O#1{%
   \appto\bxce@text{\bxce@wr{#1}}%
 }
 \protected\def\bxce@parse@third@E#1#2{%
