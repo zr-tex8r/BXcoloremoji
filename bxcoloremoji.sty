@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}
+\ProvidesPackage{bxcoloremoji}[2016/04/30 v0.2]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -45,22 +45,44 @@
 %%<*> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
 %% bxce@family : image family
-\def\bxce@family{lowres}
+\let\bxce@family\@undefined
+%% bxce@bb : image bbox
+\let\bxce@bb\relax
+%% bxce@ext : image file extension
+\let\bxce@ext\relax
 %% bxce@scale : image scale
 \def\bxce@scale{1}
 
 %% keyval options
+\define@key{bxce}{no-image}[]{%
+  \let\bxce@family\relax
+  \let\bxce@bb\relax
+  \let\bxce@ext\relax
+}
+\define@key{bxce}{twemoji-pdf}[]{%
+  \def\bxce@family{twemoji-pdf}%
+  \def\bxce@bb{0 0 36 36}%
+  \def\bxce@ext{pdf}%
+}
+\define@key{bxce}{twemoji-png}[]{%
+  \def\bxce@family{twemoji-png}%
+  \def\bxce@bb{0 0 72 72}%
+  \def\bxce@ext{png}%
+}
 \define@key{bxce}{twitter}[]{%
   \def\bxce@family{twitter}%
   \def\bxce@bb{0 0 38 38}%
+  \def\bxce@ext{pdf}%
 }
 \define@key{bxce}{hires}[]{%
   \def\bxce@family{hires}%
   \def\bxce@bb{0 0 11.338600 11.338600}%
+  \def\bxce@ext{pdf}%
 }
 \define@key{bxce}{lowres}[]{%
   \def\bxce@family{lowres}%
   \def\bxce@bb{0 0 4.535430 4.535430}%
+  \def\bxce@ext{pdf}%
 }
 \define@key{bxce}{scale}{%
   \def\bxce@scale{#1}%
@@ -75,8 +97,17 @@
   \setkeys{bxce}{#1}%
 }
 \ProcessOptions*
+\ifx\bxce@family\@undefined
+  \setkeys{bxce}{twemoji-pdf}% default
+\fi
 
 %--------------------------------------- environment check
+
+%% e-TeX check
+\ifx\numdef\@undefined % etoolbox is aborted
+  % etoolbox has already issued an error
+  \bxce@warn{Package loading is aborted\@gobble}
+\expandafter\endinput\fi\relax
 
 %% \bxce@engine : engine type
 \let\bxce@engine\relax
@@ -84,8 +115,8 @@
 \newbool{bxce@ptex}
 %% switch 'bxce@inputenc' : use inputenc?
 \newbool{bxce@inputenc}
-%% switch 'bxce@graphicx' : use graphicx?
-\newbool{bxce@graphicx}
+%% switch 'bxce@use@image' : use images?
+\newbool{bxce@use@image}
 %% switch 'bxce@use@bb' : use bb parameter?
 \newbool{bxce@use@bb}
 
@@ -122,22 +153,29 @@
   \fi
 \fi
 
-%% \bxce@resolve@use@bb
+%% \bxce@resolve@image@setup
 \bxce@use@bbfalse
-\bxce@graphicxtrue
-\def\bxce@resolve@use@bb{%
-  \global\let\bxce@resolve@use@bb\relax
-  \@ifpackageloaded{graphicx}{}{%else
-    \bxce@error
-     {Package 'graphicx' is not loaded}\@ehc
-    \global\bxce@graphicxfalse
-  }%
-  \def\bxce@tmpa{dvipdfmx.def}%
-  \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
-  \def\bxce@tmpa{dvipdfm.def}%
-  \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+\bxce@use@imagetrue
+\def\bxce@resolve@image@setup{%
+  \global\let\bxce@resolve@image@setup\relax
+  \ifx\bxce@family\relax % no-image
+    \global\bxce@use@imagefalse
+  \fi
+  \ifbxce@use@image
+    \@ifpackageloaded{graphicx}{}{%else
+      \bxce@error
+       {Package 'graphicx' is not loaded}\@ehc
+      \global\bxce@use@imagefalse
+    }%
+  \fi
+  \ifbxce@use@image
+    \def\bxce@tmpa{dvipdfmx.def}%
+    \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+    \def\bxce@tmpa{dvipdfm.def}%
+    \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+  \fi
 }
-\AtBeginDocument{\bxce@resolve@use@bb}
+\AtBeginDocument{\bxce@resolve@image@setup}
 
 %--------------------------------------- helpers
 
@@ -549,7 +587,7 @@
 
 %% \bxce@if@image@exists{<name>}
 \def\bxce@if@image@exists#1{%
-  \bxce@cond\ifbxce@graphicx\fi{%
+  \bxce@cond\ifbxce@use@image\fi{%
     \IfFileExists{\bxce@image@path{#1}}%
   }{%else
     \@secondoftwo % always false
