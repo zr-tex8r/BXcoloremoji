@@ -20,22 +20,28 @@
   \catcode34=\the\catcode34%
   \catcode39=\the\catcode39%
   \catcode43=\the\catcode43%
+  \catcode45=\the\catcode44%
+  \catcode46=\the\catcode45%
   \catcode47=\the\catcode47%
   \catcode58=\the\catcode58%
   \catcode59=\the\catcode59%
   \catcode60=\the\catcode60%
   \catcode62=\the\catcode62%
   \catcode96=\the\catcode96%
+  \catcode126=\the\catcode126%
 \relax}
 \catcode34=12 % <">
 \catcode39=12 % <'>
 \catcode43=12 % <+>
+\catcode45=12 % <->
+\catcode46=12 % <.>
 \catcode47=12 % </>
 \catcode58=12 % <:>
 \catcode59=12 % <;>
 \catcode60=12 % <<>
 \catcode62=12 % <>>
 \catcode96=12 % <`>
+\catcode126=13 % <~>
 \AtEndOfPackage{%
   \bxce@restore@codes
   \let\bxce@restore@codes\relax}
@@ -111,8 +117,12 @@
 
 %% \bxce@engine : engine type
 \let\bxce@engine\relax
+%% switch 'bxce@jaok' : Japanese OK?
+\newbool{bxce@jaok}
 %% switch 'bxce@ptex' : engine is pTeX-ish?
 \newbool{bxce@ptex}
+%% switch 'bxce@luatexja' : LuaTeX-ja is loaded?
+\newbool{bxce@luatexja}
 %% switch 'bxce@inputenc' : use inputenc?
 \newbool{bxce@inputenc}
 %% switch 'bxce@use@image' : use images?
@@ -136,6 +146,7 @@
 \bxce@ptexfalse
 \if p\bxce@engine \bxce@ptextrue \fi
 \if u\bxce@engine \bxce@ptextrue \fi
+% NB. bxce@luatexja will be set at \bxce@resolve@image@metric
 
 %% \bxce@check@inputenc
 \let\bxce@check@inputenc\relax
@@ -174,6 +185,8 @@
     \def\bxce@tmpa{dvipdfm.def}%
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
   \fi
+  \bxce@resolve@image@metric
+  \global\let\bxce@resolve@image@metric\relax
 }
 \AtBeginDocument{\bxce@resolve@image@setup}
 
@@ -191,17 +204,8 @@
 \lowercase{\global\let\bxce@@BS=*}
 \endgroup
 
-%% switch 'bxce@tdir'
-\ifbxce@ptex
-\csletcs{ifbxce@tdir}{iftdir}
-\else
-\csletcs{ifbxce@tdir}{iffalse}
-\fi
-
 %% \bxce@zspc : zenkaku space
-\ifbxce@ptex
-  \chardef\bxce@zspc=\jis"2121\relax
-\fi
+\def\bxce@zspc{\kern1em\relax}
 
 %% \bxce@nihil
 \def\bxce@nihil{%
@@ -597,7 +601,9 @@
 %--------------------------------------- image output
 
 %% variables
+\newbool{bxce@ctdir}
 \newdimen\bxce@cwd
+\newdimen\bxce@disp@dim
 \newskip\bxce@inter@skip
 
 %% \bxce@image@path{<name>}
@@ -606,15 +612,9 @@
 }
 
 %% \bxce@unit / \bxce@disp / \bxce@inter
-\ifbxce@ptex
-\def\bxce@unit{zw}
-\def\bxce@disp{\ifbxce@tdir-.5\else0.12\fi}
-\def\bxce@inter{\kanjiskip}
-\else
 \def\bxce@unit{em}
 \def\bxce@disp{0.12}
 \def\bxce@inter{0pt plus 0.1em}
-\fi
 
 %% \bxce@output
 \def\bxce@output{%
@@ -624,7 +624,9 @@
 }
 \def\bxce@output@a{%
   \bxce@resolve@image@setup
+  \bxce@iftdir{\bxce@ctdirtrue}{\bxce@ctdirfalse}%
   \bxce@cwd=\bxce@scale\bxce@unit\relax
+  \bxce@disp@dim=\bxce@disp\bxce@unit\relax
   \bxce@inter@skip=\bxce@inter\relax
   \bxce@text
   \unskip
@@ -671,12 +673,51 @@
 %% \bxce@put@image
 \def\bxce@put@image#1{%
   \edef\bxce@tmpa{%
-    \lower\bxce@disp\bxce@cwd\hbox{%
+    \lower\bxce@disp@dim\hbox{%
+      \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
       \noexpand\includegraphics
       [width=\bxce@cwd \ifbxce@use@bb ,bb=\bxce@bb \fi]%
-      {\bxce@image@path{#1}}}}%
+      {\bxce@image@path{#1}}}}}%
   \bxce@tmpa \hskip\bxce@inter@skip
 }
+
+%--------------------------------------- tate direction
+
+%% constants
+\chardef\bxce@luatexja@tate=3
+
+%% \bxce@iftdir{<tate>}{<yoko>}
+\let\bxce@iftdir\@secondoftwo % always yoko
+
+%% \bxce@resolve@image@metric
+\def\bxce@resolve@image@metric{%
+  % set 'bxce@luatexja'
+  \if l\bxce@engine
+    \@ifpackageloaded{luatexja}{%
+      \bxce@luatexjatrue
+    }{}%
+  \fi
+  %
+  \ifbxce@luatexja
+    \global\bxce@jaoktrue
+    \global\chardef\bxce@zspc="3000
+    \gdef\bxce@iftdir{\bxce@cond
+      \ifnum\ltjgetparameter{direction}=\bxce@luatexja@tate\fi}%
+    \gdef\bxce@unit{\zw}%
+    \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
+    \gdef\bxce@inter{\ltjgetparameter{kanjiskip}}%
+  \else\ifbxce@ptex
+    \global\bxce@jaoktrue
+    \global\chardef\bxce@zspc=\jis"2121\relax
+    \gdef\bxce@iftdir{\ifbool{tdir}}%
+    \gdef\bxce@unit{zw}%
+    \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
+    \gdef\bxce@inter{\kanjiskip}%
+  \fi\fi
+}
+
+%% try once now
+\bxce@resolve@image@metric
 
 %--------------------------------------- character token
 
@@ -721,7 +762,9 @@
   \@ifstar{#1}{#1}#2%
 }
 \def\bxce@enghost@a#1{%
-  \bxce@cond\ifbxce@ptex\fi{%
+% NB. It could be called before \bxce@resolve@image@metric.
+% Then ghost setting could be inappropriate.
+  \bxce@cond\ifbxce@jaok\fi{%
     \bxce@cond\ifmmode\fi{%
       \let\bxce@postghost\relax
     }{%else
@@ -729,9 +772,9 @@
         \bxce@nihil
         \let\bxce@postghost\bxce@nihil
       }{%else
-        \bxce@zspc \kern-1zw\relax
+        \bxce@zspc \kern-1\bxce@unit\relax
         \def\bxce@postghost{%
-          \kern-1zw\relax \bxce@zspc}%
+          \kern-1\bxce@unit\relax \bxce@zspc}%
       }%
     }%
   }{%else
