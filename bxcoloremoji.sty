@@ -123,6 +123,8 @@
 \newbool{bxce@ptex}
 %% switch 'bxce@luatexja' : LuaTeX-ja is loaded?
 \newbool{bxce@luatexja}
+%% switch 'bxce@CJK' : CJK is loaded?
+\newbool{bxce@CJK}
 %% switch 'bxce@inputenc' : use inputenc?
 \newbool{bxce@inputenc}
 %% switch 'bxce@use@image' : use images?
@@ -357,9 +359,12 @@
 %% \bxce@parse@text{<text>}
 \def\bxce@parse@text#1{%
   \bxce@check@inputenc
-  \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
-  \protected@edef\bxce@text{#1}%
-  \edef\bxce@text{\detokenize\expandafter{\bxce@text}}%
+  \begingroup
+    \ifbxce@CJK \bxce@CJK@preproc \fi
+    \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
+    \protected@xdef\@gtempa{#1}%
+  \endgroup
+  \edef\bxce@text{\detokenize\expandafter{\@gtempa}}%
   \expandafter\bxce@parse@first\bxce@text\bxce@end
 \bxDebug{first=\meaning\bxce@text}%
   \expandafter\bxce@parse@second\bxce@text\bxce@end
@@ -714,6 +719,12 @@
     \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
     \gdef\bxce@inter{\kanjiskip}%
   \fi\fi
+  \if d\bxce@engine
+    \@ifpackageloaded{CJK}{%
+      \unless\ifdefined\CJKhook \let\CJKhook\@empty \fi
+      \gappto\CJKhook{\bxce@CJKtrue}%
+    }{}%
+  \fi
 }
 
 %% try once now
@@ -790,6 +801,39 @@
 \def\bxce@with@star@a#1#2\bxce@end{%
   \bxce@cond\ifx*#1\fi
 }
+
+%--------------------------------------- CJK package compatibility
+
+%% \bxce@CJK@preproc
+\let\bxce@CJK@preproc\@empty
+\if d\bxce@engine
+\begingroup
+  \def\bxce@tmpa#1#2#3#4{% \[bxce@n<?>]\[bxce@o<?>] ?13 ?12
+    \gappto\bxce@CJK@preproc{\let#2#3\let#3#1}%
+    \ifnum\@tempcnta<224 %2-byte
+      \gdef#1##1##2##3{\expandafter
+        \ifx\csname u8:#4\string##1\endcsname\relax
+        #2##1\else\csname u8:#4\string##1\endcsname\fi}%
+    \else\ifnum\@tempcnta<240 %3-byte
+      \gdef#1##1##2{\expandafter
+        \ifx\csname u8:#4\string##1\string##2\endcsname\relax
+        #2##1##2\else\csname u8:#4\string##1\string##2\endcsname\fi}%
+    \else %4-byte
+      \gdef#1##1##2##3{\expandafter
+        \ifx\csname u8:#4\string##1\string##2\string##3\endcsname\relax
+        #2##1##2##3\else
+        \csname u8:#4\string##1\string##2\string##3\endcsname\fi}%
+    \fi\fi
+  }
+  \@tempcnta=192
+  \loop\ifnum\@tempcnta<245
+    \lccode`\+=\@tempcnta \lccode`\~=\@tempcnta
+    \lowercase{\expandafter\bxce@tmpa\csname bxce@n<+>\expandafter
+        \endcsname\csname bxce@o<+>\endcsname~+}%
+    \advance\@tempcnta\@ne
+  \repeat
+\endgroup
+\fi
 
 %--------------------------------------- done
 \endinput
