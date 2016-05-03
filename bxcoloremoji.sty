@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2016/04/30 v0.2]
+\ProvidesPackage{bxcoloremoji}[2016/05/03 v0.3]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -224,6 +224,7 @@
 \chardef\bxce@cp@comb=2 % combining char
 \chardef\bxce@cp@ris=3 % region indicator
 \chardef\bxce@cp@evs=4 % emoji variant selector
+\chardef\bxce@cp@zwj=5 % zero width joiner
 
 %% variables
 \let\bxce@cp\relax
@@ -273,20 +274,22 @@
   2708-270D,270F,2712,2714,2716,271D,2721,2728,2733-2734,2744,2747,%
   274C,274E,2753-2755,2757,2763-2764,2795-2797,27A1,27B0,27BF,%
   2934-2935,2B05-2B07,2B1B-2B1C,2B50,2B55,3030,303D,3297,3299,1F004,%
-  1F0CF,1F170-1F171,1F17E-1F17F,1F18E,1F191-1F19A,1F201-1F202,1F21A,%
-  1F22F,1F232-1F23A,1F250-1F251,1F300-1F321,1F324-1F393,1F396-1F397,%
-  1F399-1F39B,1F39E-1F3F0,1F3F3-1F3F5,1F3F7-1F4FD,1F4FF-1F53D,%
-  1F549-1F54E,1F550-1F567,1F56F-1F570,1F573-1F579,1F587,1F58A-1F58D,%
-  1F590,1F595-1F596,1F5A5,1F5A8,1F5B1-1F5B2,1F5BC,1F5C2-1F5C4,%
-  1F5D1-1F5D3,1F5DC-1F5DE,1F5E1,1F5E3,1F5EF,1F5F3,1F5FA-1F64F,%
-  1F680-1F6C5,1F6CB-1F6D0,1F6E0-1F6E5,1F6E9,1F6EB-1F6EC,1F6F0,1F6F3,%
-  1F910-1F918,1F980-1F984,1F9C0}
+  1F0CF,1F170-1F171,1F17E-1F17F,1F18E,1F191-1F19A,1F1E6-1F1FF,%
+  1F201-1F202,1F21A,1F22F,1F232-1F23A,1F250-1F251,1F300-1F321,%
+  1F324-1F393,1F396-1F397,1F399-1F39B,1F39E-1F3F0,1F3F3-1F3F5,%
+  1F3F7-1F4FD,1F4FF-1F53D,1F549-1F54E,1F550-1F567,1F56F-1F570,%
+  1F573-1F579,1F587,1F58A-1F58D,1F590,1F595-1F596,1F5A5,1F5A8,%
+  1F5B1-1F5B2,1F5BC,1F5C2-1F5C4,1F5D1-1F5D3,1F5DC-1F5DE,1F5E1,1F5E3,%
+  1F5E8,1F5EF,1F5F3,1F5FA-1F64F,1F680-1F6C5,1F6CB-1F6D0,1F6E0-1F6E5,%
+  1F6E9,1F6EB-1F6EC,1F6F0,1F6F3,1F910-1F918,1F980-1F984,1F9C0}
 \bxce@set@cp\bxce@cp@comb{%
-  20E3}
+  20E3,1F3FB-1F3FF}
 \bxce@set@cp\bxce@cp@ris{%
   1F1E6-1F1FF}
 \bxce@set@cp\bxce@cp@evs{%
   FE0E-FE0F}
+\bxce@set@cp\bxce@cp@zwj{%
+  200D}
 
 %--------------------------------------- user interface
 
@@ -331,6 +334,7 @@
 %% variables
 \newbool{bxce@escape}
 \let\bxce@text\relax
+\let\bxce@cseq\@empty
 
 %% error messages
 \def\bxce@err@intcc#1#2{%
@@ -356,8 +360,16 @@
 \bxDebug{first=\meaning\bxce@text}%
   \expandafter\bxce@parse@second\bxce@text\bxce@end
 \bxDebug{second=\meaning\bxce@text}%
+  \expandafter\bxce@parse@third\bxce@text\bxce@end
+\bxDebug{third=\meaning\bxce@text}%
 }
 % first stage
+\let\bxce@T\relax
+\let\bxce@O\relax
+\let\bxce@S\relax
+\let\bxce@E\relax
+\let\bxce@J\relax
+\let\bxce@c\relax
 \def\bxce@parse@first{%
   \let\bxce@text\@empty
   \bxce@escapefalse
@@ -423,49 +435,105 @@
 % second stage
 \def\bxce@parse@second{%
   \let\bxce@text\@empty
+  \let\bxce@T\bxce@parse@second@T
+  \let\bxce@O\bxce@parse@second@O
+  \let\bxce@S\bxce@parse@second@S
+  \let\bxce@E\bxce@parse@second@E
 }
-\protected\def\bxce@T{\bxce@parse@second@T}
-\def\bxce@parse@second@T.\bxce@end{}
-\protected\def\bxce@O{\bxce@parse@second@O}
-\def\bxce@parse@second@O#1{%
-  \appto\bxce@text{\bxce@wr{#1}}%
+\protected\def\bxce@parse@second@T.\bxce@end{%
+  \appto\bxce@text{\bxce@T}%
 }
-\protected\def\bxce@S{\bxce@parse@second@S}
-\def\bxce@parse@second@S#1{%
-  \appto\bxce@text{\bxce@wr{ }}%
+\protected\def\bxce@parse@second@O#1{%
+  \appto\bxce@text{\bxce@O{#1}}%
 }
-\protected\def\bxce@E{\bxce@parse@second@E}
-\def\bxce@parse@second@E#1#2#3#4{%
-  \let\bxce@arg\relax
+\protected\def\bxce@parse@second@S#1{%
+  \appto\bxce@text{\bxce@O{ }}%
+}
+\protected\def\bxce@parse@second@E#1#2#3#4{%
+  % current character: #1=cp, #2=code
+  % look-ahead character: #3=type, #4=cp
   \ifnum#1=\bxce@cp@base
     \ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@comb 1\fi\fi=1
-      % combining sequence
-      \def\bxce@arg{#1{#2}}%
+      % head of combining sequence
+      \def\bxce@cseq{#1{#2}}%
     \else
-      \appto\bxce@text{\bxce@put{#2}}%
+      % simple base character
+      \appto\bxce@text{\bxce@E{#1{#2}}}%
     \fi
   \else\ifnum#1=\bxce@cp@comb
-    \bxce@warn@locmb{#2}%
-    \appto\bxce@text{\bxce@put{#2}}%
-  \else\ifnum#1=\bxce@cp@ris
-    \ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@ris 1\fi\fi=1
-      % region indicator sequence
-      \def\bxce@arg{#1{#2}}%
+    \ifx\bxce@cseq\@empty
+      % headless combining character, fallback
+      \bxce@warn@locmb{#2}%
+      \appto\bxce@text{\bxce@O{#2}}%
+    \else\ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@comb 1\fi\fi=1
+      % midst of combining sequence
+      \appto\bxce@cseq{#1{#2}}%
     \else
-      \bxce@warn@loris{#2}%
-      \appto\bxce@text{\bxce@put{#2}}%
+      % tail of combining sequence
+      \eappto\bxce@text{\bxce@E{\bxce@cseq#1{#2}}}%
+      \let\bxce@cseq\@empty
+    \fi\fi
+  \else\ifnum#1=\bxce@cp@ris
+    \ifx\bxce@cseq\@empty
+      \ifnum0\ifx#3\bxce@E \ifnum#4=\bxce@cp@ris 1\fi\fi=1
+        % nead of region indicator sequence
+        \def\bxce@cseq{#1{#2}}%
+      \else
+        % lone region indicator characer, fallback
+        \bxce@warn@loris{#2}%
+        \eappto\bxce@text{\bxce@E{\the\bxce@cp@base{#2}}}%
+      \fi
+    \else
+      % tail of region indicator sequence
+      \eappto\bxce@text{\bxce@E{\bxce@cseq#1{#2}}}%
+      \let\bxce@cseq\@empty
     \fi
   \else\ifnum#1=\bxce@cp@evs
     % currently EVS is totally ignored
-  \fi\fi\fi\fi
-  \bxce@cond\ifx\bxce@arg\relax\fi{%
-    #3#4%
-  }{%else
-    \expandafter\bxce@parse@second@E@a\bxce@arg
-  }%
+  \else\ifnum#1=\bxce@cp@zwj
+    \appto\bxce@text{\bxce@J}%
+  \fi\fi\fi\fi\fi
+  #3#4% NB #4 is unbraced
 }
-\def\bxce@parse@second@E@a#1#2#3{%
-  \appto\bxce@text{\bxce@put@cs{#2}{#3}}%
+% third stage
+\def\bxce@parse@third{%
+  \let\bxce@text\@empty
+  \let\bxce@cseq\@empty
+  \let\bxce@T\bxce@parse@third@T
+  \let\bxce@O\bxce@parse@third@O
+  \let\bxce@E\bxce@parse@third@E
+  \let\bxce@J\bxce@parse@third@J
+}
+\protected\def\bxce@parse@third@T\bxce@end{}
+\protected\def\bxce@parse@second@O#1{%
+  \appto\bxce@text{\bxce@wr{#1}}%
+}
+\protected\def\bxce@parse@third@E#1#2{%
+  \appto\bxce@cseq{#1}%
+  \unless\ifx#2\bxce@J
+    \bxce@parse@third@out
+    \let\bxce@cseq\@empty
+  \fi
+  #2%
+}
+\protected\def\bxce@parse@third@J{%
+  \ifx\bxce@cseq\@empty
+    \appto\bxce@text{\bxce@put{200D}}%
+  \else
+    \eappto\bxce@cseq{\the\bxce@cp@zwj{200D}}%
+  \fi
+}
+\def\bxce@parse@third@out{%
+  \let\bxce@tmpa\@empty
+  \expandafter\bxce@parse@third@out@a\bxce@cseq..%
+}
+\def\bxce@parse@third@out@a#1#2{%
+  \bxce@cond\ifx.#1\fi{%
+    \eappto\bxce@text{\bxce@put@cseq{\bxce@tmpa}}%
+  }{%else
+    \appto\bxce@tmpa{\bxce@c{#2}}%
+    \bxce@parse@third@out@a
+  }
 }
 
 %% \bxce@parse@ccseq
@@ -476,6 +544,8 @@
 \bxDebug{first=\meaning\bxce@text}%
   \expandafter\bxce@parse@second\bxce@text\bxce@end
 \bxDebug{second=\meaning\bxce@text}%
+  \expandafter\bxce@parse@third\bxce@text\bxce@end
+\bxDebug{third=\meaning\bxce@text}%
 }
 \def\bxce@parse@first@ccseq{%
   \let\bxce@text\@empty
@@ -532,7 +602,7 @@
 
 %% \bxce@image@path{<name>}
 \def\bxce@image@path#1{%
-  \coloremojidir\bxce@family/#1.pdf%
+  \coloremojidir\bxce@family/#1.\bxce@ext
 }
 
 %% \bxce@unit / \bxce@disp / \bxce@inter
@@ -553,7 +623,7 @@
   \fi
 }
 \def\bxce@output@a{%
-  \bxce@resolve@use@bb
+  \bxce@resolve@image@setup
   \bxce@cwd=\bxce@scale\bxce@unit\relax
   \bxce@inter@skip=\bxce@inter\relax
   \bxce@text
@@ -575,13 +645,17 @@
   }%
 }
 
-%% \bxce@put@cs{<code1>}{<code2>}
-\def\bxce@put@cs#1#2{%
-  \bxce@if@image@exists{#1-#2}{%
-    \bxce@put@image{#1-#2}%
+%% \bxce@put@cseq{\bxce@c<cp>{<code>}...}
+\def\bxce@c@hyph#1{-#1}
+\def\bxce@c@first#1#2{#2}
+\protected\def\bxce@put@cseq#1{%
+  \let\bxce@c\bxce@c@hyph
+  \edef\bxce@cseq{\bxce@c@first#1}%
+\bxDebug{cseq:\bxce@cseq}%
+  \bxce@if@image@exists{\bxce@cseq}{%
+    \bxce@put@image{\bxce@cseq}%
   }{%else
-    \bxce@put{#1}%
-    \bxce@put{#2}%
+    \let\bxce@c\bxce@put#1%
   }%
 }
 
