@@ -289,7 +289,7 @@
   1F5E8,1F5EF,1F5F3,1F5FA-1F64F,1F680-1F6C5,1F6CB-1F6D0,1F6E0-1F6E5,%
   1F6E9,1F6EB-1F6EC,1F6F0,1F6F3,1F910-1F918,1F980-1F984,1F9C0}
 \bxce@set@cp\bxce@cp@comb{%
-  20E3,1F3FB-1F3FF}
+  20E0,20E3,1F3FB-1F3FF}
 \bxce@set@cp\bxce@cp@ris{%
   1F1E6-1F1FF}
 \bxce@set@cp\bxce@cp@evs{%
@@ -360,7 +360,7 @@
 \def\bxce@parse@text#1{%
   \bxce@check@inputenc
   \begingroup
-    \ifbxce@CJK \bxce@CJK@preproc \ponchi \fi
+    \ifbxce@CJK \bxce@CJK@preproc \fi
     \let\PackageError\bxce@PackageError
     \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
     \protected@xdef\@gtempa{#1}%
