@@ -837,6 +837,93 @@
 \endgroup
 \fi
 
+%--------------------------------------- hyperref something
+
+%% add to hook
+\appto\pdfstringdefPreHook{%
+  \let\coloremoji\bxce@hy@coloremoji
+  \let\coloremojiucs\bxce@hy@coloremojiucs
+  \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
+}
+
+%% \bxce@hy@NA
+\def\bxce@hy@NA{?}
+
+%% \bxce@hy@coloremoji
+\def\bxce@hy@coloremoji#{%
+  \@firstofone
+}
+
+%% \bxce@hy@ucs{<codevalue>}
+\def\bxce@hy@ucs#1{%
+  \ifdefined\ifpdfstringunicode
+    \ifpdfstringunicode{\unichar{"#1}}{\bxce@hy@NA}%
+  \else \bxce@hy@NA
+  \fi
+}
+
+%% \bxce@hy@coloremojiucs
+\def\bxce@hy@coloremojiucs#{%
+  \bxce@hy@coloremojiucs@a
+}
+\def\bxce@hy@coloremojiucs@a#1{%
+  \expandafter\bxce@hy@ccseq\expandafter{\detokenize{#1}}\@firstofone
+}
+
+%% \bxce@hy@ccseq{<str>}\CONT
+\def\bxce@hy@ccseq#1{%{<str>}|\CONT
+  \bxce@hy@ccseq@a#1 @ @%
+}
+% (\bxce@hy@ccseq@a<in>@ <out>@\CONT)
+\def\bxce@hy@ccseq@a#1 {%<iw> |...
+  \bxce@cond\ifx @#1\fi{%
+    \bxce@hy@ccseq@c
+  }{%else
+    \bxce@hy@ccone{#1}\bxce@hy@ccseq@b
+  }%
+}
+\def\bxce@hy@ccseq@b#1#2@ #3@{%{<ow>}<in>@ <out>@|\CONT
+  \bxce@hy@ccseq@a#2@ #3#1@%
+}
+\def\bxce@hy@ccseq@c#1@#2{%<out>@\CONT
+  #2{#1}%
+}
+
+%% \bxce@hy@ccone{<iw>}\CONT
+\def\bxce@hy@ccone#1{%
+  \bxce@hy@ccone@a#1@@%
+}
+\def\bxce@hy@ccone@a#1{%<ic>|...
+  \bxce@cond\ifx @#1\fi{%
+    \bxce@hy@ccone@c
+  }{%else
+    \expandafter\expandafter\expandafter
+        \bxce@hy@ccone@b\csname bxce@H/#1\endcsname
+  }%
+}
+\def\bxce@hy@ccone@b#1#2@#3@{%<c><iw>@<ow>@|\CONT
+  \bxce@cond\ifx#1\relax\fi{% unknown char
+    \bxce@hy@ccone@d{\bxce@hy@NA}%
+  }{%else
+    \bxce@hy@ccone@a#2@#3#1@%
+  }%
+}
+\def\bxce@hy@ccone@c#1@{%<ow>@|\CONT
+  \bxce@hy@ccone@d{\bxce@hy@ucs{#1}}%
+}                 
+\def\bxce@hy@ccone@d#1#2{%{<out>}\CONT
+  #2{#1}%
+}
+
+\begingroup
+  \lccode`H=`H
+  \def\bxce@tmpa#1\bxce@end{%
+    \lowercase{\csgdef{bxce@H/#1}}{#1}%
+    \csgdef{bxce@H/#1}{#1}}
+  \@tfor\x:=0123456789ABCDEF\do{%
+    \expandafter\bxce@tmpa\x\bxce@end}
+\endgroup
+
 %--------------------------------------- done
 \endinput
 %% EOF
