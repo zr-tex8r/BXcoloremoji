@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2016/05/04 v0.3a]
+\ProvidesPackage{bxcoloremoji}[2016/05/22 v0.3b]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -850,19 +850,32 @@
 \def\bxce@hy@NA{?}
 
 %% \bxce@hy@coloremoji
+% \coloremoji in PDF strings. (fully-expandable)
 \def\bxce@hy@coloremoji#{%
-  \@firstofone
+  \@firstofone  % just put the characters
 }
 
-%% \bxce@hy@ucs{<codevalue>}
+%% \bxce@hy@ucs{<codevalue-hex>}
+% Puts the character with the given code value. (fully-expandable)
 \def\bxce@hy@ucs#1{%
-  \ifdefined\ifpdfstringunicode
-    \ifpdfstringunicode{\unichar{"#1}}{\bxce@hy@NA}%
+  % If 'unicode' is on, then \unichar (provided by hyperref)
+  % is availble.
+  \ifdefined\ifpdfstringunicode \expandafter\ifpdfstringunicode
+  \else \expandafter\@secondoftwo
+  \fi {\unichar{"#1}}{\bxce@hy@ucs@a{#1}}%
+}
+\def\bxce@hy@ucs@a#1{%
+  % If pxjahyper is loaded, then \Ux can be used.
+  \ifdefined\pxDeclarePdfTextCommand
+    \ifdefined\Ux \Ux{#1}%
+    \else \bxce@hy@NA
+    \fi
   \else \bxce@hy@NA
   \fi
 }
 
 %% \bxce@hy@coloremojiucs
+% \coloremojiucs in PDF strings. (fully-expandable)
 \def\bxce@hy@coloremojiucs#{%
   \bxce@hy@coloremojiucs@a
 }
@@ -871,6 +884,7 @@
 }
 
 %% \bxce@hy@ccseq{<str>}\CONT
+% (fully-expandable)
 \def\bxce@hy@ccseq#1{%{<str>}|\CONT
   \bxce@hy@ccseq@a#1 @ @%
 }
@@ -915,6 +929,7 @@
   #2{#1}%
 }
 
+%% \bxce@H/*
 \begingroup
   \lccode`H=`H
   \def\bxce@tmpa#1\bxce@end{%
