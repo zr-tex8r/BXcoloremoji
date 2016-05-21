@@ -300,7 +300,7 @@
 %--------------------------------------- user interface
 
 %%<*> \coloremoji*[<option>,...]{<text>}
-\newcommand*{\coloremoji}{%
+\newrobustcmd*{\coloremoji}{%
   \bxce@enghost\bxce@coloremoji@a
 }
 \def\bxce@coloremoji@a{%
@@ -318,7 +318,7 @@
 }
 
 %%<*> \coloremojiucs*[<option>,...]{<codevalue> ...}
-\newcommand*{\coloremojiucs}{%
+\newrobustcmd*{\coloremojiucs}{%
   \bxce@enghost\bxce@coloremojiucs@a
 }
 \def\bxce@coloremojiucs@a{%
