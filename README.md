@@ -44,9 +44,9 @@ bxcoloremoji パッケージ
 
 ### パッケージ読込
 
-事前に graphicx パッケージを読みこむ必要がある。
+DVI 出力のエンジンの場合、事前に graphicx パッケージを読みこむ必要が
+ある。（PDF 出力の場合は自動的に読み込まれる。）
 
-    \usepackage{graphicx}
     \usepackage[dvipdfmx]{graphicx} % dvipdfmx の場合
 
 また，(pdf)LaTeX および pLaTeX の場合は，utf8 入力エンコーディングを
@@ -118,6 +118,9 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.3c 〈2017/05/07〉
+      - PDF 出力時は graphicx を自動で読み込む。
+      - バグ修正。
   * Version 0.3b 〈2016/05/22〉
       - PDF 文字列中での入力に対応させた。
       - `\coloremoji(ucs)` 命令を頑強にした。
