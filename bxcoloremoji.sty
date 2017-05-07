@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2016/05/22 v0.3b]
+\ProvidesPackage{bxcoloremoji}[2017/05/07 v0.3c]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -191,6 +191,15 @@
   \global\let\bxce@resolve@image@metric\relax
 }
 \AtBeginDocument{\bxce@resolve@image@setup}
+% auto-load graphicx if possible
+\unless\ifx\bxce@family\relax
+  \ifnum\ifdefined\pdfoutput \pdfoutput
+        \else\ifdefined\outputmode \outputmode
+        \else\ifx x\bxce@engine \@ne
+        \else \z@ \fi\fi\fi >\z@
+    \RequirePackage{graphicx}[]%
+  \fi
+\fi
 
 %--------------------------------------- helpers
 
@@ -708,15 +717,21 @@
   \ifbxce@luatexja
     \global\bxce@jaoktrue
     \global\chardef\bxce@zspc="3000
-    \gdef\bxce@iftdir{\bxce@cond
-      \ifnum\ltjgetparameter{direction}=\bxce@luatexja@tate\fi}%
+    \ifdefined\ltj@curtfnt
+      \gdef\bxce@iftdir{\bxce@cond
+        \ifnum\ltjgetparameter{direction}=\bxce@luatexja@tate\fi}%
+    \fi
     \gdef\bxce@unit{\zw}%
     \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
-    \gdef\bxce@inter{\ltjgetparameter{kanjiskip}}%
+    \gdef\bxce@inter{%
+      \expandafter\bxce@inter@a\number\ltjgetparameter{kanjiskip}\relax}%
+    \gdef\bxce@inter@a##1\relax{%
+      \ifdim\glueexpr##1=\maxdimen \z@skip \else ##1\fi}%
   \else\ifbxce@ptex
     \global\bxce@jaoktrue
     \global\chardef\bxce@zspc=\jis"2121\relax
-    \gdef\bxce@iftdir{\ifbool{tdir}}%
+    \gdef\bxce@iftdir{%
+      \ifbool{tdir}{\notbool{mdir}}{\@secondoftwo}}%
     \gdef\bxce@unit{zw}%
     \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
     \gdef\bxce@inter{\kanjiskip}%
