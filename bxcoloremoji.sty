@@ -2,7 +2,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2017/05/07 v0.3c]
+\ProvidesPackage{bxcoloremoji}[2017/05/08 v0.4-pre]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -365,8 +365,8 @@
       (code = U+#1)}%
 }
 
-%% \bxce@parse@text{<text>}
-\def\bxce@parse@text#1{%
+%% \bxce@expand@text{<text>}
+\def\bxce@expand@text#1{%
   \bxce@check@inputenc
   \begingroup
     \ifbxce@CJK \bxce@CJK@preproc \fi
@@ -374,7 +374,14 @@
     \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
     \protected@xdef\@gtempa{#1}%
   \endgroup
-  \edef\bxce@text{\detokenize\expandafter{\@gtempa}}%
+  \let\bxce@text\@gtempa
+}
+\def\bxce@PackageError#1#2#3{}
+
+%% \bxce@parse@text{<text>}
+\def\bxce@parse@text#1{%
+  \bxce@expand@text{#1}%
+  \edef\bxce@text{\detokenize\expandafter{\bxce@text}}%
   \expandafter\bxce@parse@first\bxce@text\bxce@end
 \bxDebug{first=\meaning\bxce@text}%
   \expandafter\bxce@parse@second\bxce@text\bxce@end
@@ -382,7 +389,6 @@
   \expandafter\bxce@parse@third\bxce@text\bxce@end
 \bxDebug{third=\meaning\bxce@text}%
 }
-\def\bxce@PackageError#1#2#3{}
 % first stage
 \let\bxce@T\relax
 \let\bxce@O\relax
@@ -572,12 +578,14 @@
   \bxce@parse@first@ccseq@a
 }
 \def\bxce@parse@first@ccseq@a#1 {%
-  \bxce@cond\ifx @#1\fi{%
+  \bxce@cond\ifx\relax#1\relax\fi{%no-op
+    \bxce@parse@first@ccseq@a
+  }{\bxce@cond\ifx @#1\fi{%
     \appto\bxce@text{\bxce@T.}%
   }{%else
     \uppercase{\bxce@zero@suppress\bxce@arg{#1}}%
     \bxce@parse@first@ccseq@b
-  }%
+  }}%
 }
 \def\bxce@parse@first@ccseq@b{%
   \bxce@cnta="\bxce@arg\relax
@@ -953,6 +961,56 @@
   \@tfor\x:=0123456789ABCDEF\do{%
     \expandafter\bxce@tmpa\x\bxce@end}
 \endgroup
+
+%--------------------------------------- unparse
+
+%% \bxce@unparse@first{<first>}
+% The inverse of \bxce@parse@first@ccseq.
+% But here \bxce@O and \bxce@S are illegal.
+\def\bxce@unparse@first{%
+  \let\bxce@text\@empty
+  \let\bxce@T\bxce@unparse@first@T
+  \let\bxce@O\bxce@unparse@first@O
+  \let\bxce@S\bxce@unparse@first@S
+  \let\bxce@E\bxce@unparse@first@E
+}
+\def\bxce@unparse@first@a#1{%
+  \bxce@unparse@first@b#1%
+}
+\def\bxce@unparse@first@b#1.\bxce@end{%
+  \def\bxce@text{#1}%
+}
+\protected\def\bxce@unparse@first@T.\bxce@end{%
+  \expandafter\bxce@unparse@first@a\bxce@text.\bxce@end
+}
+\protected\def\bxce@unparse@first@O#1{%
+  \PackageError\bxce@pkgname
+   {Illegal character [\hex{`#1}]}{\@ehc}%
+}
+\protected\def\bxce@unparse@first@S#1{%
+  \bxce@unparse@first@O{\ }%
+}
+\protected\def\bxce@unparse@first@E#1#2{%
+  \unless\ifnum#1=\bxce@cp@evs
+    \edef\bxce@text{\bxce@text\space#2}%
+  \fi
+}
+
+%% \bxce@normalize@text{<text>}
+\def\bxce@normalize@text#1{%
+  \bxce@expand@text{#1}%
+  \edef\bxce@text{\detokenize\expandafter{\bxce@text}}%
+  \expandafter\bxce@parse@first\bxce@text\bxce@end
+  \expandafter\bxce@unparse@first\bxce@text\bxce@end
+}
+
+%% \bxce@normalize@ccseq{<ccseq>}
+\def\bxce@normalize@ccseq#1{%
+  \edef\bxce@tmpa{#1}%
+  \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
+  \expandafter\bxce@parse@first@ccseq\bxce@tmpa
+  \expandafter\bxce@unparse@first\bxce@text\bxce@end
+}
 
 %--------------------------------------- done
 \endinput
