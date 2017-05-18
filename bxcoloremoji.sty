@@ -1012,6 +1012,204 @@
   \expandafter\bxce@unparse@first\bxce@text\bxce@end
 }
 
+%--------------------------------------- emoji order list
+
+%% variables
+%[bxce@oen/<ccseq>]
+\let\bxce@oehead\relax
+\let\bxce@oeprev\relax
+\let\bxce@oecur\relax
+\newcount\bxce@cnto
+
+%% \bxce@geta@ucs
+\def\bxce@geta@ucs{3013}
+\AtBeginDocument{% geta should stay invalid
+  \csundef{bxce@oen/\bxce@geta@ucs}%
+}
+
+%%<+> \bxcoloremojiDeclareOrder{<ccseq>,...}
+\@onlypreamble\bxcoloremojiDeclareOrder
+\newcommand*\bxcoloremojiDeclareOrder[1]{%
+  \begingroup
+    \@for\bxce@oecur:=#1\do{%
+      \bxce@normalize@ccseq\bxce@oecur
+      \let\bxce@oecur\bxce@text
+      \ifx\bxce@oecur\@empty
+      \else\ifcsname bxce@oen/\bxce@oecur\endcsname
+        \PackageError\bxce@pkgname
+         {Already registered in some emoji order list:\MessageBreak
+          \space\space[\bxce@oecur]}%
+         {\@eha}%
+      \else
+        \ifx\bxce@oehead\relax
+          \let\bxce@oehead\bxce@oecur
+        \else
+          \global\cslet{bxce@oen/\bxce@oeprev}\bxce@oecur
+        \fi
+        \let\bxce@oeprev\bxce@oecur
+      \fi\fi}%
+    \unless\ifx\bxce@prev\relax
+      \global\cslet{bxce@oen/\bxce@oeprev}\bxce@oehead
+    \fi
+  \endgroup
+}
+
+%%<+> \bxcoloremojiUndeclareOrder{<ccseq>,...}
+\@onlypreamble\bxcoloremojiUndeclareOrder
+\newcommand*\bxcoloremojiUndeclareOrder[1]{%
+  \begingroup
+    \@for\bxce@oecur:=#1\do{%
+      \bxce@normalize@ccseq\bxce@oecur
+      \let\bxce@oecur\bxce@text
+      \ifx\bxce@oecur\@empty
+      \else\ifcsname bxce@oen/\bxce@oecur\endcsname
+        \global\csundef{bxce@oen/\bxce@oecur}%
+      \fi\fi}%
+  \endgroup
+}
+
+%%<+> \bxcoloremojiTestOrder{<count>}{<ccseq_0>}
+\newcommand*\bxcoloremojiTestOrder[2]{%
+  \begingroup
+    \bxce@normalize@ccseq{#2}%
+    \typeout{Order for <\bxce@text>:}%
+    \ifcsname bxce@oen/\bxce@text\endcsname
+      \let\bxce@oecur\bxce@text
+      \bxce@cnto=#1\relax
+      \@whilenum{\bxce@cnto>\z@}\do{%
+        \message{<\bxce@oecur>}%
+        \coloremojiucs{\bxce@oecur}\space
+        \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
+        \ifdefined\bxce@oecur \advance\bxce@cnto\m@ne
+        \else \bxce@cnto\z@
+        \fi}%
+      \unskip\typeout{done}%
+    \else \typeout{(not declared)}%
+    \fi
+  \endgroup
+}
+
+%--------------------------------------- pifont-like functions
+
+%%<*> \coloremojifill{<text>}
+\newcommand*{\coloremojifill}{%
+  \bxce@coloremojifill{\coloremoji*}%
+}
+%%<*> \coloremojiucsfill{<ccseq>}
+\newcommand*{\coloremojiucsfill}{%
+  \bxce@coloremojifill{\coloremojiucs*}%
+}
+\def\bxce@coloremojifill#1#2{%
+  \leavevmode
+  \leaders\hbox{\kern.375\bxce@unit{#1{#2}}\kern.375\bxce@unit}\hfill
+  \kern\z@
+}
+
+%%<*> \coloremojiline{<text>}
+\newcommand*{\coloremojiline}{%
+  \bxce@coloremojiline{\coloremoji*}%
+}
+%%<*> \coloremojiucsline{<ccseq>}
+\newcommand*{\coloremojiucsline}{%
+  \bxce@coloremojiline{\coloremojiucs*}%
+}
+\def\bxce@coloremojiline#1#2{%
+  \par\noindent\hspace{0.5in}%
+  \bxce@coloremojifill{#1}{#2}%
+  \hspace{0.5in}\kern\z@
+  \par
+}
+
+%%<*> \begin{coloremojilist}{<text>}
+\newenvironment*{coloremojilist}[1]{%
+  \begin{list}{\coloremoji*{#1}}{}%
+}{%
+  \end{list}%
+}
+%%<*> \begin{coloremojiucslist}{<ccseq>}
+\newenvironment*{coloremojiucslist}[1]{%
+  \begin{list}{\coloremojiucs*{#1}}{}%
+}{%
+  \end{list}%
+}
+
+%% \bxce@ctrformat
+\def\bxce@ctrformat#1#2{%
+  \protect\bxce@ctrformat@{#1}{\arabic{#2}}%
+}
+\def\bxce@ctrformat@#1#2{%
+  \begingroup
+    \bxce@cnto=#2\relax
+    \edef\bxce@oecur{#1}%
+    \@whilenum{\bxce@cnto>\z@}\do{%
+      \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
+      \unless\ifdefined\bxce@oecur
+        \let\bxce@oecur\bxce@geta@ucs
+      \fi
+      \advance\bxce@cnto\m@ne}%
+    \coloremojiucs{\bxce@oecur}%
+  \endgroup
+}
+
+%%<*> \begin{coloremojiautolist}{<text_0>}
+\newenvironment*{coloremojiautolist}[1]{%
+  \bxce@normalize@text{#1}%
+  \bxce@coloremojiautolist
+}{%
+  \endlist
+}
+%%<*> \begin{coloremojiucsautolist}{<ccseq>}
+\newenvironment*{coloremojiucsautolist}[1]{%
+  \bxce@normalize@ccseq{#1}%
+  \bxce@coloremojiautolist
+}{%
+  \endlist
+}
+\def\bxce@coloremojiautolist{%
+  \unless\ifcsname bxce@oen/\bxce@text\endcsname
+    \PackageError\bxce@pkgname
+     {Not registered in any emoji order list:\MessageBreak
+      \space\space[\bxce@text]}%
+     {\@ehc}%
+    \let\bxce@text\bxce@geta@ucs
+  \fi
+  \ifnum\@enumdepth>\thr@@
+    \@toodeep
+  \else
+    \advance\@enumdepth\@ne
+    \edef\@enumctr{enum\romannumeral\@enumdepth}%
+    \cslet{p@\@enumctr}\@empty
+    \csedef{label\@enumctr}{\noexpand\csuse{the\@enumctr}}%
+    \csedef{the\@enumctr}{%
+      \noexpand\bxce@ctrformat{\bxce@text}{\@enumctr}}%
+    \list{\csuse{label\@enumctr}}{%
+      \@nmbrlisttrue
+      \edef\@listctr{\@enumctr}%
+      \setcounter{\@enumctr}{\m@ne}%
+      \def\makelabel##1{\hss\llap{##1}}}%
+  \fi
+}
+
+%--------------------------------------- emoji order database
+
+%\bxcoloremojiDeclareOrder{% snowman (for test)
+%  2603, 26C4}
+\bxcoloremojiDeclareOrder{% zodiac symbol
+  2648, 2649, 264A, 264B, 264C, 264D, 264E, 264F, 2650, 2651,
+  2652, 2653}
+\bxcoloremojiDeclareOrder{% playing card suit
+  2660, 2665, 2666, 2663}
+%\bxcoloremojiDeclareOrder{% color heart (provisional)
+%  2764, 1F49B, 1F49A, 1F499, 1F49C}% cf. 1F9E1
+%\bxcoloremojiDeclareOrder{% color circle (provisional)
+%  1F534, 1F535}
+\bxcoloremojiDeclareOrder{% clock face
+  1F550, 1F551, 1F552, 1F553, 1F554, 1F555, 1F556, 1F557, 1F558, 1F559,
+  1F55A, 1F55B}
+\bxcoloremojiDeclareOrder{% keycap number
+  0030 20E3, 0031 20E3, 0032 20E3, 0033 20E3, 0034 20E3,
+  0035 20E3, 0036 20E3, 0037 20E3, 0038 20E3, 0039 20E3, 1F51F}
+
 %--------------------------------------- done
 \endinput
 %% EOF
