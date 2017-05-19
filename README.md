@@ -37,7 +37,7 @@ Copyright 2014 Twitter, Inc and other contributors
 Other work is licensed under:
 
 the MIT License.
-Copyright 2016 Takayuki YATO (aka. "ZR")
+Copyright 2017 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
@@ -87,6 +87,37 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
     指定する。`*`指定の意味は `\coloremoji` と同じ。  
     例： `\coloremojiucs{23 20E3 1F363}`
 
+0.4 版以降では、pifont パッケージの機能（`\dingfill` 命令、`dinglist`
+環境など）の絵文字版に相当する、以下の命令が提供される。
+
+  * `\coloremojifill{<文字列>}`： 充填命令（`\dotfill` の類）の一種で、
+    `\coloremoji{<文字列>}` の出力を複数並べて行を充填する。
+  * `\coloremojiline{<文字列>}`： 絵文字による飾り罫を出力する。すなわち
+    `\coloremojifill{<文字列>}`の出力（ただし両端に若干の空きを入れる）
+    のみを含む独立した行を出力する。
+  * `\begin{coloremojilist}{<文字列>}`～`\end{coloremojilist}`：
+    `\coloremoji{<文字列>}` の出力を項目ラベルとする箇条書きを出力する。
+  * `\begin{coloremojiautolist}{<文字列>}`～`\end{coloremojiautolist}`：
+    これも絵文字を項目ラベルとする箇条書きを出力する環境であるが、引数
+    には何れかの「絵文字順序列」に含まれる絵文字の一つを指定する必要が
+    ある。その文字から始まる順序列に従ってラベルを指定する。例えば、
+    `\begin{coloremojiautolist}{♠}` の場合、先頭のラベルが「♠️」と
+    なり、以下「♥️」「♦️」「♣️」と続く。  
+    ※現状の実装では順序列の末尾に達した場合は先頭に戻る（つまり「♣️」
+    の次は「♠️」になる）が、これは将来的に変更される可能性がある。
+  * 以上の命令・環境について、引数に符号値列を指定する版も存在する。
+      - `\coloremojiucsfill{<符号値列>}`
+      - `\coloremojiucsline{<符号値列>}`
+      - `\begin{coloremojiucslist}{<符号値列>}`
+      - `\begin{coloremojiucsautolist}{<符号値列>}`
+
+現状では、以下に挙げる「絵文字順序列」が定められている。
+
+  * ♈️→♉️→♊️→♋️→♌️→♍️→♎️→♏️→♐️→♑️→♒️→♓️
+  * ♠️→♥️→♦️→♣️
+  * 🕐️→🕑️→🕒️→🕓️→🕔️→🕕️→🕖️→🕗️→🕘️→🕙️→🕚️→🕛️
+  * 0️⃣→1️⃣→2️⃣→3️⃣→4️⃣→5️⃣→6️⃣→7️⃣→8️⃣→9️⃣→🔟
+
 ### PDF 文字列中での絵文字の利用
 
 hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の入力の中でも
@@ -118,6 +149,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.4  〈2017/05/19〉
+      - pifont パッケージ類似の命令群を追加。
   * Version 0.3c 〈2017/05/07〉
       - PDF 出力時は graphicx を自動で読み込む。
       - バグ修正。
