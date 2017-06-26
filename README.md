@@ -30,7 +30,7 @@ LaTeX： カラー絵文字を出力する
 Graphics work is licenced under:
 
 CC-BY 4.0.
-Copyright 2014 Twitter, Inc and other contributors
+Copyright 2017 Twitter, Inc and other contributors
 
 その他の著作物にはは以下が適用される：
 
@@ -149,6 +149,9 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.5  〈2017/06/26〉
+      - Unicode Emoji 5.0 に対応した。
+      - Emoji tag sequences に対応した。
   * Version 0.4  〈2017/05/19〉
       - pifont パッケージ類似の命令群を追加。
   * Version 0.3c 〈2017/05/07〉
