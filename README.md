@@ -149,6 +149,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.6  〈2018/06/10〉
+      - Unicode Emoji 11.0 に対応した。
   * Version 0.5  〈2017/06/26〉
       - Unicode Emoji 5.0 に対応した。
       - Emoji tag sequences に対応した。
