@@ -10,7 +10,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2019/01/02 v0.7]
+\ProvidesPackage{bxcoloremoji}[2019/03/09 v0.8]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -218,6 +218,8 @@
 
 %% unique tokens
 \def\bxce@end{\bxce@end@}
+\def\bxce@mt{\bxce@mt@}
+\let\bxce@mk\indent
 
 %% \bxce@@BS
 \begingroup \lccode`\*=`\\
@@ -388,6 +390,10 @@
   \endgroup
   \bxce@postghost
 }
+
+%%<*> \coloremojicode*[<option>,...]{<codevalue> ...}
+% An alias to \coloremojiucs.
+\newcommand*{\coloremojicode}{\coloremojiucs}
 
 %--------------------------------------- parse text
 
@@ -670,20 +676,28 @@
   }{\bxce@cond\ifx @#1\fi{%
     \appto\bxce@text{\bxce@T.}%
   }{%else
-    \uppercase{\bxce@zero@suppress\bxce@arg{#1}}%
+    %\uppercase{\bxce@zero@suppress\bxce@arg{#1}}%
+    \bxce@parse@cc{#1}%
     \bxce@parse@first@ccseq@b
   }}%
 }
 \def\bxce@parse@first@ccseq@b{%
-  \bxce@cnta="\bxce@arg\relax
-  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
-  \ifdefined\bxce@tmpa
-    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@arg}}%
+  \ifnum\bxce@cnta=-2 % rescan
+    \edef\bxce@tmpa{\bxce@arg\space}%
+  \else\ifnum\bxce@cnta<\z@ % error
+    \bxce@warn@ivcod
+    \let\bxce@tmpa\@empty
   \else
-    \bxce@char@token\bxce@tmpa\bxce@cnta
-    \eappto\bxce@text{\bxce@O\bxce@tmpa}%
-  \fi
-  \bxce@parse@first@ccseq@a
+    \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+    \ifdefined\bxce@tmpa
+      \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@arg}}%
+    \else
+      \bxce@char@token\bxce@tmpa\bxce@cnta
+      \eappto\bxce@text{\bxce@O\bxce@tmpa}%
+    \fi
+    \let\bxce@tmpa\@empty
+  \fi\fi
+  \expandafter\bxce@parse@first@ccseq@a\bxce@tmpa
 }
 
 %% \bxce@zero@suppress\CS{<digits>}
@@ -707,6 +721,141 @@
 \def\bxce@parse@first@surrogate#1\bxce@parse@first@a#2{%
   \bxce@cnta=\numexpr\bxce@cnta*"400+`#2-"35FDC00\relax
   #1\bxce@parse@first@a % continue!
+}
+
+%--------------------------------------- emoji name database
+
+%% variables
+\let\bxce@ndindex\relax
+%[bxce@ndi/<char>] : first char -> sector
+%[bxce@ndsr/<sector>] : the sector is already read?
+
+%% \bxce@read@name@data@file{<sector>}
+\def\bxce@read@name@data@file#1{%
+  \begingroup
+    \endlinechar\m@ne
+    \catcode13=9 \catcode32=10 \catcode64=11
+    \catcode45=12 \catcode46=12 \catcode47=12
+    \ifnum#1<\z@ % initizlize
+      \let\bxce@ndindex\m@ne
+      \let\bxce@do\bxce@read@name@data@file@init@do
+    \else % read a sector
+      \chardef\bxce@ndindex=#1\relax
+      \PackageInfo\bxce@pkgname
+       {Loading emoji name data file\MessageBreak
+        (sector \the\bxce@ndindex)}%
+      \global\cslet{bxce@ndrs/\the\bxce@ndindex}{t}%
+      \let\bxce@do\bxce@read@name@data@file@sec@do
+    \fi
+    \input{bxcoloremoji-names.def}%
+  \endgroup
+}
+\def\bxce@read@name@data@file@init@do#1#2{%
+  %\bxDebug{nd-init:#1=#2}%
+  \csgdef{bxce@ndi/#1}{#2}%
+}
+\def\bxce@read@name@data@file@sec@do#1#2{%
+  %\bxDebug{nd-sec-\the\bxce@ndindex:#1=#2}%
+  \csgdef{bxce@nd/#1}{#2}%
+}
+
+%% initizlize
+\bxce@read@name@data@file{-1}
+
+%% additional definitions
+\csgdef{bxce@nd/+}{200D}
+\csgdef{bxce@nd/@}{E007F}
+\csgdef{bxce@nd/!<}{2B05}
+\csgdef{bxce@nd/!>}{27A1}
+\csgdef{bxce@nd/!male}{2642}
+\csgdef{bxce@nd/!female}{2640}
+\csgdef{bxce@nd/!flag}{1F3F4}
+\AtEndOfPackage{%
+  \begingroup
+    \def\bxce@do#1"#2\relax{\def\bxce@tmpa{#2}}%
+    \bxce@cnta="20
+    \@whilenum{\bxce@cnta<"7F}\do{%
+      \chardef\bxce@tmpa\bxce@cnta
+      \expandafter\bxce@do\meaning\bxce@tmpa\relax
+      \bxce@char@token\bxce@tmpb\bxce@cnta
+      \csxdef{bxce@nd/@\bxce@tmpb}{E00\bxce@tmpa}%
+      \ifnum\bxce@cnta>"40 \ifnum\bxce@cnta<"5B
+        \chardef\bxce@tmpa\numexpr\bxce@cnta+"A5\relax
+        \expandafter\bxce@do\meaning\bxce@tmpa\relax
+        \csxdef{bxce@nd/!\bxce@tmpb}{1F1\bxce@tmpa}%
+      \fi\fi
+      \advance\bxce@cnta\@ne
+    }%
+  \endgroup
+}
+
+%--------------------------------------- parse character code
+
+% A character code is either of the following:
+% - a hex string of the Unicode value (case-insensitive);
+% - a short name input ':<short-name>:' (in lowercase);
+%   here ':' of the either side can be ommitted as long as the input
+%   is unambiguous (not regarded as code value).
+
+%% error message
+\def\bxce@warn@ivcod{%
+  \bxce@warn{Invalid character code found\MessageBreak
+    (\bxce@arg)}%
+}
+%% \bxce@parse@cc{<word>}
+% Parse the character name or code value, and return:
+% \bxce@cnta>=0: code value (\bxce@arg is hex-string)
+% \bxce@cnta=-1: error (\bxce@arg is the original input)
+% \bxce@cnta=-2: rescan (\bxce@arg is the string to scan)
+\def\bxce@parse@cc#1{%
+  \def\bxce@arg{#1}%
+  \uppercase{\bxce@parse@cc@a#1}\bxce@end#1\bxce@end
+}
+\def\bxce@parse@cc@a#1\bxce@end#2#3\bxce@end{%
+  \afterassignment\bxce@parse@cc@b\bxce@cnta"0#1\bxce@mk
+  \ifnum\bxce@cnta>\m@ne
+    \bxce@zero@suppress\bxce@arg{#1}%
+  \else\ifx:#2%
+    \bxce@parse@cc@c#3\bxce@mk:\bxce@mk\bxce@end{#3}%
+  \else
+    \bxce@parse@cc@c#2#3\bxce@mk:\bxce@mk\bxce@end{#2#3}%
+  \fi\fi
+}
+\def\bxce@parse@cc@b#1\bxce@mk{%
+  \ifx\bxce@mt#1\bxce@mt
+  \else \bxce@cnta\m@ne
+  \fi
+}
+\def\bxce@parse@cc@c#1:\bxce@mk#2\bxce@end#3{%
+  \ifx\bxce@mt#2\bxce@mt
+    \bxce@parse@chname{#3}%
+  \else
+    \bxce@parse@chname{#1}%
+  \fi
+}
+%% \bxce@parse@chname{<emoji-name>}
+\def\bxce@parse@chname#1{%
+  \letcs\bxce@tmpa{bxce@nd/#1}%
+  \ifdefined\bxce@tmpa
+    \bxce@cnta-2
+    \edef\bxce@arg{\bxce@tmpa\space}%
+  \else
+    \bxce@cnta-1
+    \bxce@parse@chname@a#1\bxce@end
+  \fi
+}
+\def\bxce@parse@chname@a#1#2\bxce@end{%
+  \letcs\bxce@tmpa{bxce@ndi/#1}%
+  \ifdefined\bxce@tmpa
+    \ifcsdef{bxce@ndrs/\number\bxce@tmpa}{}{%else
+      \bxce@read@name@data@file{\bxce@tmpa}%
+      \letcs\bxce@tmpa{bxce@nd/#1#2}%
+      \ifdefined\bxce@tmpa
+        \bxce@cnta-2
+        \let\bxce@arg\bxce@tmpa
+      \fi
+    }%
+  \fi
 }
 
 %--------------------------------------- image output
