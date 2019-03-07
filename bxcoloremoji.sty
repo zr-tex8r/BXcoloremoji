@@ -1447,6 +1447,18 @@
   \fi
 }
 
+%% 'coloremojicode' aliases
+\newcommand*{\coloremojicodefill}{\coloremojiucsfill}
+\newcommand*{\coloremojicodeline}{\coloremojiucsline}
+\@ifdefinable{\coloremojicodelist}{%
+  \let\coloremojicodelist\coloremojiucslist
+  \let\endcoloremojicodelist\endcoloremojiucslist
+}
+\@ifdefinable{\coloremojicodeautolist}{%
+  \let\coloremojicodeautolist\coloremojiucsautolist
+  \let\endcoloremojicodeautolist\endcoloremojiucsautolist
+}
+
 %--------------------------------------- emoji order database
 
 %\bxcoloremojiDeclareOrder{% snowman (for test)

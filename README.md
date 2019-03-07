@@ -29,15 +29,15 @@ LaTeX： カラー絵文字を出力する
 
 Graphics work is licenced under:
 
-CC-BY 4.0.
-Copyright 2017 Twitter, Inc and other contributors
+CC-BY 4.0: (https://creativecommons.org/licenses/by/4.0/)
+Copyright 2018 Twitter, Inc and other contributors
 
 その他の著作物にはは以下が適用される：
 
 Other work is licensed under:
 
-the MIT License.
-Copyright 2017 Takayuki YATO (aka. "ZR")
+the MIT License: (http://opensource.org/licenses/MIT)
+Copyright 2017-2019 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
@@ -49,8 +49,8 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
 
     \usepackage[dvipdfmx]{graphicx} % dvipdfmx の場合
 
-また，(pdf)LaTeX および pLaTeX の場合は，utf8 入力エンコーディングを
-有効化する必要がある。
+また，昔の（2018-04-01 以前の）(pdf)LaTeX および pLaTeX の場合は，utf8
+入力エンコーディングを有効化する必要がある。
 
     \usepackage[utf8]{inputenc}
 
@@ -63,7 +63,7 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
   * 絵文字画像の種類を指定するオプション。（既定値 = `twemoji-pdf`）
       - `twemoji-pdf`： twemoji の SVG 画像から変換した PDF 画像。
       - `twemoji-png`： twemoji の 72 ピクセルの PNG 画像。
-      - `twitter`／`lowres`／`hires`： coloremoji パッケージの
+      - `twitter`／`lowres`／`hires`： [coloremoji パッケージ]の
         画像ファイルを流用する。
   * `scale=<実数>`： 絵文字のサイズを標準値に対する倍率で指定する。
     （既定値 = 1）  
@@ -82,10 +82,14 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
         なる。ただし，`*`付で実行した場合および数式中では非和文扱いと
         なる。
       - それ以外の環境では絵文字は常に非和文扱いで，`*`指定は無視する。
-  * `\coloremojiucs[*]{<符号値列>}`： 文字の Unicode 符号値で入力して
-    カラー絵文字を出力する。引数は符号値の16進表記を空白区切りで並べて
-    指定する。`*`指定の意味は `\coloremoji` と同じ。  
-    例： `\coloremojiucs{23 20E3 1F363}`
+  * `\coloremojiucs[*]{<符号値列>}`： 文字を「Unicode 符号値」または
+     「[EmojiOne] で規定された短縮名」で入力してカラー絵文字を出力する。
+    引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
+    `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
+    を空白区切りで並べる。`*`指定の意味は `\coloremoji` と同じ。  
+    例： `\coloremojiucs{:sushi: 23 20E3 1F363 :snowman:}`
+
+[EmojiOne]: https://github.com/emojione/emojione
 
 0.4 版以降では、pifont パッケージの機能（`\dingfill` 命令、`dinglist`
 環境など）の絵文字版に相当する、以下の命令が提供される。
@@ -118,12 +122,37 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
   * 🕐️→🕑️→🕒️→🕓️→🕔️→🕕️→🕖️→🕗️→🕘️→🕙️→🕚️→🕛️
   * 0️⃣→1️⃣→2️⃣→3️⃣→4️⃣→5️⃣→6️⃣→7️⃣→8️⃣→9️⃣→🔟
 
+### 絵文字の“短縮名”
+
+`\coloremojiucs` 中で用いる絵文字の短縮名については、[EmojiOne] で規定
+する名前が利用できる。その他に以下に定める独自の短縮名が利用できる。
+これらは emoji sequence の入力の便宜のためのものである。
+
+    +           U+200D (ZWJ)
+    !female     U+2640♀ (+ !female で女性の gender indicator)
+    !male       U+2642♂ (+ !male で男性の gender indicator)
+    !flag       U+1F3F4🏴 (旗を表す tag sequence の base 文字)
+    !<          U+2B05⬅ (+ !< で左の direction indicator)
+    !>          U+27A1➡ (+ !> で右の direction indicator)
+    !A .. !Z    U+1F1E6..1F1FF (flag sequence の構成要素)
+    @           U+E007F (tag sequence の終端)
+    @0 .. @9    U+E0030..E0039 (tag sequence の構成要素)
+    @a .. @z    U+E0061..E007A (tag sequence の構成要素)
+
+使用例：
+
+    \coloremojiucs{man + woman + girl + girl}
+    \coloremojiucs{!flag @g @b @w @l @s @}
+    \coloremojiucs{1F647 + !male}
+
 ### PDF 文字列中での絵文字の利用
 
 hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の入力の中でも
 `\coloremoji` （および `\coloremojiucs`）命令を使用できる。例えば、
 `\section` の引数の中で `\coloremoji` を含めた場合、版面の上では絵文字
 の画像として出力され、PDF のしおりの中では文字として表示される。
+
+※`\coloremojiucs` 中の短縮名での入力はサポートしていない。
 
 ただし「PDF 文字列中の Unicode 文字が正しく処理される」状態が担保されて
 いることが前提となる。具体的には、次の設定が必要である。
@@ -149,6 +178,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.8  〈2019/03/09〉
+      - `\coloremojiucs` において短縮名での入力をサポートした。
   * Version 0.7  〈2019/01/02〉
       - upLaTeX で文字を“和文扱い”（kcatcode を 15 に設定）にして
         いる場合に対応した。
