@@ -9,7 +9,7 @@
 %%
 
 %% file declaration
-\ProvidesFile{bxcoloremoji-names.def}[2019/03/09 v0.8]
+\ProvidesFile{bxcoloremoji-names.def}[2019/03/12 v0.8b]
 
 %--------------------------------------- name mappings
 \ifcase\bxce@ndindex %[0]

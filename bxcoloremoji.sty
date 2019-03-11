@@ -10,7 +10,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2019/03/09 v0.8]
+\ProvidesPackage{bxcoloremoji}[2019/03/12 v0.8b]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -917,8 +917,15 @@
   \bxce@if@image@exists{\bxce@cseq}{%
     \bxce@put@image{\bxce@cseq}%
   }{%else
-    \let\bxce@c\bxce@put#1%
+    \let\bxce@c\bxce@put@cseq@a#1%
   }%
+}
+\def\bxce@@ZWJ@code{200D}
+\def\bxce@put@cseq@a#1{%
+  \def\bxce@tmpa{#1}\ifx\bxce@tmpa\bxce@@ZWJ@code
+    \bxce@depict@fallback@ZWJ
+  \else \bxce@put{#1}%
+  \fi
 }
 
 %% \bxce@put@cseqtag{\bxce@c<cp>{<code>}...}
@@ -956,6 +963,36 @@
       [width=\bxce@cwd \ifbxce@use@bb ,bb=\bxce@bb \fi]%
       {\bxce@image@path{#1}}}}}%
   \bxce@tmpa \hskip\bxce@inter@skip
+}
+
+%--------------------------------------- fallback ZWJ
+
+%%<+> \coloremojiZWJSymbolColor
+\newcommand\coloremojiZWJSymbolColor{green}
+
+\def\bxce@depict@fallback@ZWJ{%
+  \begingroup
+    \bxce@set@ZWJ@color
+    \bxce@ZWJ@sym
+  \endgroup
+}
+
+%% \bxce@ZWJ@sym
+\def\bxce@ZWJ@sym{%
+  \lower\dimexpr\bxce@disp\bxce@unit+0.2\bxce@unit\hb@xt@\z@{%
+    \kern-0.2\bxce@unit\relax
+    \vrule\@width0.1\bxce@unit\@height0.2\bxce@unit\relax
+    \vrule\@width0.2\bxce@unit\@height0.1\bxce@unit\relax
+    \vrule\@width0.1\bxce@unit\@height0.2\bxce@unit\relax
+    \hss}%
+}
+
+%% \bxce@set@ZWJ@color
+\def\bxce@set@ZWJ@color{%
+  \ifdefined\color
+    \edef\bxce@arg{{\coloremojiZWJSymbolColor}}%
+    \expandafter\color\bxce@arg
+  \fi
 }
 
 %--------------------------------------- tate direction
