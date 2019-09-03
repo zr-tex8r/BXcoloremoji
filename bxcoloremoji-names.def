@@ -9,7 +9,7 @@
 %%
 
 %% file declaration
-\ProvidesFile{bxcoloremoji-names.def}[2019/09/01 v0.8c]
+\ProvidesFile{bxcoloremoji-names.def}[2019/09/04 v0.9]
 
 %--------------------------------------- name mappings
 \ifcase\bxce@ndindex %[0]
@@ -98,7 +98,7 @@
 \bxce@do{badminton}{1F3F8}
 \bxce@do{bagel}{1F96F}
 \bxce@do{baggage_claim}{1F6C4}
-\bxce@do{bald}{1F9B2}%NA
+\bxce@do{bald}{1F9B2}
 \bxce@do{balloon}{1F388}
 \bxce@do{ballot_box}{1F5F3}
 \bxce@do{ballot_box_with_check}{2611}
@@ -393,7 +393,7 @@
 \bxce@do{cupcake}{1F9C1}
 \bxce@do{cupid}{1F498}
 \bxce@do{curling_stone}{1F94C}
-\bxce@do{curly_haired}{1F9B1}%NA
+\bxce@do{curly_haired}{1F9B1}
 \bxce@do{curly_loop}{27B0}
 \bxce@do{currency_exchange}{1F4B1}
 \bxce@do{curry}{1F35B}
@@ -2038,7 +2038,7 @@
 \bxce@do{red_car}{1F697}
 \bxce@do{red_circle}{1F534}
 \bxce@do{red_envelope}{1F9E7}
-\bxce@do{red_haired}{1F9B0}%NA
+\bxce@do{red_haired}{1F9B0}
 \bxce@do{regional_indicator_a}{1F1E6}
 \bxce@do{regional_indicator_b}{1F1E7}
 \bxce@do{regional_indicator_c}{1F1E8}
@@ -2434,7 +2434,7 @@
 \bxce@do{white_check_mark}{2705}
 \bxce@do{white_circle}{26AA}
 \bxce@do{white_flower}{1F4AE}
-\bxce@do{white_haired}{1F9B3}%NA
+\bxce@do{white_haired}{1F9B3}
 \bxce@do{white_large_square}{2B1C}
 \bxce@do{white_medium_small_square}{25FD}
 \bxce@do{white_medium_square}{25FB}
