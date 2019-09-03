@@ -7,7 +7,7 @@ use utf8;
 my $src_file = shift(@ARGV) or die;
 my $out_file = shift(@ARGV) or die;
 my $pdf_dir = '../emoji_images/twemoji-pdf';
-my $out_info = '2019/03/09 v0.8';
+my $out_info = '2019/09/04 v0.9';
 my $prefix = 'bxce';
 my $sector_size = 300;
 

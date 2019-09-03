@@ -3,7 +3,7 @@
 use strict;
 use File::Copy 'copy';
 use File::Glob 'bsd_glob';
-my $prog_name = "install-image";
+my $program = "install-image";
 my $src_png_dir = "72x72";
 my $src_svg_dir = "svg";
 my $dest_png_dir = "twemoji-png";
@@ -62,14 +62,15 @@ sub read_option {
   my $arg;
   if (!@ARGV || $ARGV[0] =~ m/^-/) {
     print(<<"EOT"); exit;
-Usage: $prog_name [+<middle>] <twemoji_repo_dir> <dest_dir>
+Usage: $program <twemoji_image_dir> <dest_dir>
+  Here <twemoji_image_dir> is the base directory of twemoji repository
+  where '$src_png_dir/' and '$src_svg_dir/' reside.
 EOT
   }
-  (($arg) = $ARGV[0] =~ m/^\+(.*)/) and shift(@ARGV);
+  ($ARGV[0] !~ m/^\+/) or error("+MIDDLE spec is abolished");
   ($#ARGV == 1) or error("wrong number of arguments");
   $twemoji_dir = $src_dir = unixy(shift(@ARGV));
   $dest_dir = unixy(shift(@ARGV));
-  (defined $arg) and $src_dir .= "/$arg";
   (-d $src_dir) or error("no such directory", $src_dir);
   (-d $dest_dir) or error("no such directory", $dest_dir);
 }
@@ -79,7 +80,7 @@ sub unixy {
 }
 
 sub info {
-  print STDERR (join(": ", $prog_name, @_), "\n");
+  print STDERR (join(": ", $program, @_), "\n");
 }
 sub error {
   info(@_); exit(-1);
