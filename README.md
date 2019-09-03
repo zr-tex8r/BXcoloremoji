@@ -178,6 +178,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.8c 〈2019/09/01〉
+      - 単独の skin tone modifier を有効な絵文字とみなす。
   * Version 0.8b 〈2019/03/12〉
       - ZWJ sequence のフォールバック時の ZWJ を線で表す。
   * Version 0.8a 〈2019/03/09〉
