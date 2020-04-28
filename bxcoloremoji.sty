@@ -259,6 +259,10 @@
 \chardef\bxce@cp@zwj=5 % zero width joiner
 \chardef\bxce@cp@tag=6 % tag char
 
+%% constants
+%[bxce@cp/<code>] : Unicode -> char property
+%[bxce@ju/<jis>] : JIS-code -> Unicode (for jachar trick)
+
 %% variables
 \let\bxce@cp\relax
 
@@ -315,7 +319,9 @@
 }
 \fi
 
-%% data
+%%-------- data
+
+%% make [bxce@cp] table
 \bxce@set@cp\bxce@cp@base{%
   0023,002A,0030-0039,00A9,00AE,203C,2049,2122,2139,2194-2199,%
   21A9-21AA,231A-231B,2328,23CF,23E9-23F3,23F8-23FA,24C2,25AA-25AB,%
@@ -363,6 +369,13 @@
   200D}
 \bxce@set@cp\bxce@cp@tag{%
   E0020-E007F}
+
+%% make [bxce@ju] table
+\ifx p\bxce@engine
+  \def\bxce@do#1#2{\csedef{bxce@ju/\jis"#1}{\number"#2}}
+  \bxce@do{2169}{2642}
+  \bxce@do{216A}{2640}
+\fi
 
 %--------------------------------------- user interface
 
@@ -520,10 +533,7 @@
 }
 \def\bxce@parse@first@e#1{%
   \bxce@cnta=`#1\relax
-  \@tempcnta\bxce@cnta \divide\@tempcnta"800
-  \ifnum\@tempcnta=27 % surrogate value
-    \bxce@parse@first@surrogate
-  \fi
+  \bxce@parse@first@trick#1%
   \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
   \ifdefined\bxce@tmpa
     \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\hex{\bxce@cnta}}}%
@@ -754,11 +764,30 @@
   \def#2{#1}%
 }
 
-%% Trick to avoid XeTeX anomaly...
-\def\bxce@parse@first@surrogate#1\bxce@parse@first@a#2{%
-  \bxce@cnta=\numexpr\bxce@cnta*"400+`#2-"35FDC00\relax
-  #1\bxce@parse@first@a % continue!
-}
+%% \bxce@parse@first@trick<char>
+% The engine-specific "trick".
+\ifx p\bxce@engine % pTeX
+  %% trick to hedge ja-chars
+  \def\bxce@parse@first@trick#1{%
+    \ifnum\bxce@cnta>\@cclv % ja-char
+      \bxce@cnta0\@nameuse{bxce@ju/\the\bxce@cnta}\relax
+    \fi
+  }
+\else\ifx x\bxce@engine % XeTeX
+  %% trick to avoid anomaly of old XeTeX
+  \def\bxce@parse@first@trick#1{%
+    \@tempcnta\bxce@cnta \divide\@tempcnta"800
+    \ifnum\@tempcnta=27 % surrogate value
+      \bxce@parse@first@surrogate
+    \fi
+  }
+  \def\bxce@parse@first@surrogate#1\bxce@parse@first@a#2{%
+    \bxce@cnta=\numexpr\bxce@cnta*"400+`#2-"35FDC00\relax
+    #1\bxce@parse@first@a % continue!
+  }
+\else
+  \let\bxce@parse@first@trick\@gobble
+\fi\fi
 
 %--------------------------------------- emoji name database
 
