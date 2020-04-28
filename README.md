@@ -37,7 +37,7 @@ Copyright 2018 Twitter, Inc and other contributors
 Other work is licensed under:
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2019 Takayuki YATO (aka. "ZR")
+Copyright 2017-2020 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
@@ -87,7 +87,7 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
     引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
     `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
     を空白区切りで並べる。`*`指定の意味は `\coloremoji` と同じ。  
-    例： `\coloremojiucs{:sushi: 23 20E3 1F363 :snowman:}`
+    例： `\coloremojiucs{:sushi: 23 20E3 1F643 :snowman:}`
 
 [EmojiOne]: https://github.com/emojione/emojione
 
@@ -178,6 +178,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.9b 〈2020/04/29〉
+      - バグ修正。
   * Version 0.9a 〈2019/12/09〉
       - utf8 入力エンコーディングの改新に対処した。
   * Version 0.9  〈2019/09/09〉
@@ -191,7 +193,7 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
   * Version 0.8  〈2019/03/09〉
       - `\coloremojiucs` において短縮名での入力をサポートした。
   * Version 0.7  〈2019/01/02〉
-      - upLaTeX で文字を“和文扱い”（kcatcode を 15 に設定）にして
+      - upLaTeX で文字を“欧文扱い”（kcatcode を 15 に設定）にして
         いる場合に対応した。
   * Version 0.6  〈2018/06/10〉
       - Unicode Emoji 11.0 に対応した。
