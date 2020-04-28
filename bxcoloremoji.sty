@@ -663,12 +663,17 @@
   \fi
   #2%
 }
-\protected\def\bxce@parse@third@J{%
+\protected\def\bxce@parse@third@J#1{%
   \ifx\bxce@cseq\@empty
+    \appto\bxce@text{\bxce@put{200D}}%
+  \else\unless\ifx#1\bxce@E
+    \bxce@parse@third@out
+    \let\bxce@cseq\@empty
     \appto\bxce@text{\bxce@put{200D}}%
   \else
     \eappto\bxce@cseq{\the\bxce@cp@zwj{200D}}%
-  \fi
+  \fi\fi
+  #1%
 }
 \def\bxce@parse@third@out{%
   \let\bxce@tmpa\@empty
