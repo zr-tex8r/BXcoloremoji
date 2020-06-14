@@ -13,7 +13,7 @@ LaTeX： カラー絵文字を出力する
 
 ### インストール
 
-  - `*.sty`   → `$TEXMF/tex/latex/BXcoloremoji`
+  - `*.sty`/`*.def` → `$TEXMF/tex/latex/BXcoloremoji`
   - `emoji_images` のディレクトリをそのまま
     `$TEXMF/tex/latex/BXcoloremoji` の下に移動する。
 
