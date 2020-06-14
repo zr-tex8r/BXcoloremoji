@@ -5,11 +5,12 @@ LaTeX： カラー絵文字を出力する
 
 ### 前提環境
 
-  - TeX 処理系： e-TeX 拡張をサポートするもの
-  - DVI ウェア（DVI 出力時）： dvipdfmx
-  - 前提パッケージ：
-      * etoolbox パッケージ
-      * binhex パッケージ
+  * フォーマット： LaTeX
+  * エンジン： e-TeX 拡張をサポートするもの
+  * DVI ウェア（DVI 出力時）： dvipdfmx
+  * 依存パッケージ：
+      - etoolbox
+      - binhex
 
 ### インストール
 
@@ -30,7 +31,7 @@ LaTeX： カラー絵文字を出力する
 Graphics work is licenced under:
 
 CC-BY 4.0: (https://creativecommons.org/licenses/by/4.0/)
-Copyright 2018 Twitter, Inc and other contributors
+Copyright 2019 Twitter, Inc and other contributors
 
 その他の著作物にはは以下が適用される：
 
@@ -180,6 +181,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.10 〈2020/06/14〉
+      - Unicode Emoji 13.0 に対応した。
   * Version 0.9b 〈2020/04/29〉
       - バグ修正。
   * Version 0.9a 〈2019/12/09〉
