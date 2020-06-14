@@ -83,13 +83,14 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
         なる。
       - それ以外の環境では絵文字は常に非和文扱いで，`*`指定は無視する。
   * `\coloremojiucs[*]{<符号値列>}`： 文字を「Unicode 符号値」または
-     「[EmojiOne] で規定された短縮名」で入力してカラー絵文字を出力する。
+     「JoyPixels の [emoji-toolkit] ライブラリで規定された短縮名」
+    で入力してカラー絵文字を出力する。
     引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
     `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
     を空白区切りで並べる。`*`指定の意味は `\coloremoji` と同じ。  
     例： `\coloremojiucs{:sushi: 23 20E3 1F643 :snowman:}`
 
-[EmojiOne]: https://github.com/emojione/emojione
+[emoji-toolkit]: https://github.com/joypixels/emoji-toolkit
 
 0.4 版以降では、pifont パッケージの機能（`\dingfill` 命令、`dinglist`
 環境など）の絵文字版に相当する、以下の命令が提供される。
@@ -124,8 +125,9 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
 
 ### 絵文字の“短縮名”
 
-`\coloremojiucs` 中で用いる絵文字の短縮名については、[EmojiOne] で規定
-する名前が利用できる。その他に以下に定める独自の短縮名が利用できる。
+`\coloremojiucs` 中で用いる絵文字の短縮名については、JoyPixels（旧称
+EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用できる。
+その他に以下に定める独自の短縮名が利用できる。
 これらは emoji sequence の入力の便宜のためのものである。
 
     +           U+200D (ZWJ)
