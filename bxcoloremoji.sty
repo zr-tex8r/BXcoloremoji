@@ -811,8 +811,9 @@
 
 %% variables
 \let\bxce@ndindex\relax
+%[bxce@nd/<name>] : name -> ccseq
 %[bxce@ndi/<char>] : first char -> sector
-%[bxce@ndsr/<sector>] : the sector is already read?
+%[bxce@ndrs/<sector>] : the sector is already read?
 
 %% \bxce@read@name@data@file{<sector>}
 \def\bxce@read@name@data@file#1{%
@@ -868,11 +869,13 @@
     \def\bxce@do#1"#2\relax{\def\bxce@tmpa{#2}}%
     \bxce@cnta="20
     \@whilenum{\bxce@cnta<"7F}\do{%
+      % register '@!'--'@~' (U+E0021--E007E)
       \chardef\bxce@tmpa\bxce@cnta
       \expandafter\bxce@do\meaning\bxce@tmpa\relax
       \bxce@char@token\bxce@tmpb\bxce@cnta
       \csxdef{bxce@nd/@\bxce@tmpb}{E00\bxce@tmpa}%
       \ifnum\bxce@cnta>"40 \ifnum\bxce@cnta<"5B
+        % register '!A'--'!Z' (U+1F1E6--1F1FF)
         \chardef\bxce@tmpa\numexpr\bxce@cnta+"A5\relax
         \expandafter\bxce@do\meaning\bxce@tmpa\relax
         \csxdef{bxce@nd/!\bxce@tmpb}{1F1\bxce@tmpa}%
