@@ -811,6 +811,7 @@
 
 %% variables
 \let\bxce@ndindex\relax
+\let\bxce@ndmaxindex\relax
 %[bxce@nd/<name>] : name -> ccseq
 %[bxce@ndi/<char>] : first char -> sector
 %[bxce@ndrs/<sector>] : the sector is already read?
@@ -846,6 +847,7 @@
 
 %% initizlize
 \bxce@read@name@data@file{-1}
+\mathchardef\bxce@ndmaxindex=\csuse{bxce@ndi/z}\relax
 
 %% additional definitions
 \csgdef{bxce@nd/+}{200D}
@@ -883,6 +885,51 @@
       \advance\bxce@cnta\@ne
     }%
   \endgroup
+}
+
+%% \bxce@load@sname@definition{<sname>}
+\def\bxce@load@sname@definition#1{%
+  \bxce@load@sname@definition@a#1\bxce@end
+}
+\def\bxce@load@sname@definition@a#1#2\bxce@end{%
+  \letcs\bxce@tmpa{bxce@ndi/#1}%
+  \ifdefined\bxce@tmpa
+    \ifcsdef{bxce@ndrs/\number\bxce@tmpa}{}{%else
+      \bxce@read@name@data@file{\bxce@tmpa}%
+    }%
+  \fi
+}
+
+%%<+> \coloremojiLoadNames{<sname> ...}
+\newrobustcmd*\coloremojiLoadNames[1]{%
+  \edef\bxce@tmpa{#1}%
+  \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
+  \expandafter\bxce@load@names@a\bxce@tmpa
+}
+\def\bxce@load@names@a#1 {%
+  \bxce@cond\ifx @#1\fi{}{%else
+    \bxce@load@names@b#1??\bxce@end
+    \bxce@load@names@a
+  }%
+}
+\def\bxce@load@names@b#1#2\bxce@end{%
+  \ifx:#1%
+    \bxce@load@sname@definition{#2}%
+  \else
+    \bxce@load@sname@definition{#1#2}%
+  \fi
+}
+
+%%<+> \coloremojiLoadAllNames
+\newrobustcmd*\coloremojiLoadAllNames{%
+  \global\let\coloremojiLoadAllNames\relax
+  \bxce@cnta\m@ne
+  \@whilenum{\bxce@cnta<\bxce@ndmaxindex}\do{%
+    \advance\bxce@cnta\@ne
+    \ifcsdef{bxce@ndrs/\number\bxce@cnta}{}{%else
+      \bxce@read@name@data@file{\bxce@cnta}%
+    }%
+  }%
 }
 
 %--------------------------------------- parse character code
@@ -937,20 +984,12 @@
     \edef\bxce@arg{\bxce@tmpa\space}%
   \else
     \bxce@cnta-1
-    \bxce@parse@chname@a#1\bxce@end
-  \fi
-}
-\def\bxce@parse@chname@a#1#2\bxce@end{%
-  \letcs\bxce@tmpa{bxce@ndi/#1}%
-  \ifdefined\bxce@tmpa
-    \ifcsdef{bxce@ndrs/\number\bxce@tmpa}{}{%else
-      \bxce@read@name@data@file{\bxce@tmpa}%
-      \letcs\bxce@tmpa{bxce@nd/#1#2}%
-      \ifdefined\bxce@tmpa
-        \bxce@cnta-2
-        \let\bxce@arg\bxce@tmpa
-      \fi
-    }%
+    \bxce@load@sname@definition{#1}%
+    \letcs\bxce@tmpa{bxce@nd/#1}%
+    \ifdefined\bxce@tmpa
+      \bxce@cnta-2
+      \let\bxce@arg\bxce@tmpa
+    \fi
   \fi
 }
 
@@ -1254,6 +1293,7 @@
 
 %% add to hook
 \appto\pdfstringdefPreHook{%
+  \coloremojiLoadAllNames
   \let\coloremoji\bxce@hy@coloremoji
   \let\coloremojiucs\bxce@hy@coloremojiucs
   \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
