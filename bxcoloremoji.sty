@@ -427,7 +427,7 @@
 }
 \def\bxce@coloremojiucs@b[#1]#2{%
     \setkeys{bxce}{#1}%
-    \bxce@parse@ccseq{#2}%
+    \bxce@parse@text@ccseq{#2}%
     \bxce@output
   \endgroup
   \bxce@postghost
@@ -720,66 +720,38 @@
   }%
 }
 
-%% \bxce@parse@ccseq
-\def\bxce@parse@ccseq#1{%
-  \edef\bxce@tmpa{#1}%
-  \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
-  \expandafter\bxce@parse@first@ccseq\bxce@tmpa
+%% \bxce@parse@text@ccseq
+\def\bxce@parse@text@ccseq#1{%
+  \bxce@parse@first@ccseq{#1}%
 \bxDebug{first=\meaning\bxce@text}%
   \expandafter\bxce@parse@second\bxce@text\bxce@end
 \bxDebug{second=\meaning\bxce@text}%
   \expandafter\bxce@parse@third\bxce@text\bxce@end
 \bxDebug{third=\meaning\bxce@text}%
 }
-\def\bxce@parse@first@ccseq{%
+\def\bxce@parse@first@ccseq#1{%
+  \edef\bxce@tmpa{#1}%
+  \edef\bxce@tmpa{{\detokenize\expandafter{\bxce@tmpa}}}%
+  \expandafter\bxce@parse@ccseq\bxce@tmpa\bxce@parse@first@ccseq@a
+}
+\def\bxce@parse@first@ccseq@a#1{%
+  \let\bxce@do\bxce@parse@first@ccseq@do
+  \let\bxce@bad\bxce@warn@ivcod
   \let\bxce@text\@empty
-  \bxce@parse@first@ccseq@a
-}
-\def\bxce@parse@first@ccseq@a#1 {%
-  \bxce@cond\ifx\relax#1\relax\fi{%no-op
-    \bxce@parse@first@ccseq@a
-  }{\bxce@cond\ifx @#1\fi{%
-    \appto\bxce@text{\bxce@T.}%
-  }{%else
-    %\uppercase{\bxce@zero@suppress\bxce@arg{#1}}%
-    \bxce@parse@cc{#1}%
-    \bxce@parse@first@ccseq@b
-  }}%
-}
-\def\bxce@parse@first@ccseq@b{%
-  \ifnum\bxce@cnta=-2 % rescan
-    \edef\bxce@tmpa{\bxce@arg\space}%
-  \else\ifnum\bxce@cnta<\z@ % error
-    \bxce@warn@ivcod
-    \let\bxce@tmpa\@empty
-  \else
-    \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
-    \ifdefined\bxce@tmpa
-      \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@arg}}%
-    \else
-      \bxce@char@token\bxce@tmpa\bxce@cnta
-      \eappto\bxce@text{\bxce@O\bxce@tmpa}%
-    \fi
-    \let\bxce@tmpa\@empty
-  \fi\fi
-  \expandafter\bxce@parse@first@ccseq@a\bxce@tmpa
+  #1%
+  \appto\bxce@text{\bxce@T.}%
 }
 
-%% \bxce@zero@suppress\CS{<digits>}
-\def\bxce@zero@suppress#1#2{%
-  \bxce@zero@suppress@a#2\bxce@end#1%
-}
-\def\bxce@zero@suppress@a#1{%
-  \bxce@cond\ifx#1\bxce@end\fi{%
-    \def#1{0}%
-  }{\bxce@cond\ifx#10\fi{%
-    \bxce@zero@suppress@a
-  }{%else
-    \bxce@zero@suppress@b#1%
-  }}%
-}
-\def\bxce@zero@suppress@b#1\bxce@end#2{%
-  \def#2{#1}%
+%% \bxce@parse@first@ccseq@do{<code-value>}
+\def\bxce@parse@first@ccseq@do#1{%
+  \bxce@cnta"0#1\relax
+  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \ifdefined\bxce@tmpa
+    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{#1}}%
+  \else
+    \bxce@char@token\bxce@tmpa\bxce@cnta
+    \eappto\bxce@text{\bxce@O\bxce@tmpa}%
+  \fi
 }
 
 %% \bxce@parse@first@trick<char>
@@ -923,6 +895,7 @@
 %%<+> \coloremojiLoadAllNames
 \newrobustcmd*\coloremojiLoadAllNames{%
   \global\let\coloremojiLoadAllNames\relax
+  \global\let\bxce@lookup@sname\bxce@parse@sname
   \bxce@cnta\m@ne
   \@whilenum{\bxce@cnta<\bxce@ndmaxindex}\do{%
     \advance\bxce@cnta\@ne
@@ -937,60 +910,101 @@
 % A character code is either of the following:
 % - a hex string of the Unicode value (case-insensitive);
 % - a short name input ':<short-name>:' (in lowercase);
-%   here ':' of the either side can be ommitted as long as the input
+%   here ':' of the either side can be omitted as long as the input
 %   is unambiguous (not regarded as code value).
 
 %% error message
-\def\bxce@warn@ivcod{%
+\def\bxce@warn@ivcod#1{%
   \bxce@warn{Invalid character code found\MessageBreak
-    (\bxce@arg)}%
+    (#1)}%
 }
-%% \bxce@parse@cc{<word>}
-% Parse the character name or code value, and return:
-% \bxce@cnta>=0: code value (\bxce@arg is hex-string)
-% \bxce@cnta=-1: error (\bxce@arg is the original input)
-% \bxce@cnta=-2: rescan (\bxce@arg is the string to scan)
-\def\bxce@parse@cc#1{%
-  \def\bxce@arg{#1}%
-  \uppercase{\bxce@parse@cc@a#1}\bxce@end#1\bxce@end
+
+%% \bxce@parse@ccseq{<cc> ...}\CScont
+% Parses a character code sequence and returns the
+% \bxce@do-list of the code values; i.e. it expans to
+% \CScont{\bxce@do{<cv>}...}.
+% Unknown names are converted to \bxce@bad{<name>}.
+\def\bxce@parse@ccseq#1{%{<in>}|\CScont
+  \bxce@parse@ccseq@a#1 @ @%
 }
-\def\bxce@parse@cc@a#1\bxce@end#2#3\bxce@end{%
-  \afterassignment\bxce@parse@cc@b\bxce@cnta"0#1\bxce@mk
-  \ifnum\bxce@cnta>\m@ne
-    \bxce@zero@suppress\bxce@arg{#1}%
-  \else\ifx:#2%
-    \bxce@parse@cc@c#3\bxce@mk:\bxce@mk\bxce@end{#3}%
-  \else
-    \bxce@parse@cc@c#2#3\bxce@mk:\bxce@mk\bxce@end{#2#3}%
-  \fi\fi
+% (\bxce@parse@ccseq@a<in> @ <out>@\CScont)
+\def\bxce@parse@ccseq@a#1 {%<cc> |...
+  \bxce@cond\ifx @#1\fi{%
+    \bxce@parse@ccseq@e
+  }{\bxce@cond\ifx\bxce@mt#1\bxce@mt\fi{%empty-string
+    \bxce@parse@ccseq@a
+  }{%else
+    \bxce@parse@cc{#1}\bxce@parse@ccseq@b\bxce@parse@ccseq@c
+        \bxce@parse@ccseq@d{#1}%
+  }}%
 }
-\def\bxce@parse@cc@b#1\bxce@mk{%
-  \ifx\bxce@mt#1\bxce@mt
-  \else \bxce@cnta\m@ne
-  \fi
+\def\bxce@parse@ccseq@b#1#2#3@#4@{%{<hex>}{<cc>}<in> @ <out>@|...
+  \bxce@parse@ccseq@a#3@#4\bxce@do{#1}@%
 }
-\def\bxce@parse@cc@c#1:\bxce@mk#2\bxce@end#3{%
-  \ifx\bxce@mt#2\bxce@mt
-    \bxce@parse@chname{#3}%
-  \else
-    \bxce@parse@chname{#1}%
-  \fi
+\def\bxce@parse@ccseq@c#1#2{%{<seq>}{<cc>}|<in> @...
+  \bxce@parse@ccseq@a#1 %
 }
-%% \bxce@parse@chname{<emoji-name>}
-\def\bxce@parse@chname#1{%
-  \letcs\bxce@tmpa{bxce@nd/#1}%
-  \ifdefined\bxce@tmpa
-    \bxce@cnta-2
-    \edef\bxce@arg{\bxce@tmpa\space}%
-  \else
-    \bxce@cnta-1
+\def\bxce@parse@ccseq@d#1#2@#3@{%{<cc>}<in> @ <out>@|...
+  \bxce@parse@ccseq@a#2@#3\bxce@bad{#1}@%
+}
+\def\bxce@parse@ccseq@e#1@#2{%<out>@\CScont
+  #2{#1}%
+}
+
+%% \bxce@parse@cc{<cc>}\CSok\CSrs\CSerr
+% Parses the character name or code value, and expands to:
+% \CSok{<code-value>} if <cc> is a valid hex string;
+% \CSrs{<out-cc> ...} if <Cc> is a short name; or
+% \CSerr otherwise.
+\def\bxce@parse@cc#1{%{<cc>}|...
+  \bxce@parse@hex{#1}\bxce@parse@cc@a\bxce@parse@cc@b{#1}%
+}
+\def\bxce@parse@cc@a#1#2#3#4#5{%{<hex>}{<cc>}\CSok\CSrs\CSerr
+  #3{#1}%
+}
+\def\bxce@parse@cc@b#1#2{%{<cc>}\CSok|\CSrs\CSerr
+  \bxce@trim@colons{#1}\bxce@lookup@sname
+}
+
+%% \bxce@trim@colons{<word>}\CScont
+\def\bxce@trim@colons#1{%{<word>}|\CScont
+  \bxce@trim@colons@a#1@:@\bxce@mk
+}
+\def\bxce@trim@colons@a#1#2:@#3\bxce@mk{%
+  \bxce@cond\if:#1\fi{%
+    \bxce@trim@colons@b#2@\bxce@mk
+  }{%else
+    \bxce@trim@colons@b#1#2@\bxce@mk
+  }%
+}
+\def\bxce@trim@colons@b#1@#2\bxce@mk#3{%
+  #3{#1}%
+}
+
+%% \bxce@lookup@sname{<sname>}\CSok\CSerr
+\def\bxce@lookup@sname#1{%{<sname>}|\CSok\CSerr
+  \ifcsdef{bxce@nd/#1}{%
+    \bxce@parse@sname@out{#1}%
+  }{%else
     \bxce@load@sname@definition{#1}%
-    \letcs\bxce@tmpa{bxce@nd/#1}%
-    \ifdefined\bxce@tmpa
-      \bxce@cnta-2
-      \let\bxce@arg\bxce@tmpa
-    \fi
-  \fi
+    \bxce@parse@sname{#1}%
+  }%
+}
+
+%% \bxce@parse@sname{<sname>}\CSok\CSerr
+\def\bxce@parse@sname#1{%{<sname>}|\CSok\CSerr
+  \ifcsdef{bxce@nd/#1}{%
+    \bxce@parse@sname@out{#1}%
+  }{%else
+    \@secondoftwo
+  }%
+}
+\def\bxce@parse@sname@out#1{%{<sname>}|\CSok\CSerr
+  \expandafter\expandafter\expandafter
+      \bxce@parse@sname@out@a\csname bxce@nd/#1\endcsname\bxce@end
+}
+\def\bxce@parse@sname@out@a#1\bxce@end#2#3{%<res>\end\CSok\CSerr
+  #2{#1}%
 }
 
 %--------------------------------------- image output
@@ -1297,6 +1311,8 @@
   \let\coloremoji\bxce@hy@coloremoji
   \let\coloremojiucs\bxce@hy@coloremojiucs
   \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
+  \let\bxce@do\bxce@hy@ucs
+  \let\bxce@bad\@gobble
 }
 
 %% \bxce@hy@NA
@@ -1333,52 +1349,41 @@
   \bxce@hy@coloremojiucs@a
 }
 \def\bxce@hy@coloremojiucs@a#1{%
-  \expandafter\bxce@hy@ccseq\expandafter{\detokenize{#1}}\@firstofone
+  \expandafter\bxce@parse@ccseq\expandafter{\detokenize{#1}}\@firstofone
 }
 
-%% \bxce@hy@ccseq{<str>}\CONT
-% (fully-expandable)
-\def\bxce@hy@ccseq#1{%{<str>}|\CONT
-  \bxce@hy@ccseq@a#1 @ @%
-}
-% (\bxce@hy@ccseq@a<in>@ <out>@\CONT)
-\def\bxce@hy@ccseq@a#1 {%<iw> |...
-  \bxce@cond\ifx @#1\fi{%
-    \bxce@hy@ccseq@c
-  }{%else
-    \bxce@hy@ccone{#1}\bxce@hy@ccseq@b
-  }%
-}
-\def\bxce@hy@ccseq@b#1#2@ #3@{%{<ow>}<in>@ <out>@|\CONT
-  \bxce@hy@ccseq@a#2@ #3#1@%
-}
-\def\bxce@hy@ccseq@c#1@#2{%<out>@\CONT
-  #2{#1}%
-}
+%--------------------------------------- hex strings
 
-%% \bxce@hy@ccone{<iw>}\CONT
-\def\bxce@hy@ccone#1{%
-  \bxce@hy@ccone@a#1@@%
+%% \bxce@parse@hex{<word>}\CSok\CSerr
+% Expands to \CSok{<res>} or \CSerr.
+\def\bxce@parse@hex#1{%
+  \bxce@parse@hex@a#1@@%
 }
-\def\bxce@hy@ccone@a#1{%<ic>|...
+\def\bxce@parse@hex@a#1{%<ic>|...
   \bxce@cond\ifx @#1\fi{%
-    \bxce@hy@ccone@c
+    \bxce@parse@hex@c
   }{%else
     \expandafter\expandafter\expandafter
-        \bxce@hy@ccone@b\csname bxce@H/#1\endcsname
+        \bxce@parse@hex@b\csname bxce@H/#1\endcsname
   }%
 }
-\def\bxce@hy@ccone@b#1#2@#3@{%<c><iw>@<ow>@|\CONT
+\def\bxce@parse@hex@b#1#2@#3@{%<ic><iw>@<ow>@|\CSok\CSerr
   \bxce@cond\ifx#1\relax\fi{% unknown char
-    \bxce@hy@ccone@d{\bxce@hy@NA}%
+    \@secondoftwo
   }{%else
-    \bxce@hy@ccone@a#2@#3#1@%
+    \bxce@parse@hex@a#2@#3#1@%
   }%
 }
-\def\bxce@hy@ccone@c#1@{%<ow>@|\CONT
-  \bxce@hy@ccone@d{\bxce@hy@ucs{#1}}%
-}                 
-\def\bxce@hy@ccone@d#1#2{%{<out>}\CONT
+\def\bxce@parse@hex@c#1{%
+  \bxce@cond\if @#1\fi{%
+    \bxce@parse@hex@d0@%
+  }{\bxce@cond\if0#1\fi{%
+    \bxce@parse@hex@c
+  }{%else
+    \bxce@parse@hex@d#1%
+  }}%
+}
+\def\bxce@parse@hex@d#1@#2#3{%<ow>@\CSok\CSerr
   #2{#1}%
 }
 
@@ -1436,9 +1441,7 @@
 
 %% \bxce@normalize@ccseq{<ccseq>}
 \def\bxce@normalize@ccseq#1{%
-  \edef\bxce@tmpa{#1}%
-  \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
-  \expandafter\bxce@parse@first@ccseq\bxce@tmpa
+  \bxce@parse@first@ccseq{#1}%
   \expandafter\bxce@unparse@first\bxce@text\bxce@end
 }
 
