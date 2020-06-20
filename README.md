@@ -134,6 +134,15 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
     +           U+200D (ZWJ)
     !female     U+2640♀ (+ !female で女性の gender indicator)
     !male       U+2642♂ (+ !male で男性の gender indicator)
+    !black      U+2B1B⬛（+ !black で黒色の color indicator）
+    !white      U+2B1C⬜（+ !white で白色の color indicator）
+    !red        U+1F7E5🟥（+ !red で赤色の color indicator）
+    !blue       U+1F7E6🟦（+ !blue で青色の color indicator）
+    !orange     U+1F7E7🟧（+ !orange で橙色の color indicator）
+    !yellow     U+1F7E8🟨（+ !yellow で黄色の color indicator）
+    !green      U+1F7E9🟩（+ !green で緑色の color indicator）
+    !purple     U+1F7EA🟪（+ !purple で紫色の color indicator）
+    !brown      U+1F7EB🟫（+ !brown で茶色の color indicator）
     !flag       U+1F3F4🏴 (旗を表す tag sequence の base 文字)
     !<          U+2B05⬅ (+ !< で左の direction indicator)
     !>          U+27A1➡ (+ !> で右の direction indicator)
@@ -154,8 +163,6 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 `\coloremoji` （および `\coloremojiucs`）命令を使用できる。例えば、
 `\section` の引数の中で `\coloremoji` を含めた場合、版面の上では絵文字
 の画像として出力され、PDF のしおりの中では文字として表示される。
-
-※`\coloremojiucs` 中の短縮名での入力はサポートしていない。
 
 ただし「PDF 文字列中の Unicode 文字が正しく処理される」状態が担保されて
 いることが前提となる。具体的には、次の設定が必要である。
@@ -181,6 +188,9 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 更新履歴
 --------
 
+  * Version 0.11 〈2020/06/21〉
+      - `\coloremojiucs` で PDF 文字列中の短縮名をサポート。
+      - 独自短縮名を追加。
   * Version 0.10 〈2020/06/14〉
       - Unicode Emoji 13.0 に対応した。
   * Version 0.9b 〈2020/04/29〉
