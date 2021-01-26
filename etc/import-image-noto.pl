@@ -1,13 +1,14 @@
 #!/usr/bin/env perl
-# install-image.pl
+# install-image-noto.pl
 use strict;
 use File::Copy 'copy';
 use File::Glob 'bsd_glob';
-my $program = "install-image";
-my $src_png_dir = "72x72";
+my $program = "install-image-noto";
+my $src_png_dir = "png/128";
 my $src_svg_dir = "svg";
-my $dest_png_dir = "twemoji-png";
-my $dest_pdf_dir = "twemoji-pdf";
+my $src_3p_dir = "third_party/region-flags/svg"; # not yet used
+my $dest_png_dir = "notoemoji-png";
+my $dest_pdf_dir = "notoemoji-pdf";
 my $inkscape = 'inkscape';
 #
 my ($src_dir, $dest_dir);
@@ -56,16 +57,17 @@ sub convert_svg {
 }
 sub image_name {
   local ($_) = @_;
-  s|^.*/||; s|\.\w+$||; s|-fe0[ef]||g;
-  return 'twemoji-'.uc($_);
+  s|^.*/||; s|\.\w+$||; s|^emoji_u||;
+  s|_|-|g; s|-fe0[ef]||g;
+  return uc($_);
 }
 
 sub read_option {
   my $arg;
   if (!@ARGV || $ARGV[0] =~ m/^-/) {
     print(<<"EOT"); exit;
-Usage: $program <twemoji_image_dir> <dest_dir>
-  Here <twemoji_image_dir> is the base directory of twemoji repository
+Usage: $program <notoemoji_repo_dir> <dest_dir>
+  Here <notoemoji_repo_dir> is the base directory of noto-emoji repository
   where '$src_png_dir/' and '$src_svg_dir/' reside.
 EOT
   }
