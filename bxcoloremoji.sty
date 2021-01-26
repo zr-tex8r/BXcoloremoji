@@ -63,45 +63,61 @@
 
 %%<*> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
+%% switch bxce@custom@family : is custom family used?
+\newbool{bxce@custom@family}
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
 \let\bxce@bb\relax
 %% bxce@ext : image file extension
 \let\bxce@ext\relax
+%% bxce@prefix : image file prefix
+\let\bxce@prefix\relax
 %% bxce@scale : image scale
 \def\bxce@scale{1}
 
 %% keyval options
 \define@key{bxce}{no-image}[]{%
+  \bxce@custom@familyfalse
   \let\bxce@family\relax
   \let\bxce@bb\relax
   \let\bxce@ext\relax
+  \let\bxce@prefix\relax
 }
 \define@key{bxce}{twemoji-pdf}[]{%
+  \bxce@custom@familyfalse
   \def\bxce@family{twemoji-pdf}%
   \def\bxce@bb{0 0 28.8 28.8}%
   \def\bxce@ext{pdf}%
+  \def\bxce@prefix{\coloremojidir twemoji-pdf/twemoji-}%
 }
 \define@key{bxce}{twemoji-png}[]{%
+  \bxce@custom@familyfalse
   \def\bxce@family{twemoji-png}%
   \def\bxce@bb{0 0 72 72}%
   \def\bxce@ext{png}%
+  \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
 }
 \define@key{bxce}{twitter}[]{%
+  \bxce@custom@familyfalse
   \def\bxce@family{twitter}%
   \def\bxce@bb{0 0 38 38}%
   \def\bxce@ext{pdf}%
+  \def\bxce@prefix{\coloremojidir twitter/}%
 }
 \define@key{bxce}{hires}[]{%
+  \bxce@custom@familyfalse
   \def\bxce@family{hires}%
   \def\bxce@bb{0 0 11.338600 11.338600}%
   \def\bxce@ext{pdf}%
+  \def\bxce@prefix{\coloremojidir hires/}%
 }
 \define@key{bxce}{lowres}[]{%
+  \bxce@custom@familyfalse
   \def\bxce@family{lowres}%
   \def\bxce@bb{0 0 4.535430 4.535430}%
   \def\bxce@ext{pdf}%
+  \def\bxce@prefix{\coloremojidir lowres/}%
 }
 \define@key{bxce}{scale}{%
   \def\bxce@scale{#1}%
@@ -1017,7 +1033,7 @@
 
 %% \bxce@image@path{<name>}
 \def\bxce@image@path#1{%
-  \coloremojidir\bxce@family/#1.\bxce@ext
+  \bxce@prefix#1.\bxce@ext
 }
 
 %% \bxce@unit / \bxce@disp / \bxce@inter
