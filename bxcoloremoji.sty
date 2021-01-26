@@ -125,6 +125,16 @@
 \define@key{bxce}{basedir}{%
   \def\coloremojidir{#1}%
 }
+\define@key{bxce}{family}{%
+  \bxce@use@custom@family{#1}%
+}
+\def\bxce@use@custom@family#1{%
+  \bxce@custom@familytrue
+  \def\bxce@family{#1}%
+  \let\bxce@bb\relax
+  \let\bxce@ext\relax
+  \let\bxce@prefix\relax
+}
 \DeclareOption*{%
   \expandafter\bxce@tmpa\CurrentOption\bxce@end
 }
@@ -233,6 +243,7 @@
 %--------------------------------------- helpers
 
 %% variables
+\newbool{bxce@ok}
 \newcount\bxce@cnta
 \let\bxce@arg\relax
 \let\bxce@flag\@undefined
@@ -1125,7 +1136,8 @@
     \lower\bxce@disp@dim\hbox{%
       \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
       \noexpand\includegraphics
-      [width=\bxce@cwd \ifbxce@use@bb ,bb=\bxce@bb \fi]%
+      [width=\bxce@cwd
+      \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
       {\bxce@image@path{#1}}}}}%
   \bxce@tmpa \hskip\bxce@inter@skip
 }
@@ -1460,6 +1472,107 @@
   \bxce@parse@first@ccseq{#1}%
   \expandafter\bxce@unparse@first\bxce@text\bxce@end
 }
+%--------------------------------------- family config file
+
+%% variables
+\let\bxce@cfg@file\relax
+
+%% errors
+\def\bxce@err@secfg#1{%
+  \PackageError\bxce@pkgname
+   {Problem in '\bxce@cfg@file':\MessageBreak #1}%
+   {The custom family is ignored.\MessageBreak\@ehc}}
+
+%% \bxce@use@custom@family{<name>}
+\def\bxce@use@custom@family#1{%
+  % start from invalidated state
+  \let\bxce@family\relax \bxce@custom@familyfalse
+  \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
+  \edef\bxce@cfg@file{\bxce@pkgname-#1.cfg}%
+  \ifcsdef{bxce@config/#1}{\csuse{bxce@config/#1}}{%else
+    \IfFileExists{\bxce@cfg@file}{%
+      \edef\bxce@family{#1}\bxce@custom@familytrue
+      \bxce@read@cfg@file
+    }{%else
+      \PackageError\bxce@pkgname
+       {The custom family '#1' is unavaiable\MessageBreak
+        since file '\bxce@cfg@file' is not found}%
+       {\@ehc}}%
+  }%
+  \ifbxce@custom@family
+    \bxce@check@cfg@values
+  \fi}
+
+%% \bxce@read@cfg@file
+\def\bxce@read@cfg@file{%
+  \PackageInfo\bxce@pkgname
+   {Loading custom family config file\MessageBreak
+     '\bxce@cfg@file'}%
+  \openin\@inputcheck=\bxce@cfg@file\relax
+  \begingroup
+    \endlinechar\m@ne
+    \bxce@oktrue
+    \@whilesw\ifbxce@ok\fi{%
+      \ifeof\@inputcheck
+        \bxce@okfalse
+      \else
+        \readline\@inputcheck to\bxce@tmpa
+        \bxce@read@cfg@file@cc
+        \unless\ifx\bxce@tmpa\@empty
+          \expandafter\bxce@read@cfg@file@a\bxce@tmpa\bxce@mk=\bxce@end
+        \fi
+      \fi}%
+    \global\cslet{bxce@config/\bxce@family}\bxce@g@tmpa
+  \endgroup
+  \closein\@inputcheck
+  \bxce@g@tmpa}
+\def\bxce@read@cfg@file@a#1=#2\bxce@end{%
+  \ifx\bxce@mt#2\bxce@mt
+    \bxce@err@secfg{missing '='}\bxce@okfalse
+  \else
+    \edef\bxce@tmpa{\zap@space#1 \@empty}%
+    \bxce@read@cfg@file@b#2\bxce@end
+  \fi}
+\def\bxce@read@cfg@file@b#1\bxce@mk#2\bxce@end{%
+  \edef\bxce@tmpb{\@firstofone#1\@empty}%
+  \ifcsdef{bxce@read@cfg@file@@\bxce@tmpa}{%
+    \csuse{bxce@read@cfg@file@@\bxce@tmpa}%
+  }{%else
+    \bxce@err@secfg{unknown key '\bxce@tmpa'}\bxce@okfalse}}
+\def\bxce@tmpa#1{%
+  \def\bxce@read@cfg@file@cc{%
+    \expandafter\bxce@read@cfg@file@cc@a\bxce@tmpa#1\bxce@end}%
+  \def\bxce@read@cfg@file@cc@a##1#1##2\bxce@end{%
+    \ifblank{##1}{\let\bxce@tmpa\@empty}{%else
+      \def\bxce@tmpa{##1}}}%
+}\expandafter\bxce@tmpa\@percentchar
+% key handlers
+\def\bxce@read@cfg@file@@bbox{%
+  \xappto\bxce@g@tmpa{\def\bxce@bb{\bxce@tmpb}}}
+\def\bxce@read@cfg@file@@extension{%
+  \xappto\bxce@g@tmpa{\def\bxce@ext{\bxce@tmpb}}}
+\def\bxce@read@cfg@file@@prefix{%
+  \xappto\bxce@g@tmpa{\def\bxce@prefix{\bxce@tmpb}}}
+
+%% \bxce@check@cfg@values
+\def\bxce@check@cfg@values{%
+  \bxce@oktrue
+  % NB: 'bbox' is optional.
+  \ifx\bxce@ext\relax
+    \bxce@err@secfg{'extension' is not given}\bxce@okfalse
+  \fi
+  \ifx\bxce@prefix\relax
+    \bxce@err@secfg{'prefix' is not given}\bxce@okfalse
+  \fi
+  \unless\ifbxce@ok
+    \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
+  \fi}
+
+%% invoke the custom family set by a package option
+\ifbxce@custom@family
+  \edef\bxce@tmpa{{\bxce@family}}
+  \expandafter\bxce@use@custom@family\bxce@tmpa
+\fi
 
 %--------------------------------------- emoji order list
 
