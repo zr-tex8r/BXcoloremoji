@@ -18,12 +18,6 @@ LaTeX： カラー絵文字を出力する
   - `emoji_images` のディレクトリをそのまま
     `$TEXMF/tex/latex/BXcoloremoji` の下に移動する。
 
-[coloremoji パッケージ]の画像データを利用したい場合は，画像ファイルを
-含む `hires`，`lowres`，`twitter` のディレクトリが `$TEXMF/tex/latex`
-以下のどこかにある `emoji_images` の直下に配置されるようにする。
-
-[coloremoji パッケージ]: https://github.com/doraTeX/coloremoji
-
 ### ライセンス
 
 画像データについては以下が適用される：
@@ -38,7 +32,7 @@ Copyright 2019 Twitter, Inc and other contributors
 Other work is licensed under:
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2020 Takayuki YATO (aka. "ZR")
+Copyright 2017-2021 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
@@ -64,15 +58,11 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
   * 絵文字画像の種類を指定するオプション。（既定値 = `twemoji-pdf`）
       - `twemoji-pdf`： twemoji の SVG 画像から変換した PDF 画像。
       - `twemoji-png`： twemoji の 72 ピクセルの PNG 画像。
-      - `twitter`／`lowres`／`hires`： [coloremoji パッケージ]の
-        画像ファイルを流用する。
+      - `family=<名前>`： カスタムファミリ指定（後述）。
   * `scale=<実数>`： 絵文字のサイズを標準値に対する倍率で指定する。
     （既定値 = 1）  
     ※標準のサイズは (u)pLaTeX では 1zw，LuaLaTeX + LuaTeX-ja では
     1`\zw`、それ以外は 1em。
-  * `basedir=<パス名>`： 画像ファイル用のディレクトリ（`twemoji-pdf`
-    等）を配置するパスの名前を指定する。
-    （既定値 = `emoji_images/`）
 
 ### 使い方
 
@@ -132,20 +122,20 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
 これらは emoji sequence の入力の便宜のためのものである。
 
     +           U+200D (ZWJ)
-    !female     U+2640♀ (+ !female で女性の gender indicator)
-    !male       U+2642♂ (+ !male で男性の gender indicator)
-    !black      U+2B1B⬛（+ !black で黒色の color indicator）
-    !white      U+2B1C⬜（+ !white で白色の color indicator）
-    !red        U+1F7E5🟥（+ !red で赤色の color indicator）
-    !blue       U+1F7E6🟦（+ !blue で青色の color indicator）
-    !orange     U+1F7E7🟧（+ !orange で橙色の color indicator）
-    !yellow     U+1F7E8🟨（+ !yellow で黄色の color indicator）
-    !green      U+1F7E9🟩（+ !green で緑色の color indicator）
-    !purple     U+1F7EA🟪（+ !purple で紫色の color indicator）
-    !brown      U+1F7EB🟫（+ !brown で茶色の color indicator）
+    !female     U+2640♀ (`+ !female` で女性の gender indicator)
+    !male       U+2642♂ (`+ !male` で男性の gender indicator)
+    !black      U+2B1B⬛（`+ !black` で黒色の color indicator）
+    !white      U+2B1C⬜（`+ !white` で白色の color indicator）
+    !red        U+1F7E5🟥（`+ !red` で赤色の color indicator）
+    !blue       U+1F7E6🟦（`+ !blue` で青色の color indicator）
+    !orange     U+1F7E7🟧（`+ !orange` で橙色の color indicator）
+    !yellow     U+1F7E8🟨（`+ !yellow` で黄色の color indicator）
+    !green      U+1F7E9🟩（`+ !green` で緑色の color indicator）
+    !purple     U+1F7EA🟪（`+ !purple` で紫色の color indicator）
+    !brown      U+1F7EB🟫（`+ !brown` で茶色の color indicator）
     !flag       U+1F3F4🏴 (旗を表す tag sequence の base 文字)
-    !<          U+2B05⬅ (+ !< で左の direction indicator)
-    !>          U+27A1➡ (+ !> で右の direction indicator)
+    !<          U+2B05⬅ (`+ !<` で左の direction indicator)
+    !>          U+27A1➡ (`+ !>` で右の direction indicator)
     !A .. !Z    U+1F1E6..1F1FF (flag sequence の構成要素)
     @           U+E007F (tag sequence の終端)
     @0 .. @9    U+E0030..E0039 (tag sequence の構成要素)
@@ -176,18 +166,69 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
     を行うパッケージを併用する必要がある。
       - 特に、`\coloremojiucs` 命令の処理には pxjahyper パッケージ
         （そのもの）が必要である。
-      - 絵文字の多くは BMP 外の文字であるので、pxjahyper パッケージを
-        利用する場合、大抵は `bigcode` オプションが必要になる。
-
-            \usepackage[bigcode]{pxjahyper}
 
   - pLaTeX ではそもそも PDF 文字列中に JIS 外の文字を含ませることが
     できないため、`\coloremoji(ucs)` の PDF 文字列中での使用について
     も対応できない。
 
+### カスタムファミリ
+
+bxcoloremoji では実際の絵文字の表示にtwemojiの画像を使っているが、その
+代わりに、ユーザが用意した一連の画像ファイル群を「カスタムファミリ」と
+して登録して表示に使うことができる。
+
+例えば、[noto-emoji レポジトリ]の中（`png/128/` 以下）に含まれる一連の
+PNG画像を `notoemoji` ファミリとして登録する手順を示す。
+
+[noto-emoji レポジトリ]: https://github.com/googlefonts/noto-emoji
+
+#### 手順①：設定ファイルを作成する
+
+カスタムファミリ設定ファイルの名前は `bxcoloremoji-<ファミリ名>.cfg`
+である。今の例では `bxcoloremoji-notoemoji.cfg` を作成して TeX から
+見える位置に配置することになる。設定ファイルの書式は以下の通りである。
+
+    % prefix: 画像ファイルのパス名接頭辞
+    prefix = notoemoji/notoemoji-
+    % extension: 画像ファイルの拡張子
+    extension = png
+    % bbox = dvipdfmx 用の bounding box の値
+    bbox = 0 0 128 128
+
+`bbox` は dvipdfmx での画像の読込を高速化するための指定であり、省略する
+こともできる。全ての画像ファイルの bounding box が一致しているのではない
+場合は省略するしかない。dvipdfmx 以外ではこの値は使われない。
+
+`prefix` は画像ファイルの（Kpathsea 上の）パス名を決定するのに使われる。
+上の設定の場合、例えば、U+2603 ☃ `:snowman2:` の画像ファイルのパス名は
+`notoemoji/notoemoji-2603.png` となる。
+
+#### 手順②：画像ファイルを改名して配置する
+
+パス名の命名規則は以下の通りである。
+
+  * 絵文字を構成する Unicode 文字※の符号値の 16 進表記（0 埋め無し、
+    大文字）を順に `-` でつないだものを「符号値列」とする。  
+    ※ただし EVS（U+FE0F）は除外される。例えば、2️⃣ 〈0023 FE0F 20E3〉
+    に対する「符号値列」は `23-20E3` となる。
+  * `<prefixの値><符号値列>.<extensionの値>` がパス名である。
+
+noto-emojiの各々の画像ファイルをこの規則に従って配置する。例えば、
+U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）について、
+`notoemoji/notoemoji-2603.png` のパス名で読める位置※に配置する。
+
+※例えば、`$TEXINPUTS` に `~/texmf/tex/latex//` が含まれる場合、  
+`~/texmf/tex/latex/custom_images/notoemoji/notoemoji-2603.png`  
+に置くことができる。
+
+
 更新履歴
 --------
 
+  * Version 0.12 〈2021/01/27〉
+      - カスタムファミリの機能を追加。
+      - [coloremoji パッケージ]との互換のための機能を非推奨とする。
+        （`twitter`、`hires`、`lowres`、`basedir` のオプション。）
   * Version 0.11 〈2020/06/21〉
       - `\coloremojiucs` で PDF 文字列中の短縮名をサポート。
       - 独自短縮名を追加。
@@ -233,6 +274,8 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
       - 画像ファミリ `twemoji-pdf`，`twemoji-png` をサポート。
   * Version 0.1  〈2015/09/22〉
       - 最初の公開版。
+
+[coloremoji パッケージ]: https://github.com/doraTeX/coloremoji
 
 --------------------
 Takayuki YATO (aka. "ZR")  

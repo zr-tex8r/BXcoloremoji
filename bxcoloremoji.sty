@@ -1,7 +1,7 @@
 %%
 %% This is file 'bxcoloremoji.sty'.
 %%
-%% Copyright (c) 2017-2020 Takayuki YATO (aka. "ZR")
+%% Copyright (c) 2017-2021 Takayuki YATO (aka. "ZR")
 %%   GitHub:   https://github.com/zr-tex8r
 %%   Twitter:  @zr_tex8r
 %%
@@ -10,7 +10,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2020/06/21 v0.11]
+\ProvidesPackage{bxcoloremoji}[2021/01/27 v0.12]
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
@@ -61,7 +61,7 @@
 
 %--------------------------------------- package options
 
-%%<*> \coloremojidir : base directory
+%%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
 %% switch bxce@custom@family : is custom family used?
 \newbool{bxce@custom@family}
@@ -98,21 +98,21 @@
   \def\bxce@ext{png}%
   \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
 }
-\define@key{bxce}{twitter}[]{%
+\define@key{bxce}{twitter}[]{% *DEPRECATED*
   \bxce@custom@familyfalse
   \def\bxce@family{twitter}%
   \def\bxce@bb{0 0 38 38}%
   \def\bxce@ext{pdf}%
   \def\bxce@prefix{\coloremojidir twitter/}%
 }
-\define@key{bxce}{hires}[]{%
+\define@key{bxce}{hires}[]{% *DEPRECATED*
   \bxce@custom@familyfalse
   \def\bxce@family{hires}%
   \def\bxce@bb{0 0 11.338600 11.338600}%
   \def\bxce@ext{pdf}%
   \def\bxce@prefix{\coloremojidir hires/}%
 }
-\define@key{bxce}{lowres}[]{%
+\define@key{bxce}{lowres}[]{% *DEPRECATED*
   \bxce@custom@familyfalse
   \def\bxce@family{lowres}%
   \def\bxce@bb{0 0 4.535430 4.535430}%
@@ -122,7 +122,7 @@
 \define@key{bxce}{scale}{%
   \def\bxce@scale{#1}%
 }
-\define@key{bxce}{basedir}{%
+\define@key{bxce}{basedir}{% *DEPRECATED*
   \def\coloremojidir{#1}%
 }
 \define@key{bxce}{family}{%
