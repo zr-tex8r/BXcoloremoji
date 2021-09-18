@@ -9,7 +9,7 @@
 %%
 
 %% file declaration
-\ProvidesFile{bxcoloremoji-names.def}[2021/01/27 v0.12]
+\ProvidesFile{bxcoloremoji-names.def}[2021/09/18 v0.13]
 
 %--------------------------------------- name mappings
 \ifcase\bxce@ndindex %[0]
@@ -22,6 +22,8 @@
 \bxce@do{abc}{1F524}
 \bxce@do{abcd}{1F521}
 \bxce@do{accept}{1F251}
+\bxce@do{accordion}{1FA97}
+\bxce@do{adhesive_bandage}{1FA79}
 \bxce@do{adult}{1F9D1}
 \bxce@do{adult_tone1}{1F9D1 1F3FB}
 \bxce@do{adult_tone2}{1F9D1 1F3FC}
@@ -38,6 +40,7 @@
 \bxce@do{alien}{1F47D}
 \bxce@do{ambulance}{1F691}
 \bxce@do{amphora}{1F3FA}
+\bxce@do{anatomical_heart}{1FAC0}
 \bxce@do{anchor}{2693}
 \bxce@do{angel}{1F47C}
 \bxce@do{angel_tone1}{1F47C 1F3FB}
@@ -75,13 +78,27 @@
 \bxce@do{arrows_counterclockwise}{1F504}
 \bxce@do{art}{1F3A8}
 \bxce@do{articulated_lorry}{1F69B}
+\bxce@do{artist}{1F9D1 200D 1F3A8}
+\bxce@do{artist_tone1}{1F9D1 1F3FB 200D 1F3A8}
+\bxce@do{artist_tone2}{1F9D1 1F3FC 200D 1F3A8}
+\bxce@do{artist_tone3}{1F9D1 1F3FD 200D 1F3A8}
+\bxce@do{artist_tone4}{1F9D1 1F3FE 200D 1F3A8}
+\bxce@do{artist_tone5}{1F9D1 1F3FF 200D 1F3A8}
 \bxce@do{asterisk}{2A 20E3}
 \bxce@do{asterisk_symbol}{2A}%NA
 \bxce@do{astonished}{1F632}
+\bxce@do{astronaut}{1F9D1 200D 1F680}
+\bxce@do{astronaut_tone1}{1F9D1 1F3FB 200D 1F680}
+\bxce@do{astronaut_tone2}{1F9D1 1F3FC 200D 1F680}
+\bxce@do{astronaut_tone3}{1F9D1 1F3FD 200D 1F680}
+\bxce@do{astronaut_tone4}{1F9D1 1F3FE 200D 1F680}
+\bxce@do{astronaut_tone5}{1F9D1 1F3FF 200D 1F680}
 \bxce@do{athletic_shoe}{1F45F}
 \bxce@do{atm}{1F3E7}
 \bxce@do{atom}{269B}
+\bxce@do{auto_rickshaw}{1F6FA}
 \bxce@do{avocado}{1F951}
+\bxce@do{axe}{1FA93}
 \bxce@do{b}{1F171}
 \bxce@do{baby}{1F476}
 \bxce@do{baby_bottle}{1F37C}
@@ -99,12 +116,14 @@
 \bxce@do{bagel}{1F96F}
 \bxce@do{baggage_claim}{1F6C4}
 \bxce@do{bald}{1F9B2}
+\bxce@do{ballet_shoes}{1FA70}
 \bxce@do{balloon}{1F388}
 \bxce@do{ballot_box}{1F5F3}
 \bxce@do{ballot_box_with_check}{2611}
 \bxce@do{bamboo}{1F38D}
 \bxce@do{banana}{1F34C}
 \bxce@do{bangbang}{203C}
+\bxce@do{banjo}{1FA95}
 \bxce@do{bank}{1F3E6}
 \bxce@do{bar_chart}{1F4CA}
 \bxce@do{barber}{1F488}
@@ -129,21 +148,26 @@
 \bxce@do{bearded_person_tone3}{1F9D4 1F3FD}
 \bxce@do{bearded_person_tone4}{1F9D4 1F3FE}
 \bxce@do{bearded_person_tone5}{1F9D4 1F3FF}
+\bxce@do{beaver}{1F9AB}
 \bxce@do{bed}{1F6CF}
 \bxce@do{bee}{1F41D}
 \bxce@do{beer}{1F37A}
 \bxce@do{beers}{1F37B}
-\bxce@do{beetle}{1F41E}
+\bxce@do{beetle}{1FAB2}
 \bxce@do{beginner}{1F530}
 \bxce@do{bell}{1F514}
+\bxce@do{bell_pepper}{1FAD1}
 \bxce@do{bellhop}{1F6CE}
 \bxce@do{bento}{1F371}
+\bxce@do{beverage_box}{1F9C3}
 \bxce@do{bike}{1F6B2}
 \bxce@do{bikini}{1F459}
 \bxce@do{billed_cap}{1F9E2}
 \bxce@do{biohazard}{2623}
 \bxce@do{bird}{1F426}
 \bxce@do{birthday}{1F382}
+\bxce@do{bison}{1F9AC}
+\bxce@do{black_cat}{1F408 200D 2B1B}
 \bxce@do{black_circle}{26AB}
 \bxce@do{black_heart}{1F5A4}
 \bxce@do{black_joker}{1F0CF}
@@ -177,6 +201,8 @@
 \bxce@do{blue_car}{1F699}
 \bxce@do{blue_circle}{1F535}
 \bxce@do{blue_heart}{1F499}
+\bxce@do{blue_square}{1F7E6}
+\bxce@do{blueberries}{1FAD0}
 \bxce@do{blush}{1F60A}
 \bxce@do{boar}{1F417}
 \bxce@do{bomb}{1F4A3}
@@ -186,6 +212,7 @@
 \bxce@do{bookmark_tabs}{1F4D1}
 \bxce@do{books}{1F4DA}
 \bxce@do{boom}{1F4A5}
+\bxce@do{boomerang}{1FA83}
 \bxce@do{boot}{1F462}
 \bxce@do{bouquet}{1F490}
 \bxce@do{bow_and_arrow}{1F3F9}
@@ -207,17 +234,17 @@
 \bxce@do{breast_feeding_tone4}{1F931 1F3FE}
 \bxce@do{breast_feeding_tone5}{1F931 1F3FF}
 \bxce@do{bricks}{1F9F1}
-\bxce@do{bride_with_veil}{1F470}
-\bxce@do{bride_with_veil_tone1}{1F470 1F3FB}
-\bxce@do{bride_with_veil_tone2}{1F470 1F3FC}
-\bxce@do{bride_with_veil_tone3}{1F470 1F3FD}
-\bxce@do{bride_with_veil_tone4}{1F470 1F3FE}
-\bxce@do{bride_with_veil_tone5}{1F470 1F3FF}
 \bxce@do{bridge_at_night}{1F309}
 \bxce@do{briefcase}{1F4BC}
+\bxce@do{briefs}{1FA72}
 \bxce@do{broccoli}{1F966}
 \bxce@do{broken_heart}{1F494}
 \bxce@do{broom}{1F9F9}
+\bxce@do{brown_circle}{1F7E4}
+\bxce@do{brown_heart}{1F90E}
+\bxce@do{brown_square}{1F7EB}
+\bxce@do{bubble_tea}{1F9CB}
+\bxce@do{bucket}{1FAA3}
 \bxce@do{bug}{1F41B}
 \bxce@do{bulb}{1F4A1}
 \bxce@do{bullettrain_front}{1F685}
@@ -227,6 +254,7 @@
 \bxce@do{busstop}{1F68F}
 \bxce@do{bust_in_silhouette}{1F464}
 \bxce@do{busts_in_silhouette}{1F465}
+\bxce@do{butter}{1F9C8}
 \bxce@do{butterfly}{1F98B}
 \bxce@do{cactus}{1F335}
 \bxce@do{cake}{1F370}
@@ -253,11 +281,13 @@
 \bxce@do{card_box}{1F5C3}
 \bxce@do{card_index}{1F4C7}
 \bxce@do{carousel_horse}{1F3A0}
+\bxce@do{carpentry_saw}{1FA9A}
 \bxce@do{carrot}{1F955}
 \bxce@do{cat}{1F431}
 \bxce@do{cat2}{1F408}
 \bxce@do{cd}{1F4BF}
 \bxce@do{chains}{26D3}
+\bxce@do{chair}{1FA91}
 \bxce@do{champagne}{1F37E}
 \bxce@do{champagne_glass}{1F942}
 \bxce@do{chart}{1F4B9}
@@ -333,10 +363,12 @@
 \bxce@do{clown}{1F921}
 \bxce@do{clubs}{2663}
 \bxce@do{coat}{1F9E5}
+\bxce@do{cockroach}{1FAB3}
 \bxce@do{cocktail}{1F378}
 \bxce@do{coconut}{1F965}
 \bxce@do{coffee}{2615}
 \bxce@do{coffin}{26B0}
+\bxce@do{coin}{1FA99}
 \bxce@do{cold_face}{1F976}
 \bxce@do{cold_sweat}{1F630}
 \bxce@do{comet}{2604}
@@ -357,6 +389,12 @@
 \bxce@do{construction_worker_tone5}{1F477 1F3FF}
 \bxce@do{control_knobs}{1F39B}
 \bxce@do{convenience_store}{1F3EA}
+\bxce@do{cook}{1F9D1 200D 1F373}
+\bxce@do{cook_tone1}{1F9D1 1F3FB 200D 1F373}
+\bxce@do{cook_tone2}{1F9D1 1F3FC 200D 1F373}
+\bxce@do{cook_tone3}{1F9D1 1F3FD 200D 1F373}
+\bxce@do{cook_tone4}{1F9D1 1F3FE 200D 1F373}
+\bxce@do{cook_tone5}{1F9D1 1F3FF 200D 1F373}
 \bxce@do{cookie}{1F36A}
 \bxce@do{cooking}{1F373}
 \bxce@do{cool}{1F192}
@@ -366,7 +404,107 @@
 \bxce@do{couple}{1F46B}
 \bxce@do{couple_mm}{1F468 200D 2764 200D 1F468}
 \bxce@do{couple_with_heart}{1F491}
+\bxce@do{couple_with_heart_man_man_tone1}{1F468 1F3FB 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_man_man_tone1_tone2}{1F468 1F3FB 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_man_man_tone1_tone3}{1F468 1F3FB 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_man_man_tone1_tone4}{1F468 1F3FB 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_man_man_tone1_tone5}{1F468 1F3FB 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_man_man_tone2}{1F468 1F3FC 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_man_man_tone2_tone1}{1F468 1F3FC 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_man_man_tone2_tone3}{1F468 1F3FC 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_man_man_tone2_tone4}{1F468 1F3FC 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_man_man_tone2_tone5}{1F468 1F3FC 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_man_man_tone3}{1F468 1F3FD 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_man_man_tone3_tone1}{1F468 1F3FD 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_man_man_tone3_tone2}{1F468 1F3FD 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_man_man_tone3_tone4}{1F468 1F3FD 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_man_man_tone3_tone5}{1F468 1F3FD 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_man_man_tone4}{1F468 1F3FE 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_man_man_tone4_tone1}{1F468 1F3FE 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_man_man_tone4_tone2}{1F468 1F3FE 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_man_man_tone4_tone3}{1F468 1F3FE 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_man_man_tone4_tone5}{1F468 1F3FE 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_man_man_tone5}{1F468 1F3FF 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_man_man_tone5_tone1}{1F468 1F3FF 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_man_man_tone5_tone2}{1F468 1F3FF 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_man_man_tone5_tone3}{1F468 1F3FF 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_man_man_tone5_tone4}{1F468 1F3FF 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_person_person_tone1_tone2}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FC}
+\bxce@do{couple_with_heart_person_person_tone1_tone3}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FD}
+\bxce@do{couple_with_heart_person_person_tone1_tone4}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FE}
+\bxce@do{couple_with_heart_person_person_tone1_tone5}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone2_tone1}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FB}
+\bxce@do{couple_with_heart_person_person_tone2_tone3}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FD}
+\bxce@do{couple_with_heart_person_person_tone2_tone4}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FE}
+\bxce@do{couple_with_heart_person_person_tone2_tone5}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone3_tone1}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FB}
+\bxce@do{couple_with_heart_person_person_tone3_tone2}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FC}
+\bxce@do{couple_with_heart_person_person_tone3_tone4}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FE}
+\bxce@do{couple_with_heart_person_person_tone3_tone5}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone4_tone1}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FB}
+\bxce@do{couple_with_heart_person_person_tone4_tone2}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FC}
+\bxce@do{couple_with_heart_person_person_tone4_tone3}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FD}
+\bxce@do{couple_with_heart_person_person_tone4_tone5}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone5_tone1}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FB}
+\bxce@do{couple_with_heart_person_person_tone5_tone2}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FC}
+\bxce@do{couple_with_heart_person_person_tone5_tone3}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FD}
+\bxce@do{couple_with_heart_person_person_tone5_tone4}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FE}
+\bxce@do{couple_with_heart_tone1}{1F491 1F3FB}
+\bxce@do{couple_with_heart_tone2}{1F491 1F3FC}
+\bxce@do{couple_with_heart_tone3}{1F491 1F3FD}
+\bxce@do{couple_with_heart_tone4}{1F491 1F3FE}
+\bxce@do{couple_with_heart_tone5}{1F491 1F3FF}
 \bxce@do{couple_with_heart_woman_man}{1F469 200D 2764 200D 1F468}
+\bxce@do{couple_with_heart_woman_man_tone1}{1F469 1F3FB 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_woman_man_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_woman_man_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_woman_man_tone1_tone4}{1F469 1F3FB 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_man_tone1_tone5}{1F469 1F3FB 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_woman_man_tone2}{1F469 1F3FC 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_woman_man_tone2_tone1}{1F469 1F3FC 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_woman_man_tone2_tone3}{1F469 1F3FC 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_woman_man_tone2_tone4}{1F469 1F3FC 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_man_tone2_tone5}{1F469 1F3FC 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_woman_man_tone3}{1F469 1F3FD 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_woman_man_tone3_tone1}{1F469 1F3FD 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_woman_man_tone3_tone2}{1F469 1F3FD 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_woman_man_tone3_tone4}{1F469 1F3FD 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_man_tone3_tone5}{1F469 1F3FD 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_woman_man_tone4}{1F469 1F3FE 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_man_tone4_tone1}{1F469 1F3FE 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_woman_man_tone4_tone2}{1F469 1F3FE 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_woman_man_tone4_tone3}{1F469 1F3FE 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_woman_man_tone4_tone5}{1F469 1F3FE 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_woman_man_tone5}{1F469 1F3FF 200D 2764 200D 1F468 1F3FF}
+\bxce@do{couple_with_heart_woman_man_tone5_tone1}{1F469 1F3FF 200D 2764 200D 1F468 1F3FB}
+\bxce@do{couple_with_heart_woman_man_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F468 1F3FC}
+\bxce@do{couple_with_heart_woman_man_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F468 1F3FD}
+\bxce@do{couple_with_heart_woman_man_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_woman_tone1}{1F469 1F3FB 200D 2764 200D 1F469 1F3FB}
+\bxce@do{couple_with_heart_woman_woman_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F469 1F3FC}
+\bxce@do{couple_with_heart_woman_woman_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F469 1F3FD}
+\bxce@do{couple_with_heart_woman_woman_tone1_tone4}{1F469 1F3FB 200D 2764 200D 1F469 1F3FE}
+\bxce@do{couple_with_heart_woman_woman_tone1_tone5}{1F469 1F3FB 200D 2764 200D 1F469 1F3FF}
+\bxce@do{couple_with_heart_woman_woman_tone2}{1F469 1F3FC 200D 2764 200D 1F469 1F3FC}
+\bxce@do{couple_with_heart_woman_woman_tone2_tone1}{1F469 1F3FC 200D 2764 200D 1F469 1F3FB}
+\bxce@do{couple_with_heart_woman_woman_tone2_tone3}{1F469 1F3FC 200D 2764 200D 1F469 1F3FD}
+\bxce@do{couple_with_heart_woman_woman_tone2_tone4}{1F469 1F3FC 200D 2764 200D 1F469 1F3FE}
+\bxce@do{couple_with_heart_woman_woman_tone2_tone5}{1F469 1F3FC 200D 2764 200D 1F469 1F3FF}
+\bxce@do{couple_with_heart_woman_woman_tone3}{1F469 1F3FD 200D 2764 200D 1F469 1F3FD}
+\bxce@do{couple_with_heart_woman_woman_tone3_tone1}{1F469 1F3FD 200D 2764 200D 1F469 1F3FB}
+\bxce@do{couple_with_heart_woman_woman_tone3_tone2}{1F469 1F3FD 200D 2764 200D 1F469 1F3FC}
+\bxce@do{couple_with_heart_woman_woman_tone3_tone4}{1F469 1F3FD 200D 2764 200D 1F469 1F3FE}
+\bxce@do{couple_with_heart_woman_woman_tone3_tone5}{1F469 1F3FD 200D 2764 200D 1F469 1F3FF}
+\bxce@do{couple_with_heart_woman_woman_tone4}{1F469 1F3FE 200D 2764 200D 1F469 1F3FE}
+\bxce@do{couple_with_heart_woman_woman_tone4_tone1}{1F469 1F3FE 200D 2764 200D 1F469 1F3FB}
+\bxce@do{couple_with_heart_woman_woman_tone4_tone2}{1F469 1F3FE 200D 2764 200D 1F469 1F3FC}
+\bxce@do{couple_with_heart_woman_woman_tone4_tone3}{1F469 1F3FE 200D 2764 200D 1F469 1F3FD}
+\bxce@do{couple_with_heart_woman_woman_tone4_tone5}{1F469 1F3FE 200D 2764 200D 1F469 1F3FF}
+\bxce@do{couple_with_heart_woman_woman_tone5}{1F469 1F3FF 200D 2764 200D 1F469 1F3FF}
+\bxce@do{couple_with_heart_woman_woman_tone5_tone1}{1F469 1F3FF 200D 2764 200D 1F469 1F3FB}
+\bxce@do{couple_with_heart_woman_woman_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F469 1F3FC}
+\bxce@do{couple_with_heart_woman_woman_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F469 1F3FD}
+\bxce@do{couple_with_heart_woman_woman_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F469 1F3FE}
 \bxce@do{couple_ww}{1F469 200D 2764 200D 1F469}
 \bxce@do{couplekiss}{1F48F}
 \bxce@do{cow}{1F42E}
@@ -414,6 +552,24 @@
 \bxce@do{dart}{1F3AF}
 \bxce@do{dash}{1F4A8}
 \bxce@do{date}{1F4C5}
+\bxce@do{deaf_man}{1F9CF 200D 2642}
+\bxce@do{deaf_man_tone1}{1F9CF 1F3FB 200D 2642}
+\bxce@do{deaf_man_tone2}{1F9CF 1F3FC 200D 2642}
+\bxce@do{deaf_man_tone3}{1F9CF 1F3FD 200D 2642}
+\bxce@do{deaf_man_tone4}{1F9CF 1F3FE 200D 2642}
+\bxce@do{deaf_man_tone5}{1F9CF 1F3FF 200D 2642}
+\bxce@do{deaf_person}{1F9CF}
+\bxce@do{deaf_person_tone1}{1F9CF 1F3FB}
+\bxce@do{deaf_person_tone2}{1F9CF 1F3FC}
+\bxce@do{deaf_person_tone3}{1F9CF 1F3FD}
+\bxce@do{deaf_person_tone4}{1F9CF 1F3FE}
+\bxce@do{deaf_person_tone5}{1F9CF 1F3FF}
+\bxce@do{deaf_woman}{1F9CF 200D 2640}
+\bxce@do{deaf_woman_tone1}{1F9CF 1F3FB 200D 2640}
+\bxce@do{deaf_woman_tone2}{1F9CF 1F3FC 200D 2640}
+\bxce@do{deaf_woman_tone3}{1F9CF 1F3FD 200D 2640}
+\bxce@do{deaf_woman_tone4}{1F9CF 1F3FE 200D 2640}
+\bxce@do{deaf_woman_tone5}{1F9CF 1F3FF 200D 2640}
 \bxce@do{deciduous_tree}{1F333}
 \bxce@do{deer}{1F98C}
 \bxce@do{department_store}{1F3EC}
@@ -439,11 +595,15 @@
 \bxce@do{digit_zero}{30}%NA
 \bxce@do{disappointed}{1F61E}
 \bxce@do{disappointed_relieved}{1F625}
+\bxce@do{disguised_face}{1F978}
 \bxce@do{dividers}{1F5C2}
+\bxce@do{diving_mask}{1F93F}
+\bxce@do{diya_lamp}{1FA94}
 \bxce@do{dizzy}{1F4AB}
 \bxce@do{dizzy_face}{1F635}
 \bxce@do{dna}{1F9EC}
 \bxce@do{do_not_litter}{1F6AF}
+\bxce@do{dodo}{1F9A4}
 \bxce@do{dog}{1F436}
 \bxce@do{dog2}{1F415}
 \bxce@do{dollar}{1F4B5}
@@ -457,6 +617,7 @@
 \bxce@do{dress}{1F457}
 \bxce@do{dromedary_camel}{1F42A}
 \bxce@do{drooling_face}{1F924}
+\bxce@do{drop_of_blood}{1FA78}
 \bxce@do{droplet}{1F4A7}
 \bxce@do{drum}{1F941}
 \bxce@do{duck}{1F986}
@@ -471,6 +632,12 @@
 \bxce@do{ear_tone3}{1F442 1F3FD}
 \bxce@do{ear_tone4}{1F442 1F3FE}
 \bxce@do{ear_tone5}{1F442 1F3FF}
+\bxce@do{ear_with_hearing_aid}{1F9BB}
+\bxce@do{ear_with_hearing_aid_tone1}{1F9BB 1F3FB}
+\bxce@do{ear_with_hearing_aid_tone2}{1F9BB 1F3FC}
+\bxce@do{ear_with_hearing_aid_tone3}{1F9BB 1F3FD}
+\bxce@do{ear_with_hearing_aid_tone4}{1F9BB 1F3FE}
+\bxce@do{ear_with_hearing_aid_tone5}{1F9BB 1F3FF}
 \bxce@do{earth_africa}{1F30D}
 \bxce@do{earth_americas}{1F30E}
 \bxce@do{earth_asia}{1F30F}
@@ -482,6 +649,7 @@
 \bxce@do{eject}{23CF}
 \bxce@do{electric_plug}{1F50C}
 \bxce@do{elephant}{1F418}
+\bxce@do{elevator}{1F6D7}
 \bxce@do{elf}{1F9DD}
 \bxce@do{elf_tone1}{1F9DD 1F3FB}
 \bxce@do{elf_tone2}{1F9DD 1F3FC}
@@ -503,18 +671,28 @@
 \bxce@do{eye_in_speech_bubble}{1F441 200D 1F5E8}
 \bxce@do{eyeglasses}{1F453}
 \bxce@do{eyes}{1F440}
+\bxce@do{face_exhaling}{1F62E 200D 1F4A8}
+\bxce@do{face_in_clouds}{1F636 200D 1F32B}
 \bxce@do{face_vomiting}{1F92E}
 \bxce@do{face_with_hand_over_mouth}{1F92D}
 \bxce@do{face_with_monocle}{1F9D0}
 \bxce@do{face_with_raised_eyebrow}{1F928}
+\bxce@do{face_with_spiral_eyes}{1F635 200D 1F4AB}
 \bxce@do{face_with_symbols_over_mouth}{1F92C}
 \bxce@do{factory}{1F3ED}
+\bxce@do{factory_worker}{1F9D1 200D 1F3ED}
+\bxce@do{factory_worker_tone1}{1F9D1 1F3FB 200D 1F3ED}
+\bxce@do{factory_worker_tone2}{1F9D1 1F3FC 200D 1F3ED}
+\bxce@do{factory_worker_tone3}{1F9D1 1F3FD 200D 1F3ED}
+\bxce@do{factory_worker_tone4}{1F9D1 1F3FE 200D 1F3ED}
+\bxce@do{factory_worker_tone5}{1F9D1 1F3FF 200D 1F3ED}
 \bxce@do{fairy}{1F9DA}
 \bxce@do{fairy_tone1}{1F9DA 1F3FB}
 \bxce@do{fairy_tone2}{1F9DA 1F3FC}
 \bxce@do{fairy_tone3}{1F9DA 1F3FD}
 \bxce@do{fairy_tone4}{1F9DA 1F3FE}
 \bxce@do{fairy_tone5}{1F9DA 1F3FF}
+\bxce@do{falafel}{1F9C6}
 \bxce@do{fallen_leaf}{1F342}
 \bxce@do{family}{1F46A}
 \bxce@do{family_man_boy}{1F468 200D 1F466}
@@ -542,9 +720,16 @@
 \bxce@do{family_wwg}{1F469 200D 1F469 200D 1F467}
 \bxce@do{family_wwgb}{1F469 200D 1F469 200D 1F467 200D 1F466}
 \bxce@do{family_wwgg}{1F469 200D 1F469 200D 1F467 200D 1F467}
+\bxce@do{farmer}{1F9D1 200D 1F33E}
+\bxce@do{farmer_tone1}{1F9D1 1F3FB 200D 1F33E}
+\bxce@do{farmer_tone2}{1F9D1 1F3FC 200D 1F33E}
+\bxce@do{farmer_tone3}{1F9D1 1F3FD 200D 1F33E}
+\bxce@do{farmer_tone4}{1F9D1 1F3FE 200D 1F33E}
+\bxce@do{farmer_tone5}{1F9D1 1F3FF 200D 1F33E}
 \bxce@do{fast_forward}{23E9}
 \bxce@do{fax}{1F4E0}
 \bxce@do{fearful}{1F628}
+\bxce@do{feather}{1FAB6}
 \bxce@do{feet}{1F43E}
 \bxce@do{female_sign}{2640}
 \bxce@do{ferris_wheel}{1F3A1}
@@ -563,6 +748,12 @@
 \bxce@do{fire_engine}{1F692}
 \bxce@do{fire_extinguisher}{1F9EF}
 \bxce@do{firecracker}{1F9E8}
+\bxce@do{firefighter}{1F9D1 200D 1F692}
+\bxce@do{firefighter_tone1}{1F9D1 1F3FB 200D 1F692}
+\bxce@do{firefighter_tone2}{1F9D1 1F3FC 200D 1F692}
+\bxce@do{firefighter_tone3}{1F9D1 1F3FD 200D 1F692}
+\bxce@do{firefighter_tone4}{1F9D1 1F3FE 200D 1F692}
+\bxce@do{firefighter_tone5}{1F9D1 1F3FF 200D 1F692}
 \bxce@do{fireworks}{1F386}
 \bxce@do{first_place}{1F947}
 \bxce@do{first_quarter_moon}{1F313}
@@ -837,15 +1028,19 @@
 \bxce@do{flag_zm}{1F1FF 1F1F2}
 \bxce@do{flag_zw}{1F1FF 1F1FC}
 \bxce@do{flags}{1F38F}
+\bxce@do{flamingo}{1F9A9}
 \bxce@do{flashlight}{1F526}
+\bxce@do{flatbread}{1FAD3}
 \bxce@do{fleur-de-lis}{269C}
 \bxce@do{floppy_disk}{1F4BE}
 \bxce@do{flower_playing_cards}{1F3B4}
 \bxce@do{flushed}{1F633}
+\bxce@do{fly}{1FAB0}
 \bxce@do{flying_disc}{1F94F}
 \bxce@do{flying_saucer}{1F6F8}
 \bxce@do{fog}{1F32B}
 \bxce@do{foggy}{1F301}
+\bxce@do{fondue}{1FAD5}
 \bxce@do{foot}{1F9B6}
 \bxce@do{foot_tone1}{1F9B6 1F3FB}
 \bxce@do{foot_tone2}{1F9B6 1F3FC}
@@ -874,6 +1069,7 @@
 \bxce@do{full_moon_with_face}{1F31D}
 \or %[2]
 \bxce@do{game_die}{1F3B2}
+\bxce@do{garlic}{1F9C4}
 \bxce@do{gear}{2699}
 \bxce@do{gem}{1F48E}
 \bxce@do{gemini}{264A}
@@ -898,7 +1094,9 @@
 \bxce@do{grapes}{1F347}
 \bxce@do{green_apple}{1F34F}
 \bxce@do{green_book}{1F4D7}
+\bxce@do{green_circle}{1F7E2}
 \bxce@do{green_heart}{1F49A}
+\bxce@do{green_square}{1F7E9}
 \bxce@do{grey_exclamation}{2755}
 \bxce@do{grey_question}{2754}
 \bxce@do{grimacing}{1F62C}
@@ -910,6 +1108,7 @@
 \bxce@do{guard_tone3}{1F482 1F3FD}
 \bxce@do{guard_tone4}{1F482 1F3FE}
 \bxce@do{guard_tone5}{1F482 1F3FF}
+\bxce@do{guide_dog}{1F9AE}
 \bxce@do{guitar}{1F3B8}
 \bxce@do{gun}{1F52B}
 \bxce@do{hamburger}{1F354}
@@ -929,12 +1128,20 @@
 \bxce@do{hatching_chick}{1F423}
 \bxce@do{head_bandage}{1F915}
 \bxce@do{headphones}{1F3A7}
+\bxce@do{headstone}{1FAA6}
+\bxce@do{health_worker}{1F9D1 200D 2695}
+\bxce@do{health_worker_tone1}{1F9D1 1F3FB 200D 2695}
+\bxce@do{health_worker_tone2}{1F9D1 1F3FC 200D 2695}
+\bxce@do{health_worker_tone3}{1F9D1 1F3FD 200D 2695}
+\bxce@do{health_worker_tone4}{1F9D1 1F3FE 200D 2695}
+\bxce@do{health_worker_tone5}{1F9D1 1F3FF 200D 2695}
 \bxce@do{hear_no_evil}{1F649}
 \bxce@do{heart}{2764}
 \bxce@do{heart_decoration}{1F49F}
 \bxce@do{heart_exclamation}{2763}
 \bxce@do{heart_eyes}{1F60D}
 \bxce@do{heart_eyes_cat}{1F63B}
+\bxce@do{heart_on_fire}{2764 200D 1F525}
 \bxce@do{heartbeat}{1F493}
 \bxce@do{heartpulse}{1F497}
 \bxce@do{hearts}{2665}
@@ -952,11 +1159,13 @@
 \bxce@do{high_brightness}{1F506}
 \bxce@do{high_heel}{1F460}
 \bxce@do{hiking_boot}{1F97E}
+\bxce@do{hindu_temple}{1F6D5}
 \bxce@do{hippopotamus}{1F99B}
 \bxce@do{hockey}{1F3D2}
 \bxce@do{hole}{1F573}
 \bxce@do{homes}{1F3D8}
 \bxce@do{honey_pot}{1F36F}
+\bxce@do{hook}{1FA9D}
 \bxce@do{horse}{1F434}
 \bxce@do{horse_racing}{1F3C7}
 \bxce@do{horse_racing_tone1}{1F3C7 1F3FB}
@@ -977,7 +1186,9 @@
 \bxce@do{house_with_garden}{1F3E1}
 \bxce@do{hugging}{1F917}
 \bxce@do{hushed}{1F62F}
+\bxce@do{hut}{1F6D6}
 \bxce@do{ice_cream}{1F368}
+\bxce@do{ice_cube}{1F9CA}
 \bxce@do{ice_skate}{26F8}
 \bxce@do{icecream}{1F366}
 \bxce@do{id}{1F194}
@@ -989,7 +1200,6 @@
 \bxce@do{information_source}{2139}
 \bxce@do{innocent}{1F607}
 \bxce@do{interrobang}{2049}
-\bxce@do{iphone}{1F4F1}
 \bxce@do{island}{1F3DD}
 \bxce@do{izakaya_lantern}{1F3EE}
 \bxce@do{jack_o_lantern}{1F383}
@@ -1002,6 +1212,12 @@
 \bxce@do{joy}{1F602}
 \bxce@do{joy_cat}{1F639}
 \bxce@do{joystick}{1F579}
+\bxce@do{judge}{1F9D1 200D 2696}
+\bxce@do{judge_tone1}{1F9D1 1F3FB 200D 2696}
+\bxce@do{judge_tone2}{1F9D1 1F3FC 200D 2696}
+\bxce@do{judge_tone3}{1F9D1 1F3FD 200D 2696}
+\bxce@do{judge_tone4}{1F9D1 1F3FE 200D 2696}
+\bxce@do{judge_tone5}{1F9D1 1F3FF 200D 2696}
 \bxce@do{kaaba}{1F54B}
 \bxce@do{kangaroo}{1F998}
 \bxce@do{key}{1F511}
@@ -1010,21 +1226,125 @@
 \bxce@do{keycap_ten}{1F51F}
 \bxce@do{kimono}{1F458}
 \bxce@do{kiss}{1F48B}
+\bxce@do{kiss_man_man_tone1}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_man_man_tone1_tone2}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_man_man_tone1_tone3}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_man_man_tone1_tone4}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_man_man_tone1_tone5}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_man_man_tone2}{1F468 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_man_man_tone2_tone1}{1F468 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_man_man_tone2_tone3}{1F468 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_man_man_tone2_tone4}{1F468 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_man_man_tone2_tone5}{1F468 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_man_man_tone3}{1F468 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_man_man_tone3_tone1}{1F468 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_man_man_tone3_tone2}{1F468 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_man_man_tone3_tone4}{1F468 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_man_man_tone3_tone5}{1F468 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_man_man_tone4}{1F468 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_man_man_tone4_tone1}{1F468 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_man_man_tone4_tone2}{1F468 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_man_man_tone4_tone3}{1F468 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_man_man_tone4_tone5}{1F468 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_man_man_tone5}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_man_man_tone5_tone1}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_man_man_tone5_tone2}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_man_man_tone5_tone3}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_man_man_tone5_tone4}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FE}
 \bxce@do{kiss_mm}{1F468 200D 2764 200D 1F48B 200D 1F468}
+\bxce@do{kiss_person_person_tone1_tone2}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
+\bxce@do{kiss_person_person_tone1_tone3}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
+\bxce@do{kiss_person_person_tone1_tone4}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
+\bxce@do{kiss_person_person_tone1_tone5}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone2_tone1}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
+\bxce@do{kiss_person_person_tone2_tone3}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
+\bxce@do{kiss_person_person_tone2_tone4}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
+\bxce@do{kiss_person_person_tone2_tone5}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone3_tone1}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
+\bxce@do{kiss_person_person_tone3_tone2}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
+\bxce@do{kiss_person_person_tone3_tone4}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
+\bxce@do{kiss_person_person_tone3_tone5}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone4_tone1}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
+\bxce@do{kiss_person_person_tone4_tone2}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
+\bxce@do{kiss_person_person_tone4_tone3}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
+\bxce@do{kiss_person_person_tone4_tone5}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone5_tone1}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
+\bxce@do{kiss_person_person_tone5_tone2}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
+\bxce@do{kiss_person_person_tone5_tone3}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
+\bxce@do{kiss_person_person_tone5_tone4}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
+\bxce@do{kiss_tone1}{1F48F 1F3FB}
+\bxce@do{kiss_tone2}{1F48F 1F3FC}
+\bxce@do{kiss_tone3}{1F48F 1F3FD}
+\bxce@do{kiss_tone4}{1F48F 1F3FE}
+\bxce@do{kiss_tone5}{1F48F 1F3FF}
 \bxce@do{kiss_woman_man}{1F469 200D 2764 200D 1F48B 200D 1F468}
+\bxce@do{kiss_woman_man_tone1}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_woman_man_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_woman_man_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_woman_man_tone1_tone4}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_man_tone1_tone5}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_woman_man_tone2}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_woman_man_tone2_tone1}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_woman_man_tone2_tone3}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_woman_man_tone2_tone4}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_man_tone2_tone5}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_woman_man_tone3}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_woman_man_tone3_tone1}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_woman_man_tone3_tone2}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_woman_man_tone3_tone4}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_man_tone3_tone5}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_woman_man_tone4}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_man_tone4_tone1}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_woman_man_tone4_tone2}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_woman_man_tone4_tone3}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_woman_man_tone4_tone5}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_woman_man_tone5}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FF}
+\bxce@do{kiss_woman_man_tone5_tone1}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FB}
+\bxce@do{kiss_woman_man_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FC}
+\bxce@do{kiss_woman_man_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FD}
+\bxce@do{kiss_woman_man_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_woman_tone1}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FB}
+\bxce@do{kiss_woman_woman_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FC}
+\bxce@do{kiss_woman_woman_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FD}
+\bxce@do{kiss_woman_woman_tone1_tone4}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FE}
+\bxce@do{kiss_woman_woman_tone1_tone5}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FF}
+\bxce@do{kiss_woman_woman_tone2}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F469 1F3FC}
+\bxce@do{kiss_woman_woman_tone2_tone1}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F469 1F3FB}
+\bxce@do{kiss_woman_woman_tone2_tone3}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F469 1F3FD}
+\bxce@do{kiss_woman_woman_tone2_tone4}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F469 1F3FE}
+\bxce@do{kiss_woman_woman_tone2_tone5}{1F469 1F3FC 200D 2764 200D 1F48B 200D 1F469 1F3FF}
+\bxce@do{kiss_woman_woman_tone3}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F469 1F3FD}
+\bxce@do{kiss_woman_woman_tone3_tone1}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F469 1F3FB}
+\bxce@do{kiss_woman_woman_tone3_tone2}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F469 1F3FC}
+\bxce@do{kiss_woman_woman_tone3_tone4}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F469 1F3FE}
+\bxce@do{kiss_woman_woman_tone3_tone5}{1F469 1F3FD 200D 2764 200D 1F48B 200D 1F469 1F3FF}
+\bxce@do{kiss_woman_woman_tone4}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F469 1F3FE}
+\bxce@do{kiss_woman_woman_tone4_tone1}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F469 1F3FB}
+\bxce@do{kiss_woman_woman_tone4_tone2}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F469 1F3FC}
+\bxce@do{kiss_woman_woman_tone4_tone3}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F469 1F3FD}
+\bxce@do{kiss_woman_woman_tone4_tone5}{1F469 1F3FE 200D 2764 200D 1F48B 200D 1F469 1F3FF}
+\bxce@do{kiss_woman_woman_tone5}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F469 1F3FF}
+\bxce@do{kiss_woman_woman_tone5_tone1}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F469 1F3FB}
+\bxce@do{kiss_woman_woman_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F469 1F3FC}
+\bxce@do{kiss_woman_woman_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F469 1F3FD}
+\bxce@do{kiss_woman_woman_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F469 1F3FE}
 \bxce@do{kiss_ww}{1F469 200D 2764 200D 1F48B 200D 1F469}
 \bxce@do{kissing}{1F617}
 \bxce@do{kissing_cat}{1F63D}
 \bxce@do{kissing_closed_eyes}{1F61A}
 \bxce@do{kissing_heart}{1F618}
 \bxce@do{kissing_smiling_eyes}{1F619}
+\bxce@do{kite}{1FA81}
 \bxce@do{kiwi}{1F95D}
 \bxce@do{knife}{1F52A}
+\bxce@do{knot}{1FAA2}
 \bxce@do{koala}{1F428}
 \bxce@do{koko}{1F201}
 \bxce@do{lab_coat}{1F97C}
 \bxce@do{label}{1F3F7}
 \bxce@do{lacrosse}{1F94D}
+\bxce@do{ladder}{1FA9C}
+\bxce@do{lady_beetle}{1F41E}
 \bxce@do{large_blue_diamond}{1F537}
 \bxce@do{large_orange_diamond}{1F536}
 \bxce@do{last_quarter_moon}{1F317}
@@ -1070,6 +1390,7 @@
 \bxce@do{lock}{1F512}
 \bxce@do{lock_with_ink_pen}{1F50F}
 \bxce@do{lollipop}{1F36D}
+\bxce@do{long_drum}{1FA98}
 \bxce@do{loop}{27BF}
 \bxce@do{loud_sound}{1F50A}
 \bxce@do{loudspeaker}{1F4E2}
@@ -1083,7 +1404,9 @@
 \bxce@do{love_you_gesture_tone5}{1F91F 1F3FF}
 \bxce@do{low_brightness}{1F505}
 \bxce@do{luggage}{1F9F3}
+\bxce@do{lungs}{1FAC1}
 \bxce@do{lying_face}{1F925}
+\or %[3]
 \bxce@do{m}{24C2}
 \bxce@do{mag}{1F50D}
 \bxce@do{mag_right}{1F50E}
@@ -1093,6 +1416,7 @@
 \bxce@do{mage_tone3}{1F9D9 1F3FD}
 \bxce@do{mage_tone4}{1F9D9 1F3FE}
 \bxce@do{mage_tone5}{1F9D9 1F3FF}
+\bxce@do{magic_wand}{1FA84}
 \bxce@do{magnet}{1F9F2}
 \bxce@do{mahjong}{1F004}
 \bxce@do{mailbox}{1F4EB}
@@ -1100,6 +1424,7 @@
 \bxce@do{mailbox_with_mail}{1F4EC}
 \bxce@do{mailbox_with_no_mail}{1F4ED}
 \bxce@do{male_sign}{2642}
+\bxce@do{mammoth}{1F9A3}
 \bxce@do{man}{1F468}
 \bxce@do{man_artist}{1F468 200D 1F3A8}
 \bxce@do{man_artist_tone1}{1F468 1F3FB 200D 1F3A8}
@@ -1119,6 +1444,7 @@
 \bxce@do{man_bald_tone3}{1F468 1F3FD 200D 1F9B2}
 \bxce@do{man_bald_tone4}{1F468 1F3FE 200D 1F9B2}
 \bxce@do{man_bald_tone5}{1F468 1F3FF 200D 1F9B2}
+\bxce@do{man_beard}{1F9D4 200D 2642}
 \bxce@do{man_biking}{1F6B4 200D 2642}
 \bxce@do{man_biking_tone1}{1F6B4 1F3FB 200D 2642}
 \bxce@do{man_biking_tone2}{1F6B4 1F3FC 200D 2642}
@@ -1209,6 +1535,12 @@
 \bxce@do{man_farmer_tone3}{1F468 1F3FD 200D 1F33E}
 \bxce@do{man_farmer_tone4}{1F468 1F3FE 200D 1F33E}
 \bxce@do{man_farmer_tone5}{1F468 1F3FF 200D 1F33E}
+\bxce@do{man_feeding_baby}{1F468 200D 1F37C}
+\bxce@do{man_feeding_baby_tone1}{1F468 1F3FB 200D 1F37C}
+\bxce@do{man_feeding_baby_tone2}{1F468 1F3FC 200D 1F37C}
+\bxce@do{man_feeding_baby_tone3}{1F468 1F3FD 200D 1F37C}
+\bxce@do{man_feeding_baby_tone4}{1F468 1F3FE 200D 1F37C}
+\bxce@do{man_feeding_baby_tone5}{1F468 1F3FF 200D 1F37C}
 \bxce@do{man_firefighter}{1F468 200D 1F692}
 \bxce@do{man_firefighter_tone1}{1F468 1F3FB 200D 1F692}
 \bxce@do{man_firefighter_tone2}{1F468 1F3FC 200D 1F692}
@@ -1270,18 +1602,30 @@
 \bxce@do{man_in_lotus_position_tone3}{1F9D8 1F3FD 200D 2642}
 \bxce@do{man_in_lotus_position_tone4}{1F9D8 1F3FE 200D 2642}
 \bxce@do{man_in_lotus_position_tone5}{1F9D8 1F3FF 200D 2642}
+\bxce@do{man_in_manual_wheelchair}{1F468 200D 1F9BD}
+\bxce@do{man_in_manual_wheelchair_tone1}{1F468 1F3FB 200D 1F9BD}
+\bxce@do{man_in_manual_wheelchair_tone2}{1F468 1F3FC 200D 1F9BD}
+\bxce@do{man_in_manual_wheelchair_tone3}{1F468 1F3FD 200D 1F9BD}
+\bxce@do{man_in_manual_wheelchair_tone4}{1F468 1F3FE 200D 1F9BD}
+\bxce@do{man_in_manual_wheelchair_tone5}{1F468 1F3FF 200D 1F9BD}
+\bxce@do{man_in_motorized_wheelchair}{1F468 200D 1F9BC}
+\bxce@do{man_in_motorized_wheelchair_tone1}{1F468 1F3FB 200D 1F9BC}
+\bxce@do{man_in_motorized_wheelchair_tone2}{1F468 1F3FC 200D 1F9BC}
+\bxce@do{man_in_motorized_wheelchair_tone3}{1F468 1F3FD 200D 1F9BC}
+\bxce@do{man_in_motorized_wheelchair_tone4}{1F468 1F3FE 200D 1F9BC}
+\bxce@do{man_in_motorized_wheelchair_tone5}{1F468 1F3FF 200D 1F9BC}
 \bxce@do{man_in_steamy_room}{1F9D6 200D 2642}
 \bxce@do{man_in_steamy_room_tone1}{1F9D6 1F3FB 200D 2642}
 \bxce@do{man_in_steamy_room_tone2}{1F9D6 1F3FC 200D 2642}
 \bxce@do{man_in_steamy_room_tone3}{1F9D6 1F3FD 200D 2642}
 \bxce@do{man_in_steamy_room_tone4}{1F9D6 1F3FE 200D 2642}
 \bxce@do{man_in_steamy_room_tone5}{1F9D6 1F3FF 200D 2642}
-\bxce@do{man_in_tuxedo}{1F935}
-\bxce@do{man_in_tuxedo_tone1}{1F935 1F3FB}
-\bxce@do{man_in_tuxedo_tone2}{1F935 1F3FC}
-\bxce@do{man_in_tuxedo_tone3}{1F935 1F3FD}
-\bxce@do{man_in_tuxedo_tone4}{1F935 1F3FE}
-\bxce@do{man_in_tuxedo_tone5}{1F935 1F3FF}
+\bxce@do{man_in_tuxedo}{1F935 200D 2642}
+\bxce@do{man_in_tuxedo_tone1}{1F935 1F3FB 200D 2642}
+\bxce@do{man_in_tuxedo_tone2}{1F935 1F3FC 200D 2642}
+\bxce@do{man_in_tuxedo_tone3}{1F935 1F3FD 200D 2642}
+\bxce@do{man_in_tuxedo_tone4}{1F935 1F3FE 200D 2642}
+\bxce@do{man_in_tuxedo_tone5}{1F935 1F3FF 200D 2642}
 \bxce@do{man_judge}{1F468 200D 2696}
 \bxce@do{man_judge_tone1}{1F468 1F3FB 200D 2696}
 \bxce@do{man_judge_tone2}{1F468 1F3FC 200D 2696}
@@ -1294,6 +1638,12 @@
 \bxce@do{man_juggling_tone3}{1F939 1F3FD 200D 2642}
 \bxce@do{man_juggling_tone4}{1F939 1F3FE 200D 2642}
 \bxce@do{man_juggling_tone5}{1F939 1F3FF 200D 2642}
+\bxce@do{man_kneeling}{1F9CE 200D 2642}
+\bxce@do{man_kneeling_tone1}{1F9CE 1F3FB 200D 2642}
+\bxce@do{man_kneeling_tone2}{1F9CE 1F3FC 200D 2642}
+\bxce@do{man_kneeling_tone3}{1F9CE 1F3FD 200D 2642}
+\bxce@do{man_kneeling_tone4}{1F9CE 1F3FE 200D 2642}
+\bxce@do{man_kneeling_tone5}{1F9CE 1F3FF 200D 2642}
 \bxce@do{man_lifting_weights}{1F3CB 200D 2642}
 \bxce@do{man_lifting_weights_tone1}{1F3CB 1F3FB 200D 2642}
 \bxce@do{man_lifting_weights_tone2}{1F3CB 1F3FC 200D 2642}
@@ -1396,6 +1746,12 @@
 \bxce@do{man_singer_tone3}{1F468 1F3FD 200D 1F3A4}
 \bxce@do{man_singer_tone4}{1F468 1F3FE 200D 1F3A4}
 \bxce@do{man_singer_tone5}{1F468 1F3FF 200D 1F3A4}
+\bxce@do{man_standing}{1F9CD 200D 2642}
+\bxce@do{man_standing_tone1}{1F9CD 1F3FB 200D 2642}
+\bxce@do{man_standing_tone2}{1F9CD 1F3FC 200D 2642}
+\bxce@do{man_standing_tone3}{1F9CD 1F3FD 200D 2642}
+\bxce@do{man_standing_tone4}{1F9CD 1F3FE 200D 2642}
+\bxce@do{man_standing_tone5}{1F9CD 1F3FF 200D 2642}
 \bxce@do{man_student}{1F468 200D 1F393}
 \bxce@do{man_student_tone1}{1F468 1F3FB 200D 1F393}
 \bxce@do{man_student_tone2}{1F468 1F3FC 200D 1F393}
@@ -1445,10 +1801,15 @@
 \bxce@do{man_tipping_hand_tone4}{1F481 1F3FE 200D 2642}
 \bxce@do{man_tipping_hand_tone5}{1F481 1F3FF 200D 2642}
 \bxce@do{man_tone1}{1F468 1F3FB}
+\bxce@do{man_tone1_beard}{1F9D4 1F3FB 200D 2642}
 \bxce@do{man_tone2}{1F468 1F3FC}
+\bxce@do{man_tone2_beard}{1F9D4 1F3FC 200D 2642}
 \bxce@do{man_tone3}{1F468 1F3FD}
+\bxce@do{man_tone3_beard}{1F9D4 1F3FD 200D 2642}
 \bxce@do{man_tone4}{1F468 1F3FE}
+\bxce@do{man_tone4_beard}{1F9D4 1F3FE 200D 2642}
 \bxce@do{man_tone5}{1F468 1F3FF}
+\bxce@do{man_tone5_beard}{1F9D4 1F3FF 200D 2642}
 \bxce@do{man_vampire}{1F9DB 200D 2642}
 \bxce@do{man_vampire_tone1}{1F9DB 1F3FB 200D 2642}
 \bxce@do{man_vampire_tone2}{1F9DB 1F3FC 200D 2642}
@@ -1479,20 +1840,68 @@
 \bxce@do{man_with_chinese_cap_tone3}{1F472 1F3FD}
 \bxce@do{man_with_chinese_cap_tone4}{1F472 1F3FE}
 \bxce@do{man_with_chinese_cap_tone5}{1F472 1F3FF}
+\bxce@do{man_with_probing_cane}{1F468 200D 1F9AF}
+\bxce@do{man_with_probing_cane_tone1}{1F468 1F3FB 200D 1F9AF}
+\bxce@do{man_with_probing_cane_tone2}{1F468 1F3FC 200D 1F9AF}
+\bxce@do{man_with_probing_cane_tone3}{1F468 1F3FD 200D 1F9AF}
+\bxce@do{man_with_probing_cane_tone4}{1F468 1F3FE 200D 1F9AF}
+\bxce@do{man_with_probing_cane_tone5}{1F468 1F3FF 200D 1F9AF}
+\bxce@do{man_with_veil}{1F470 200D 2642}
+\bxce@do{man_with_veil_tone1}{1F470 1F3FB 200D 2642}
+\bxce@do{man_with_veil_tone2}{1F470 1F3FC 200D 2642}
+\bxce@do{man_with_veil_tone3}{1F470 1F3FD 200D 2642}
+\bxce@do{man_with_veil_tone4}{1F470 1F3FE 200D 2642}
+\bxce@do{man_with_veil_tone5}{1F470 1F3FF 200D 2642}
 \bxce@do{man_zombie}{1F9DF 200D 2642}
 \bxce@do{mango}{1F96D}
 \bxce@do{mans_shoe}{1F45E}
+\bxce@do{manual_wheelchair}{1F9BD}
 \bxce@do{map}{1F5FA}
 \bxce@do{maple_leaf}{1F341}
 \bxce@do{martial_arts_uniform}{1F94B}
 \bxce@do{mask}{1F637}
+\bxce@do{mate}{1F9C9}
 \bxce@do{meat_on_bone}{1F356}
+\bxce@do{mechanic}{1F9D1 200D 1F527}
+\bxce@do{mechanic_tone1}{1F9D1 1F3FB 200D 1F527}
+\bxce@do{mechanic_tone2}{1F9D1 1F3FC 200D 1F527}
+\bxce@do{mechanic_tone3}{1F9D1 1F3FD 200D 1F527}
+\bxce@do{mechanic_tone4}{1F9D1 1F3FE 200D 1F527}
+\bxce@do{mechanic_tone5}{1F9D1 1F3FF 200D 1F527}
+\bxce@do{mechanical_arm}{1F9BE}
+\bxce@do{mechanical_leg}{1F9BF}
 \bxce@do{medal}{1F3C5}
 \bxce@do{medical_symbol}{2695}
 \bxce@do{mega}{1F4E3}
 \bxce@do{melon}{1F348}
+\bxce@do{men_holding_hands_tone1}{1F46C 1F3FB}
+\bxce@do{men_holding_hands_tone1_tone2}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{men_holding_hands_tone1_tone3}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{men_holding_hands_tone1_tone4}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{men_holding_hands_tone1_tone5}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{men_holding_hands_tone2}{1F46C 1F3FC}
+\bxce@do{men_holding_hands_tone2_tone1}{1F468 1F3FC 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{men_holding_hands_tone2_tone3}{1F468 1F3FC 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{men_holding_hands_tone2_tone4}{1F468 1F3FC 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{men_holding_hands_tone2_tone5}{1F468 1F3FC 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{men_holding_hands_tone3}{1F46C 1F3FD}
+\bxce@do{men_holding_hands_tone3_tone1}{1F468 1F3FD 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{men_holding_hands_tone3_tone2}{1F468 1F3FD 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{men_holding_hands_tone3_tone4}{1F468 1F3FD 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{men_holding_hands_tone3_tone5}{1F468 1F3FD 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{men_holding_hands_tone4}{1F46C 1F3FE}
+\bxce@do{men_holding_hands_tone4_tone1}{1F468 1F3FE 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{men_holding_hands_tone4_tone2}{1F468 1F3FE 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{men_holding_hands_tone4_tone3}{1F468 1F3FE 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{men_holding_hands_tone4_tone5}{1F468 1F3FE 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{men_holding_hands_tone5}{1F46C 1F3FF}
+\bxce@do{men_holding_hands_tone5_tone1}{1F468 1F3FF 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{men_holding_hands_tone5_tone2}{1F468 1F3FF 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{men_holding_hands_tone5_tone3}{1F468 1F3FF 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{men_holding_hands_tone5_tone4}{1F468 1F3FF 200D 1F91D 200D 1F468 1F3FE}
 \bxce@do{men_with_bunny_ears_partying}{1F46F 200D 2642}
 \bxce@do{men_wrestling}{1F93C 200D 2642}
+\bxce@do{mending_heart}{2764 200D 1FA79}
 \bxce@do{menorah}{1F54E}
 \bxce@do{mens}{1F6B9}
 \bxce@do{mermaid}{1F9DC 200D 2640}
@@ -1530,11 +1939,14 @@
 \bxce@do{middle_finger_tone3}{1F595 1F3FD}
 \bxce@do{middle_finger_tone4}{1F595 1F3FE}
 \bxce@do{middle_finger_tone5}{1F595 1F3FF}
+\bxce@do{military_helmet}{1FA96}
 \bxce@do{military_medal}{1F396}
 \bxce@do{milk}{1F95B}
 \bxce@do{milky_way}{1F30C}
 \bxce@do{minibus}{1F690}
 \bxce@do{minidisc}{1F4BD}
+\bxce@do{mirror}{1FA9E}
+\bxce@do{mobile_phone}{1F4F1}
 \bxce@do{mobile_phone_off}{1F4F4}
 \bxce@do{money_mouth}{1F911}
 \bxce@do{money_with_wings}{1F4B8}
@@ -1549,6 +1961,7 @@
 \bxce@do{motor_scooter}{1F6F5}
 \bxce@do{motorboat}{1F6E5}
 \bxce@do{motorcycle}{1F3CD}
+\bxce@do{motorized_wheelchair}{1F9BC}
 \bxce@do{motorway}{1F6E3}
 \bxce@do{mount_fuji}{1F5FB}
 \bxce@do{mountain}{26F0}
@@ -1558,6 +1971,7 @@
 \bxce@do{mouse}{1F42D}
 \bxce@do{mouse2}{1F401}
 \bxce@do{mouse_three_button}{1F5B1}
+\bxce@do{mouse_trap}{1FAA4}
 \bxce@do{movie_camera}{1F3A5}
 \bxce@do{moyai}{1F5FF}
 \bxce@do{mrs_claus}{1F936}
@@ -1577,7 +1991,13 @@
 \bxce@do{musical_note}{1F3B5}
 \bxce@do{musical_score}{1F3BC}
 \bxce@do{mute}{1F507}
-\or %[3]
+\bxce@do{mx_claus}{1F9D1 200D 1F384}
+\bxce@do{mx_claus_tone1}{1F9D1 1F3FB 200D 1F384}
+\bxce@do{mx_claus_tone2}{1F9D1 1F3FC 200D 1F384}
+\bxce@do{mx_claus_tone3}{1F9D1 1F3FD 200D 1F384}
+\bxce@do{mx_claus_tone4}{1F9D1 1F3FE 200D 1F384}
+\bxce@do{mx_claus_tone5}{1F9D1 1F3FF 200D 1F384}
+\or %[4]
 \bxce@do{nail_care}{1F485}
 \bxce@do{nail_care_tone1}{1F485 1F3FB}
 \bxce@do{nail_care_tone2}{1F485 1F3FC}
@@ -1590,6 +2010,7 @@
 \bxce@do{necktie}{1F454}
 \bxce@do{negative_squared_cross_mark}{274E}
 \bxce@do{nerd}{1F913}
+\bxce@do{nesting_dolls}{1FA86}
 \bxce@do{neutral_face}{1F610}
 \bxce@do{new}{1F195}
 \bxce@do{new_moon}{1F311}
@@ -1599,6 +2020,12 @@
 \bxce@do{ng}{1F196}
 \bxce@do{night_with_stars}{1F303}
 \bxce@do{nine}{39 20E3}
+\bxce@do{ninja}{1F977}
+\bxce@do{ninja_tone1}{1F977 1F3FB}
+\bxce@do{ninja_tone2}{1F977 1F3FC}
+\bxce@do{ninja_tone3}{1F977 1F3FD}
+\bxce@do{ninja_tone4}{1F977 1F3FE}
+\bxce@do{ninja_tone5}{1F977 1F3FF}
 \bxce@do{no_bell}{1F515}
 \bxce@do{no_bicycles}{1F6B3}
 \bxce@do{no_entry}{26D4}
@@ -1626,6 +2053,12 @@
 \bxce@do{octopus}{1F419}
 \bxce@do{oden}{1F362}
 \bxce@do{office}{1F3E2}
+\bxce@do{office_worker}{1F9D1 200D 1F4BC}
+\bxce@do{office_worker_tone1}{1F9D1 1F3FB 200D 1F4BC}
+\bxce@do{office_worker_tone2}{1F9D1 1F3FC 200D 1F4BC}
+\bxce@do{office_worker_tone3}{1F9D1 1F3FD 200D 1F4BC}
+\bxce@do{office_worker_tone4}{1F9D1 1F3FE 200D 1F4BC}
+\bxce@do{office_worker_tone5}{1F9D1 1F3FF 200D 1F4BC}
 \bxce@do{oil}{1F6E2}
 \bxce@do{ok}{1F197}
 \bxce@do{ok_hand}{1F44C}
@@ -1652,6 +2085,7 @@
 \bxce@do{older_woman_tone3}{1F475 1F3FD}
 \bxce@do{older_woman_tone4}{1F475 1F3FE}
 \bxce@do{older_woman_tone5}{1F475 1F3FF}
+\bxce@do{olive}{1FAD2}
 \bxce@do{om_symbol}{1F549}
 \bxce@do{on}{1F51B}
 \bxce@do{oncoming_automobile}{1F698}
@@ -1659,6 +2093,8 @@
 \bxce@do{oncoming_police_car}{1F694}
 \bxce@do{oncoming_taxi}{1F696}
 \bxce@do{one}{31 20E3}
+\bxce@do{one_piece_swimsuit}{1FA71}
+\bxce@do{onion}{1F9C5}
 \bxce@do{open_file_folder}{1F4C2}
 \bxce@do{open_hands}{1F450}
 \bxce@do{open_hands_tone1}{1F450 1F3FB}
@@ -1669,11 +2105,16 @@
 \bxce@do{open_mouth}{1F62E}
 \bxce@do{ophiuchus}{26CE}
 \bxce@do{orange_book}{1F4D9}
+\bxce@do{orange_circle}{1F7E0}
 \bxce@do{orange_heart}{1F9E1}
+\bxce@do{orange_square}{1F7E7}
+\bxce@do{orangutan}{1F9A7}
 \bxce@do{orthodox_cross}{2626}
+\bxce@do{otter}{1F9A6}
 \bxce@do{outbox_tray}{1F4E4}
 \bxce@do{owl}{1F989}
 \bxce@do{ox}{1F402}
+\bxce@do{oyster}{1F9AA}
 \bxce@do{package}{1F4E6}
 \bxce@do{page_facing_up}{1F4C4}
 \bxce@do{page_with_curl}{1F4C3}
@@ -1690,6 +2131,7 @@
 \bxce@do{panda_face}{1F43C}
 \bxce@do{paperclip}{1F4CE}
 \bxce@do{paperclips}{1F587}
+\bxce@do{parachute}{1FA82}
 \bxce@do{park}{1F3DE}
 \bxce@do{parking}{1F17F}
 \bxce@do{parrot}{1F99C}
@@ -1709,10 +2151,38 @@
 \bxce@do{pencil2}{270F}
 \bxce@do{penguin}{1F427}
 \bxce@do{pensive}{1F614}
+\bxce@do{people_holding_hands}{1F9D1 200D 1F91D 200D 1F9D1}
+\bxce@do{people_holding_hands_tone1}{1F9D1 1F3FB 200D 1F91D 200D 1F9D1 1F3FB}
+\bxce@do{people_holding_hands_tone1_tone2}{1F9D1 1F3FB 200D 1F91D 200D 1F9D1 1F3FC}
+\bxce@do{people_holding_hands_tone1_tone3}{1F9D1 1F3FB 200D 1F91D 200D 1F9D1 1F3FD}
+\bxce@do{people_holding_hands_tone1_tone4}{1F9D1 1F3FB 200D 1F91D 200D 1F9D1 1F3FE}
+\bxce@do{people_holding_hands_tone1_tone5}{1F9D1 1F3FB 200D 1F91D 200D 1F9D1 1F3FF}
+\bxce@do{people_holding_hands_tone2}{1F9D1 1F3FC 200D 1F91D 200D 1F9D1 1F3FC}
+\bxce@do{people_holding_hands_tone2_tone1}{1F9D1 1F3FC 200D 1F91D 200D 1F9D1 1F3FB}
+\bxce@do{people_holding_hands_tone2_tone3}{1F9D1 1F3FC 200D 1F91D 200D 1F9D1 1F3FD}
+\bxce@do{people_holding_hands_tone2_tone4}{1F9D1 1F3FC 200D 1F91D 200D 1F9D1 1F3FE}
+\bxce@do{people_holding_hands_tone2_tone5}{1F9D1 1F3FC 200D 1F91D 200D 1F9D1 1F3FF}
+\bxce@do{people_holding_hands_tone3}{1F9D1 1F3FD 200D 1F91D 200D 1F9D1 1F3FD}
+\bxce@do{people_holding_hands_tone3_tone1}{1F9D1 1F3FD 200D 1F91D 200D 1F9D1 1F3FB}
+\bxce@do{people_holding_hands_tone3_tone2}{1F9D1 1F3FD 200D 1F91D 200D 1F9D1 1F3FC}
+\bxce@do{people_holding_hands_tone3_tone4}{1F9D1 1F3FD 200D 1F91D 200D 1F9D1 1F3FE}
+\bxce@do{people_holding_hands_tone3_tone5}{1F9D1 1F3FD 200D 1F91D 200D 1F9D1 1F3FF}
+\bxce@do{people_holding_hands_tone4}{1F9D1 1F3FE 200D 1F91D 200D 1F9D1 1F3FE}
+\bxce@do{people_holding_hands_tone4_tone1}{1F9D1 1F3FE 200D 1F91D 200D 1F9D1 1F3FB}
+\bxce@do{people_holding_hands_tone4_tone2}{1F9D1 1F3FE 200D 1F91D 200D 1F9D1 1F3FC}
+\bxce@do{people_holding_hands_tone4_tone3}{1F9D1 1F3FE 200D 1F91D 200D 1F9D1 1F3FD}
+\bxce@do{people_holding_hands_tone4_tone5}{1F9D1 1F3FE 200D 1F91D 200D 1F9D1 1F3FF}
+\bxce@do{people_holding_hands_tone5}{1F9D1 1F3FF 200D 1F91D 200D 1F9D1 1F3FF}
+\bxce@do{people_holding_hands_tone5_tone1}{1F9D1 1F3FF 200D 1F91D 200D 1F9D1 1F3FB}
+\bxce@do{people_holding_hands_tone5_tone2}{1F9D1 1F3FF 200D 1F91D 200D 1F9D1 1F3FC}
+\bxce@do{people_holding_hands_tone5_tone3}{1F9D1 1F3FF 200D 1F91D 200D 1F9D1 1F3FD}
+\bxce@do{people_holding_hands_tone5_tone4}{1F9D1 1F3FF 200D 1F91D 200D 1F9D1 1F3FE}
+\bxce@do{people_hugging}{1FAC2}
 \bxce@do{people_with_bunny_ears_partying}{1F46F}
 \bxce@do{people_wrestling}{1F93C}
 \bxce@do{performing_arts}{1F3AD}
 \bxce@do{persevere}{1F623}
+\bxce@do{person_bald}{1F9D1 200D 1F9B2}
 \bxce@do{person_biking}{1F6B4}
 \bxce@do{person_biking_tone1}{1F6B4 1F3FB}
 \bxce@do{person_biking_tone2}{1F6B4 1F3FC}
@@ -1737,6 +2207,7 @@
 \bxce@do{person_climbing_tone3}{1F9D7 1F3FD}
 \bxce@do{person_climbing_tone4}{1F9D7 1F3FE}
 \bxce@do{person_climbing_tone5}{1F9D7 1F3FF}
+\bxce@do{person_curly_hair}{1F9D1 200D 1F9B1}
 \bxce@do{person_doing_cartwheel}{1F938}
 \bxce@do{person_doing_cartwheel_tone1}{1F938 1F3FB}
 \bxce@do{person_doing_cartwheel_tone2}{1F938 1F3FC}
@@ -1749,6 +2220,12 @@
 \bxce@do{person_facepalming_tone3}{1F926 1F3FD}
 \bxce@do{person_facepalming_tone4}{1F926 1F3FE}
 \bxce@do{person_facepalming_tone5}{1F926 1F3FF}
+\bxce@do{person_feeding_baby}{1F9D1 200D 1F37C}
+\bxce@do{person_feeding_baby_tone1}{1F9D1 1F3FB 200D 1F37C}
+\bxce@do{person_feeding_baby_tone2}{1F9D1 1F3FC 200D 1F37C}
+\bxce@do{person_feeding_baby_tone3}{1F9D1 1F3FD 200D 1F37C}
+\bxce@do{person_feeding_baby_tone4}{1F9D1 1F3FE 200D 1F37C}
+\bxce@do{person_feeding_baby_tone5}{1F9D1 1F3FF 200D 1F37C}
 \bxce@do{person_fencing}{1F93A}
 \bxce@do{person_frowning}{1F64D}
 \bxce@do{person_frowning_tone1}{1F64D 1F3FB}
@@ -1797,18 +2274,42 @@
 \bxce@do{person_in_lotus_position_tone3}{1F9D8 1F3FD}
 \bxce@do{person_in_lotus_position_tone4}{1F9D8 1F3FE}
 \bxce@do{person_in_lotus_position_tone5}{1F9D8 1F3FF}
+\bxce@do{person_in_manual_wheelchair}{1F9D1 200D 1F9BD}
+\bxce@do{person_in_manual_wheelchair_tone1}{1F9D1 1F3FB 200D 1F9BD}
+\bxce@do{person_in_manual_wheelchair_tone2}{1F9D1 1F3FC 200D 1F9BD}
+\bxce@do{person_in_manual_wheelchair_tone3}{1F9D1 1F3FD 200D 1F9BD}
+\bxce@do{person_in_manual_wheelchair_tone4}{1F9D1 1F3FE 200D 1F9BD}
+\bxce@do{person_in_manual_wheelchair_tone5}{1F9D1 1F3FF 200D 1F9BD}
+\bxce@do{person_in_motorized_wheelchair}{1F9D1 200D 1F9BC}
+\bxce@do{person_in_motorized_wheelchair_tone1}{1F9D1 1F3FB 200D 1F9BC}
+\bxce@do{person_in_motorized_wheelchair_tone2}{1F9D1 1F3FC 200D 1F9BC}
+\bxce@do{person_in_motorized_wheelchair_tone3}{1F9D1 1F3FD 200D 1F9BC}
+\bxce@do{person_in_motorized_wheelchair_tone4}{1F9D1 1F3FE 200D 1F9BC}
+\bxce@do{person_in_motorized_wheelchair_tone5}{1F9D1 1F3FF 200D 1F9BC}
 \bxce@do{person_in_steamy_room}{1F9D6}
 \bxce@do{person_in_steamy_room_tone1}{1F9D6 1F3FB}
 \bxce@do{person_in_steamy_room_tone2}{1F9D6 1F3FC}
 \bxce@do{person_in_steamy_room_tone3}{1F9D6 1F3FD}
 \bxce@do{person_in_steamy_room_tone4}{1F9D6 1F3FE}
 \bxce@do{person_in_steamy_room_tone5}{1F9D6 1F3FF}
+\bxce@do{person_in_tuxedo}{1F935}
+\bxce@do{person_in_tuxedo_tone1}{1F935 1F3FB}
+\bxce@do{person_in_tuxedo_tone2}{1F935 1F3FC}
+\bxce@do{person_in_tuxedo_tone3}{1F935 1F3FD}
+\bxce@do{person_in_tuxedo_tone4}{1F935 1F3FE}
+\bxce@do{person_in_tuxedo_tone5}{1F935 1F3FF}
 \bxce@do{person_juggling}{1F939}
 \bxce@do{person_juggling_tone1}{1F939 1F3FB}
 \bxce@do{person_juggling_tone2}{1F939 1F3FC}
 \bxce@do{person_juggling_tone3}{1F939 1F3FD}
 \bxce@do{person_juggling_tone4}{1F939 1F3FE}
 \bxce@do{person_juggling_tone5}{1F939 1F3FF}
+\bxce@do{person_kneeling}{1F9CE}
+\bxce@do{person_kneeling_tone1}{1F9CE 1F3FB}
+\bxce@do{person_kneeling_tone2}{1F9CE 1F3FC}
+\bxce@do{person_kneeling_tone3}{1F9CE 1F3FD}
+\bxce@do{person_kneeling_tone4}{1F9CE 1F3FE}
+\bxce@do{person_kneeling_tone5}{1F9CE 1F3FF}
 \bxce@do{person_lifting_weights}{1F3CB}
 \bxce@do{person_lifting_weights_tone1}{1F3CB 1F3FB}
 \bxce@do{person_lifting_weights_tone2}{1F3CB 1F3FC}
@@ -1845,6 +2346,7 @@
 \bxce@do{person_raising_hand_tone3}{1F64B 1F3FD}
 \bxce@do{person_raising_hand_tone4}{1F64B 1F3FE}
 \bxce@do{person_raising_hand_tone5}{1F64B 1F3FF}
+\bxce@do{person_red_hair}{1F9D1 200D 1F9B0}
 \bxce@do{person_rowing_boat}{1F6A3}
 \bxce@do{person_rowing_boat_tone1}{1F6A3 1F3FB}
 \bxce@do{person_rowing_boat_tone2}{1F6A3 1F3FC}
@@ -1863,6 +2365,12 @@
 \bxce@do{person_shrugging_tone3}{1F937 1F3FD}
 \bxce@do{person_shrugging_tone4}{1F937 1F3FE}
 \bxce@do{person_shrugging_tone5}{1F937 1F3FF}
+\bxce@do{person_standing}{1F9CD}
+\bxce@do{person_standing_tone1}{1F9CD 1F3FB}
+\bxce@do{person_standing_tone2}{1F9CD 1F3FC}
+\bxce@do{person_standing_tone3}{1F9CD 1F3FD}
+\bxce@do{person_standing_tone4}{1F9CD 1F3FE}
+\bxce@do{person_standing_tone5}{1F9CD 1F3FF}
 \bxce@do{person_surfing}{1F3C4}
 \bxce@do{person_surfing_tone1}{1F3C4 1F3FB}
 \bxce@do{person_surfing_tone2}{1F3C4 1F3FC}
@@ -1881,6 +2389,26 @@
 \bxce@do{person_tipping_hand_tone3}{1F481 1F3FD}
 \bxce@do{person_tipping_hand_tone4}{1F481 1F3FE}
 \bxce@do{person_tipping_hand_tone5}{1F481 1F3FF}
+\bxce@do{person_tone1_bald}{1F9D1 1F3FB 200D 1F9B2}
+\bxce@do{person_tone1_curly_hair}{1F9D1 1F3FB 200D 1F9B1}
+\bxce@do{person_tone1_red_hair}{1F9D1 1F3FB 200D 1F9B0}
+\bxce@do{person_tone1_white_hair}{1F9D1 1F3FB 200D 1F9B3}
+\bxce@do{person_tone2_bald}{1F9D1 1F3FC 200D 1F9B2}
+\bxce@do{person_tone2_curly_hair}{1F9D1 1F3FC 200D 1F9B1}
+\bxce@do{person_tone2_red_hair}{1F9D1 1F3FC 200D 1F9B0}
+\bxce@do{person_tone2_white_hair}{1F9D1 1F3FC 200D 1F9B3}
+\bxce@do{person_tone3_bald}{1F9D1 1F3FD 200D 1F9B2}
+\bxce@do{person_tone3_curly_hair}{1F9D1 1F3FD 200D 1F9B1}
+\bxce@do{person_tone3_red_hair}{1F9D1 1F3FD 200D 1F9B0}
+\bxce@do{person_tone3_white_hair}{1F9D1 1F3FD 200D 1F9B3}
+\bxce@do{person_tone4_bald}{1F9D1 1F3FE 200D 1F9B2}
+\bxce@do{person_tone4_curly_hair}{1F9D1 1F3FE 200D 1F9B1}
+\bxce@do{person_tone4_red_hair}{1F9D1 1F3FE 200D 1F9B0}
+\bxce@do{person_tone4_white_hair}{1F9D1 1F3FE 200D 1F9B3}
+\bxce@do{person_tone5_bald}{1F9D1 1F3FF 200D 1F9B2}
+\bxce@do{person_tone5_curly_hair}{1F9D1 1F3FF 200D 1F9B1}
+\bxce@do{person_tone5_red_hair}{1F9D1 1F3FF 200D 1F9B0}
+\bxce@do{person_tone5_white_hair}{1F9D1 1F3FF 200D 1F9B3}
 \bxce@do{person_walking}{1F6B6}
 \bxce@do{person_walking_tone1}{1F6B6 1F3FB}
 \bxce@do{person_walking_tone2}{1F6B6 1F3FC}
@@ -1893,21 +2421,56 @@
 \bxce@do{person_wearing_turban_tone3}{1F473 1F3FD}
 \bxce@do{person_wearing_turban_tone4}{1F473 1F3FE}
 \bxce@do{person_wearing_turban_tone5}{1F473 1F3FF}
+\bxce@do{person_white_hair}{1F9D1 200D 1F9B3}
+\bxce@do{person_with_probing_cane}{1F9D1 200D 1F9AF}
+\bxce@do{person_with_probing_cane_tone1}{1F9D1 1F3FB 200D 1F9AF}
+\bxce@do{person_with_probing_cane_tone2}{1F9D1 1F3FC 200D 1F9AF}
+\bxce@do{person_with_probing_cane_tone3}{1F9D1 1F3FD 200D 1F9AF}
+\bxce@do{person_with_probing_cane_tone4}{1F9D1 1F3FE 200D 1F9AF}
+\bxce@do{person_with_probing_cane_tone5}{1F9D1 1F3FF 200D 1F9AF}
+\bxce@do{person_with_veil}{1F470}
+\bxce@do{person_with_veil_tone1}{1F470 1F3FB}
+\bxce@do{person_with_veil_tone2}{1F470 1F3FC}
+\bxce@do{person_with_veil_tone3}{1F470 1F3FD}
+\bxce@do{person_with_veil_tone4}{1F470 1F3FE}
+\bxce@do{person_with_veil_tone5}{1F470 1F3FF}
 \bxce@do{petri_dish}{1F9EB}
 \bxce@do{pick}{26CF}
+\bxce@do{pickup_truck}{1F6FB}
 \bxce@do{pie}{1F967}
 \bxce@do{pig}{1F437}
 \bxce@do{pig2}{1F416}
 \bxce@do{pig_nose}{1F43D}
 \bxce@do{pill}{1F48A}
+\bxce@do{pilot}{1F9D1 200D 2708}
+\bxce@do{pilot_tone1}{1F9D1 1F3FB 200D 2708}
+\bxce@do{pilot_tone2}{1F9D1 1F3FC 200D 2708}
+\bxce@do{pilot_tone3}{1F9D1 1F3FD 200D 2708}
+\bxce@do{pilot_tone4}{1F9D1 1F3FE 200D 2708}
+\bxce@do{pilot_tone5}{1F9D1 1F3FF 200D 2708}
+\bxce@do{pinched_fingers}{1F90C}
+\bxce@do{pinched_fingers_tone1}{1F90C 1F3FB}
+\bxce@do{pinched_fingers_tone2}{1F90C 1F3FC}
+\bxce@do{pinched_fingers_tone3}{1F90C 1F3FD}
+\bxce@do{pinched_fingers_tone4}{1F90C 1F3FE}
+\bxce@do{pinched_fingers_tone5}{1F90C 1F3FF}
+\bxce@do{pinching_hand}{1F90F}
+\bxce@do{pinching_hand_tone1}{1F90F 1F3FB}
+\bxce@do{pinching_hand_tone2}{1F90F 1F3FC}
+\bxce@do{pinching_hand_tone3}{1F90F 1F3FD}
+\bxce@do{pinching_hand_tone4}{1F90F 1F3FE}
+\bxce@do{pinching_hand_tone5}{1F90F 1F3FF}
 \bxce@do{pineapple}{1F34D}
 \bxce@do{ping_pong}{1F3D3}
 \bxce@do{pirate_flag}{1F3F4 200D 2620}
 \bxce@do{pisces}{2653}
 \bxce@do{pizza}{1F355}
+\bxce@do{pinata}{1FA85}
+\bxce@do{placard}{1FAA7}
 \bxce@do{place_of_worship}{1F6D0}
 \bxce@do{play_pause}{23EF}
 \bxce@do{pleading_face}{1F97A}
+\bxce@do{plunger}{1FAA0}
 \bxce@do{point_down}{1F447}
 \bxce@do{point_down_tone1}{1F447 1F3FB}
 \bxce@do{point_down_tone2}{1F447 1F3FC}
@@ -1938,6 +2501,7 @@
 \bxce@do{point_up_tone3}{261D 1F3FD}
 \bxce@do{point_up_tone4}{261D 1F3FE}
 \bxce@do{point_up_tone5}{261D 1F3FF}
+\bxce@do{polar_bear}{1F43B 200D 2744}
 \bxce@do{police_car}{1F693}
 \bxce@do{police_officer}{1F46E}
 \bxce@do{police_officer_tone1}{1F46E 1F3FB}
@@ -1953,6 +2517,7 @@
 \bxce@do{postbox}{1F4EE}
 \bxce@do{potable_water}{1F6B0}
 \bxce@do{potato}{1F954}
+\bxce@do{potted_plant}{1FAB4}
 \bxce@do{pouch}{1F45D}
 \bxce@do{poultry_leg}{1F357}
 \bxce@do{pound}{1F4B7}
@@ -1985,6 +2550,7 @@
 \bxce@do{princess_tone4}{1F478 1F3FE}
 \bxce@do{princess_tone5}{1F478 1F3FF}
 \bxce@do{printer}{1F5A8}
+\bxce@do{probing_cane}{1F9AF}
 \bxce@do{projector}{1F4FD}
 \bxce@do{punch}{1F44A}
 \bxce@do{punch_tone1}{1F44A 1F3FB}
@@ -1992,11 +2558,13 @@
 \bxce@do{punch_tone3}{1F44A 1F3FD}
 \bxce@do{punch_tone4}{1F44A 1F3FE}
 \bxce@do{punch_tone5}{1F44A 1F3FF}
+\bxce@do{purple_circle}{1F7E3}
 \bxce@do{purple_heart}{1F49C}
+\bxce@do{purple_square}{1F7EA}
 \bxce@do{purse}{1F45B}
 \bxce@do{pushpin}{1F4CC}
 \bxce@do{put_litter_in_its_place}{1F6AE}
-\or %[4]
+\or %[5]
 \bxce@do{question}{2753}
 \bxce@do{rabbit}{1F430}
 \bxce@do{rabbit2}{1F407}
@@ -2032,6 +2600,7 @@
 \bxce@do{ram}{1F40F}
 \bxce@do{ramen}{1F35C}
 \bxce@do{rat}{1F400}
+\bxce@do{razor}{1FA92}
 \bxce@do{receipt}{1F9FE}
 \bxce@do{record_button}{23FA}
 \bxce@do{recycle}{267B}
@@ -2039,6 +2608,7 @@
 \bxce@do{red_circle}{1F534}
 \bxce@do{red_envelope}{1F9E7}
 \bxce@do{red_haired}{1F9B0}
+\bxce@do{red_square}{1F7E5}
 \bxce@do{regional_indicator_a}{1F1E6}
 \bxce@do{regional_indicator_b}{1F1E7}
 \bxce@do{regional_indicator_c}{1F1E8}
@@ -2087,11 +2657,14 @@
 \bxce@do{right_facing_fist_tone4}{1F91C 1F3FE}
 \bxce@do{right_facing_fist_tone5}{1F91C 1F3FF}
 \bxce@do{ring}{1F48D}
+\bxce@do{ringed_planet}{1FA90}
 \bxce@do{robot}{1F916}
+\bxce@do{rock}{1FAA8}
 \bxce@do{rocket}{1F680}
 \bxce@do{rofl}{1F923}
 \bxce@do{roll_of_paper}{1F9FB}
 \bxce@do{roller_coaster}{1F3A2}
+\bxce@do{roller_skate}{1F6FC}
 \bxce@do{rolling_eyes}{1F644}
 \bxce@do{rooster}{1F413}
 \bxce@do{rose}{1F339}
@@ -2102,6 +2675,7 @@
 \bxce@do{running_shirt_with_sash}{1F3BD}
 \bxce@do{sa}{1F202}
 \bxce@do{safety_pin}{1F9F7}
+\bxce@do{safety_vest}{1F9BA}
 \bxce@do{sagittarius}{2650}
 \bxce@do{sailboat}{26F5}
 \bxce@do{sake}{1F376}
@@ -2115,6 +2689,7 @@
 \bxce@do{santa_tone3}{1F385 1F3FD}
 \bxce@do{santa_tone4}{1F385 1F3FE}
 \bxce@do{santa_tone5}{1F385 1F3FF}
+\bxce@do{sari}{1F97B}
 \bxce@do{satellite}{1F4E1}
 \bxce@do{satellite_orbital}{1F6F0}
 \bxce@do{sauropod}{1F995}
@@ -2123,6 +2698,12 @@
 \bxce@do{scarf}{1F9E3}
 \bxce@do{school}{1F3EB}
 \bxce@do{school_satchel}{1F392}
+\bxce@do{scientist}{1F9D1 200D 1F52C}
+\bxce@do{scientist_tone1}{1F9D1 1F3FB 200D 1F52C}
+\bxce@do{scientist_tone2}{1F9D1 1F3FC 200D 1F52C}
+\bxce@do{scientist_tone3}{1F9D1 1F3FD 200D 1F52C}
+\bxce@do{scientist_tone4}{1F9D1 1F3FE 200D 1F52C}
+\bxce@do{scientist_tone5}{1F9D1 1F3FF 200D 1F52C}
 \bxce@do{scissors}{2702}
 \bxce@do{scooter}{1F6F4}
 \bxce@do{scorpion}{1F982}
@@ -2130,7 +2711,9 @@
 \bxce@do{scotland}{1F3F4 E0067 E0062 E0073 E0063 E0074 E007F}
 \bxce@do{scream}{1F631}
 \bxce@do{scream_cat}{1F640}
+\bxce@do{screwdriver}{1FA9B}
 \bxce@do{scroll}{1F4DC}
+\bxce@do{seal}{1F9AD}
 \bxce@do{seat}{1F4BA}
 \bxce@do{second_place}{1F948}
 \bxce@do{secret}{3299}
@@ -2142,7 +2725,9 @@
 \bxce@do{selfie_tone3}{1F933 1F3FD}
 \bxce@do{selfie_tone4}{1F933 1F3FE}
 \bxce@do{selfie_tone5}{1F933 1F3FF}
+\bxce@do{service_dog}{1F415 200D 1F9BA}
 \bxce@do{seven}{37 20E3}
+\bxce@do{sewing_needle}{1FAA1}
 \bxce@do{shallow_pan_of_food}{1F958}
 \bxce@do{shamrock}{2618}
 \bxce@do{shark}{1F988}
@@ -2155,10 +2740,17 @@
 \bxce@do{shirt}{1F455}
 \bxce@do{shopping_bags}{1F6CD}
 \bxce@do{shopping_cart}{1F6D2}
+\bxce@do{shorts}{1FA73}
 \bxce@do{shower}{1F6BF}
 \bxce@do{shrimp}{1F990}
 \bxce@do{shushing_face}{1F92B}
 \bxce@do{signal_strength}{1F4F6}
+\bxce@do{singer}{1F9D1 200D 1F3A4}
+\bxce@do{singer_tone1}{1F9D1 1F3FB 200D 1F3A4}
+\bxce@do{singer_tone2}{1F9D1 1F3FC 200D 1F3A4}
+\bxce@do{singer_tone3}{1F9D1 1F3FD 200D 1F3A4}
+\bxce@do{singer_tone4}{1F9D1 1F3FE 200D 1F3A4}
+\bxce@do{singer_tone5}{1F9D1 1F3FF 200D 1F3A4}
 \bxce@do{six}{36 20E3}
 \bxce@do{six_pointed_star}{1F52F}
 \bxce@do{skateboard}{1F6F9}
@@ -2166,6 +2758,7 @@
 \bxce@do{skier}{26F7}
 \bxce@do{skull}{1F480}
 \bxce@do{skull_crossbones}{2620}
+\bxce@do{skunk}{1F9A8}
 \bxce@do{sled}{1F6F7}
 \bxce@do{sleeping}{1F634}
 \bxce@do{sleeping_accommodation}{1F6CC}
@@ -2173,6 +2766,7 @@
 \bxce@do{slight_frown}{1F641}
 \bxce@do{slight_smile}{1F642}
 \bxce@do{slot_machine}{1F3B0}
+\bxce@do{sloth}{1F9A5}
 \bxce@do{small_blue_diamond}{1F539}
 \bxce@do{small_orange_diamond}{1F538}
 \bxce@do{small_red_triangle}{1F53A}
@@ -2182,6 +2776,7 @@
 \bxce@do{smiley}{1F603}
 \bxce@do{smiley_cat}{1F63A}
 \bxce@do{smiling_face_with_3_hearts}{1F970}
+\bxce@do{smiling_face_with_tear}{1F972}
 \bxce@do{smiling_imp}{1F608}
 \bxce@do{smirk}{1F60F}
 \bxce@do{smirk_cat}{1F63C}
@@ -2235,6 +2830,7 @@
 \bxce@do{station}{1F689}
 \bxce@do{statue_of_liberty}{1F5FD}
 \bxce@do{steam_locomotive}{1F682}
+\bxce@do{stethoscope}{1FA7A}
 \bxce@do{stew}{1F372}
 \bxce@do{stop_button}{23F9}
 \bxce@do{stopwatch}{23F1}
@@ -2243,6 +2839,12 @@
 \bxce@do{stuck_out_tongue}{1F61B}
 \bxce@do{stuck_out_tongue_closed_eyes}{1F61D}
 \bxce@do{stuck_out_tongue_winking_eye}{1F61C}
+\bxce@do{student}{1F9D1 200D 1F393}
+\bxce@do{student_tone1}{1F9D1 1F3FB 200D 1F393}
+\bxce@do{student_tone2}{1F9D1 1F3FC 200D 1F393}
+\bxce@do{student_tone3}{1F9D1 1F3FD 200D 1F393}
+\bxce@do{student_tone4}{1F9D1 1F3FE 200D 1F393}
+\bxce@do{student_tone5}{1F9D1 1F3FF 200D 1F393}
 \bxce@do{stuffed_flatbread}{1F959}
 \bxce@do{sun_with_face}{1F31E}
 \bxce@do{sunflower}{1F33B}
@@ -2272,15 +2874,30 @@
 \bxce@do{symbols}{1F523}
 \bxce@do{synagogue}{1F54D}
 \bxce@do{syringe}{1F489}
+\or %[6]
 \bxce@do{t_rex}{1F996}
 \bxce@do{taco}{1F32E}
 \bxce@do{tada}{1F389}
 \bxce@do{takeout_box}{1F961}
+\bxce@do{tamale}{1FAD4}
 \bxce@do{tanabata_tree}{1F38B}
 \bxce@do{tangerine}{1F34A}
 \bxce@do{taurus}{2649}
 \bxce@do{taxi}{1F695}
 \bxce@do{tea}{1F375}
+\bxce@do{teacher}{1F9D1 200D 1F3EB}
+\bxce@do{teacher_tone1}{1F9D1 1F3FB 200D 1F3EB}
+\bxce@do{teacher_tone2}{1F9D1 1F3FC 200D 1F3EB}
+\bxce@do{teacher_tone3}{1F9D1 1F3FD 200D 1F3EB}
+\bxce@do{teacher_tone4}{1F9D1 1F3FE 200D 1F3EB}
+\bxce@do{teacher_tone5}{1F9D1 1F3FF 200D 1F3EB}
+\bxce@do{teapot}{1FAD6}
+\bxce@do{technologist}{1F9D1 200D 1F4BB}
+\bxce@do{technologist_tone1}{1F9D1 1F3FB 200D 1F4BB}
+\bxce@do{technologist_tone2}{1F9D1 1F3FC 200D 1F4BB}
+\bxce@do{technologist_tone3}{1F9D1 1F3FD 200D 1F4BB}
+\bxce@do{technologist_tone4}{1F9D1 1F3FE 200D 1F4BB}
+\bxce@do{technologist_tone5}{1F9D1 1F3FF 200D 1F4BB}
 \bxce@do{teddy_bear}{1F9F8}
 \bxce@do{telephone}{260E}
 \bxce@do{telephone_receiver}{1F4DE}
@@ -2292,6 +2909,7 @@
 \bxce@do{thermometer_face}{1F912}
 \bxce@do{thinking}{1F914}
 \bxce@do{third_place}{1F949}
+\bxce@do{thong_sandal}{1FA74}
 \bxce@do{thought_balloon}{1F4AD}
 \bxce@do{thread}{1F9F5}
 \bxce@do{three}{33 20E3}
@@ -2327,6 +2945,7 @@
 \bxce@do{toolbox}{1F9F0}
 \bxce@do{tools}{1F6E0}
 \bxce@do{tooth}{1F9B7}
+\bxce@do{toothbrush}{1FAA5}
 \bxce@do{top}{1F51D}
 \bxce@do{tophat}{1F3A9}
 \bxce@do{track_next}{23ED}
@@ -2337,6 +2956,8 @@
 \bxce@do{train}{1F68B}
 \bxce@do{train2}{1F686}
 \bxce@do{tram}{1F68A}
+\bxce@do{transgender_flag}{1F3F3 200D 26A7}
+\bxce@do{transgender_symbol}{26A7}
 \bxce@do{triangular_flag_on_post}{1F6A9}
 \bxce@do{triangular_ruler}{1F4D0}
 \bxce@do{trident}{1F531}
@@ -2357,7 +2978,6 @@
 \bxce@do{two_hearts}{1F495}
 \bxce@do{two_men_holding_hands}{1F46C}
 \bxce@do{two_women_holding_hands}{1F46D}
-\or %[5]
 \bxce@do{u5272}{1F239}
 \bxce@do{u5408}{1F234}
 \bxce@do{u55b6}{1F23A}
@@ -2407,6 +3027,7 @@
 \bxce@do{vulcan_tone3}{1F596 1F3FD}
 \bxce@do{vulcan_tone4}{1F596 1F3FE}
 \bxce@do{vulcan_tone5}{1F596 1F3FF}
+\bxce@do{waffle}{1F9C7}
 \bxce@do{wales}{1F3F4 E0067 E0062 E0077 E006C E0073 E007F}
 \bxce@do{waning_crescent_moon}{1F318}
 \bxce@do{waning_gibbous_moon}{1F316}
@@ -2435,6 +3056,7 @@
 \bxce@do{white_circle}{26AA}
 \bxce@do{white_flower}{1F4AE}
 \bxce@do{white_haired}{1F9B3}
+\bxce@do{white_heart}{1F90D}
 \bxce@do{white_large_square}{2B1C}
 \bxce@do{white_medium_small_square}{25FD}
 \bxce@do{white_medium_square}{25FB}
@@ -2446,10 +3068,36 @@
 \bxce@do{wilted_rose}{1F940}
 \bxce@do{wind_blowing_face}{1F32C}
 \bxce@do{wind_chime}{1F390}
+\bxce@do{window}{1FA9F}
 \bxce@do{wine_glass}{1F377}
 \bxce@do{wink}{1F609}
 \bxce@do{wolf}{1F43A}
 \bxce@do{woman}{1F469}
+\bxce@do{woman_and_man_holding_hands_tone1}{1F46B 1F3FB}
+\bxce@do{woman_and_man_holding_hands_tone1_tone2}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{woman_and_man_holding_hands_tone1_tone3}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{woman_and_man_holding_hands_tone1_tone4}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{woman_and_man_holding_hands_tone1_tone5}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{woman_and_man_holding_hands_tone2}{1F46B 1F3FC}
+\bxce@do{woman_and_man_holding_hands_tone2_tone1}{1F469 1F3FC 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{woman_and_man_holding_hands_tone2_tone3}{1F469 1F3FC 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{woman_and_man_holding_hands_tone2_tone4}{1F469 1F3FC 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{woman_and_man_holding_hands_tone2_tone5}{1F469 1F3FC 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{woman_and_man_holding_hands_tone3}{1F46B 1F3FD}
+\bxce@do{woman_and_man_holding_hands_tone3_tone1}{1F469 1F3FD 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{woman_and_man_holding_hands_tone3_tone2}{1F469 1F3FD 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{woman_and_man_holding_hands_tone3_tone4}{1F469 1F3FD 200D 1F91D 200D 1F468 1F3FE}
+\bxce@do{woman_and_man_holding_hands_tone3_tone5}{1F469 1F3FD 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{woman_and_man_holding_hands_tone4}{1F46B 1F3FE}
+\bxce@do{woman_and_man_holding_hands_tone4_tone1}{1F469 1F3FE 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{woman_and_man_holding_hands_tone4_tone2}{1F469 1F3FE 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{woman_and_man_holding_hands_tone4_tone3}{1F469 1F3FE 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{woman_and_man_holding_hands_tone4_tone5}{1F469 1F3FE 200D 1F91D 200D 1F468 1F3FF}
+\bxce@do{woman_and_man_holding_hands_tone5}{1F46B 1F3FF}
+\bxce@do{woman_and_man_holding_hands_tone5_tone1}{1F469 1F3FF 200D 1F91D 200D 1F468 1F3FB}
+\bxce@do{woman_and_man_holding_hands_tone5_tone2}{1F469 1F3FF 200D 1F91D 200D 1F468 1F3FC}
+\bxce@do{woman_and_man_holding_hands_tone5_tone3}{1F469 1F3FF 200D 1F91D 200D 1F468 1F3FD}
+\bxce@do{woman_and_man_holding_hands_tone5_tone4}{1F469 1F3FF 200D 1F91D 200D 1F468 1F3FE}
 \bxce@do{woman_artist}{1F469 200D 1F3A8}
 \bxce@do{woman_artist_tone1}{1F469 1F3FB 200D 1F3A8}
 \bxce@do{woman_artist_tone2}{1F469 1F3FC 200D 1F3A8}
@@ -2468,6 +3116,7 @@
 \bxce@do{woman_bald_tone3}{1F469 1F3FD 200D 1F9B2}
 \bxce@do{woman_bald_tone4}{1F469 1F3FE 200D 1F9B2}
 \bxce@do{woman_bald_tone5}{1F469 1F3FF 200D 1F9B2}
+\bxce@do{woman_beard}{1F9D4 200D 2640}
 \bxce@do{woman_biking}{1F6B4 200D 2640}
 \bxce@do{woman_biking_tone1}{1F6B4 1F3FB 200D 2640}
 \bxce@do{woman_biking_tone2}{1F6B4 1F3FC 200D 2640}
@@ -2552,6 +3201,12 @@
 \bxce@do{woman_farmer_tone3}{1F469 1F3FD 200D 1F33E}
 \bxce@do{woman_farmer_tone4}{1F469 1F3FE 200D 1F33E}
 \bxce@do{woman_farmer_tone5}{1F469 1F3FF 200D 1F33E}
+\bxce@do{woman_feeding_baby}{1F469 200D 1F37C}
+\bxce@do{woman_feeding_baby_tone1}{1F469 1F3FB 200D 1F37C}
+\bxce@do{woman_feeding_baby_tone2}{1F469 1F3FC 200D 1F37C}
+\bxce@do{woman_feeding_baby_tone3}{1F469 1F3FD 200D 1F37C}
+\bxce@do{woman_feeding_baby_tone4}{1F469 1F3FE 200D 1F37C}
+\bxce@do{woman_feeding_baby_tone5}{1F469 1F3FF 200D 1F37C}
 \bxce@do{woman_firefighter}{1F469 200D 1F692}
 \bxce@do{woman_firefighter_tone1}{1F469 1F3FB 200D 1F692}
 \bxce@do{woman_firefighter_tone2}{1F469 1F3FC 200D 1F692}
@@ -2613,12 +3268,30 @@
 \bxce@do{woman_in_lotus_position_tone3}{1F9D8 1F3FD 200D 2640}
 \bxce@do{woman_in_lotus_position_tone4}{1F9D8 1F3FE 200D 2640}
 \bxce@do{woman_in_lotus_position_tone5}{1F9D8 1F3FF 200D 2640}
+\bxce@do{woman_in_manual_wheelchair}{1F469 200D 1F9BD}
+\bxce@do{woman_in_manual_wheelchair_tone1}{1F469 1F3FB 200D 1F9BD}
+\bxce@do{woman_in_manual_wheelchair_tone2}{1F469 1F3FC 200D 1F9BD}
+\bxce@do{woman_in_manual_wheelchair_tone3}{1F469 1F3FD 200D 1F9BD}
+\bxce@do{woman_in_manual_wheelchair_tone4}{1F469 1F3FE 200D 1F9BD}
+\bxce@do{woman_in_manual_wheelchair_tone5}{1F469 1F3FF 200D 1F9BD}
+\bxce@do{woman_in_motorized_wheelchair}{1F469 200D 1F9BC}
+\bxce@do{woman_in_motorized_wheelchair_tone1}{1F469 1F3FB 200D 1F9BC}
+\bxce@do{woman_in_motorized_wheelchair_tone2}{1F469 1F3FC 200D 1F9BC}
+\bxce@do{woman_in_motorized_wheelchair_tone3}{1F469 1F3FD 200D 1F9BC}
+\bxce@do{woman_in_motorized_wheelchair_tone4}{1F469 1F3FE 200D 1F9BC}
+\bxce@do{woman_in_motorized_wheelchair_tone5}{1F469 1F3FF 200D 1F9BC}
 \bxce@do{woman_in_steamy_room}{1F9D6 200D 2640}
 \bxce@do{woman_in_steamy_room_tone1}{1F9D6 1F3FB 200D 2640}
 \bxce@do{woman_in_steamy_room_tone2}{1F9D6 1F3FC 200D 2640}
 \bxce@do{woman_in_steamy_room_tone3}{1F9D6 1F3FD 200D 2640}
 \bxce@do{woman_in_steamy_room_tone4}{1F9D6 1F3FE 200D 2640}
 \bxce@do{woman_in_steamy_room_tone5}{1F9D6 1F3FF 200D 2640}
+\bxce@do{woman_in_tuxedo}{1F935 200D 2640}
+\bxce@do{woman_in_tuxedo_tone1}{1F935 1F3FB 200D 2640}
+\bxce@do{woman_in_tuxedo_tone2}{1F935 1F3FC 200D 2640}
+\bxce@do{woman_in_tuxedo_tone3}{1F935 1F3FD 200D 2640}
+\bxce@do{woman_in_tuxedo_tone4}{1F935 1F3FE 200D 2640}
+\bxce@do{woman_in_tuxedo_tone5}{1F935 1F3FF 200D 2640}
 \bxce@do{woman_judge}{1F469 200D 2696}
 \bxce@do{woman_judge_tone1}{1F469 1F3FB 200D 2696}
 \bxce@do{woman_judge_tone2}{1F469 1F3FC 200D 2696}
@@ -2631,6 +3304,12 @@
 \bxce@do{woman_juggling_tone3}{1F939 1F3FD 200D 2640}
 \bxce@do{woman_juggling_tone4}{1F939 1F3FE 200D 2640}
 \bxce@do{woman_juggling_tone5}{1F939 1F3FF 200D 2640}
+\bxce@do{woman_kneeling}{1F9CE 200D 2640}
+\bxce@do{woman_kneeling_tone1}{1F9CE 1F3FB 200D 2640}
+\bxce@do{woman_kneeling_tone2}{1F9CE 1F3FC 200D 2640}
+\bxce@do{woman_kneeling_tone3}{1F9CE 1F3FD 200D 2640}
+\bxce@do{woman_kneeling_tone4}{1F9CE 1F3FE 200D 2640}
+\bxce@do{woman_kneeling_tone5}{1F9CE 1F3FF 200D 2640}
 \bxce@do{woman_lifting_weights}{1F3CB 200D 2640}
 \bxce@do{woman_lifting_weights_tone1}{1F3CB 1F3FB 200D 2640}
 \bxce@do{woman_lifting_weights_tone2}{1F3CB 1F3FC 200D 2640}
@@ -2733,6 +3412,12 @@
 \bxce@do{woman_singer_tone3}{1F469 1F3FD 200D 1F3A4}
 \bxce@do{woman_singer_tone4}{1F469 1F3FE 200D 1F3A4}
 \bxce@do{woman_singer_tone5}{1F469 1F3FF 200D 1F3A4}
+\bxce@do{woman_standing}{1F9CD 200D 2640}
+\bxce@do{woman_standing_tone1}{1F9CD 1F3FB 200D 2640}
+\bxce@do{woman_standing_tone2}{1F9CD 1F3FC 200D 2640}
+\bxce@do{woman_standing_tone3}{1F9CD 1F3FD 200D 2640}
+\bxce@do{woman_standing_tone4}{1F9CD 1F3FE 200D 2640}
+\bxce@do{woman_standing_tone5}{1F9CD 1F3FF 200D 2640}
 \bxce@do{woman_student}{1F469 200D 1F393}
 \bxce@do{woman_student_tone1}{1F469 1F3FB 200D 1F393}
 \bxce@do{woman_student_tone2}{1F469 1F3FC 200D 1F393}
@@ -2782,10 +3467,15 @@
 \bxce@do{woman_tipping_hand_tone4}{1F481 1F3FE 200D 2640}
 \bxce@do{woman_tipping_hand_tone5}{1F481 1F3FF 200D 2640}
 \bxce@do{woman_tone1}{1F469 1F3FB}
+\bxce@do{woman_tone1_beard}{1F9D4 1F3FB 200D 2640}
 \bxce@do{woman_tone2}{1F469 1F3FC}
+\bxce@do{woman_tone2_beard}{1F9D4 1F3FC 200D 2640}
 \bxce@do{woman_tone3}{1F469 1F3FD}
+\bxce@do{woman_tone3_beard}{1F9D4 1F3FD 200D 2640}
 \bxce@do{woman_tone4}{1F469 1F3FE}
+\bxce@do{woman_tone4_beard}{1F9D4 1F3FE 200D 2640}
 \bxce@do{woman_tone5}{1F469 1F3FF}
+\bxce@do{woman_tone5_beard}{1F9D4 1F3FF 200D 2640}
 \bxce@do{woman_vampire}{1F9DB 200D 2640}
 \bxce@do{woman_vampire_tone1}{1F9DB 1F3FB 200D 2640}
 \bxce@do{woman_vampire_tone2}{1F9DB 1F3FC 200D 2640}
@@ -2816,14 +3506,53 @@
 \bxce@do{woman_with_headscarf_tone3}{1F9D5 1F3FD}
 \bxce@do{woman_with_headscarf_tone4}{1F9D5 1F3FE}
 \bxce@do{woman_with_headscarf_tone5}{1F9D5 1F3FF}
+\bxce@do{woman_with_probing_cane}{1F469 200D 1F9AF}
+\bxce@do{woman_with_probing_cane_tone1}{1F469 1F3FB 200D 1F9AF}
+\bxce@do{woman_with_probing_cane_tone2}{1F469 1F3FC 200D 1F9AF}
+\bxce@do{woman_with_probing_cane_tone3}{1F469 1F3FD 200D 1F9AF}
+\bxce@do{woman_with_probing_cane_tone4}{1F469 1F3FE 200D 1F9AF}
+\bxce@do{woman_with_probing_cane_tone5}{1F469 1F3FF 200D 1F9AF}
+\bxce@do{woman_with_veil}{1F470 200D 2640}
+\bxce@do{woman_with_veil_tone1}{1F470 1F3FB 200D 2640}
+\bxce@do{woman_with_veil_tone2}{1F470 1F3FC 200D 2640}
+\bxce@do{woman_with_veil_tone3}{1F470 1F3FD 200D 2640}
+\bxce@do{woman_with_veil_tone4}{1F470 1F3FE 200D 2640}
+\bxce@do{woman_with_veil_tone5}{1F470 1F3FF 200D 2640}
 \bxce@do{woman_zombie}{1F9DF 200D 2640}
 \bxce@do{womans_clothes}{1F45A}
 \bxce@do{womans_flat_shoe}{1F97F}
 \bxce@do{womans_hat}{1F452}
+\bxce@do{women_holding_hands_tone1}{1F46D 1F3FB}
+\bxce@do{women_holding_hands_tone1_tone2}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FC}
+\bxce@do{women_holding_hands_tone1_tone3}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FD}
+\bxce@do{women_holding_hands_tone1_tone4}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FE}
+\bxce@do{women_holding_hands_tone1_tone5}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FF}
+\bxce@do{women_holding_hands_tone2}{1F46D 1F3FC}
+\bxce@do{women_holding_hands_tone2_tone1}{1F469 1F3FC 200D 1F91D 200D 1F469 1F3FB}
+\bxce@do{women_holding_hands_tone2_tone3}{1F469 1F3FC 200D 1F91D 200D 1F469 1F3FD}
+\bxce@do{women_holding_hands_tone2_tone4}{1F469 1F3FC 200D 1F91D 200D 1F469 1F3FE}
+\bxce@do{women_holding_hands_tone2_tone5}{1F469 1F3FC 200D 1F91D 200D 1F469 1F3FF}
+\bxce@do{women_holding_hands_tone3}{1F46D 1F3FD}
+\bxce@do{women_holding_hands_tone3_tone1}{1F469 1F3FD 200D 1F91D 200D 1F469 1F3FB}
+\bxce@do{women_holding_hands_tone3_tone2}{1F469 1F3FD 200D 1F91D 200D 1F469 1F3FC}
+\bxce@do{women_holding_hands_tone3_tone4}{1F469 1F3FD 200D 1F91D 200D 1F469 1F3FE}
+\bxce@do{women_holding_hands_tone3_tone5}{1F469 1F3FD 200D 1F91D 200D 1F469 1F3FF}
+\bxce@do{women_holding_hands_tone4}{1F46D 1F3FE}
+\bxce@do{women_holding_hands_tone4_tone1}{1F469 1F3FE 200D 1F91D 200D 1F469 1F3FB}
+\bxce@do{women_holding_hands_tone4_tone2}{1F469 1F3FE 200D 1F91D 200D 1F469 1F3FC}
+\bxce@do{women_holding_hands_tone4_tone3}{1F469 1F3FE 200D 1F91D 200D 1F469 1F3FD}
+\bxce@do{women_holding_hands_tone4_tone5}{1F469 1F3FE 200D 1F91D 200D 1F469 1F3FF}
+\bxce@do{women_holding_hands_tone5}{1F46D 1F3FF}
+\bxce@do{women_holding_hands_tone5_tone1}{1F469 1F3FF 200D 1F91D 200D 1F469 1F3FB}
+\bxce@do{women_holding_hands_tone5_tone2}{1F469 1F3FF 200D 1F91D 200D 1F469 1F3FC}
+\bxce@do{women_holding_hands_tone5_tone3}{1F469 1F3FF 200D 1F91D 200D 1F469 1F3FD}
+\bxce@do{women_holding_hands_tone5_tone4}{1F469 1F3FF 200D 1F91D 200D 1F469 1F3FE}
 \bxce@do{women_with_bunny_ears_partying}{1F46F 200D 2640}
 \bxce@do{women_wrestling}{1F93C 200D 2640}
 \bxce@do{womens}{1F6BA}
+\bxce@do{wood}{1FAB5}
 \bxce@do{woozy_face}{1F974}
+\bxce@do{worm}{1FAB1}
 \bxce@do{worried}{1F61F}
 \bxce@do{wrench}{1F527}
 \bxce@do{writing_hand}{270D}
@@ -2832,12 +3561,16 @@
 \bxce@do{writing_hand_tone3}{270D 1F3FD}
 \bxce@do{writing_hand_tone4}{270D 1F3FE}
 \bxce@do{writing_hand_tone5}{270D 1F3FF}
-\or %[6]
+\or %[7]
 \bxce@do{x}{274C}
 \bxce@do{yarn}{1F9F6}
+\bxce@do{yawning_face}{1F971}
+\bxce@do{yellow_circle}{1F7E1}
 \bxce@do{yellow_heart}{1F49B}
+\bxce@do{yellow_square}{1F7E8}
 \bxce@do{yen}{1F4B4}
 \bxce@do{yin_yang}{262F}
+\bxce@do{yo_yo}{1FA80}
 \bxce@do{yum}{1F60B}
 \bxce@do{zany_face}{1F92A}
 \bxce@do{zap}{26A1}
@@ -2861,20 +3594,20 @@
 \bxce@do{j}{2}
 \bxce@do{k}{2}
 \bxce@do{l}{2}
-\bxce@do{m}{2}
-\bxce@do{n}{3}
-\bxce@do{o}{3}
-\bxce@do{p}{3}
-\bxce@do{q}{4}
-\bxce@do{r}{4}
-\bxce@do{s}{4}
-\bxce@do{t}{4}
-\bxce@do{u}{5}
-\bxce@do{v}{5}
-\bxce@do{w}{5}
-\bxce@do{x}{6}
-\bxce@do{y}{6}
-\bxce@do{z}{6}
+\bxce@do{m}{3}
+\bxce@do{n}{4}
+\bxce@do{o}{4}
+\bxce@do{p}{4}
+\bxce@do{q}{5}
+\bxce@do{r}{5}
+\bxce@do{s}{5}
+\bxce@do{t}{6}
+\bxce@do{u}{6}
+\bxce@do{v}{6}
+\bxce@do{w}{6}
+\bxce@do{x}{7}
+\bxce@do{y}{7}
+\bxce@do{z}{7}
 \fi
 %--------------------------------------- done
 %% EOF
