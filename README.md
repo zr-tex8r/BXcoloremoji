@@ -73,13 +73,16 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
         なる。ただし，`*`付で実行した場合および数式中では非和文扱いと
         なる。
       - それ以外の環境では絵文字は常に非和文扱いで，`*`指定は無視する。
-  * `\coloremojiucs[*]{<符号値列>}`： 文字を「Unicode 符号値」または
+  * `\coloremojicode[*]{<符号値列>}`： 文字を「Unicode 符号値」または
      「JoyPixels の [emoji-toolkit] ライブラリで規定された短縮名」
     で入力してカラー絵文字を出力する。
     引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
     `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
     を空白区切りで並べる。`*`指定の意味は `\coloremoji` と同じ。  
-    例： `\coloremojiucs{:sushi: 23 20E3 1F643 :snowman:}`
+    例： `\coloremojicode{:sushi: 23 20E3 1F643 :snowman:}`
+  * `\coloremojiucs[*]{<符号値列>}`： `\coloremojicode` の別名。  
+    ※他の `coloremojicode～` の名前の命令・環境についても同様に
+    `coloremojiucs～` という別名が用意されている。
 
 [emoji-toolkit]: https://github.com/joypixels/emoji-toolkit
 
@@ -102,10 +105,10 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
     ※現状の実装では順序列の末尾に達した場合は先頭に戻る（つまり「♣️」
     の次は「♠️」になる）が、これは将来的に変更される可能性がある。
   * 以上の命令・環境について、引数に符号値列を指定する版も存在する。
-      - `\coloremojiucsfill{<符号値列>}`
-      - `\coloremojiucsline{<符号値列>}`
-      - `\begin{coloremojiucslist}{<符号値列>}`
-      - `\begin{coloremojiucsautolist}{<符号値列>}`
+      - `\coloremojicodefill{<符号値列>}`
+      - `\coloremojicodeline{<符号値列>}`
+      - `\begin{coloremojicodelist}{<符号値列>}`
+      - `\begin{coloremojicodeautolist}{<符号値列>}`
 
 現状では、以下に挙げる「絵文字順序列」が定められている。
 
@@ -116,7 +119,7 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
 
 ### 絵文字の“短縮名”
 
-`\coloremojiucs` 中で用いる絵文字の短縮名については、JoyPixels（旧称
+`\coloremojicode` 中で用いる絵文字の短縮名については、JoyPixels（旧称
 EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用できる。
 その他に以下に定める独自の短縮名が利用できる。
 これらは emoji sequence の入力の便宜のためのものである。
@@ -143,14 +146,14 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
 
 使用例：
 
-    \coloremojiucs{man + woman + girl + girl}
-    \coloremojiucs{!flag @g @b @w @l @s @}
-    \coloremojiucs{1F647 + !male}
+    \coloremojicode{man + woman + girl + girl}
+    \coloremojicode{!flag @g @b @w @l @s @}
+    \coloremojicode{1F647 + !male}
 
 ### PDF 文字列中での絵文字の利用
 
 hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の入力の中でも
-`\coloremoji` （および `\coloremojiucs`）命令を使用できる。例えば、
+`\coloremoji` （および `\coloremojicode`）命令を使用できる。例えば、
 `\section` の引数の中で `\coloremoji` を含めた場合、版面の上では絵文字
 の画像として出力され、PDF のしおりの中では文字として表示される。
 
@@ -164,11 +167,11 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 
   - upLaTeX の場合、pxjahyper パッケージなどの、適切な“ToUnicode 変換”
     を行うパッケージを併用する必要がある。
-      - 特に、`\coloremojiucs` 命令の処理には pxjahyper パッケージ
+      - 特に、`\coloremojicode` 命令の処理には pxjahyper パッケージ
         （そのもの）が必要である。
 
   - pLaTeX ではそもそも PDF 文字列中に JIS 外の文字を含ませることが
-    できないため、`\coloremoji(ucs)` の PDF 文字列中での使用について
+    できないため、`\coloremoji(code)` の PDF 文字列中での使用について
     も対応できない。
 
 ### カスタムファミリ
@@ -225,6 +228,10 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.13 〈2021/09/18〉
+      - Unicode Emoji 14.0 に対応した。
+      - twemoji の画像を最新版に更新。※ただし twemoji は Emoji 14.0
+        には対応していない。
   * Version 0.12 〈2021/01/27〉
       - カスタムファミリの機能を追加。
       - [coloremoji パッケージ]との互換のための機能を非推奨とする。
