@@ -2,12 +2,12 @@ use strict;
 use JSON;
 use utf8;
 
-# emojione/emoji.json
-# https://raw.githubusercontent.com/emojione/emojione/master/emoji.json
+# emojione/emoji.json (MIT License)
+# https://raw.githubusercontent.com/joypixels/emoji-toolkit/master/emoji.json
 my $src_file = shift(@ARGV) or die;
 my $out_file = shift(@ARGV) or die;
-my $pdf_dir = '../emoji_images/twemoji-pdf';
-my $out_info = '2020/06/14 v0.10';
+my $pdf_prefix = '../emoji_images/twemoji-pdf/twemoji-';
+my $out_info = '2021/09/18 v0.13';
 my $prefix = 'bxce';
 my $sector_size = 300;
 
@@ -24,10 +24,24 @@ sub main {
   print $ho (footer());
 }
 
+my %cclass = (
+  map { $_ => 1 } (
+    0x20E0, 0x20E3, 0x1F1E6 .. 0x1F1FF, 0x1F3FB .. 0x1F3FF,
+    0xE0020 .. 0xE007F,
+  ),
+  map { $_ => 2 } (
+    0xFE0E, 0xFE0F, 
+  ),
+);
+
 sub convert_code_seq {
-  local ($_) = @_; $_ = '-'.uc($_);
-  s/-FE0\w//g; s/-0+/-/g; s/^-//; s/-/ /g;
-  return $_;
+  local ($_) = @_; my (@ucs);
+  foreach (map { hex($_) } (split(m/-/, $_))) {
+    if (!@ucs) { push(@ucs, $_); }
+    elsif (!exists $cclass{$_}) { push(@ucs, 0x200D, $_); }
+    elsif ($cclass{$_} == 1) { push(@ucs, $_); }
+  }
+  return join(' ', map { sprintf("%X", $_) } (@ucs));
 }
 sub convert_name {
   local ($_) = @_; s/^:(.*):$/$1/g;
@@ -47,7 +61,7 @@ sub load_data {
   foreach my $code (keys %$emoji) {
     my $entry = $emoji->{$code};
     my $name = convert_name($entry->{shortname});
-    my $cseq = convert_code_seq($entry->{code_points}{output});
+    my $cseq = convert_code_seq($code);#($entry->{code_points}{base});
     push(@data, [$name, $cseq]);
   }
   @data = sort { $a->[0] cmp $b->[0] } (@data);
@@ -55,8 +69,8 @@ sub load_data {
 
 sub scan_files {
   @file = ();
-  foreach my $f (glob("$pdf_dir/*.pdf")) {
-    local $_ = $f; s|^.*/||; s|\.pdf$||;
+  foreach my $f (glob("$pdf_prefix*.pdf")) {
+    local $_ = substr($f, length($pdf_prefix)); s|\.pdf$||;
     push(@file, $_);
   }
 }
@@ -98,7 +112,7 @@ sub header {
 %%
 %% This is file '%FILE%'.
 %%
-%% Copyright (c) 2017-2020 Takayuki YATO (aka. "ZR")
+%% Copyright (c) 2017-2021 Takayuki YATO (aka. "ZR")
 %%   GitHub:   https://github.com/zr-tex8r
 %%   Twitter:  @zr_tex8r
 %%
