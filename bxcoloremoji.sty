@@ -63,6 +63,10 @@
 \chardef\bxce@abool@@true=2
 %% switch bxce@nodvidriver@opt : is 'nodvidriver' given?
 \newbool{bxce@nodvidriver@opt}
+%% \bxce@bbparam@opt : 'bbparam' value
+\let\bxce@bbparam@opt\bxce@abool@@auto
+%% \bxce@jatype@opt : 'jatype' value
+\let\bxce@jatype@opt\bxce@abool@@auto
 %% switch bxce@custom@family : is custom family used?
 \newbool{bxce@custom@family}
 %% bxce@family : image family
@@ -114,7 +118,7 @@
 
 %% \bxce@check@opt@key{<key>}{<value>}{<check>}{<true>}{<false>}
 \def\bxce@check@opt@key#1#2#3#4#5{%
-  \ifcsdef{#3#1}{#4}{%else
+  \ifcsdef{#3#2}{#4}{%else
     \bxce@err@ivval{#1}{#2}%
     #5%
   }%
@@ -188,6 +192,20 @@
   \def\coloremojidir{#1}%
 }
 
+%% 'bbparam=<bool/auto>'
+\define@key{bxce}{bbparam}[true]{%
+  \bxce@check@opt@key{bbparam}{#1}{bxce@abool@@}{%
+    \letcs\bxce@bbparam@opt{bxce@abool@@#1}%
+  }{}%
+}
+
+%% 'jatype=<bool/auto>'
+\define@key{bxce}{jatype}[true]{%
+  \bxce@check@opt@key{jatype}{#1}{bxce@abool@@}{%
+    \letcs\bxce@jatype@opt{bxce@abool@@#1}%
+  }{}%
+}
+
 %% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
@@ -218,6 +236,11 @@
 \ifx\bxce@family\@undefined
   \setkeys{bxce}{twemoji-pdf}
 \fi
+
+%% invalidate some keys
+\bxce@invalidate@opt@key{basedir}
+\bxce@invalidate@opt@key{bbparam}
+\bxce@invalidate@opt@key{jatype}
 
 %--------------------------------------- environment check
 
@@ -295,12 +318,15 @@
       \global\bxce@use@imagefalse
     }%
   \fi
-  \ifbxce@use@image
+  \unless\ifbxce@use@image
+  \else\ifnum\bxce@bbparam@opt=\bxce@abool@@true
+    \global\bxce@use@bbtrue
+  \else\ifnum\bxce@bbparam@opt=\bxce@abool@@auto
     \def\bxce@tmpa{dvipdfmx.def}%
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
     \def\bxce@tmpa{dvipdfm.def}%
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
-  \fi
+  \fi\fi\fi
   \bxce@resolve@image@metric
   \global\let\bxce@resolve@image@metric\relax
 }
@@ -1301,8 +1327,10 @@
       \global\bxce@luatexjatrue
     }{}%
   \fi
-  %
-  \ifbxce@luatexja
+  % jatype settings
+  \ifnum\bxce@jatype@opt=\bxce@abool@@false
+    % skip jatype settings
+  \else\ifbxce@luatexja
     \global\bxce@jaoktrue
     \global\chardef\bxce@zspc="3000
     \ifdefined\ltj@curtfnt
@@ -1323,7 +1351,12 @@
     \gdef\bxce@unit{zw}%
     \gdef\bxce@disp{\bxce@iftdir{0.5}{0.12}}%
     \gdef\bxce@inter{\kanjiskip}%
-  \fi\fi
+  \else\ifnum\bxce@jatype@opt=\bxce@abool@@true
+    \ifnum0\if x\bxce@engine1\fi\if l\bxce@engine1\fi >\z@
+      \global\bxce@jaoktrue
+      \global\chardef\bxce@zspc="3000
+    \fi
+  \fi\fi\fi\fi
   \if d\bxce@engine
     \@ifpackageloaded{CJK}{%
       \unless\ifdefined\CJKhook \let\CJKhook\@empty \fi
