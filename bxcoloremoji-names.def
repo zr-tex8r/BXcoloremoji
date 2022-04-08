@@ -1,7 +1,7 @@
 %%
 %% This is file 'bxcoloremoji-names.def'.
 %%
-%% Copyright (c) 2017-2021 Takayuki YATO (aka. "ZR")
+%% Copyright (c) 2017-2022 Takayuki YATO (aka. "ZR")
 %%   GitHub:   https://github.com/zr-tex8r
 %%   Twitter:  @zr_tex8r
 %%
@@ -9,7 +9,7 @@
 %%
 
 %% file declaration
-\ProvidesFile{bxcoloremoji-names.def}[2021/09/18 v0.13]
+\ProvidesFile{bxcoloremoji-names.def}[2022/04/08 v0.14]
 
 %--------------------------------------- name mappings
 \ifcase\bxce@ndindex %[0]

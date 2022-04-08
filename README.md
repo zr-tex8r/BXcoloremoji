@@ -59,10 +59,12 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
       - `twemoji-pdf`： twemoji の SVG 画像から変換した PDF 画像。
       - `twemoji-png`： twemoji の 72 ピクセルの PNG 画像。
       - `family=<名前>`： カスタムファミリ指定（後述）。
-  * `scale=<実数>`： 絵文字のサイズを標準値に対する倍率で指定する。
-    （既定値 = 1）  
-    ※標準のサイズは (u)pLaTeX では 1zw，LuaLaTeX + LuaTeX-ja では
-    1`\zw`、それ以外は 1em。
+  * `size=<長さ>`： 絵文字のサイズ。
+  * `size*=<長さ>`： `*`付命令での絵文字のサイズ。  
+    ※`size` および `size*` の既定値は (u)pLaTeX では 1zw、
+    LuaLaTeX + LuaTeX-ja では 1`\zw`、それ以外は 1em。
+  * `scale=<実数>`： 絵文字のサイズを、`size`/`size*` の値からさらに
+     指定の倍率で変更する。（既定値 = 1）
 
 ### 使い方
 
@@ -228,6 +230,10 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.14 〈2022/04/08〉
+      - twemoji の画像を最新版に更新。Emoji 14.0 に対応。
+      - `size` および `size*` オプションを追加。
+      - 非推奨のオプションに対して警告を出す。
   * Version 0.13 〈2021/09/18〉
       - Unicode Emoji 14.0 に対応した。
       - twemoji の画像を最新版に更新。※ただし twemoji は Emoji 14.0
