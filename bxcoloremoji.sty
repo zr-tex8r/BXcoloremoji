@@ -78,6 +78,14 @@
 %% bxce@scale : image scale
 \def\bxce@scale{1}
 
+%% \bxce@warn@dpopt{<name>}
+\def\bxce@warn@dpopt#1{%
+  \PackageWarning\bxce@pkgname
+   {Option '#1' is DEPRECATED\MessageBreak
+    and may be abolished in future,\MessageBreak
+    reported}%
+}
+
 %% family options
 \define@key{bxce}{no-image}[]{%
   \bxce@custom@familyfalse
@@ -101,6 +109,7 @@
   \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
 }
 \define@key{bxce}{twitter}[]{% *DEPRECATED*
+  \bxce@warn@dpopt{twitter}%
   \bxce@custom@familyfalse
   \def\bxce@family{twitter}%
   \def\bxce@bb{0 0 38 38}%
@@ -108,6 +117,7 @@
   \def\bxce@prefix{\coloremojidir twitter/}%
 }
 \define@key{bxce}{hires}[]{% *DEPRECATED*
+  \bxce@warn@dpopt{hires}%
   \bxce@custom@familyfalse
   \def\bxce@family{hires}%
   \def\bxce@bb{0 0 11.338600 11.338600}%
@@ -115,6 +125,7 @@
   \def\bxce@prefix{\coloremojidir hires/}%
 }
 \define@key{bxce}{lowres}[]{% *DEPRECATED*
+  \bxce@warn@dpopt{lowres}%
   \bxce@custom@familyfalse
   \def\bxce@family{lowres}%
   \def\bxce@bb{0 0 4.535430 4.535430}%
@@ -129,6 +140,7 @@
 
 %% 'basedir=<path>'
 \define@key{bxce}{basedir}{% *DEPRECATED*
+  \bxce@warn@dpopt{basedir}%
   \def\coloremojidir{#1}%
 }
 
