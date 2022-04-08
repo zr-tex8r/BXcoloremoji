@@ -77,6 +77,10 @@
 \let\bxce@prefix\relax
 %% bxce@scale : image scale
 \def\bxce@scale{1}
+%% bxce@size : image size
+\let\bxce@size\@empty
+%% bxce@size@var : image size for *-form
+\let\bxce@size@var\@empty
 
 %% \bxce@warn@dpopt{<name>}
 \def\bxce@warn@dpopt#1{%
@@ -136,6 +140,15 @@
 %% 'scale=<real>'
 \define@key{bxce}{scale}{%
   \def\bxce@scale{#1}%
+}
+
+%% 'size=<length>'
+\define@key{bxce}{size}{%
+  \def\bxce@size{#1}%
+}
+%% 'size*=<length>'
+\define@key{bxce}{size*}{%
+  \def\bxce@size@var{#1}%
 }
 
 %% 'basedir=<path>'
@@ -1066,6 +1079,7 @@
 
 %% variables
 \newbool{bxce@ctdir}
+\newbool{bxce@var}% *-form is used?
 \newdimen\bxce@cwd
 \newdimen\bxce@disp@dim
 \newskip\bxce@inter@skip
@@ -1089,12 +1103,32 @@
 \def\bxce@output@a{%
   \bxce@resolve@image@setup
   \bxce@iftdir{\bxce@ctdirtrue}{\bxce@ctdirfalse}%
-  \bxce@cwd=\bxce@scale\bxce@unit\relax
-  \bxce@disp@dim=\bxce@disp\bxce@unit\relax
+  \bxce@set@cwd
+  \bxce@disp@dim=\bxce@disp\bxce@cwd\relax
   \bxce@inter@skip=\bxce@inter\relax
   \bxce@text
   \unskip
 }
+
+%% \bxce@set@cwd
+\def\bxce@set@cwd{%
+  \ifbxce@var \let\bxce@tmpa\bxce@size@var
+  \else \let\bxce@tmpa\bxce@size
+  \fi
+  \ifx\bxce@tmpa\@empty
+    \bxce@cwd=\bxce@scale\bxce@unit\relax
+  \else
+    \begingroup
+      \let\em\bxce@set@cwd@em
+      \let\Em\bxce@set@cwd@Em
+      \setlength\bxce@cwd{\bxce@tmpa}%
+      \xdef\bxce@g@tmpa{\the\bxce@cwd}%
+    \endgroup
+    \bxce@cwd=\bxce@g@tmpa\relax \bxce@cwd=\bxce@scale\bxce@cwd
+  \fi
+}
+\def\bxce@set@cwd@em{\dimexpr1\bxce@unit\relax}
+\def\bxce@set@cwd@Em{\dimexpr\f@size\p@\relax}
 
 %% \bxce@wr{<char>}
 \def\bxce@wr#1{%
@@ -1297,6 +1331,11 @@
   \@ifstar{#1}{#1}#2%
 }
 \def\bxce@enghost@a#1{%
+  \bxce@with@star{#1}{%
+    \bxce@vartrue
+  }{%else
+    \bxce@varfalse
+  }%
 % NB. It could be called before \bxce@resolve@image@metric.
 % Then ghost setting could be inappropriate.
   \bxce@cond\ifbxce@jaok\fi{%
