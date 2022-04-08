@@ -11,19 +11,8 @@
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{bxcoloremoji}[2022/04/08 v0.14]
-
-%% preparatons
 \def\bxce@pkgname{bxcoloremoji}
-% TODO: Drop \bxce@error and \bxce@warn.
-\def\bxce@error{\PackageError\bxce@pkgname}
-\def\bxce@warn{\PackageWarning\bxce@pkgname}
 \providecommand\bxDebug[1]{}
-
-%% packages
-% TODO: Move them inside code guard
-\RequirePackage{etoolbox}
-\RequirePackage{keyval}
-\input{binhex.tex}
 
 %% code guard
 \edef\bxce@restore@codes{%
@@ -62,6 +51,10 @@
   \let\bxce@restore@codes\relax}
 
 %--------------------------------------- public settings
+
+%% packages
+\RequirePackage{etoolbox}[2011/01/03]% v2.1
+\RequirePackage{keyval}
 
 %%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
@@ -190,7 +183,8 @@
 %% e-TeX check
 \ifx\numdef\@undefined % etoolbox is aborted
   % etoolbox has already issued an error
-  \bxce@warn{Package loading is aborted\@gobble}
+  \PackageWarningNoLine\bxce@pkgname
+   {Package loading is aborted}
 \expandafter\endinput\fi\relax
 
 %% \bxce@engine : engine type
@@ -237,7 +231,7 @@
   \else\unless\ifx u\bxce@engine
     \def\bxce@check@inputenc{%
       \global\let\bxce@check@inputenc\relax
-      \bxce@error
+      \PackageError\bxce@pkgname
        {You must load 'inputenc' before this package\MessageBreak
         and use input encoding 'utf8'}\@ehc
     }%
@@ -254,7 +248,7 @@
   \fi
   \ifbxce@use@image
     \@ifpackageloaded{graphicx}{}{%else
-      \bxce@error
+      \PackageError\bxce@pkgname
        {Package 'graphicx' is not loaded}\@ehc
       \global\bxce@use@imagefalse
     }%
@@ -281,6 +275,9 @@
 
 %--------------------------------------- helpers
 
+%% packages
+\input{binhex.tex}
+
 %% variables
 \newbool{bxce@ok}
 \newcount\bxce@cnta
@@ -296,9 +293,6 @@
 \begingroup \lccode`\*=`\\
 \lowercase{\global\let\bxce@@BS=*}
 \endgroup
-
-%% \bxce@zspc : zenkaku space
-\def\bxce@zspc{\kern1em\relax}
 
 %% \bxce@nihil
 \def\bxce@nihil{%
@@ -514,24 +508,30 @@
 
 %% error messages
 \def\bxce@err@intcc#1#2{%
-  \bxce@error{INTERNAL ERROR (#1)\MessageBreak
-      (code = U+#2)}\@ehc
+  \PackageError\bxce@pkgname
+   {INTERNAL ERROR (#1)\MessageBreak
+    (code = U+#2)}%
+   {\@ehc}%
 }
 \def\bxce@warn@locmb#1{%
-  \bxce@warn{Lone combining character found\MessageBreak
-      (code = U+#1)}%
+  \PackageWarning\bxce@pkgname
+   {Lone combining character found\MessageBreak
+    (code = U+#1)}%
 }
 \def\bxce@warn@lotag#1{%
-  \bxce@warn{Lone tag character found\MessageBreak
-      (code = U+#1)}%
+  \PackageWarning\bxce@pkgname
+   {Lone tag character found\MessageBreak
+    (code = U+#1)}%
 }
 \def\bxce@warn@loris#1{%
-  \bxce@warn{Unpaired region indicator symbol found\MessageBreak
-      (code = U+#1)}%
+  \PackageWarning\bxce@pkgname
+   {Unpaired region indicator symbol found\MessageBreak
+    (code = U+#1)}%
 }
 \def\bxce@warn@lschr{%
-  \bxce@warn{Some characters given to \string\coloremoji\space
-    are\MessageBreak unimplemented and thus lost,}%
+  \PackageWarning\bxce@pkgname
+   {Some characters given to \string\coloremoji\space are\MessageBreak
+    unimplemented and thus lost,}%
 }
 
 %% \bxce@expand@text{<text>}
@@ -983,7 +983,8 @@
 
 %% error message
 \def\bxce@warn@ivcod#1{%
-  \bxce@warn{Invalid character code found\MessageBreak
+  \PackageWarning\bxce@pkgname
+   {Invalid character code found\MessageBreak
     (#1)}%
 }
 
@@ -1322,6 +1323,9 @@
 
 %--------------------------------------- ghost something
 
+%% \bxce@zspc : zenkaku space
+\let\bxce@zspc\@undefined
+
 %% \bxce@postghost
 \let\bxce@postghost\relax
 
@@ -1342,14 +1346,14 @@
     \bxce@cond\ifmmode\fi{%
       \let\bxce@postghost\relax
     }{%else
-      \bxce@with@star{#1}{%
+      \ifbxce@var
         \bxce@nihil
         \let\bxce@postghost\bxce@nihil
-      }{%else
+      \else
         \bxce@zspc \kern-1\bxce@unit\relax
         \def\bxce@postghost{%
           \kern-1\bxce@unit\relax \bxce@zspc}%
-      }%
+      \fi
     }%
   }{%else
     \leavevmode
