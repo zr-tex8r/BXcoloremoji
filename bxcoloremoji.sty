@@ -14,11 +14,13 @@
 
 %% preparatons
 \def\bxce@pkgname{bxcoloremoji}
+% TODO: Drop \bxce@error and \bxce@warn.
 \def\bxce@error{\PackageError\bxce@pkgname}
 \def\bxce@warn{\PackageWarning\bxce@pkgname}
 \providecommand\bxDebug[1]{}
 
 %% packages
+% TODO: Move them inside code guard
 \RequirePackage{etoolbox}
 \RequirePackage{keyval}
 \input{binhex.tex}
@@ -59,7 +61,7 @@
   \bxce@restore@codes
   \let\bxce@restore@codes\relax}
 
-%--------------------------------------- package options
+%--------------------------------------- public settings
 
 %%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
@@ -76,7 +78,7 @@
 %% bxce@scale : image scale
 \def\bxce@scale{1}
 
-%% keyval options
+%% family options
 \define@key{bxce}{no-image}[]{%
   \bxce@custom@familyfalse
   \let\bxce@family\relax
@@ -119,12 +121,18 @@
   \def\bxce@ext{pdf}%
   \def\bxce@prefix{\coloremojidir lowres/}%
 }
+
+%% 'scale=<real>'
 \define@key{bxce}{scale}{%
   \def\bxce@scale{#1}%
 }
+
+%% 'basedir=<path>'
 \define@key{bxce}{basedir}{% *DEPRECATED*
   \def\coloremojidir{#1}%
 }
+
+%% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
 }
@@ -135,15 +143,21 @@
   \let\bxce@ext\relax
   \let\bxce@prefix\relax
 }
+
+%--------------------------------------- package options
+
+%% keyval options
 \DeclareOption*{%
-  \expandafter\bxce@tmpa\CurrentOption\bxce@end
+  \edef\bxce@tmpa{%
+    \noexpand\setkeys{bxce}{\CurrentOption}%
+  }\bxce@tmpa
 }
-\def\bxce@tmpa#1\bxce@end{%
-  \setkeys{bxce}{#1}%
-}
+%% dispatch
 \ProcessOptions*
+
+%% set default family
 \ifx\bxce@family\@undefined
-  \setkeys{bxce}{twemoji-pdf}% default
+  \setkeys{bxce}{twemoji-pdf}
 \fi
 
 %--------------------------------------- environment check
@@ -1422,9 +1436,11 @@
   \lccode`H=`H
   \def\bxce@tmpa#1\bxce@end{%
     \lowercase{\csgdef{bxce@H/#1}}{#1}%
-    \csgdef{bxce@H/#1}{#1}}
+    \csgdef{bxce@H/#1}{#1}%
+  }
   \@tfor\x:=0123456789ABCDEF\do{%
-    \expandafter\bxce@tmpa\x\bxce@end}
+    \expandafter\bxce@tmpa\x\bxce@end
+  }
 \endgroup
 
 %--------------------------------------- unparse
@@ -1480,10 +1496,14 @@
 \let\bxce@cfg@file\relax
 
 %% errors
+\@onlypreamble\bxce@err@secfg
 \def\bxce@err@secfg#1{%
   \PackageError\bxce@pkgname
-   {Problem in '\bxce@cfg@file':\MessageBreak #1}%
-   {The custom family is ignored.\MessageBreak\@ehc}}
+   {Problem in '\bxce@cfg@file':\MessageBreak
+    #1}%
+   {The custom family is ignored.\MessageBreak
+    \@ehc}%
+}
 
 %% \bxce@use@custom@family{<name>}
 \def\bxce@use@custom@family#1{%
@@ -1491,7 +1511,9 @@
   \let\bxce@family\relax \bxce@custom@familyfalse
   \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
   \edef\bxce@cfg@file{\bxce@pkgname-#1.cfg}%
-  \ifcsdef{bxce@config/#1}{\csuse{bxce@config/#1}}{%else
+  \ifcsdef{bxce@config/#1}{%
+    \csuse{bxce@config/#1}%
+  }{%else
     \IfFileExists{\bxce@cfg@file}{%
       \edef\bxce@family{#1}\bxce@custom@familytrue
       \bxce@read@cfg@file
@@ -1499,17 +1521,19 @@
       \PackageError\bxce@pkgname
        {The custom family '#1' is unavaiable\MessageBreak
         since file '\bxce@cfg@file' is not found}%
-       {\@ehc}}%
+       {\@ehc}%
+    }%
   }%
   \ifbxce@custom@family
     \bxce@check@cfg@values
-  \fi}
+  \fi
+}
 
 %% \bxce@read@cfg@file
 \def\bxce@read@cfg@file{%
   \PackageInfo\bxce@pkgname
    {Loading custom family config file\MessageBreak
-     '\bxce@cfg@file'}%
+    '\bxce@cfg@file'}%
   \openin\@inputcheck=\bxce@cfg@file\relax
   \begingroup
     \endlinechar\m@ne
@@ -1523,24 +1547,29 @@
         \unless\ifx\bxce@tmpa\@empty
           \expandafter\bxce@read@cfg@file@a\bxce@tmpa\bxce@mk=\bxce@end
         \fi
-      \fi}%
+      \fi
+    }%
     \global\cslet{bxce@config/\bxce@family}\bxce@g@tmpa
   \endgroup
   \closein\@inputcheck
-  \bxce@g@tmpa}
+  \bxce@g@tmpa
+}
 \def\bxce@read@cfg@file@a#1=#2\bxce@end{%
   \ifx\bxce@mt#2\bxce@mt
     \bxce@err@secfg{missing '='}\bxce@okfalse
   \else
     \edef\bxce@tmpa{\zap@space#1 \@empty}%
     \bxce@read@cfg@file@b#2\bxce@end
-  \fi}
+  \fi
+}
 \def\bxce@read@cfg@file@b#1\bxce@mk#2\bxce@end{%
   \edef\bxce@tmpb{\@firstofone#1\@empty}%
   \ifcsdef{bxce@read@cfg@file@@\bxce@tmpa}{%
     \csuse{bxce@read@cfg@file@@\bxce@tmpa}%
   }{%else
-    \bxce@err@secfg{unknown key '\bxce@tmpa'}\bxce@okfalse}}
+    \bxce@err@secfg{unknown key '\bxce@tmpa'}\bxce@okfalse
+  }%
+}
 \def\bxce@tmpa#1{%
   \def\bxce@read@cfg@file@cc{%
     \expandafter\bxce@read@cfg@file@cc@a\bxce@tmpa#1\bxce@end}%
@@ -1550,11 +1579,14 @@
 }\expandafter\bxce@tmpa\@percentchar
 % key handlers
 \def\bxce@read@cfg@file@@bbox{%
-  \xappto\bxce@g@tmpa{\def\bxce@bb{\bxce@tmpb}}}
+  \xappto\bxce@g@tmpa{\def\bxce@bb{\bxce@tmpb}}%
+}
 \def\bxce@read@cfg@file@@extension{%
-  \xappto\bxce@g@tmpa{\def\bxce@ext{\bxce@tmpb}}}
+  \xappto\bxce@g@tmpa{\def\bxce@ext{\bxce@tmpb}}%
+}
 \def\bxce@read@cfg@file@@prefix{%
-  \xappto\bxce@g@tmpa{\def\bxce@prefix{\bxce@tmpb}}}
+  \xappto\bxce@g@tmpa{\def\bxce@prefix{\bxce@tmpb}}%
+}
 
 %% \bxce@check@cfg@values
 \def\bxce@check@cfg@values{%
@@ -1568,12 +1600,14 @@
   \fi
   \unless\ifbxce@ok
     \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
-  \fi}
+  \fi
+}
 
 %% invoke the custom family set by a package option
 \ifbxce@custom@family
-  \edef\bxce@tmpa{{\bxce@family}}
-  \expandafter\bxce@use@custom@family\bxce@tmpa
+  \edef\bxce@tmpa{%
+    \noexpand\bxce@use@custom@family{\bxce@family}%
+  }\bxce@tmpa
 \fi
 
 %--------------------------------------- emoji order list
@@ -1628,7 +1662,8 @@
       \ifx\bxce@oecur\@empty
       \else\ifcsname bxce@oen/\bxce@oecur\endcsname
         \global\csundef{bxce@oen/\bxce@oecur}%
-      \fi\fi}%
+      \fi\fi
+    }%
   \endgroup
 }
 
@@ -1646,7 +1681,8 @@
         \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
         \ifdefined\bxce@oecur \advance\bxce@cnto\m@ne
         \else \bxce@cnto\z@
-        \fi}%
+        \fi
+      }%
       \unskip\typeout{done}%
     \else \typeout{(not declared)}%
     \fi
