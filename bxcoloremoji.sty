@@ -58,6 +58,8 @@
 
 %%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
+%% switch bxce@nodvidriver@opt : is 'nodvidriver' given?
+\newbool{bxce@nodvidriver@opt}
 %% switch bxce@custom@family : is custom family used?
 \newbool{bxce@custom@family}
 %% bxce@family : image family
@@ -164,6 +166,10 @@
 
 %--------------------------------------- package options
 
+%% 'nodvidriver'
+\DeclareOption{nodvidriver}{%
+  \bxce@nodvidriver@opttrue
+}
 %% keyval options
 \DeclareOption*{%
   \edef\bxce@tmpa{%
@@ -238,14 +244,15 @@
   \fi\fi
 \fi
 
+%% set switch 'bxce@use@image'
+\unless\ifbxce@nodvidriver@opt
+  \bxce@use@imagetrue
+\fi
+
 %% \bxce@resolve@image@setup
 \bxce@use@bbfalse
-\bxce@use@imagetrue
 \def\bxce@resolve@image@setup{%
   \global\let\bxce@resolve@image@setup\relax
-  \ifx\bxce@family\relax % no-image
-    \global\bxce@use@imagefalse
-  \fi
   \ifbxce@use@image
     \@ifpackageloaded{graphicx}{}{%else
       \PackageError\bxce@pkgname
@@ -1103,6 +1110,9 @@
 }
 \def\bxce@output@a{%
   \bxce@resolve@image@setup
+  \unless\ifbxce@use@image
+    \let\bxce@family\relax
+  \fi
   \bxce@iftdir{\bxce@ctdirtrue}{\bxce@ctdirfalse}%
   \bxce@set@cwd
   \bxce@disp@dim=\bxce@disp\bxce@cwd\relax
@@ -1186,7 +1196,7 @@
 
 %% \bxce@if@image@exists{<name>}
 \def\bxce@if@image@exists#1{%
-  \bxce@cond\ifbxce@use@image\fi{%
+  \bxce@cond\unless\ifx\bxce@family\relax\fi{%
     \IfFileExists{\bxce@image@path{#1}}%
   }{%else
     \@secondoftwo % always false
@@ -1248,7 +1258,7 @@
   % set 'bxce@luatexja'
   \if l\bxce@engine
     \@ifpackageloaded{luatexja}{%
-      \bxce@luatexjatrue
+      \global\bxce@luatexjatrue
     }{}%
   \fi
   %
