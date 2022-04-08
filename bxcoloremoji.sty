@@ -58,6 +58,9 @@
 
 %%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
+\chardef\bxce@abool@@false=0
+\chardef\bxce@abool@@auto=1
+\chardef\bxce@abool@@true=2
 %% switch bxce@nodvidriver@opt : is 'nodvidriver' given?
 \newbool{bxce@nodvidriver@opt}
 %% switch bxce@custom@family : is custom family used?
@@ -77,6 +80,15 @@
 %% bxce@size@var : image size for *-form
 \let\bxce@size@var\@empty
 
+%% \bxce@initialize@setup
+\def\bxce@initialize@setup{%
+  \bxce@custom@familyfalse
+  \let\bxce@family\relax
+  \let\bxce@bb\relax
+  \let\bxce@ext\relax
+  \let\bxce@prefix\relax
+}
+
 %% \bxce@warn@dpopt{<name>}
 \def\bxce@warn@dpopt#1{%
   \PackageWarning\bxce@pkgname
@@ -85,13 +97,37 @@
     reported}%
 }
 
+%% \bxce@err@ivval{<name>}{<value>}
+\def\bxce@err@ivval#1#2{%
+  \PackageError\bxce@pkgname
+   {Invalid value for key '#1' found\MessageBreak
+    (#2)}%
+   {\@eha}%
+}
+
+%% \bxce@err@naopt{<name>}
+\def\bxce@err@naopt#1{%
+  \PackageError\bxce@pkgname
+   {You cannot use '#1' here}%
+   {\@eha}%
+}
+
+%% \bxce@check@opt@key{<key>}{<value>}{<check>}{<true>}{<false>}
+\def\bxce@check@opt@key#1#2#3#4#5{%
+  \ifcsdef{#3#1}{#4}{%else
+    \bxce@err@ivval{#1}{#2}%
+    #5%
+  }%
+}
+
+%% \bxce@invalidate@opt@key{<name>}
+\def\bxce@invalidate@opt@key#1{%
+  \define@key{bxce}{#1}[]{\bxce@err@naopt{#1}}%
+}
+
 %% family options
 \define@key{bxce}{no-image}[]{%
-  \bxce@custom@familyfalse
-  \let\bxce@family\relax
-  \let\bxce@bb\relax
-  \let\bxce@ext\relax
-  \let\bxce@prefix\relax
+  \bxce@initialize@setup
 }
 \define@key{bxce}{twemoji-pdf}[]{%
   \bxce@custom@familyfalse
@@ -156,12 +192,11 @@
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
 }
+% tentative definition, redefined later
 \def\bxce@use@custom@family#1{%
+  \bxce@initialize@setup
   \bxce@custom@familytrue
   \def\bxce@family{#1}%
-  \let\bxce@bb\relax
-  \let\bxce@ext\relax
-  \let\bxce@prefix\relax
 }
 
 %--------------------------------------- package options
@@ -465,6 +500,11 @@
 \fi
 
 %--------------------------------------- user interface
+
+%%<*> \coloremojisetup{<key>=<value>,...}
+\newrobustcmd*{\coloremojisetup}[1]{%
+  \setkeys{bxce}{#1}%
+}
 
 %%<*> \coloremoji*[<option>,...]{<text>}
 \newrobustcmd*{\coloremoji}{%
@@ -1573,8 +1613,7 @@
 %% \bxce@use@custom@family{<name>}
 \def\bxce@use@custom@family#1{%
   % start from invalidated state
-  \let\bxce@family\relax \bxce@custom@familyfalse
-  \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
+  \bxce@initialize@setup
   \edef\bxce@cfg@file{\bxce@pkgname-#1.cfg}%
   \ifcsdef{bxce@config/#1}{%
     \csuse{bxce@config/#1}%
