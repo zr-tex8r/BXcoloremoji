@@ -67,6 +67,8 @@
 \let\bxce@bbparam@opt\bxce@abool@@auto
 %% \bxce@jatype@opt : 'jatype' value
 \let\bxce@jatype@opt\bxce@abool@@auto
+%% \bxce@preload@names@opt : 'preload-names' value
+\let\bxce@preload@names@opt\bxce@abool@@auto
 %% switch bxce@custom@family : is custom family used?
 \newbool{bxce@custom@family}
 %% bxce@family : image family
@@ -206,6 +208,13 @@
   }{}%
 }
 
+%% 'preload-names=<bool/auto>'
+\define@key{bxce}{preload-names}[true]{%
+  \bxce@check@opt@key{preload-names}{#1}{bxce@abool@@}{%
+    \letcs\bxce@preload@names@opt{bxce@abool@@#1}%
+  }{}%
+}
+
 %% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
@@ -332,11 +341,18 @@
 }
 \AtBeginDocument{\bxce@resolve@image@setup}
 % auto-load graphicx if possible
-\unless\ifx\bxce@family\relax
+\ifbxce@use@image
+  % check if a global driver option is given
+  \chardef\bxce@do\z@
+  \@for\bxce@tmpa:=\@classoptionslist\do{%
+    \@for\bxce@tmpb:={dvipdfmx,dvipdfm,dvips}\do{%
+      \ifx\bxce@tmpa\bxce@tmpb \chardef\bxce@do\@ne \fi
+    }
+  }
   \ifnum\ifdefined\pdfoutput \pdfoutput
         \else\ifdefined\outputmode \outputmode
         \else\ifx x\bxce@engine \@ne
-        \else \z@ \fi\fi\fi >\z@
+        \else \bxce@do \fi\fi\fi >\z@
     \RequirePackage{graphicx}[]%
   \fi
 \fi
@@ -958,7 +974,7 @@
   \csgdef{bxce@nd/#1}{#2}%
 }
 
-%% initizlize
+%% initialize
 \bxce@read@name@data@file{-1}
 \mathchardef\bxce@ndmaxindex=\csuse{bxce@ndi/z}\relax
 
@@ -1016,6 +1032,9 @@
 %%<+> \coloremojiLoadNames{<sname> ...}
 \newrobustcmd*\coloremojiLoadNames[1]{%
   \edef\bxce@tmpa{#1}%
+  \bxce@load@names
+}
+\def\bxce@load@names{%
   \edef\bxce@tmpa{\detokenize\expandafter{\bxce@tmpa} @ }%
   \expandafter\bxce@load@names@a\bxce@tmpa
 }
@@ -1035,8 +1054,6 @@
 
 %%<+> \coloremojiLoadAllNames
 \newrobustcmd*\coloremojiLoadAllNames{%
-  \global\let\coloremojiLoadAllNames\relax
-  \global\let\bxce@lookup@sname\bxce@parse@sname
   \bxce@cnta\m@ne
   \@whilenum{\bxce@cnta<\bxce@ndmaxindex}\do{%
     \advance\bxce@cnta\@ne
@@ -1044,7 +1061,24 @@
       \bxce@read@name@data@file{\bxce@cnta}%
     }%
   }%
+  % annihilate
+  \global\let\bxce@read@name@data@file\@undefined
+  \global\let\bxce@load@sname@definition\@undefined
+  \global\let\bxce@load@sname@definition@a\@undefined
+  \global\let\bxce@load@names\relax
+  \global\let\bxce@load@names@a\@undefined
+  \global\let\bxce@load@names@b\@undefined
+  \global\let\coloremojiLoadAllNames\relax
+  \global\let\bxce@lookup@sname\bxce@parse@sname
 }
+
+%% exercise 'preload-names'
+\ifnum0\ifnum\bxce@preload@names@opt=\bxce@abool@@true 1%
+    \else\ifnum\bxce@preload@names@opt=\bxce@abool@@auto
+      \if l\bxce@engine1\fi\if x\bxce@engine1\fi\if u\bxce@engine1\fi
+    \fi\fi >\z@
+  \AtEndOfPackage{\coloremojiLoadAllNames}%
+\fi
 
 %--------------------------------------- parse character code
 
