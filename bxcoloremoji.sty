@@ -215,6 +215,14 @@
   }{}%
 }
 
+%% 'nodvidriver=<bool>'
+% Introduced to enable one to cancel global 'nodvidriver'.
+\define@key{bxce}{nodvidriver}{%
+  \bxce@check@opt@key{nodvidriver}{#1}{bxce@nodvidriver@opt}{%
+    \csuse{bxce@nodvidriver@opt#1}%
+  }{}%
+}
+
 %% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
