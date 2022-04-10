@@ -940,7 +940,6 @@
 
 %% variables
 \let\bxce@ndindex\relax
-\let\bxce@ndmaxindex\relax
 %[bxce@nd/<name>] : name -> ccseq
 %[bxce@ndi/<char>] : first char -> sector
 %[bxce@ndrs/<sector>] : the sector is already read?
@@ -951,9 +950,16 @@
     \endlinechar\m@ne
     \catcode13=9 \catcode32=10 \catcode64=11
     \catcode45=12 \catcode46=12 \catcode47=12
-    \ifnum#1<\z@ % initizlize
+    \ifnum#1<\z@ % initialize
       \let\bxce@ndindex\m@ne
       \let\bxce@do\bxce@read@name@data@file@init@do
+    \else\ifnum#1=\@M
+      \chardef\bxce@ndindex\z@
+      \PackageInfo\bxce@pkgname
+       {Loading emoji name data file\MessageBreak
+        (at once)}%
+      \let\bxce@do\bxce@read@name@data@file@sec@do
+      \bxce@prepare@load@all
     \else % read a sector
       \chardef\bxce@ndindex=#1\relax
       \PackageInfo\bxce@pkgname
@@ -961,10 +967,12 @@
         (sector \the\bxce@ndindex)}%
       \global\cslet{bxce@ndrs/\the\bxce@ndindex}{t}%
       \let\bxce@do\bxce@read@name@data@file@sec@do
-    \fi
+    \fi\fi
     \input{bxcoloremoji-names.def}%
   \endgroup
 }
+\let\bxce@ndbegin\relax
+\let\bxce@ndend\relax
 \def\bxce@read@name@data@file@init@do#1#2{%
   %\bxDebug{nd-init:#1=#2}%
   \csgdef{bxce@ndi/#1}{#2}%
@@ -976,7 +984,6 @@
 
 %% initialize
 \bxce@read@name@data@file{-1}
-\mathchardef\bxce@ndmaxindex=\csuse{bxce@ndi/z}\relax
 
 %% additional definitions
 \csgdef{bxce@nd/+}{200D}
@@ -1054,13 +1061,7 @@
 
 %%<+> \coloremojiLoadAllNames
 \newrobustcmd*\coloremojiLoadAllNames{%
-  \bxce@cnta\m@ne
-  \@whilenum{\bxce@cnta<\bxce@ndmaxindex}\do{%
-    \advance\bxce@cnta\@ne
-    \ifcsdef{bxce@ndrs/\number\bxce@cnta}{}{%else
-      \bxce@read@name@data@file{\bxce@cnta}%
-    }%
-  }%
+  \bxce@read@name@data@file\@M
   % annihilate
   \global\let\bxce@read@name@data@file\@undefined
   \global\let\bxce@load@sname@definition\@undefined
@@ -1071,6 +1072,14 @@
   \global\let\coloremojiLoadAllNames\relax
   \global\let\bxce@lookup@sname\bxce@parse@sname
 }
+
+%% \bxce@prepare@load@all
+\begingroup \catcode`\|=0
+  \gdef\bxce@prepare@load@all{%
+    \def\bxce@ndbegin{|let|bxce@org@or|or|let|or|relax}%
+    \def\bxce@ndend{|let|or|bxce@org@or}%
+  }
+\endgroup
 
 %% exercise 'preload-names'
 \ifnum0\ifnum\bxce@preload@names@opt=\bxce@abool@@true 1%

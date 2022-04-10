@@ -12,6 +12,7 @@
 \ProvidesFile{bxcoloremoji-names.def}[2022/04/08 v0.14]
 
 %--------------------------------------- name mappings
+\bxce@ndbegin
 \ifcase\bxce@ndindex %[0]
 \bxce@do{100}{1F4AF}
 \bxce@do{1234}{1F522}
@@ -3609,5 +3610,6 @@
 \bxce@do{y}{7}
 \bxce@do{z}{7}
 \fi
+\bxce@ndend
 %--------------------------------------- done
 %% EOF
