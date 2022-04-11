@@ -7,7 +7,9 @@ LaTeX： カラー絵文字を出力する
 
   * フォーマット： LaTeX
   * エンジン： e-TeX 拡張をサポートするもの
-  * DVI ウェア（DVI 出力時）： dvipdfmx
+  * DVI ウェア（DVI 出力時）： dvipdfmx  
+    ※ただしカスタムファミリを利用する前提であれば、graphicx に対応する
+    全ての DVI ウェアで使用可能。
   * 依存パッケージ：
       - etoolbox
       - binhex
@@ -32,15 +34,16 @@ Copyright 2019 Twitter, Inc and other contributors
 Other work is licensed under:
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2021 Takayuki YATO (aka. "ZR")
+Copyright 2017-2022 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
 
 ### パッケージ読込
 
-DVI 出力のエンジンの場合、事前に graphicx パッケージを読みこむ必要が
-ある。（PDF 出力の場合は自動的に読み込まれる。）
+DVI 出力の場合、事前に graphicx パッケージを読みこむ必要がある。  
+※PDF 出力の場合、およびグローバルのドライバオプションが指定されている
+場合は、自動的に graphicx がオプション無しで読み込まれる。
 
     \usepackage[dvipdfmx]{graphicx} % dvipdfmx の場合
 
@@ -55,34 +58,93 @@ DVI 出力のエンジンの場合、事前に graphicx パッケージを読み
 
 利用可能なオプションは以下の通り。
 
-  * 絵文字画像の種類を指定するオプション。（既定値 = `twemoji-pdf`）
+  * 次節に挙げる設定パラメタ（例えば `twemoji-png` や `scale` 等）は
+    パッケージオプションとしても指定できる。
+  * `jatype=<値>`： 絵文字を和文文字として扱うか。  
+    ※この値に関わらず、`*`付の命令（`\coloremoji*` 等）は常に和欧文中立
+    な“画像”として扱われる。  
+    ※和文扱いを行わない場合は`*`無と`*`付はどちらも“画像扱い”になるが
+    `size`/`size*` 指定時は異なる出力になりうる。
+      - `auto`（既定）： (u)pLaTeX であるかまたは LuaLaTeX で LuaTeX-ja
+        が用いられている場合に和文扱いを行う。
+      - `true`： 可能な限り、和文扱いを行うことを試みる。  
+        ※現状では pdfLaTeX では効果がない。
+      - `false`： 和文扱いを行わない。
+
+以下は上級者向けの設定。
+
+  * `nodvidriver`： ドライバ依存の動作を抑止する。具体的には、絵文字種別
+    が `no-image` に固定される（絵文字は表示されない）。
+  * `preload-names=<値>`： 短縮名と符号値の対応のデータをパッケージ読込時
+    に一括して読み込むか。
+      - `auto`（既定）： エンジンが XeLaTeX／LuaLaTeX／upLaTeX である
+        場合は `true`、それ以外は `false`．
+      - `true`： パッケージ読込時に全てのデータを読み込む。
+      - `false`： 必要に応じて読み込む。
+  * `bbparam=<値>`： 絵文字出力の `\includegraphics` に `bb` パラメタを
+    指定するか。
+      - `auto`（既定）： graphicx のドライバが dvipdfmx である場合にのみ
+        指定する。  
+        ※dvipdfmx の場合、`bb` を指定した方が動作が速い。
+      - `true`/`false`： 常に指定する／しない。  
+        ※`bb` 設定が禁止されているドライバもあるので注意。
+
+### パラメタ設定
+
+パラメタ設定は以下の方法で利用できる。
+
+  - パッケージオプションに指定する。  
+    `\usepackage[twemoji-png,scale=2]{bxcoloremoji}`
+  - `\coloremojisetup` 命令の引数に指定する。その場で設定が変更されて、
+    以降の絵文字出力命令に適用される。  
+    `\coloremoji{twemoji-png,scale=2}`
+  - 絵文字出力命令の先頭のオプション引数に指定する。その絵文字出力にのみ
+    設定が適用される。  
+    `\coloremoji[twemoji-png,scale=2]{☃}`
+
+利用可能なパラメタは以下の通り。
+
+  * 絵文字画像の種類を指定するもの。（既定値 = `twemoji-pdf`）
       - `twemoji-pdf`： twemoji の SVG 画像から変換した PDF 画像。
       - `twemoji-png`： twemoji の 72 ピクセルの PNG 画像。
+      - `no-image`： 絵文字画像を使わず全てフォールバック出力にする。
       - `family=<名前>`： カスタムファミリ指定（後述）。
   * `size=<長さ>`： 絵文字のサイズ。
   * `size*=<長さ>`： `*`付命令での絵文字のサイズ。  
     ※`size` および `size*` の既定値は (u)pLaTeX では 1zw、
-    LuaLaTeX + LuaTeX-ja では 1`\zw`、それ以外は 1em。
+    LuaLaTeX + LuaTeX-ja では 1`\zw`、それ以外は 1em。この既定値は
+    `jatype` の設定には影響されない。
   * `scale=<実数>`： 絵文字のサイズを、`size`/`size*` の値からさらに
      指定の倍率で変更する。（既定値 = 1）
 
 ### 使い方
 
-  * `\coloremoji[*]{<文字列>}`： 引数の文字列をカラー絵文字として出力
+命令・環境名が `[*]` 付で示されている（例えば `\coloremoji[*]`）場合、
+実際には「`*`無」（`\coloremoji`）と「`*`付」（`\coloremoji*`）の変種が
+存在することを示す。両者の違いは以下の通り。
+
+  * `jatype` オプションにより和文扱いが有効になっている場合は、`*`無は
+    和文扱いで、`*`付は和欧文中立な“画像扱い”になる。ただし数式中は
+    両者ともに“画像扱い”になる。
+  * `size` オプションは`*`無にのみ、`size*` オプションは`*`付にのみ適用
+    される。（`scale` は両方に適用される。）
+
+`[*]` 以外の `[...]` 表記はオプション引数で、これは実際に `[ ]` で
+囲った形で指定する。
+
+  * `\coloremojisetup{<設定>}`： パラメタ設定を変更する。  
+    ※`<設定>` は `<キー>=<値>,...` の形のリスト。以降も同様。
+  * `\coloremoji[*][<設定>]{<文字列>}`： 引数の文字列を絵文字として出力
     する。ただし，対象の画像がないなどの理由で絵文字として出力できない
-    場合は，通常のテキスト出力にフォールバックする。
-      - (u)pLaTeX および LuaLaTeX + LuaTeX-ja では絵文字は和文扱いと
-        なる。ただし，`*`付で実行した場合および数式中では非和文扱いと
-        なる。
-      - それ以外の環境では絵文字は常に非和文扱いで，`*`指定は無視する。
-  * `\coloremojicode[*]{<符号値列>}`： 文字を「Unicode 符号値」または
-     「JoyPixels の [emoji-toolkit] ライブラリで規定された短縮名」
+    場合は，通常のテキスト出力にフォールバックする。  
+  * `\coloremojicode[*][<設定>]{<符号値列>}`： 文字を「Unicode 符号値」
+    または「JoyPixels の [emoji-toolkit] ライブラリで規定された短縮名」
     で入力してカラー絵文字を出力する。
     引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
     `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
-    を空白区切りで並べる。`*`指定の意味は `\coloremoji` と同じ。  
+    を空白区切りで並べる。
     例： `\coloremojicode{:sushi: 23 20E3 1F643 :snowman:}`
-  * `\coloremojiucs[*]{<符号値列>}`： `\coloremojicode` の別名。  
+  * `\coloremojiucs[*][<設定>]{<符号値列>}`： `\coloremojicode` の別名。  
     ※他の `coloremojicode～` の名前の命令・環境についても同様に
     `coloremojiucs～` という別名が用意されている。
 
@@ -178,7 +240,7 @@ hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の�
 
 ### カスタムファミリ
 
-bxcoloremoji では実際の絵文字の表示にtwemojiの画像を使っているが、その
+bxcoloremoji では実際の絵文字の表示に twemoji の画像を使っているが、その
 代わりに、ユーザが用意した一連の画像ファイル群を「カスタムファミリ」と
 して登録して表示に使うことができる。
 
@@ -202,7 +264,9 @@ PNG画像を `notoemoji` ファミリとして登録する手順を示す。
 
 `bbox` は dvipdfmx での画像の読込を高速化するための指定であり、省略する
 こともできる。全ての画像ファイルの bounding box が一致しているのではない
-場合は省略するしかない。dvipdfmx 以外ではこの値は使われない。
+場合は省略するしかない。  
+※`bbox` が使われるかは実際には `bbparam` パッケージオプションの指定に
+より決められる。
 
 `prefix` は画像ファイルの（Kpathsea 上の）パス名を決定するのに使われる。
 上の設定の場合、例えば、U+2603 ☃ `:snowman2:` の画像ファイルのパス名は
@@ -230,6 +294,13 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.15 〈2022/04/12〉
+      - `nodvidriver`、`bbparam`、`preload-names`、`jatype` を追加。
+      - `\coloremojisetup` 命令を追加。
+      - 絵文字出力命令にパラメタ設定のオプション引数を追加。
+      - グローバルなドライバオプションの指定がある場合は graphicx を
+        自動的に読み込む。
+      - 短縮名データの読込の仕様を変更。
   * Version 0.14 〈2022/04/08〉
       - twemoji の画像を最新版に更新。Emoji 14.0 に対応。
       - `size` および `size*` オプションを追加。
