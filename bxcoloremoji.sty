@@ -73,6 +73,7 @@
 \chardef\bxce@ot@@none=0
 \chardef\bxce@ot@@std=1
 \chardef\bxce@ot@@custom=2
+\chardef\bxce@ot@@twemojis=3
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
@@ -236,6 +237,13 @@
   \def\bxce@family{#1}%
 }
 
+%% 'twemojis'
+\define@key{bxce}{twemojis}[]{%
+  \bxce@initialize@setup
+  \let\bxce@output@type\bxce@ot@@twemojis
+  \def\bxce@family{twemojis}%
+}
+
 %--------------------------------------- package options
 
 %% 'nodvidriver'
@@ -288,6 +296,8 @@
 \newbool{bxce@use@image}
 %% switch 'bxce@use@bb' : use bb parameter?
 \newbool{bxce@use@bb}
+%% switch 'bxce@twemojis@loaded' : is twemojis package loaded?
+\newbool{bxce@twemojis@loaded}
 
 %% set \bxce@engine
 \@onlypreamble\bxce@if@primitive
@@ -338,6 +348,9 @@
        {Package 'graphicx' is not loaded}\@ehc
       \global\bxce@use@imagefalse
     }%
+    \@ifpackageloaded{twemojis}{%
+      \global\bxce@twemojis@loadedtrue
+    }{}%
   \fi
   \unless\ifbxce@use@image
   \else\ifnum\bxce@bbparam@opt=\bxce@abool@@true
@@ -368,6 +381,19 @@
     \RequirePackage{graphicx}[]%
   \fi
 \fi
+
+% if 'twemojis' option is given auto-load 'twemojis' package
+\ifbxce@use@image\ifnum\bxce@output@type=\bxce@ot@@twemojis
+  \IfFileExists{twemojis.sty}{%
+    \RequirePackage{twemojis}[]
+    \bxce@twemojis@loadedtrue
+  }{%else
+    \PackageError\bxce@pkgname
+     {Package 'twemojis' is not installed}%
+     {\@ehc}
+    \bxce@initialize@setup
+  }
+\fi\fi
 
 %--------------------------------------- helpers
 
@@ -403,6 +429,15 @@
 
 %% \bxce@skip@space\CScont<space>
 \def\bxce@skip@space#1 {#1}
+
+%% \bxce@lowercase@edef
+\def\bxce@lowercase@edef#1#2{%
+  \edef\bxce@le@do{\noexpand\bxce@lowercase@edef@a{#2}}%
+  \bxce@le@do#1%
+}
+\def\bxce@lowercase@edef@a#1#2{%
+  \lowercase{\def#2{#1}}%
+}
 
 %--------------------------------------- character database
 
@@ -873,6 +908,12 @@
   #1%
 }
 \def\bxce@parse@third@out{%
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \bxce@parse@twm@third@out@
+  \else \bxce@parse@third@out@
+  \fi
+}
+\def\bxce@parse@third@out@{%
   \let\bxce@tmpa\@empty
   \def\bxce@tmpb{\bxce@put@cseq}%
   \expandafter\bxce@parse@third@out@a\bxce@cseq..%
@@ -947,6 +988,74 @@
 \else
   \let\bxce@parse@first@trick\@gobble
 \fi\fi
+
+%--------------------------------------- twemojis something
+
+%% \[bxce@cptd/<code>]
+\chardef\bxce@cptd@t=1 % text default
+\def\bxce@set@cp@c#1#2{%
+  \cslet{bxce@cptd/#1}\bxce@cp
+}
+\bxce@set@cp\bxce@cptd@t{2000-2FFF,1F4AA}
+
+%% \bxce@parse@twm@third@out@
+\let\bxce@c@evs\relax
+\def\bxce@parse@twm@third@out@{%
+  \let\bxce@tmpa\@empty
+  \def\bxce@tmpb{\bxce@put@cseq}%
+  \expandafter\bxce@parse@twm@third@out@a\bxce@cseq..%
+}
+\def\bxce@parse@twm@third@out@a#1#2{%
+  \bxce@cond\ifx.#1\fi{%
+    \bxce@twm@find@good@name{\bxce@tmpa}%
+\bxDebug{find@good@name:\bxce@tmpa->\bxce@twm@good@name}%
+    \eappto\bxce@text{\bxce@tmpb{\bxce@twm@good@name}}%
+  }{\bxce@cond\ifnum#1=\bxce@cp@base\fi{%
+    \ifcsdef{bxce@cptd/\number"#2}{%
+      \bxce@parse@twm@third@out@c{#1}{#2}%
+    }{%else
+    \bxce@parse@twm@third@out@b{#1}{#2}%
+    }%
+  }{%else
+    \bxce@parse@twm@third@out@b{#1}{#2}%
+  }}%
+}
+\def\bxce@parse@twm@third@out@b#1#2{%
+  \ifnum#1=\bxce@cp@tag
+    \def\bxce@tmpb{\bxce@put@cseqtag}%
+  \fi
+  \appto\bxce@tmpa{\bxce@c{#2}}%
+  \bxce@parse@twm@third@out@a
+}
+\def\bxce@parse@twm@third@out@c#1#2#3{%
+  \bxce@cond\ifnum\bxce@twm@dh{#3}=\bxce@cp@mod\fi{%
+    \bxce@parse@twm@third@out@b{#1}{#2}{#3}%
+  }{%else
+    \appto\bxce@tmpa{\bxce@c{#2}\bxce@c@evs{FE0F}}%
+    \bxce@parse@twm@third@out@a{#3}%
+  }%
+}
+\def\bxce@twm@dh#1{%
+  \if.#1\m@ne\else#1\fi
+}
+
+%% \bxce@twm@find@good@name{<name>}
+\def\bxce@twm@find@good@name#1{%
+  \edef\bxce@twm@good@name{#1}%
+  \begingroup
+    \bxce@twm@find@good@name@a\bxce@c
+    \ifcsdef{twemoji \bxce@tmpa}{}{%
+      \bxce@twm@find@good@name@a\@gobble
+    }%
+  \endgroup
+  \let\bxce@twm@good@name\bxce@g@tmpa
+}
+\def\bxce@twm@find@good@name@a#1{%
+  \let\bxce@c\relax \def\bxce@c@evs{#1}%
+  \xdef\bxce@g@tmpa{\bxce@twm@good@name}%
+  \let\bxce@c\bxce@c@hyph
+  \bxce@lowercase@edef\bxce@tmpa{\expandafter\bxce@c@first\bxce@g@tmpa}%
+}
 
 %--------------------------------------- emoji name database
 
@@ -1240,10 +1349,24 @@
   \unskip
 }
 
+%% \bxce@err@nltwm
+\def\bxce@err@nltwm{%
+  \PackageError\bxce@pkgname
+   {Package 'twemojis' is not loaded}%
+   {\@ehc}%
+}
+
 %% \bxce@check@image@setup
 \def\bxce@check@image@setup{%
   \unless\ifbxce@use@image
     \let\bxce@output@type\bxce@ot@@none
+  \fi
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \unless\ifbxce@twemojis@loaded
+      \bxce@err@nltwm
+      \global\let\bxce@err@nltwm\relax
+      \let\bxce@output@type\bxce@ot@@none
+    \fi
   \fi
 }
 
@@ -1296,11 +1419,13 @@
   }%
 }
 \def\bxce@@ZWJ@code{200D}
+\def\bxce@@EVS@code{FE0F}
 \def\bxce@put@cseq@a#1{%
   \def\bxce@tmpa{#1}\ifx\bxce@tmpa\bxce@@ZWJ@code
     \bxce@depict@fallback@ZWJ
-  \else \bxce@put{#1}%
-  \fi
+  \else\unless\ifx\bxce@tmpa\bxce@@EVS@code
+    \bxce@put{#1}%
+  \fi\fi
 }
 
 %% \bxce@put@cseqtag{\bxce@c<cp>{<code>}...}
@@ -1322,15 +1447,28 @@
 
 %% \bxce@if@image@exists{<name>}
 \def\bxce@if@image@exists#1{%
-  \bxce@cond\unless\ifnum\bxce@output@type=\bxce@ot@@none\fi{%
-    \IfFileExists{\bxce@image@path{#1}}%
-  }{%else
+  \bxce@cond\ifnum\bxce@output@type=\bxce@ot@@none\fi{%
     \@secondoftwo % always false
-  }%
+  }{\bxce@cond\ifnum\bxce@output@type=\bxce@ot@@twemojis\fi{%
+    \bxce@lowercase@edef\bxce@tmpa{#1}%
+    \ifcsdef{twemoji \bxce@tmpa}%
+  }{%else
+    \IfFileExists{\bxce@image@path{#1}}%
+  }}%
 }
 
 %% \bxce@put@image
 \def\bxce@put@image#1{%
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \bxce@lowercase@edef\bxce@tmpa{#1}%
+\bxDebug{put@image:\bxce@tmpa}%
+    \edef\bxce@tmpa{%
+      \lower\bxce@disp@dim\hbox{%
+        \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
+        \noexpand\twemoji
+        [width=\bxce@cwd]%
+        {\bxce@tmpa}}}}%
+  \else
   \edef\bxce@tmpa{%
     \lower\bxce@disp@dim\hbox{%
       \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
@@ -1338,6 +1476,7 @@
       [width=\bxce@cwd
       \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
       {\bxce@image@path{#1}}}}}%
+  \fi
   \bxce@tmpa \hskip\bxce@inter@skip
 }
 
