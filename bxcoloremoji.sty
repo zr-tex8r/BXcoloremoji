@@ -637,7 +637,9 @@
 \def\bxce@expand@text#1{%
   \bxce@check@inputenc
   \begingroup
-    \ifbxce@CJK \bxce@CJK@preproc \fi
+    \ifbxce@CJK \bxce@CJK@preproc
+    \else \bxce@std@preproc
+    \fi
     % Here protected expansion is needed, but still active UTF-8 byte
     % sequences need to be expanded.
     \ifdefined\UTFviii@two@octets@combine \bxce@newltx@patch \fi
@@ -1505,7 +1507,30 @@
   \bxce@cond\ifx*#1\fi
 }
 
-%--------------------------------------- CJK package compatibility
+%--------------------------------------- preprocess for expansion
+
+%% \bxce@std@preproc
+\let\bxce@std@preproc\@empty
+\ifnum0\ifbxce@ptex1\fi\ifx d\bxce@engine1\fi >0
+\begingroup
+  \edef\bxce@good@prefix{\detokenize{\protected macro}}
+  \def\bxce@tmpa#1#2#3{% \[bxce@n(?)] ?13 ?12
+    \expandafter\bxce@do\meaning#2:\relax#1#2%
+  }
+  \def\bxce@do#1:#2\relax#3#4{%
+    \def\bxce@tmpb{#1}\ifx\bxce@tmpb\bxce@good@prefix
+      \expandafter\gdef\expandafter#3\expandafter{#4}%
+      \gappto\bxce@std@preproc{\let#4#3}%
+    \fi
+  }
+  \@tempcnta=194
+  \loop\ifnum\@tempcnta<245
+    \lccode`\+=\@tempcnta \lccode`\~=\@tempcnta
+    \lowercase{\expandafter\bxce@tmpa\csname bxce@n(+)\endcsname~+}%
+    \advance\@tempcnta\@ne
+  \repeat
+\endgroup
+\fi
 
 %% \bxce@CJK@preproc
 \let\bxce@CJK@preproc\@empty
@@ -1528,7 +1553,7 @@
         \csname u8:#4\string##1\string##2\string##3\endcsname\fi}%
     \fi\fi
   }
-  \@tempcnta=192
+  \@tempcnta=194
   \loop\ifnum\@tempcnta<245
     \lccode`\+=\@tempcnta \lccode`\~=\@tempcnta
     \lowercase{\expandafter\bxce@tmpa\csname bxce@n<+>\expandafter
