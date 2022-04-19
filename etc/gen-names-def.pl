@@ -123,6 +123,7 @@ sub header {
 \ProvidesFile{%FILE%}[%INFO%]
 
 %--------------------------------------- name mappings
+\bxce@ndbegin
 EOT
   my $of = $out_file; $of =~ s|.*/||;
   s|%FILE%|$of|g; s|%INFO%|$out_info|g;
@@ -131,6 +132,7 @@ EOT
 
 sub footer {
   local $_ = <<'EOT';
+\bxce@ndend
 %--------------------------------------- done
 %% EOF
 EOT

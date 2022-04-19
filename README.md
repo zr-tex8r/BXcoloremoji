@@ -294,6 +294,8 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.15a 〈2022/04/20〉
+      - utf8 入力エンコーディングの将来の改新に対処した。
   * Version 0.15 〈2022/04/12〉
       - `nodvidriver`、`bbparam`、`preload-names`、`jatype` を追加。
       - `\coloremojisetup` 命令を追加。
