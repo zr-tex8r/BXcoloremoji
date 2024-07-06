@@ -298,6 +298,9 @@
 \bxce@if@primitive\enablecjktoken{\let\bxce@engine=u}
 \bxce@if@primitive\XeTeXversion{\let\bxce@engine=x}
 \bxce@if@primitive\luatexversion{\let\bxce@engine=l}
+\if u\bxce@engine
+  \ifnum\ucs"3000="3000 \else \let\bxce@engine=p\fi
+\fi
 
 %% set switch 'bxce@ptex'
 \bxce@ptexfalse
