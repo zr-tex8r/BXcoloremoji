@@ -964,7 +964,9 @@
   \begingroup
     \endlinechar\m@ne
     \catcode13=9 \catcode32=10 \catcode64=11
+    \catcode37=14 \catcode92=0 \catcode123=1 \catcode125=2
     \catcode45=12 \catcode46=12 \catcode47=12
+    \catcode91=12 \catcode93=12
     \ifnum#1<\z@ % initialize
       \let\bxce@ndindex\m@ne
       \let\bxce@do\bxce@read@name@data@file@init@do
