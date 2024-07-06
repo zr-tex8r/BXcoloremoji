@@ -27,14 +27,14 @@ LaTeX： カラー絵文字を出力する
 Graphics work is licenced under:
 
 CC-BY 4.0: (https://creativecommons.org/licenses/by/4.0/)
-Copyright 2019 Twitter, Inc and other contributors
+Copyright Twitter, Inc and other contributors
 
 その他の著作物にはは以下が適用される：
 
 Other work is licensed under:
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2022 Takayuki YATO (aka. "ZR")
+Copyright 2017-2024 Takayuki YATO (aka. "ZR")
 
 bxcoloremoji パッケージ
 -----------------------
@@ -294,6 +294,8 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.15b 〈2024/07/07〉
+      - バグ修正。
   * Version 0.15a 〈2022/04/20〉
       - utf8 入力エンコーディングの将来の改新に対処した。
   * Version 0.15 〈2022/04/12〉
@@ -365,4 +367,4 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 
 --------------------
 Takayuki YATO (aka. "ZR")  
-http://zrbabbler.sp.land.to/
+https://github.com/zr-tex8r
