@@ -386,6 +386,13 @@
 \def\bxce@mt{\bxce@mt@}
 \let\bxce@mk\indent
 
+%% \bxce@hex{<number>}
+\letcs\bxce@hex{int_to_Hex:n}
+\unless\ifdefined\bxce@hex
+  \input{binhex}
+  \let\bxce@hex\hex
+\fi
+
 %% \bxce@@BS
 \begingroup \lccode`\*=`\\
 \lowercase{\global\let\bxce@@BS=*}
@@ -444,7 +451,7 @@
   \bxce@cnta="#1\relax
   \numdef\bxce@tmpb{"#2+1}%
   \@whilenum{\bxce@cnta<\bxce@tmpb}\do{%
-    \edef\bxce@arg{{\the\bxce@cnta}{\hex{\bxce@cnta}}}%
+    \edef\bxce@arg{{\the\bxce@cnta}{\bxce@hex{\bxce@cnta}}}%
     \expandafter\bxce@set@cp@c\bxce@arg
     \advance\bxce@cnta1 }%
 }
@@ -726,7 +733,7 @@
   \bxce@parse@first@trick#1%
   \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
   \ifdefined\bxce@tmpa
-    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\hex{\bxce@cnta}}}%
+    \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@hex{\bxce@cnta}}}%
   \else
     \appto\bxce@text{\bxce@O#1}%
   \fi
@@ -1687,7 +1694,7 @@
 }
 \protected\def\bxce@unparse@first@O#1{%
   \PackageError\bxce@pkgname
-   {Illegal character [\hex{`#1}]}{\@ehc}%
+   {Illegal character [\bxce@hex{`#1}]}{\@ehc}%
 }
 \protected\def\bxce@unparse@first@S#1{%
   \bxce@unparse@first@O{\ }%
