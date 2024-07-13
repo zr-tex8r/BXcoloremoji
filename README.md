@@ -189,8 +189,10 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
 これらは emoji sequence の入力の便宜のためのものである。
 
     +           U+200D (ZWJ)
-    !female     U+2640♀ (`+ !female` で女性の gender indicator)
-    !male       U+2642♂ (`+ !male` で男性の gender indicator)
+    !/red       U+1F9B0🦰（`+ !/red` で赤髪のhair style）
+    !/curly     U+1F9B1🦱（`+ !/curly` で巻毛のhair style）
+    !/bald      U+1F9B2🦲（`+ !/bald` で禿頭のhair style）
+    !/white     U+1F9B3🦳（`+ !/white` で白髪のhair style）
     !black      U+2B1B⬛（`+ !black` で黒色の color indicator）
     !white      U+2B1C⬜（`+ !white` で白色の color indicator）
     !red        U+1F7E5🟥（`+ !red` で赤色の color indicator）
@@ -200,6 +202,8 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
     !green      U+1F7E9🟩（`+ !green` で緑色の color indicator）
     !purple     U+1F7EA🟪（`+ !purple` で紫色の color indicator）
     !brown      U+1F7EB🟫（`+ !brown` で茶色の color indicator）
+    !female     U+2640♀ (`+ !female` で女性の gender indicator)
+    !male       U+2642♂ (`+ !male` で男性の gender indicator)
     !flag       U+1F3F4🏴 (旗を表す tag sequence の base 文字)
     !<          U+2B05⬅ (`+ !<` で左の direction indicator)
     !>          U+27A1➡ (`+ !>` で右の direction indicator)
@@ -294,6 +298,10 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.16  〈2024/07/13〉
+      - 独自短縮名を追加。
+      - expl3 が使える場合に binhex パッケージを使わない。
+      - バグ修正。
   * Version 0.15b 〈2024/07/07〉
       - バグ修正。
   * Version 0.15a 〈2022/04/20〉
