@@ -7,12 +7,10 @@ LaTeX： カラー絵文字を出力する
 
   * フォーマット： LaTeX
   * エンジン： e-TeX 拡張をサポートするもの
-  * DVI ウェア（DVI 出力時）： dvipdfmx  
-    ※ただしカスタムファミリを利用する前提であれば、graphicx に対応する
-    全ての DVI ウェアで使用可能。
+  * DVI ウェア（DVI 出力時）： 用いる画像形式に対応したもの
   * 依存パッケージ：
       - etoolbox
-      - binhex
+      - binhex（expl3が有効でない場合）
 
 ### インストール
 
@@ -36,12 +34,14 @@ Other work is licensed under:
 the MIT License: (http://opensource.org/licenses/MIT)
 Copyright 2017-2024 Takayuki YATO (aka. "ZR")
 
+
 bxcoloremoji パッケージ
 -----------------------
 
 ### パッケージ読込
 
-DVI 出力の場合、事前に graphicx パッケージを読みこむ必要がある。  
+DVI 出力の場合、事前に graphicx パッケージを読み込む必要がある。
+
 ※PDF 出力の場合、およびグローバルのドライバオプションが指定されている
 場合は、自動的に graphicx がオプション無しで読み込まれる。
 
@@ -52,7 +52,7 @@ DVI 出力の場合、事前に graphicx パッケージを読みこむ必要が
 
     \usepackage[utf8]{inputenc}
 
-その後に bxcoloremoji パッケージを読みこむ。
+その後に bxcoloremoji パッケージを読み込む。
 
     \usepackage[<オプション>]{bxcoloremoji}
 
@@ -97,7 +97,7 @@ DVI 出力の場合、事前に graphicx パッケージを読みこむ必要が
     `\usepackage[twemoji-png,scale=2]{bxcoloremoji}`
   - `\coloremojisetup` 命令の引数に指定する。その場で設定が変更されて、
     以降の絵文字出力命令に適用される。  
-    `\coloremoji{twemoji-png,scale=2}`
+    `\coloremojisetup{twemoji-png,scale=2}`
   - 絵文字出力命令の先頭のオプション引数に指定する。その絵文字出力にのみ
     設定が適用される。  
     `\coloremoji[twemoji-png,scale=2]{☃}`
@@ -132,6 +132,8 @@ DVI 出力の場合、事前に graphicx パッケージを読みこむ必要が
 `[*]` 以外の `[...]` 表記はオプション引数で、これは実際に `[ ]` で
 囲った形で指定する。
 
+※本パッケージの命令については、必須引数を囲む `{}` は**省略できない**。
+
   * `\coloremojisetup{<設定>}`： パラメタ設定を変更する。  
     ※`<設定>` は `<キー>=<値>,...` の形のリスト。以降も同様。
   * `\coloremoji[*][<設定>]{<文字列>}`： 引数の文字列を絵文字として出力
@@ -144,9 +146,11 @@ DVI 出力の場合、事前に graphicx パッケージを読みこむ必要が
     `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
     を空白区切りで並べる。
     例： `\coloremojicode{:sushi: 23 20E3 1F643 :snowman:}`
-  * `\coloremojiucs[*][<設定>]{<符号値列>}`： `\coloremojicode` の別名。  
-    ※他の `coloremojicode～` の名前の命令・環境についても同様に
-    `coloremojiucs～` という別名が用意されている。
+  * `\coloremojiucs[*][<設定>]{<符号値列>}`： `\coloremojicode` の旧版
+    における別名。  
+    ※他の `coloremojicode～` の名前の命令・環境については、0.4 版以前
+    から存在するものについては、同様に `coloremojiucs～` という別名が
+    用意されている。
 
 [emoji-toolkit]: https://github.com/joypixels/emoji-toolkit
 
@@ -212,35 +216,43 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
     @0 .. @9    U+E0030..E0039 (tag sequence の構成要素)
     @a .. @z    U+E0061..E007A (tag sequence の構成要素)
 
+※独自の短縮名については名前を囲む `:～:` は省略可能である。  
+※独自以外の短縮名については、現状では「整数の 16 進表記と解釈できない
+ものは `:～:` が省略可能」という仕様であるが、これは将来変更される可能
+性がある。
+
 使用例：
 
-    \coloremojicode{man + woman + girl + girl}
+    \coloremojicode{:man: + :woman: + :girl: + :girl:}
     \coloremojicode{!flag @g @b @w @l @s @}
     \coloremojicode{1F647 + !male}
 
 ### PDF 文字列中での絵文字の利用
 
-hyperref 使用時の文書情報文字列（“PDF 文字列”と呼ぶ）の入力の中でも
-`\coloremoji` （および `\coloremojicode`）命令を使用できる。例えば、
-`\section` の引数の中で `\coloremoji` を含めた場合、版面の上では絵文字
-の画像として出力され、PDF のしおりの中では文字として表示される。
+hyperref 使用時の文書情報文字列（以降では“PDF 文字列”と呼ぶ）の入力の
+中でも絵文字出力用の命令を使用できる。例えば、`\section` の引数の中で
+`\coloremoji` を含めた場合、版面の上では絵文字（の画像）として出力され、
+PDF のしおりの中では文字として表示される。
 
 ただし「PDF 文字列中の Unicode 文字が正しく処理される」状態が担保されて
-いることが前提となる。具体的には、次の設定が必要である。
+いることが前提となる。具体的には、次の何れかが満たされる必要がある。
 
-  - (pdf)LaTeX、XeLaTeX、LuaLaTeX では hyperref パッケージに `unicode`
-    オプションを付ける必要がある。
+※TeX Live 2022 以降を前提とすると、要するに「(u)pLaTeX では pxjahyper
+の併用が必要、それ以外は何も要らない」ということである。
+
+  - hyperref の“PDF エンコーディング”が Unicode である。
+
+    最近（7.00g 版以降）の hyperref では既定でそうなっている。それより
+    古い版では hyperref の読込時に `unicode` オプションを付ける必要が
+    ある。(u)pLaTeX では pxjahyper パッケージを併用する必要がある。
 
         \usepackage[unicode]{hyperref}
 
-  - upLaTeX の場合、pxjahyper パッケージなどの、適切な“ToUnicode 変換”
-    を行うパッケージを併用する必要がある。
-      - 特に、`\coloremojicode` 命令の処理には pxjahyper パッケージ
-        （そのもの）が必要である。
+  - （hyperref の“PDF エンコーディング”が Unicode ではないが）  
+    エンジンが upLaTeX であり、pxjahyper パッケージを併用している。
 
-  - pLaTeX ではそもそも PDF 文字列中に JIS 外の文字を含ませることが
-    できないため、`\coloremoji(code)` の PDF 文字列中での使用について
-    も対応できない。
+    ※pLaTeX ではそもそも PDF 文字列中に JIS 外の文字を含ませることが
+    できないため、この場合は対応ができない。
 
 ### カスタムファミリ
 
@@ -248,7 +260,7 @@ bxcoloremoji では実際の絵文字の表示に twemoji の画像を使って�
 代わりに、ユーザが用意した一連の画像ファイル群を「カスタムファミリ」と
 して登録して表示に使うことができる。
 
-例えば、[noto-emoji レポジトリ]の中（`png/128/` 以下）に含まれる一連の
+例として、[noto-emoji レポジトリ]の中（`png/128/` 以下）に含まれる一連の
 PNG画像を `notoemoji` ファミリとして登録する手順を示す。
 
 [noto-emoji レポジトリ]: https://github.com/googlefonts/noto-emoji
@@ -268,7 +280,8 @@ PNG画像を `notoemoji` ファミリとして登録する手順を示す。
 
 `bbox` は dvipdfmx での画像の読込を高速化するための指定であり、省略する
 こともできる。全ての画像ファイルの bounding box が一致しているのではない
-場合は省略するしかない。  
+場合は省略するしかない。
+
 ※`bbox` が使われるかは実際には `bbparam` パッケージオプションの指定に
 より決められる。
 
@@ -280,7 +293,7 @@ PNG画像を `notoemoji` ファミリとして登録する手順を示す。
 
 パス名の命名規則は以下の通りである。
 
-  * 絵文字を構成する Unicode 文字※の符号値の 16 進表記（0 埋め無し、
+  * 絵文字を構成する Unicode 文字(※)の符号値の 16 進表記（0 埋め無し、
     大文字）を順に `-` でつないだものを「符号値列」とする。  
     ※ただし EVS（U+FE0F）は除外される。例えば、2️⃣ 〈0023 FE0F 20E3〉
     に対する「符号値列」は `23-20E3` となる。
@@ -288,7 +301,7 @@ PNG画像を `notoemoji` ファミリとして登録する手順を示す。
 
 noto-emojiの各々の画像ファイルをこの規則に従って配置する。例えば、
 U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）について、
-`notoemoji/notoemoji-2603.png` のパス名で読める位置※に配置する。
+`notoemoji/notoemoji-2603.png` のパス名で読める位置(※)に配置する。
 
 ※例えば、`$TEXINPUTS` に `~/texmf/tex/latex//` が含まれる場合、  
 `~/texmf/tex/latex/custom_images/notoemoji/notoemoji-2603.png`  
@@ -298,6 +311,8 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 更新履歴
 --------
 
+  * Version 0.16a 〈2024/07/14〉
+      - バグ修正。
   * Version 0.16  〈2024/07/13〉
       - 独自短縮名を追加。
       - expl3 が使える場合に binhex パッケージを使わない。
