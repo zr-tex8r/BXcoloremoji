@@ -29,6 +29,7 @@
   \catcode62=\the\catcode62%
   \catcode63=\the\catcode63%
   \catcode96=\the\catcode96%
+  \catcode124=\the\catcode124%
   \catcode126=\the\catcode126%
   \endlinechar=\the\endlinechar%
 \relax}
@@ -45,6 +46,7 @@
 \catcode62=12 % <>>
 \catcode63=12 % <?>
 \catcode96=12 % <`>
+\catcode124=12 % <|>
 \catcode126=13 % <~>
 \AtEndOfPackage{%
   \bxce@restore@codes
@@ -55,6 +57,15 @@
 %% packages
 \RequirePackage{etoolbox}[2011/01/03]% v2.1
 \RequirePackage{keyval}
+
+%% e-TeX check
+\ifx\numdef\@undefined % etoolbox is aborted
+  % etoolbox has already issued an error
+  \PackageWarningNoLine\bxce@pkgname
+   {Package loading is aborted}
+  \DeclareOption*{}
+  \ProcessOptions*
+\expandafter\endinput\fi\relax
 
 %%<*D> \coloremojidir : base directory
 \newcommand*\coloremojidir{emoji_images/}
@@ -263,13 +274,6 @@
 
 %--------------------------------------- environment check
 
-%% e-TeX check
-\ifx\numdef\@undefined % etoolbox is aborted
-  % etoolbox has already issued an error
-  \PackageWarningNoLine\bxce@pkgname
-   {Package loading is aborted}
-\expandafter\endinput\fi\relax
-
 %% \bxce@engine : engine type
 \let\bxce@engine\relax
 %% switch 'bxce@jaok' : Japanese OK?
@@ -411,6 +415,12 @@
 
 %% \bxce@skip@space\CScont<space>
 \def\bxce@skip@space#1 {#1}
+
+%% \bxce@hedge@options@with\CS<options>{<arg>}
+% Expands to \CS{<options>}{<arg>}.
+\def\bxce@hedge@options@with#1#2#{% brace delimit
+  #1{#2}%
+}
 
 %--------------------------------------- character database
 
@@ -1530,6 +1540,11 @@
 
 %--------------------------------------- preprocess for expansion
 
+%% variables
+%[bxce@n(?)] : de-protected definition of active-byte '?'
+%[bxce@n<?>] : (CJK package something)
+%[bxce@o<?>] : (CJK package something)
+
 %% \bxce@std@preproc
 \let\bxce@std@preproc\@empty
 \ifnum0\ifbxce@ptex1\fi\ifx d\bxce@engine1\fi >0
@@ -1601,7 +1616,7 @@
 
 %% \bxce@hy@coloremoji
 % \coloremoji in PDF strings. (fully-expandable)
-\def\bxce@hy@coloremoji#1#{%
+\def\bxce@hy@coloremoji#1#{% brace delimit
   \@firstofone  % just put the characters
 }
 
@@ -1626,11 +1641,11 @@
 
 %% \bxce@hy@coloremojiucs
 % \coloremojiucs in PDF strings. (fully-expandable)
-\def\bxce@hy@coloremojiucs#1#{%
-  \bxce@hy@coloremojiucs@a
+\def\bxce@hy@coloremojiucs{%
+  \bxce@hedge@options@with\bxce@hy@coloremojiucs@a
 }
-\def\bxce@hy@coloremojiucs@a#1{%
-  \expandafter\bxce@parse@ccseq\expandafter{\detokenize{#1}}\@firstofone
+\def\bxce@hy@coloremojiucs@a#1#2{%
+  \expandafter\bxce@parse@ccseq\expandafter{\detokenize{#2}}\@firstofone
 }
 
 %--------------------------------------- hex strings
