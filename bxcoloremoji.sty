@@ -285,6 +285,8 @@
 \newbool{bxce@jaok}
 %% switch 'bxce@ptex' : engine is pTeX-ish?
 \newbool{bxce@ptex}
+%% switch 'bxce@ucs@avail' : '\ucs' (of pTeX) is available?
+\newbool{bxce@ucs@avail}
 %% switch 'bxce@luatexja' : LuaTeX-ja is loaded?
 \newbool{bxce@luatexja}
 %% switch 'bxce@CJK' : CJK is loaded?
@@ -318,6 +320,12 @@
 \if p\bxce@engine \bxce@ptextrue \fi
 \if u\bxce@engine \bxce@ptextrue \fi
 % NB. bxce@luatexja will be set at \bxce@resolve@image@metric
+
+%% set switch 'bxce@ucs@avail'
+\bxce@ucs@availfalse
+\ifbxce@ptex
+  \bxce@if@primitive\ucs{\bxce@ucs@availtrue}
+\fi
 
 %% \bxce@check@inputenc
 \let\bxce@check@inputenc\relax
@@ -1455,42 +1463,108 @@
 }
 
 %% try once now
-\bxce@resolve@image@metric
+\AtEndOfPackage{%
+  \bxce@resolve@image@metric
+}
 
 %--------------------------------------- character token
 
+%% \bxce@max@ascii
+\chardef\bxce@max@ascii="7F
+%% \bxce@max@unicode
+\protected\def\bxce@max@unicode{"10FFFF }
+
 %% \bxce@geta : geta mark
-%% \bxce@maxcc : max 'safe' codevalue
+%% \bxce@ageta : 'ASCII' geta mark
+%% \bxce@maxcc : max 'valid' codevalue
 %% \bxce@repch : replacement char
+\chardef\bxce@ageta=`\=\relax
 \ifx d\bxce@engine
-\chardef\bxce@geta=`\=\relax
-\chardef\bxce@maxcc="7F
-\chardef\bxce@repch=\bxce@geta
+  \chardef\bxce@geta=\bxce@ageta
+  \chardef\bxce@maxcc=\bxce@max@ascii
+  \chardef\bxce@repch=\bxce@geta
 \else\ifx p\bxce@engine
-\chardef\bxce@geta=\jis"222E\relax
-\chardef\bxce@maxcc="7F
-\chardef\bxce@repch=\bxce@geta
+  \chardef\bxce@geta=\jis"222E\relax
+  \chardef\bxce@maxcc=\bxce@max@ascii
+  \ifbxce@ucs@avail \let\bxce@maxcc\bxce@max@unicode \fi
+  \chardef\bxce@repch=\bxce@geta
 \else
-\chardef\bxce@geta="3013\relax
-\chardef\bxce@maxcc="10FFFF
-\chardef\bxce@repch="FFFD
+  \chardef\bxce@geta="3013
+  \chardef\bxce@maxcc=\bxce@max@unicode
+  \chardef\bxce@repch="FFFD
 \fi\fi
 
+%% \bxce@forcecjktoken
+% Does '\forcecjktoken' if available.
+\let\bxce@forcecjktoken\relax
+\bxce@if@primitive{\forcecjktoken}{\let\bxce@forcecjktoken\forcecjktoken}
+
 %% \bxce@char@token\CS{<codvalue>}
+% Lets \CS be a macro that expands to a character token of the given
+% Unicode value. If the value is invalid, \bxce@geta is used.
+% NB. On pTeX without \ucs, only ASCII is regarded as valid.
 \def\bxce@char@token#1#2{%
   \begingroup
     \bxce@cnta=#2\relax
-    \ifnum\bxce@cnta<0 \bxce@cnta=\bxce@geta \fi
+    \ifnum\bxce@cnta<\z@ \bxce@cnta=\bxce@geta \fi
     \ifnum\bxce@cnta>\bxce@maxcc \bxce@cnta=\bxce@geta \fi
-    \ifnum0\ifbxce@ptex\ifnum\bxce@cnta>"7F 1\fi\fi=1
-      \kansujichar1=\bxce@cnta
-      \xdef\@gtempa{\kansuji1}%
-    \else
-      \lccode`\*=\bxce@cnta
-      \lowercase{\xdef\@gtempa{*}}%
-    \fi
+    \bxce@char@token@a
   \endgroup
   \let#1=\@gtempa
+}
+\def\bxce@char@token@al{%
+  \lccode`\*=\bxce@cnta
+  \lowercase{\xdef\@gtempa{*}}%
+}
+\let\bxce@char@token@a\bxce@char@token@al
+\ifnum0\ifx p\bxce@engine \ifbxce@ucs@avail 1\fi\fi>\z@
+  % pTeX with '\ucs'
+  \def\bxce@char@token@a{%
+    \ifnum\bxce@cnta>\bxce@max@ascii
+      \bxce@forcecjktoken
+      \bxce@cnta=\ucs\bxce@cnta\relax % -1 for non-JIS char
+      \kansujichar\@ne=\ifnum\bxce@cnta<\z@ \bxce@geta \else \bxce@cnta \fi
+      \xdef\@gtempa{\kansuji\@ne}% \kansuji trick
+    \else \bxce@char@token@al
+    \fi
+  }
+\else\ifbxce@ptex
+  % pTeX without '\ucs', or upTeX
+  \def\bxce@char@token@a{%
+    \ifnum\bxce@cnta>\bxce@max@ascii
+      \bxce@forcecjktoken
+      \kansujichar\@ne=\bxce@cnta
+      \xdef\@gtempa{\kansuji\@ne}% \kansuji trick
+    \else \bxce@char@token@al
+    \fi
+  }
+\fi\fi
+
+%% \bxce@geta@char
+%% \bxce@ageta@char
+\bxce@char@token\bxce@geta@char\bxce@geta
+\bxce@char@token\bxce@ageta@char\bxce@ageta
+
+%% \bxce@put@geta
+% Puts \bxce@geta if bxce@jaok, otherwise puts \bxce@ageta.
+\def\bxce@put@geta{%
+  \ifbxce@jaok \bxce@put@geta@do
+  \else \bxce@put@ageta
+  \fi
+}
+\protected\def\bxce@put@geta@do{%
+  \bxce@geta@char
+}
+
+%% \bxce@put@ageta
+\protected\def\bxce@put@ageta{%
+  \bxce@ageta@char
+}
+
+%% \bxce@put@geta@for{<options>}
+% The suitable geta char for given options. (fully-expandable)
+\def\bxce@put@geta@for#1{%
+  \bxce@with@star{#1}\bxce@put@ageta\bxce@put@geta
 }
 
 %--------------------------------------- ghost something
@@ -1612,6 +1686,8 @@
   \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
   \let\bxce@do\bxce@hy@ucs
   \let\bxce@bad\@gobble
+  \let\bxce@put@geta@do\bxce@geta@char
+  \let\bxce@put@ageta\bxce@ageta@char
 }
 
 %% \bxce@hy@NA
