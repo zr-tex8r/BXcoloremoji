@@ -1950,10 +1950,8 @@
 \let\bxce@oecur\relax
 \newcount\bxce@cnto
 
-%% \bxce@geta@ucs
-\def\bxce@geta@ucs{3013}
-\AtBeginDocument{% geta should stay invalid
-  \csundef{bxce@oen/\bxce@geta@ucs}%
+\AtBeginDocument{% empty should stay invalid
+  \csundef{bxce@oen/}%
 }
 
 %%<+> \bxcoloremojiDeclareOrder{<ccseq>,...}
@@ -2075,10 +2073,15 @@
     \@whilenum{\bxce@cnto>\z@}\do{%
       \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
       \unless\ifdefined\bxce@oecur
-        \let\bxce@oecur\bxce@geta@ucs
+        \let\bxce@oecur\@empty
       \fi
-      \advance\bxce@cnto\m@ne}%
-    \coloremojicode{\bxce@oecur}%
+      \advance\bxce@cnto\m@ne
+    }%
+    \ifx\bxce@oecur\@empty
+      \bxce@put@ageta
+    \else
+      \coloremojicode*{\bxce@oecur}%
+    \fi
   \endgroup
 }
 
@@ -2102,7 +2105,7 @@
      {Not registered in any emoji order list:\MessageBreak
       \space\space[\bxce@text]}%
      {\@ehc}%
-    \let\bxce@text\bxce@geta@ucs
+    \let\bxce@text\@empty
   \fi
   \ifnum\@enumdepth>\thr@@
     \@toodeep
