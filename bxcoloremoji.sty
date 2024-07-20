@@ -2136,6 +2136,54 @@
   \let\endcoloremojiucsautolist\endcoloremojicodeautolist
 }
 
+%--------------------------------------- keycap numbering
+
+%% constants
+%[bxce@kcn/<n>] : ccseq of keycap emoji for number <n>
+
+%% make table
+\bxce@cnta\z@
+\@for\bxce@tmpa:={%
+  0030 20E3,0031 20E3,0032 20E3,0033 20E3,0034 20E3,%
+  0035 20E3,0036 20E3,0037 20E3,0038 20E3,0039 20E3,1F51F%
+}\do{%
+  \csedef{bxce@kcn/\the\bxce@cnta}{\bxce@tmpa}%
+  \advance\bxce@cnta\@ne
+}
+
+%%<*> \coloremojikeycapof*[<option>,...]{<number>}
+% Puts the keycap emoji for the number.
+% (It expands to an invocation of \coloremojicode.)
+\newcommand*\coloremojikeycapof{%
+  \bxce@hedge@options@with\bxce@keycap@of
+}
+\def\bxce@keycap@of#1#2{%
+  \ifcsname bxce@kcn/\number#2\endcsname
+    \expandafter\expandafter\expandafter\bxce@keycap@of@a\csname
+        bxce@kcn/\number#2\endcsname\bxce@end{#1}%
+  \else \bxce@put@geta@for{#1}%
+  \fi
+}
+\def\bxce@keycap@of@a#1\bxce@end#2{%
+  \coloremojicode#2{#1}%
+}
+
+%%<*> \coloremojikeycap*[<option>,...]{<counter>}
+% Puts the keycap emoji for the current counter value.
+% (It expands to an invocation of \coloremojicode.)
+\newcommand*\coloremojikeycap{%
+  \bxce@hedge@options@with\bxce@keycap
+}
+\def\bxce@keycap#1#2{%
+  \bxce@keycap@of{#1}{\value{#2}}%
+}
+
+%% \@coloremojikeycap{<number>}
+% This macro is needed for \pagenumbering.
+\def\@coloremojikeycap#1{%
+  \bxce@keycap@of{}{#1}%
+}
+
 %--------------------------------------- emoji order database
 
 %\bxcoloremojiDeclareOrder{% snowman (for test)
