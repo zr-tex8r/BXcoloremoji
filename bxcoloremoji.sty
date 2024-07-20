@@ -97,6 +97,13 @@
 %% bxce@size@var : image size for *-form
 \let\bxce@size@var\@empty
 
+%% \bxce@expd{<code>}
+% Fully-expands the code and runs it.
+\def\bxce@expd#1{%
+  \edef\bxce@tmp@expd{#1}%
+  \bxce@tmp@expd
+}
+
 %% \bxce@initialize@setup
 \def\bxce@initialize@setup{%
   \bxce@custom@familyfalse
@@ -253,9 +260,7 @@
 }
 %% keyval options
 \DeclareOption*{%
-  \edef\bxce@tmpa{%
-    \noexpand\setkeys{bxce}{\CurrentOption}%
-  }\bxce@tmpa
+  \bxce@expd{\noexpand\setkeys{bxce}{\CurrentOption}}%
 }
 %% dispatch
 \ProcessOptions*
@@ -1356,14 +1361,14 @@
 
 %% \bxce@put@image
 \def\bxce@put@image#1{%
-  \edef\bxce@tmpa{%
+  \bxce@expd{%
     \lower\bxce@disp@dim\hbox{%
       \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
       \noexpand\includegraphics
       [width=\bxce@cwd
       \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
       {\bxce@image@path{#1}}}}}%
-  \bxce@tmpa \hskip\bxce@inter@skip
+  \hskip\bxce@inter@skip
 }
 
 %--------------------------------------- fallback ZWJ
@@ -1391,8 +1396,7 @@
 %% \bxce@set@ZWJ@color
 \def\bxce@set@ZWJ@color{%
   \ifdefined\color
-    \edef\bxce@arg{{\coloremojiZWJSymbolColor}}%
-    \expandafter\color\bxce@arg
+    \bxce@expd{\noexpand\color{\coloremojiZWJSymbolColor}}%
   \fi
 }
 
@@ -1856,9 +1860,7 @@
 
 %% invoke the custom family set by a package option
 \ifbxce@custom@family
-  \edef\bxce@tmpa{%
-    \noexpand\bxce@use@custom@family{\bxce@family}%
-  }\bxce@tmpa
+  \bxce@expd{\noexpand\bxce@use@custom@family{\bxce@family}}%
 \fi
 
 %--------------------------------------- emoji order list
