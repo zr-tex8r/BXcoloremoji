@@ -687,7 +687,7 @@
     % Here protected expansion is needed, but still active UTF-8 byte
     % sequences need to be expanded.
     \ifdefined\UTFviii@two@octets@combine \bxce@newltx@patch \fi
-    \let\PackageError\bxce@PackageError
+    \let\GenericError\bxce@GenericError
     \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
     \protected@xdef\@gtempa{#1}%
     \bxce@if@flag@raised{ee}{%
@@ -696,7 +696,7 @@
   \endgroup
   \let\bxce@text\@gtempa
 }
-\def\bxce@PackageError#1#2#3{%
+\def\bxce@GenericError#1#2#3#4{%
   \bxce@raise@flag{ee}}
 \def\bxce@newltx@patch{%
   \let\UTF@two@octets@noexpand\@empty
