@@ -395,7 +395,8 @@
 \newbool{bxce@ok}
 \newcount\bxce@cnta
 \let\bxce@arg\relax
-\let\bxce@flag\@undefined
+% (flags)
+%[bxce@f/ee] : error occurred in input text expansion
 
 %% unique tokens
 \def\bxce@end{\bxce@end@}
@@ -427,6 +428,15 @@
 
 %% \bxce@skip@space\CScont<space>
 \def\bxce@skip@space#1 {#1}
+
+%% \bxce@raise@flag{<name>}
+\def\bxce@raise@flag#1{%
+  \expandafter\@gobble\csname bxce@f/#1\endcsname
+}
+%% \bxce@if@flag@raised{<name>}
+\def\bxce@if@flag@raised#1{%
+  \ifcsdef{bxce@f/#1}%
+}
 
 %% \bxce@hedge@options@with\CS<options>{<arg>}
 % Expands to \CS{<options>}{<arg>}.
@@ -679,16 +689,15 @@
     \ifdefined\UTFviii@two@octets@combine \bxce@newltx@patch \fi
     \let\PackageError\bxce@PackageError
     \def\bxce@@{\"}\let\IeC\@firstofone \let\"\relax
-    \undef\bxce@flag
     \protected@xdef\@gtempa{#1}%
-    \ifx\bxce@flag\relax
+    \bxce@if@flag@raised{ee}{%
       \bxce@warn@lschr
-    \fi
+    }{}%
   \endgroup
   \let\bxce@text\@gtempa
 }
 \def\bxce@PackageError#1#2#3{%
-  \expandafter\@gobble\csname bxce@flag\endcsname}
+  \bxce@raise@flag{ee}}
 \def\bxce@newltx@patch{%
   \let\UTF@two@octets@noexpand\@empty
   \let\UTF@three@octets@noexpand\@empty
