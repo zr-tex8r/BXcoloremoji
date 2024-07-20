@@ -397,6 +397,7 @@
 \let\bxce@arg\relax
 % (flags)
 %[bxce@f/ee] : error occurred in input text expansion
+%[bxce@f/jg] : ja-geta is needed in PDF strings
 
 %% unique tokens
 \def\bxce@end{\bxce@end@}
@@ -1696,13 +1697,10 @@
   \let\coloremojiucs\bxce@hy@coloremojicode
   \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
   \let\bxce@do\bxce@hy@ucs
-  \let\bxce@bad\@gobble
+  \def\bxce@bad#1{\bxce@hy@geta}%
   \let\bxce@put@geta@do\bxce@geta@char
   \let\bxce@put@ageta\bxce@ageta@char
 }
-
-%% \bxce@hy@NA
-\def\bxce@hy@NA{?}
 
 %% \bxce@hy@coloremoji
 % \coloremoji in PDF strings. (fully-expandable)
@@ -1723,9 +1721,17 @@
   % If pxjahyper is loaded, then \Ux can be used.
   \ifdefined\pxDeclarePdfTextCommand
     \ifdefined\Ux \Ux{#1}%
-    \else \bxce@hy@NA
+    \else \bxce@hy@geta
     \fi
-  \else \bxce@hy@NA
+  \else \bxce@put@ageta
+  \fi
+}
+
+%% \bxce@hy@geta
+\def\bxce@hy@geta{%
+  \ifbxce@jaok
+    \bxce@if@flag@raised{jg}{\bxce@geta@char}{\bxce@ageta@char}%
+  \else \bxce@ageta@char
   \fi
 }
 
@@ -1735,6 +1741,7 @@
   \bxce@hedge@options@with\bxce@hy@coloremojicode@a
 }
 \def\bxce@hy@coloremojicode@a#1#2{%
+  \bxce@with@star{#1}{}{\bxce@raise@flag{jg}}%
   \expandafter\bxce@parse@ccseq\expandafter{\detokenize{#2}}\@firstofone
 }
 
