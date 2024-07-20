@@ -261,7 +261,7 @@
 \ProcessOptions*
 
 %% set default family
-\ifx\bxce@family\@undefined
+\unless\ifdefined\bxce@family
   \setkeys{bxce}{twemoji-pdf}
 \fi
 
@@ -302,6 +302,8 @@
 \bxce@if@primitive\enablecjktoken{\let\bxce@engine=u}
 \bxce@if@primitive\XeTeXversion{\let\bxce@engine=x}
 \bxce@if@primitive\luatexversion{\let\bxce@engine=l}
+% Here upTeX whose internal kanji code is not Unicode
+% will be regarded as 'pTeX'.
 \if u\bxce@engine
   \ifnum\ucs"3000="3000 \else \let\bxce@engine=p\fi
 \fi
@@ -1146,7 +1148,7 @@
 
 %% \bxce@parse@ccseq{<cc> ...}\CScont
 % Parses a character code sequence and returns the
-% \bxce@do-list of the code values; i.e. it expans to
+% \bxce@do-list of the code values; i.e. it expands to
 % \CScont{\bxce@do{<cv>}...}.
 % Unknown names are converted to \bxce@bad{<name>}.
 \def\bxce@parse@ccseq#1{%{<in>}|\CScont
@@ -1546,12 +1548,12 @@
 \let\bxce@std@preproc\@empty
 \ifnum0\ifbxce@ptex1\fi\ifx d\bxce@engine1\fi >0
 \begingroup
-  \edef\bxce@good@prefix{\detokenize{\protected macro}}
+  \edef\bxce@tmp@good@prefix{\detokenize{\protected macro}}
   \def\bxce@tmpa#1#2#3{% \[bxce@n(?)] ?13 ?12
     \expandafter\bxce@do\meaning#2:\relax#1#2%
   }
   \def\bxce@do#1:#2\relax#3#4{%
-    \def\bxce@tmpb{#1}\ifx\bxce@tmpb\bxce@good@prefix
+    \def\bxce@tmpb{#1}\ifx\bxce@tmpb\bxce@tmp@good@prefix
       \expandafter\gdef\expandafter#3\expandafter{#4}%
       \gappto\bxce@std@preproc{\let#4#3}%
     \fi
@@ -1739,6 +1741,7 @@
   \bxce@parse@first@ccseq{#1}%
   \expandafter\bxce@unparse@first\bxce@text\bxce@end
 }
+
 %--------------------------------------- family config file
 
 %% variables
