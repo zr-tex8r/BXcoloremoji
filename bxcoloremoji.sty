@@ -608,17 +608,19 @@
   \bxce@postghost
 }
 
+% TODO: Make \coloremojiucs an alias to \coloremojicode.
+
 %%<*> \coloremojiucs*[<option>,...]{<codevalue> ...}
 \newrobustcmd*{\coloremojiucs}{%
-  \bxce@enghost\bxce@coloremojiucs@a
+  \bxce@enghost\bxce@coloremojicode@a
 }
-\def\bxce@coloremojiucs@a{%
+\def\bxce@coloremojicode@a{%
   \begingroup
     \@ifnextchar[%]
-      {\bxce@coloremojiucs@b}%
-      {\bxce@coloremojiucs@b[]}%
+      {\bxce@coloremojicode@b}%
+      {\bxce@coloremojicode@b[]}%
 }
-\def\bxce@coloremojiucs@b[#1]#2{%
+\def\bxce@coloremojicode@b[#1]#2{%
     \setkeys{bxce}{#1}%
     \bxce@parse@text@ccseq{#2}%
     \bxce@output
@@ -1682,7 +1684,7 @@
 \appto\pdfstringdefPreHook{%
   \coloremojiLoadAllNames
   \let\coloremoji\bxce@hy@coloremoji
-  \let\coloremojiucs\bxce@hy@coloremojiucs
+  \let\coloremojiucs\bxce@hy@coloremojicode
   \def\bxce@@#1;{\bxce@hy@ucs{#1}}%
   \let\bxce@do\bxce@hy@ucs
   \let\bxce@bad\@gobble
@@ -1718,12 +1720,12 @@
   \fi
 }
 
-%% \bxce@hy@coloremojiucs
-% \coloremojiucs in PDF strings. (fully-expandable)
-\def\bxce@hy@coloremojiucs{%
-  \bxce@hedge@options@with\bxce@hy@coloremojiucs@a
+%% \bxce@hy@coloremojicode
+% \coloremojicode in PDF strings. (fully-expandable)
+\def\bxce@hy@coloremojicode{%
+  \bxce@hedge@options@with\bxce@hy@coloremojicode@a
 }
-\def\bxce@hy@coloremojiucs@a#1#2{%
+\def\bxce@hy@coloremojicode@a#1#2{%
   \expandafter\bxce@parse@ccseq\expandafter{\detokenize{#2}}\@firstofone
 }
 
@@ -2006,7 +2008,7 @@
       \bxce@cnto=#1\relax
       \@whilenum{\bxce@cnto>\z@}\do{%
         \message{<\bxce@oecur>}%
-        \coloremojiucs{\bxce@oecur}\space
+        \coloremojicode{\bxce@oecur}\space
         \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
         \ifdefined\bxce@oecur \advance\bxce@cnto\m@ne
         \else \bxce@cnto\z@
@@ -2024,9 +2026,9 @@
 \newcommand*{\coloremojifill}{%
   \bxce@coloremojifill{\coloremoji*}%
 }
-%%<*> \coloremojiucsfill{<ccseq>}
-\newcommand*{\coloremojiucsfill}{%
-  \bxce@coloremojifill{\coloremojiucs*}%
+%%<*> \coloremojicodefill{<ccseq>}
+\newcommand*{\coloremojicodefill}{%
+  \bxce@coloremojifill{\coloremojicode*}%
 }
 \def\bxce@coloremojifill#1#2{%
   \leavevmode
@@ -2038,9 +2040,9 @@
 \newcommand*{\coloremojiline}{%
   \bxce@coloremojiline{\coloremoji*}%
 }
-%%<*> \coloremojiucsline{<ccseq>}
-\newcommand*{\coloremojiucsline}{%
-  \bxce@coloremojiline{\coloremojiucs*}%
+%%<*> \coloremojicodeline{<ccseq>}
+\newcommand*{\coloremojicodeline}{%
+  \bxce@coloremojiline{\coloremojicode*}%
 }
 \def\bxce@coloremojiline#1#2{%
   \par\noindent\hspace{0.5in}%
@@ -2055,9 +2057,9 @@
 }{%
   \end{list}%
 }
-%%<*> \begin{coloremojiucslist}{<ccseq>}
-\newenvironment*{coloremojiucslist}[1]{%
-  \begin{list}{\coloremojiucs*{#1}}{}%
+%%<*> \begin{coloremojicodelist}{<ccseq>}
+\newenvironment*{coloremojicodelist}[1]{%
+  \begin{list}{\coloremojicode*{#1}}{}%
 }{%
   \end{list}%
 }
@@ -2076,7 +2078,7 @@
         \let\bxce@oecur\bxce@geta@ucs
       \fi
       \advance\bxce@cnto\m@ne}%
-    \coloremojiucs{\bxce@oecur}%
+    \coloremojicode{\bxce@oecur}%
   \endgroup
 }
 
@@ -2087,8 +2089,8 @@
 }{%
   \endlist
 }
-%%<*> \begin{coloremojiucsautolist}{<ccseq>}
-\newenvironment*{coloremojiucsautolist}[1]{%
+%%<*> \begin{coloremojicodeautolist}{<ccseq>}
+\newenvironment*{coloremojicodeautolist}[1]{%
   \bxce@normalize@ccseq{#1}%
   \bxce@coloremojiautolist
 }{%
@@ -2119,16 +2121,16 @@
   \fi
 }
 
-%% 'coloremojicode' aliases
-\newcommand*{\coloremojicodefill}{\coloremojiucsfill}
-\newcommand*{\coloremojicodeline}{\coloremojiucsline}
-\@ifdefinable{\coloremojicodelist}{%
-  \let\coloremojicodelist\coloremojiucslist
-  \let\endcoloremojicodelist\endcoloremojiucslist
+%% 'coloremojiucs' aliases
+\newcommand*{\coloremojiucsfill}{\coloremojicodefill}
+\newcommand*{\coloremojiucsline}{\coloremojicodeline}
+\@ifdefinable{\coloremojiucslist}{%
+  \let\coloremojiucslist\coloremojicodelist
+  \let\endcoloremojiucslist\endcoloremojicodelist
 }
-\@ifdefinable{\coloremojicodeautolist}{%
-  \let\coloremojicodeautolist\coloremojiucsautolist
-  \let\endcoloremojicodeautolist\endcoloremojiucsautolist
+\@ifdefinable{\coloremojiucsautolist}{%
+  \let\coloremojiucsautolist\coloremojicodeautolist
+  \let\endcoloremojiucsautolist\endcoloremojicodeautolist
 }
 
 %--------------------------------------- emoji order database
