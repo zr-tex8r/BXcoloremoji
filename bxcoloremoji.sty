@@ -80,8 +80,11 @@
 \let\bxce@jatype@opt\bxce@abool@@auto
 %% \bxce@preload@names@opt : 'preload-names' value
 \let\bxce@preload@names@opt\bxce@abool@@auto
-%% switch bxce@custom@family : is custom family used?
-\newbool{bxce@custom@family}
+%% \bxce@output@type : output type
+\chardef\bxce@ot@@none=0   % no image
+\chardef\bxce@ot@@std=1    % use standard family
+\chardef\bxce@ot@@custom=2 % use custom family
+\let\bxce@output@type\@undefined
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
@@ -106,7 +109,7 @@
 
 %% \bxce@initialize@setup
 \def\bxce@initialize@setup{%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@none
   \let\bxce@family\relax
   \let\bxce@bb\relax
   \let\bxce@ext\relax
@@ -154,14 +157,14 @@
   \bxce@initialize@setup
 }
 \define@key{bxce}{twemoji-pdf}[]{%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@std
   \def\bxce@family{twemoji-pdf}%
   \def\bxce@bb{0 0 27 27}%
   \def\bxce@ext{pdf}%
   \def\bxce@prefix{\coloremojidir twemoji-pdf/twemoji-}%
 }
 \define@key{bxce}{twemoji-png}[]{%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@std
   \def\bxce@family{twemoji-png}%
   \def\bxce@bb{0 0 72 72}%
   \def\bxce@ext{png}%
@@ -169,7 +172,7 @@
 }
 \define@key{bxce}{twitter}[]{% *DEPRECATED*
   \bxce@warn@dpopt{twitter}%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@std
   \def\bxce@family{twitter}%
   \def\bxce@bb{0 0 38 38}%
   \def\bxce@ext{pdf}%
@@ -177,7 +180,7 @@
 }
 \define@key{bxce}{hires}[]{% *DEPRECATED*
   \bxce@warn@dpopt{hires}%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@std
   \def\bxce@family{hires}%
   \def\bxce@bb{0 0 11.338600 11.338600}%
   \def\bxce@ext{pdf}%
@@ -185,7 +188,7 @@
 }
 \define@key{bxce}{lowres}[]{% *DEPRECATED*
   \bxce@warn@dpopt{lowres}%
-  \bxce@custom@familyfalse
+  \let\bxce@output@type\bxce@ot@@std
   \def\bxce@family{lowres}%
   \def\bxce@bb{0 0 4.535430 4.535430}%
   \def\bxce@ext{pdf}%
@@ -248,7 +251,7 @@
 % tentative definition, redefined later
 \def\bxce@use@custom@family#1{%
   \bxce@initialize@setup
-  \bxce@custom@familytrue
+  \let\bxce@output@type\bxce@ot@@custom
   \def\bxce@family{#1}%
 }
 
@@ -1286,15 +1289,20 @@
 }
 \def\bxce@output@a{%
   \bxce@resolve@image@setup
-  \unless\ifbxce@use@image
-    \let\bxce@family\relax
-  \fi
+  \bxce@check@image@setup
   \bxce@iftdir{\bxce@ctdirtrue}{\bxce@ctdirfalse}%
   \bxce@set@cwd
   \bxce@disp@dim=\bxce@disp\bxce@cwd\relax
   \bxce@inter@skip=\bxce@inter\relax
   \bxce@text
   \unskip
+}
+
+%% \bxce@check@image@setup
+\def\bxce@check@image@setup{%
+  \unless\ifbxce@use@image
+    \let\bxce@output@type\bxce@ot@@none
+  \fi
 }
 
 %% \bxce@set@cwd
@@ -1372,7 +1380,7 @@
 
 %% \bxce@if@image@exists{<name>}
 \def\bxce@if@image@exists#1{%
-  \bxce@cond\unless\ifx\bxce@family\relax\fi{%
+  \bxce@cond\unless\ifnum\bxce@output@type=\bxce@ot@@none\fi{%
     \IfFileExists{\bxce@image@path{#1}}%
   }{%else
     \@secondoftwo % always false
@@ -1864,7 +1872,7 @@
     \csuse{bxce@config/#1}%
   }{%else
     \IfFileExists{\bxce@cfg@file}{%
-      \edef\bxce@family{#1}\bxce@custom@familytrue
+      \edef\bxce@family{#1}\let\bxce@output@type\bxce@ot@@custom
       \bxce@read@cfg@file
     }{%else
       \PackageError\bxce@pkgname
@@ -1873,7 +1881,7 @@
        {\@ehc}%
     }%
   }%
-  \ifbxce@custom@family
+  \ifnum\bxce@output@type=\bxce@ot@@custom
     \bxce@check@cfg@values
   \fi
 }
@@ -1953,7 +1961,7 @@
 }
 
 %% invoke the custom family set by a package option
-\ifbxce@custom@family
+\ifnum\bxce@output@type=\bxce@ot@@custom
   \bxce@expd{\noexpand\bxce@use@custom@family{\bxce@family}}%
 \fi
 
