@@ -236,14 +236,6 @@
   }{}%
 }
 
-%% 'nodvidriver=<bool>'
-% Introduced to enable one to cancel global 'nodvidriver'.
-\define@key{bxce}{nodvidriver}{%
-  \bxce@check@opt@key{nodvidriver}{#1}{bxce@nodvidriver@opt}{%
-    \csuse{bxce@nodvidriver@opt#1}%
-  }{}%
-}
-
 %% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
@@ -260,6 +252,10 @@
 %% 'nodvidriver'
 \DeclareOption{nodvidriver}{%
   \bxce@nodvidriver@opttrue
+}
+%% 'resetdvidriver'
+\DeclareOption{resetdvidriver}{%
+  \bxce@nodvidriver@optfalse
 }
 %% keyval options
 \DeclareOption*{%
@@ -278,7 +274,6 @@
 \bxce@invalidate@opt@key{bbparam}
 \bxce@invalidate@opt@key{jatype}
 \bxce@invalidate@opt@key{preload-names}
-\bxce@invalidate@opt@key{nodvidriver}
 
 %--------------------------------------- environment check
 
