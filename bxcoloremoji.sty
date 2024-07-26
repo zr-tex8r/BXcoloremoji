@@ -84,7 +84,7 @@
 \chardef\bxce@ot@@none=0   % no image
 \chardef\bxce@ot@@std=1    % use standard family
 \chardef\bxce@ot@@custom=2 % use custom family
-\let\bxce@output@type\@undefined
+\let\bxce@output@type\bxce@ot@@none
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
@@ -1852,9 +1852,9 @@
 
 %% variables
 \let\bxce@cfg@file\relax
+\let\bxce@config\relax
 
 %% errors
-\@onlypreamble\bxce@err@secfg
 \def\bxce@err@secfg#1{%
   \PackageError\bxce@pkgname
    {Problem in '\bxce@cfg@file':\MessageBreak
@@ -1867,37 +1867,54 @@
 \def\bxce@use@custom@family#1{%
   % start from invalidated state
   \bxce@initialize@setup
-  \edef\bxce@cfg@file{\bxce@pkgname-#1.cfg}%
+  % load configuration file
   \ifcsdef{bxce@config/#1}{%
-    \csuse{bxce@config/#1}%
+    \bxce@oktrue
   }{%else
+    \edef\bxce@cfg@file{\bxce@pkgname-#1.cfg}%
     \IfFileExists{\bxce@cfg@file}{%
-      \edef\bxce@family{#1}\let\bxce@output@type\bxce@ot@@custom
+      \edef\bxce@family{#1}%
       \bxce@read@cfg@file
     }{%else
+      \bxce@okfalse
       \PackageError\bxce@pkgname
        {The custom family '#1' is unavaiable\MessageBreak
         since file '\bxce@cfg@file' is not found}%
        {\@ehc}%
     }%
+    \ifbxce@ok
+      \bxce@check@cfg@values
+    \fi
+    \ifbxce@ok
+      \global\cslet{bxce@config/#1}\bxce@config
+    \fi
   }%
-  \ifnum\bxce@output@type=\bxce@ot@@custom
-    \bxce@check@cfg@values
+  % apply configuration
+  \ifbxce@ok
+    \let\bxce@output@type\bxce@ot@@custom
+    \edef\bxce@family{#1}%
+    \csuse{bxce@config/#1}%
   \fi
 }
 
 %% \bxce@read@cfg@file
+% Reads the file \bxce@cfg@file and stores the result to \bxce@config.
+% It sets to bxce@ok whether the reading succeeded.
 \def\bxce@read@cfg@file{%
   \PackageInfo\bxce@pkgname
    {Loading custom family config file\MessageBreak
     '\bxce@cfg@file'}%
+  \bxce@okfalse
+  \let\bxce@config\relax
   \openin\@inputcheck=\bxce@cfg@file\relax
+  \global\let\bxce@g@tmpa\@empty
   \begingroup
     \endlinechar\m@ne
     \bxce@oktrue
     \@whilesw\ifbxce@ok\fi{%
       \ifeof\@inputcheck
         \bxce@okfalse
+        \aftergroup\bxce@read@cfg@file@eof
       \else
         \readline\@inputcheck to\bxce@tmpa
         \bxce@read@cfg@file@cc
@@ -1906,10 +1923,13 @@
         \fi
       \fi
     }%
-    \global\cslet{bxce@config/\bxce@family}\bxce@g@tmpa
   \endgroup
+  % here 'bxce@ok' means whether loading succeeded
   \closein\@inputcheck
-  \bxce@g@tmpa
+}
+\def\bxce@read@cfg@file@eof{%
+  \bxce@oktrue
+  \let\bxce@config\bxce@g@tmpa
 }
 \def\bxce@read@cfg@file@a#1=#2\bxce@end{%
   \ifx\bxce@mt#2\bxce@mt
@@ -1946,18 +1966,21 @@
 }
 
 %% \bxce@check@cfg@values
+% Checks if \bxce@config is valid and sets the result to bxce@ok.
 \def\bxce@check@cfg@values{%
   \bxce@oktrue
-  % NB: 'bbox' is optional.
-  \ifx\bxce@ext\relax
-    \bxce@err@secfg{'extension' is not given}\bxce@okfalse
-  \fi
-  \ifx\bxce@prefix\relax
-    \bxce@err@secfg{'prefix' is not given}\bxce@okfalse
-  \fi
-  \unless\ifbxce@ok
-    \let\bxce@bb\relax \let\bxce@ext\relax \let\bxce@prefix\relax
-  \fi
+  \begingroup
+    \bxce@config
+    % NB: 'bbox' is optional.
+    \ifx\bxce@ext\relax
+      \bxce@err@secfg{'extension' is not given}%
+      \aftergroup\bxce@okfalse
+    \fi
+    \ifx\bxce@prefix\relax
+      \bxce@err@secfg{'prefix' is not given}%
+      \aftergroup\bxce@okfalse
+    \fi
+  \endgroup
 }
 
 %% invoke the custom family set by a package option
