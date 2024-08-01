@@ -86,6 +86,9 @@
 \chardef\bxce@ot@@custom=2 % use custom family
 \chardef\bxce@ot@@twemojis=3 % use twemojis package
 \let\bxce@output@type\bxce@ot@@none
+%% switch bxce@twm@skip@tikz
+\newbool{bxce@twm@skip@tikz}
+\bxce@twm@skip@tikztrue
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
@@ -244,6 +247,13 @@
   }{}%
 }
 
+%% 'twemojis-skip-tikz=<bool>'
+\define@key{bxce}{twemojis-skip-tikz}[true]{%
+  \bxce@check@opt@key{twemojis-skip-tikz}{#1}{bxce@twm@skip@tikz}{%
+    \csuse{bxce@twm@skip@tikz#1}%
+  }{}%
+}
+
 %% 'family=<name>'
 \define@key{bxce}{family}{%
   \bxce@use@custom@family{#1}%
@@ -282,6 +292,7 @@
 \bxce@invalidate@opt@key{bbparam}
 \bxce@invalidate@opt@key{jatype}
 \bxce@invalidate@opt@key{preload-names}
+\bxce@invalidate@opt@key{twemoji-skip-tikz}
 
 %--------------------------------------- environment check
 
@@ -395,7 +406,15 @@
     % if 'twemojis' option is given auto-load 'twemojis' package
     \ifnum\bxce@output@type=\bxce@ot@@twemojis
       \IfFileExists{twemojis.sty}{%
-        \RequirePackage{twemojis}[]
+        \@ifpackageloaded{tikz}{\bxce@twm@skip@tikzfalse}{}%
+        \ifbxce@twm@skip@tikz
+          % avoid loading tikz in twemojis
+          \cslet{ver@tikz.sty}\@empty
+          \RequirePackage{twemojis}[]%
+          \csundef{ver@tikz.sty}%
+        \else
+          \RequirePackage{twemojis}[]%
+        \fi
       }{%else
         \PackageError\bxce@pkgname
          {Package 'twemojis' is not installed}%
