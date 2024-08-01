@@ -78,6 +78,9 @@
 \let\bxce@bbparam@opt\bxce@abool@@auto
 %% \bxce@jatype@opt : 'jatype' value
 \let\bxce@jatype@opt\bxce@abool@@auto
+%% switch bxce@names
+\newbool{bxce@names}
+\bxce@namestrue
 %% \bxce@preload@names@opt : 'preload-names' value
 \let\bxce@preload@names@opt\bxce@abool@@auto
 %% \bxce@output@type : output type
@@ -240,6 +243,13 @@
   }{}%
 }
 
+%% 'names=<bool>'
+\define@key{bxce}{names}[true]{%
+  \bxce@check@opt@key{names}{#1}{bxce@names}{%
+    \csuse{bxce@names#1}%
+  }{}%
+}
+
 %% 'preload-names=<bool/auto>'
 \define@key{bxce}{preload-names}[true]{%
   \bxce@check@opt@key{preload-names}{#1}{bxce@abool@@}{%
@@ -291,6 +301,7 @@
 \bxce@invalidate@opt@key{basedir}
 \bxce@invalidate@opt@key{bbparam}
 \bxce@invalidate@opt@key{jatype}
+\bxce@invalidate@opt@key{names}
 \bxce@invalidate@opt@key{preload-names}
 \bxce@invalidate@opt@key{twemoji-skip-tikz}
 
@@ -1235,6 +1246,10 @@
   %\bxDebug{nd-sec-\the\bxce@ndindex:#1=#2}%
   \csgdef{bxce@nd/#1}{#2}%
 }
+% if 'names' is false, annihilate
+\unless\ifbxce@names
+  \let\bxce@read@name@data@file\@gobble
+\fi
 
 %% initialize
 \bxce@read@name@data@file{-1}
@@ -1345,10 +1360,12 @@
 \endgroup
 
 %% exercise 'preload-names'
-\ifnum0\ifnum\bxce@preload@names@opt=\bxce@abool@@true 1%
+\ifnum0\unless\ifbxce@names 1%
+    \else\ifnum\bxce@preload@names@opt=\bxce@abool@@true 1%
     \else\ifnum\bxce@preload@names@opt=\bxce@abool@@auto
       \if l\bxce@engine1\fi\if x\bxce@engine1\fi\if u\bxce@engine1\fi
-    \fi\fi >\z@
+      \ifcsname use:n\endcsname1\fi % expl3 is on
+    \fi\fi\fi >\z@
   \AtEndOfPackage{\coloremojiLoadAllNames}%
 \fi
 
