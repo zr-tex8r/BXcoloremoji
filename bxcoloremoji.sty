@@ -84,6 +84,7 @@
 \chardef\bxce@ot@@none=0   % no image
 \chardef\bxce@ot@@std=1    % use standard family
 \chardef\bxce@ot@@custom=2 % use custom family
+\chardef\bxce@ot@@twemojis=3 % use twemojis package
 \let\bxce@output@type\bxce@ot@@none
 %% bxce@family : image family
 \let\bxce@family\@undefined
@@ -169,6 +170,13 @@
   \def\bxce@bb{0 0 72 72}%
   \def\bxce@ext{png}%
   \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
+}
+%% 'twemojis'
+\define@key{bxce}{twemojis}[]{%
+  \bxce@initialize@setup
+  \let\bxce@output@type\bxce@ot@@twemojis
+  \def\bxce@family{twemojis}%
+  \def\bxce@bb{0 0 27 27}%
 }
 \define@key{bxce}{twitter}[]{% *DEPRECATED*
   \bxce@warn@dpopt{twitter}%
@@ -384,6 +392,17 @@
         \else\ifx x\bxce@engine \@ne
         \else \bxce@do \fi\fi\fi >\z@
     \RequirePackage{graphicx}[]%
+    % if 'twemojis' option is given auto-load 'twemojis' package
+    \ifnum\bxce@output@type=\bxce@ot@@twemojis
+      \IfFileExists{twemojis.sty}{%
+        \RequirePackage{twemojis}[]
+      }{%else
+        \PackageError\bxce@pkgname
+         {Package 'twemojis' is not installed}%
+         {\@ehc}
+        \bxce@use@imagefalse
+      }
+    \fi
   \fi
 \fi
 
@@ -441,6 +460,15 @@
 % Expands to \CS{<options>}{<arg>}.
 \def\bxce@hedge@options@with#1#2#{% brace delimit
   #1{#2}%
+}
+
+%% \bxce@lowercase@edef
+\def\bxce@lowercase@edef#1#2{%
+  \edef\bxce@tmp@le{\noexpand\bxce@lowercase@edef@a{#2}}%
+  \bxce@tmp@le#1%
+}
+\def\bxce@lowercase@edef@a#1#2{%
+  \lowercase{\def#2{#1}}%
 }
 
 %--------------------------------------- character database
@@ -915,6 +943,13 @@
   #1%
 }
 \def\bxce@parse@third@out{%
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \bxce@twm@parse@third@out
+  \else
+    \bxce@parse@third@out@
+  \fi
+}
+\def\bxce@parse@third@out@{%
   \let\bxce@tmpa\@empty
   \def\bxce@tmpb{\bxce@put@cseq}%
   \expandafter\bxce@parse@third@out@a\bxce@cseq..%
@@ -989,6 +1024,150 @@
 \else
   \let\bxce@parse@first@trick\@gobble
 \fi\fi
+
+%--------------------------------------- twemojis something
+
+%% constants
+%[bxce@cptd/<code>] : defined if text-default emoji code
+
+%% variables
+\let\bxce@twm@good@name\relax
+
+%% make [bxce@cptd] table
+\def\bxce@set@cp@c#1#2{%
+  \cslet{bxce@cptd/#1}\bxce@cp
+}
+\bxce@set@cp\@ne{%
+  0023,002A,0030-0039,00A9,00AE,203C,2049,2122,2139,2194-2199,%
+  21A9-21AA,2328,23CF,23ED-23EF,23F1-23F2,23F8-23FA,24C2,25AA-25AB,%
+  25B6,25C0,25FB-25FC,2600-2604,260E,2611,2618,261D,2620,2622-2623,%
+  2626,262A,262E-262F,2638-263A,2640,2642,265F-2660,2663,2665-2666,%
+  2668,267B,267E,2692,2694-2697,2699,269B-269C,26A0,26A7,26B0-26B1,%
+  26C8,26CF,26D1,26D3,26E9,26F0-26F1,26F4,26F7-26F9,2702,2708-2709,%
+  270C-270D,270F,2712,2714,2716,271D,2721,2733-2734,2744,2747,%
+  2763-2764,27A1,2934-2935,2B05-2B07,3030,303D,3297,3299,1F170-1F171,%
+  1F17E-1F17F,1F202,1F237,1F321,1F324-1F32C,1F336,1F37D,1F396-1F397,%
+  1F399-1F39B,1F39E-1F39F,1F3CB-1F3CE,1F3D4-1F3DF,1F3F3,1F3F5,1F3F7,%
+  1F43F,1F441,1F4FD,1F549-1F54A,1F56F-1F570,1F573-1F579,1F587,%
+  1F58A-1F58D,1F590,1F5A5,1F5A8,1F5B1-1F5B2,1F5BC,1F5C2-1F5C4,%
+  1F5D1-1F5D3,1F5DC-1F5DE,1F5E1,1F5E3,1F5E8,1F5EF,1F5F3,1F5FA,1F6CB,%
+  1F6CD-1F6CF,1F6E0-1F6E5,1F6E9,1F6F0,1F6F3}
+
+%% \bxce@err@nltwm
+\def\bxce@err@nltwm{%
+  \PackageError\bxce@pkgname
+   {Package 'twemojis' is not loaded}%
+   {\@ehc}%
+}
+
+%% \bxce@if@valid@twm@name{<twm-name>}
+\def\bxce@if@valid@twm@name#1{%
+  \ifcsdef{twemoji #1}%
+}
+
+%% \bxce@twm@dispatch
+\def\bxce@twm@dispatch{%
+  \twemoji
+}
+
+%% \bxce@if@twm@image@exists{<name>}
+\def\bxce@if@twm@image@exists#1{%
+  \bxce@lowercase@edef\bxce@tmpa{#1}%
+  \bxce@if@valid@twm@name\bxce@tmpa
+}
+
+%% \bxce@twm@put@image{<name>}
+\def\bxce@twm@put@image#1{%
+  \bxce@lowercase@edef\bxce@tmpa{#1}%
+\bxDebug{put@twm@image:\bxce@tmpa}%
+  \bxce@expd{%
+    \lower\bxce@disp@dim\hbox{%
+      \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
+      \noexpand\bxce@twm@dispatch
+      [width=\bxce@cwd
+      \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
+      {\bxce@tmpa}}}}%
+  \hskip\bxce@inter@skip
+}
+
+%% \bxce@twm@check@image@setup
+\def\bxce@twm@check@image@setup{%
+  \ifdefined\defineTwemoji
+    \global\let\bxce@twm@check@image@setup\bxce@oktrue
+    \bxce@oktrue
+  \else
+    \bxce@err@nltwm
+    \global\let\bxce@err@nltwm\relax
+    \bxce@okfalse
+  \fi
+}
+\AtBeginDocument{%
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \bxce@twm@check@image@setup
+  \fi
+}
+
+%% \bxce@twm@parse@third@out
+% The routine that replaces \bxce@parse@third@out in twemojis mode.
+\let\bxce@c@evs\relax
+\def\bxce@twm@parse@third@out{%
+  \let\bxce@tmpa\@empty
+  \def\bxce@tmpb{\bxce@put@cseq}%
+  \expandafter\bxce@twm@parse@third@out@a\bxce@cseq..%
+}
+\def\bxce@twm@parse@third@out@a#1#2{%
+  \bxce@cond\ifx.#1\fi{%
+    \bxce@twm@find@good@name{\bxce@tmpa}%
+\bxDebug{find@good@name:\bxce@tmpa->\bxce@twm@good@name}%
+    \eappto\bxce@text{\bxce@tmpb{\bxce@twm@good@name}}%
+  }{\bxce@cond\ifnum#1=\bxce@cp@base\fi{%
+    \ifcsdef{bxce@cptd/\number"#2}{%
+      \bxce@twm@parse@third@out@c{#1}{#2}%
+    }{%else
+    \bxce@twm@parse@third@out@b{#1}{#2}%
+    }%
+  }{%else
+    \bxce@twm@parse@third@out@b{#1}{#2}%
+  }}%
+}
+\def\bxce@twm@parse@third@out@b#1#2{%
+  \ifnum#1=\bxce@cp@tag
+    \def\bxce@tmpb{\bxce@put@cseqtag}%
+  \fi
+  \appto\bxce@tmpa{\bxce@c{#2}}%
+  \bxce@twm@parse@third@out@a
+}
+\def\bxce@twm@parse@third@out@c#1#2#3{%
+  \bxce@cond\ifnum\bxce@twm@dh{#3}=\bxce@cp@mod\fi{%
+    \bxce@twm@parse@third@out@b{#1}{#2}{#3}%
+  }{%else
+    \appto\bxce@tmpa{\bxce@c{#2}\bxce@c@evs{FE0F}}%
+    \bxce@twm@parse@third@out@a{#3}%
+  }%
+}
+\def\bxce@twm@dh#1{%
+  \if.#1\m@ne\else#1\fi
+}
+
+%% \bxce@twm@find@good@name{<name>}
+% Finds the right name sequence by filling in the omitted EVSes,
+% and sets to \bxce@twm@good@name.
+\def\bxce@twm@find@good@name#1{%
+  \begingroup
+    \edef\bxce@twm@good@name{#1}%
+    \bxce@twm@find@good@name@a\bxce@c
+    \bxce@if@valid@twm@name\bxce@tmpa{}{%
+      \bxce@twm@find@good@name@a\@gobble
+    }%
+  \endgroup
+  \let\bxce@twm@good@name\bxce@g@tmpa
+}
+\def\bxce@twm@find@good@name@a#1{%
+  \let\bxce@c\relax \def\bxce@c@evs{#1}%
+  \xdef\bxce@g@tmpa{\bxce@twm@good@name}%
+  \let\bxce@c\bxce@c@hyph
+  \bxce@lowercase@edef\bxce@tmpa{\expandafter\bxce@c@first\bxce@g@tmpa}%
+}
 
 %--------------------------------------- emoji name database
 
@@ -1298,6 +1477,12 @@
   \unless\ifbxce@use@image
     \let\bxce@output@type\bxce@ot@@none
   \fi
+  \ifnum\bxce@output@type=\bxce@ot@@twemojis
+    \bxce@twm@check@image@setup
+    \unless\ifbxce@ok
+      \let\bxce@output@type\bxce@ot@@none
+    \fi
+  \fi
 }
 
 %% \bxce@set@cwd
@@ -1349,11 +1534,13 @@
   }%
 }
 \def\bxce@@ZWJ@code{200D}
+\def\bxce@@EVS@code{FE0F}
 \def\bxce@put@cseq@a#1{%
   \def\bxce@tmpa{#1}\ifx\bxce@tmpa\bxce@@ZWJ@code
     \bxce@depict@fallback@ZWJ
-  \else \bxce@put{#1}%
-  \fi
+  \else\unless\ifx\bxce@tmpa\bxce@@EVS@code
+    \bxce@put{#1}%
+  \fi\fi
 }
 
 %% \bxce@put@cseqtag{\bxce@c<cp>{<code>}...}
@@ -1375,15 +1562,24 @@
 
 %% \bxce@if@image@exists{<name>}
 \def\bxce@if@image@exists#1{%
-  \bxce@cond\unless\ifnum\bxce@output@type=\bxce@ot@@none\fi{%
-    \IfFileExists{\bxce@image@path{#1}}%
-  }{%else
+  \bxce@cond\ifnum\bxce@output@type=\bxce@ot@@none\fi{%
     \@secondoftwo % always false
-  }%
+  }{\bxce@cond\ifnum\bxce@output@type=\bxce@ot@@twemojis\fi{%
+    \bxce@if@twm@image@exists{#1}%
+  }{%else
+    \IfFileExists{\bxce@image@path{#1}}%
+  }}%
 }
 
-%% \bxce@put@image
-\def\bxce@put@image#1{%
+%% \bxce@put@image{<name>}
+\def\bxce@put@image{%
+  \bxce@cond\ifnum\bxce@output@type=\bxce@ot@@twemojis\fi{%
+    \bxce@twm@put@image
+  }{%else
+    \bxce@put@image@
+  }%
+}
+\def\bxce@put@image@#1{%
   \bxce@expd{%
     \lower\bxce@disp@dim\hbox{%
       \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
