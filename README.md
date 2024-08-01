@@ -10,13 +10,17 @@ LaTeX： カラー絵文字を出力する
   * DVI ウェア（DVI 出力時）： 用いる画像形式に対応したもの
   * 依存パッケージ：
       - etoolbox
-      - binhex（expl3が有効でない場合）
+      - binhex（expl3 が有効でない場合）
+      - twemojis（twemojis モードの場合）
 
 ### インストール
 
   - `*.sty`/`*.def` → `$TEXMF/tex/latex/BXcoloremoji`
   - `emoji_images` のディレクトリをそのまま
     `$TEXMF/tex/latex/BXcoloremoji` の下に移動する。
+
+※常に`twemojis`モードでのみ用いる場合は、`emoji_images`のインストールは
+不要である。
 
 ### ライセンス
 
@@ -75,10 +79,17 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
 
   * `nodvidriver`： ドライバ依存の動作を抑止する。具体的には、絵文字種別
     が `no-image` に固定される（絵文字は表示されない）。
-  * `preload-names=<値>`： 短縮名と符号値の対応のデータをパッケージ読込時
-    に一括して読み込むか。
-      - `auto`（既定）： エンジンが XeLaTeX／LuaLaTeX／upLaTeX である
-        場合は `true`、それ以外は `false`．
+  * `resetdvidriver`： `nodvidriver` の否定。
+  * `names=<真偽値>`： 短縮名データベースを読み込むか。  
+    ※`false`を指定した場合、独自短縮名（後述）のみが使用可能になる。
+  * `preload-names=<値>`： 短縮名データベースをパッケージ読込時に一括
+    して読み込むか。  
+    ※`false` は昔の“メモリ容量が少ない TeX エンジン”向けの設定。
+      - `auto`（既定）： 以下の条件の何れかを満たす場合は（メモリが十分に
+        あると判断して）`true`、それ以外は `false`。
+          - エンジンが XeLaTeX／LuaLaTeX／upLaTeX である。
+          - expl3 が有効である。
+          - hyperref が読み込まれている。
       - `true`： パッケージ読込時に全てのデータを読み込む。
       - `false`： 必要に応じて読み込む。
   * `bbparam=<値>`： 絵文字出力の `\includegraphics` に `bb` パラメタを
@@ -104,11 +115,14 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
 
 利用可能なパラメタは以下の通り。
 
-  * 絵文字画像の種類を指定するもの。（既定値 = `twemoji-pdf`）
+  * 絵文字画像セットの種別を指定するもの。（既定値 = `twemoji-pdf`）
       - `twemoji-pdf`： twemoji の SVG 画像から変換した PDF 画像。
       - `twemoji-png`： twemoji の 72 ピクセルの PNG 画像。
       - `no-image`： 絵文字画像を使わず全てフォールバック出力にする。
       - `family=<名前>`： カスタムファミリ指定（後述）。
+      - `twemojis`： 画像出力を [twemojis パッケージ]の絵文字出力命令に
+        移譲する（twemojis モード）。  
+        ※詳細は「twemojis モード」の節を参照。
   * `size=<長さ>`： 絵文字のサイズ。
   * `size*=<長さ>`： `*`付命令での絵文字のサイズ。  
     ※`size` および `size*` の既定値は (u)pLaTeX では 1zw、
@@ -116,6 +130,8 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
     `jatype` の設定には影響されない。
   * `scale=<実数>`： 絵文字のサイズを、`size`/`size*` の値からさらに
      指定の倍率で変更する。（既定値 = 1）
+
+[twemojis パッケージ]: https://ctan.org/pkg/twemojis
 
 ### 使い方
 
@@ -141,11 +157,11 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
     場合は，通常のテキスト出力にフォールバックする。  
   * `\coloremojicode[*][<設定>]{<符号値列>}`： 文字を「Unicode 符号値」
     または「JoyPixels の [emoji-toolkit] ライブラリで規定された短縮名」
-    で入力してカラー絵文字を出力する。
-    引数は、符号値で指定する場合はその16進表記、短縮名で指定する場合は
-    `:短縮名:` の形式で入力し、複数文字を入力する場合は各文字の指定を
-    を空白区切りで並べる。
-    例： `\coloremojicode{:sushi: 23 20E3 1F643 :snowman:}`
+    で入力してカラー絵文字を出力する。引数は、符号値で指定する場合はその
+    16 進表記、短縮名で指定する場合は `:短縮名:` の形式で入力し、複数
+    文字を入力する場合は各文字の指定をを空白区切りで並べる。  
+    例： `\coloremojicode{:sushi: 23 20E3 1F643 :snowman:}`  
+    ※以降、この入力方式を「**符号値列**」と呼称する。
   * `\coloremojiucs[*][<設定>]{<符号値列>}`： `\coloremojicode` の旧版
     における別名。  
     ※他の `coloremojicode～` の名前の命令・環境については、0.4 版以前
@@ -204,10 +220,10 @@ pifont パッケージの機能（`\dingfill` 命令、`dingautolist` 環境な�
 
 ### 絵文字の“短縮名”
 
-`\coloremojicode` 中で用いる絵文字の短縮名については、JoyPixels（旧称
-EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用できる。
-その他に以下に定める独自の短縮名が利用できる。
-これらは emoji sequence の入力の便宜のためのものである。
+「符号値列」中で用いる絵文字の短縮名については JoyPixels（旧称 EmojiOne）
+の [emoji-toolkit] ライブラリで規定する名前が利用できる。その他に以下に
+定める**独自短縮名**が利用できる。  
+※これらは emoji sequence の入力の便宜のためのものである。
 
     +           U+200D (ZWJ)
     !/red       U+1F9B0🦰（`+ !/red` で赤髪のhair style）
@@ -233,10 +249,10 @@ EmojiOne）の [emoji-toolkit] ライブラリで規定する名前が利用で�
     @0 .. @9    U+E0030..E0039 (tag sequence の構成要素)
     @a .. @z    U+E0061..E007A (tag sequence の構成要素)
 
-※独自の短縮名については名前を囲む `:～:` は省略可能である。  
-※独自以外の短縮名については、現状では「整数の 16 進表記と解釈できない
-ものは `:～:` が省略可能」という仕様であるが、これは将来変更される可能
-性がある。
+※独自短縮名については名前を囲む `:～:` は省略可能である。  
+※独自短縮名以外の短縮名については、現状では「整数の 16 進表記と解釈
+できないものは `:～:` が省略可能」という仕様であるが、これは将来変更
+される可能性がある。
 
 使用例：
 
@@ -292,7 +308,7 @@ PNG画像を `notoemoji` ファミリとして登録する手順を示す。
     prefix = notoemoji/notoemoji-
     % extension: 画像ファイルの拡張子
     extension = png
-    % bbox = dvipdfmx 用の bounding box の値
+    % bbox = 画像の bounding box の値 (省略可)
     bbox = 0 0 128 128
 
 `bbox` は dvipdfmx での画像の読込を高速化するための指定であり、省略する
@@ -324,10 +340,45 @@ U+2603 ☃ の画像ファイル（元の名前は `emoji_u2603.png`）につい
 `~/texmf/tex/latex/custom_images/notoemoji/notoemoji-2603.png`  
 に置くことができる。
 
+### twemojis モード
+
+0.17 版から「twemojisモード」がサポートされた。このモードでは絵文字出力の
+方法が「用意した画像ファイルを読み込む」ものから「[twemojis パッケージ]の
+命令を実行する」ものに変更される。
+
+これにより、大規模な画像ファイルセットのインストールが不要になるという
+メリットが得られる。もちろん、代わりに twemojis パッケージのインストール
+が必要になるが、twemojis は TeX Live に含まれているので、全体の手間は
+減ることが期待できるだろう。
+
+twemojis モードに切り替えるには設定パラメタとして `twemojis` を指定する。
+例えば、パッケージオプションに指定すればよい。
+
+    \usepackage[twemojis]{bxcoloremoji}
+
+捕捉：
+
+  - twemojis モードは「絵文字画像セットの選択肢の一つ」という位置づけで
+    ある。従って「サポートされる絵文字の範囲が異なる」ことを除いて、他の
+    絵文字画像セットを用いる場合と同じ機能が提供される。和文周りの調整も
+    従来通りに機能する。
+  - 絵文字出力時の内部処理の最終段階の「画像を `\includegraphics` で出力
+    する」処理を「twemojis の `\texttwemoji` を実行する」処理（これも
+    究極的には `\includegraphics` である）に置き換えている。
+  - `twemojis` オプションを**パッケージオプションとして指定**した場合は、
+    twemojis パッケージが自動で読み込まれる。（ただし graphicx の自動
+    読込の条件を満たす場合に限る。）これ以外の（例えば命令のオプションに
+    指定する）場合は twemojis を別途読み込む必要がある。
+
 
 更新履歴
 --------
 
+  * Version 0.18  〈2024/08/02〉
+      - twemojis モード（`twemojis` オプション）のサポート。
+      - `names` オプションを追加。
+      - サンプルファイルの修正。
+      - (試験的) `twemojis-skip-tikz` オプション。
   * Version 0.17  〈2024/07/28〉
       - `\coloremojikeycap(of)` 命令を追加。
       - フォールバック動作の改善。
