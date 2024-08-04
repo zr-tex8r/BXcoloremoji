@@ -397,7 +397,6 @@
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
   \fi\fi\fi
   \bxce@resolve@image@metric
-  \global\let\bxce@resolve@image@metric\relax
 }
 \AtBeginDocument{\bxce@resolve@image@setup}
 % auto-load graphicx if possible
@@ -1664,6 +1663,8 @@
 \let\bxce@iftdir\@secondoftwo % always yoko
 
 %% \bxce@resolve@image@metric
+% NB. This macro will be called more than once.
+\@onlypreamble\bxce@resolve@image@metric
 \def\bxce@resolve@image@metric{%
   % set 'bxce@luatexja'
   \if l\bxce@engine
@@ -1703,10 +1704,16 @@
   \fi\fi\fi\fi
   \if d\bxce@engine
     \@ifpackageloaded{CJK}{%
-      \unless\ifdefined\CJKhook \let\CJKhook\@empty \fi
-      \gappto\CJKhook{\bxce@CJKtrue}%
+      \bxce@resolve@image@metric@CJK
     }{}%
   \fi
+}
+%% \bxce@resolve@image@metric@CJK
+\@onlypreamble\bxce@resolve@image@metric@CJK
+\def\bxce@resolve@image@metric@CJK{%
+  \global\let\bxce@resolve@image@metric@CJK\relax
+  \unless\ifdefined\CJKhook \let\CJKhook\@empty \fi
+  \gappto\CJKhook{\bxce@CJKtrue}%
 }
 
 %% try once now
