@@ -83,6 +83,8 @@
 \bxce@namestrue
 %% \bxce@preload@names@opt : 'preload-names' value
 \let\bxce@preload@names@opt\bxce@abool@@auto
+%% \bxce@bxghost@opt : 'bxghost' value
+\let\bxce@bxghost@opt\bxce@abool@@auto
 %% \bxce@output@type : output type
 \chardef\bxce@ot@@none=0   % no image
 \chardef\bxce@ot@@std=1    % use standard family
@@ -269,6 +271,13 @@
   }{}%
 }
 
+%% 'bxghost=<bool/auto>'
+\define@key{bxce}{bxghost}[true]{%
+  \bxce@check@opt@key{bxghost}{#1}{bxce@abool@@}{%
+    \letcs\bxce@bxghost@opt{bxce@abool@@#1}%
+  }{}%
+}
+
 %% 'twemojis-skip-tikz=<bool>'
 \define@key{bxce}{twemojis-skip-tikz}[true]{%
   \bxce@check@opt@key{twemojis-skip-tikz}{#1}{bxce@twm@skip@tikz}{%
@@ -315,6 +324,7 @@
 \bxce@invalidate@opt@key{jatype}
 \bxce@invalidate@opt@key{names}
 \bxce@invalidate@opt@key{preload-names}
+\bxce@invalidate@opt@key{bxghost}
 \bxce@invalidate@opt@key{twemoji-skip-tikz}
 
 %--------------------------------------- environment check
@@ -337,6 +347,8 @@
 \newbool{bxce@use@image}
 %% switch 'bxce@use@bb' : use bb parameter?
 \newbool{bxce@use@bb}
+%% switch 'bxce@bxghost' : use bxghost?
+\newbool{bxce@bxghost}
 
 %% set \bxce@engine
 \@onlypreamble\bxce@if@primitive
@@ -444,6 +456,28 @@
         \bxce@use@imagefalse
       }
     \fi
+  \fi
+\fi
+
+%% set switch 'bxce@bxghost'
+\ifnum\bxce@jatype@opt=\bxce@abool@@false % skip
+\else\ifnum\bxce@bxghost@opt=\bxce@abool@@true
+  \bxce@bxghosttrue
+\else\ifnum\bxce@bxghost@opt=\bxce@abool@@auto
+  \@ifpackageloaded{luatexja}{\let\bxce@tmpa=t}{\let\bxce@tmpa=f}
+  \if \ifbxce@ptex T\else\if t\bxce@tmpa T\else F\fi\fi T%
+    \IfFileExists{bxghost-lib.sty}{\bxce@bxghosttrue}{}
+  \fi
+\fi\fi\fi
+\ifbxce@bxghost
+  \IfFileExists{bxghost-lib.sty}{%
+    \RequirePackage{bxghost-lib}[]%
+  }{%else
+    \RequirePackage{bxghost}[]%
+  }
+  \unless\ifdefined\jghostguarded
+    % not installed, error is already issued
+    \bxce@bxghostfalse
   \fi
 \fi
 
@@ -1889,12 +1923,19 @@
 
 %% \bxce@ghost@jachar
 %% \bxce@postghost@jachar
-\def\bxce@ghost@jachar{%
-  \bxce@zspc \kern-1\bxce@unit\relax
-}
-\def\bxce@postghost@jachar{%
-  \kern-1\bxce@unit\relax \bxce@zspc
-}
+\ifbxce@bxghost
+  \def\bxce@ghost@jachar#1\bxce@postghost{%
+    \leavevmode\jghostguarded{#1}%
+  }
+  \let\bxce@postghost@jachar\relax
+\else
+  \def\bxce@ghost@jachar{%
+    \bxce@zspc \kern-1\bxce@unit\relax
+  }
+  \def\bxce@postghost@jachar{%
+    \kern-1\bxce@unit\relax \bxce@zspc
+  }
+\fi
 
 %% \bxce@enghost@with@opt\CScont*[<option>,...]...
 % Invokes \CScont..., after resolving the star and the options
