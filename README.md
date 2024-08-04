@@ -11,6 +11,7 @@ LaTeX： カラー絵文字を出力する
   * 依存パッケージ：
       - etoolbox
       - binhex（expl3 が有効でない場合）
+      - bxghost（条件により）
       - twemojis（twemojis モードの場合）
 
 ### インストール
@@ -19,8 +20,8 @@ LaTeX： カラー絵文字を出力する
   - `emoji_images` のディレクトリをそのまま
     `$TEXMF/tex/latex/BXcoloremoji` の下に移動する。
 
-※常に`twemojis`モードでのみ用いる場合は、`emoji_images`のインストールは
-不要である。
+※常に twemojis モードでのみ用いる場合は、`emoji_images` のインストール
+は不要である。
 
 ### ライセンス
 
@@ -31,7 +32,7 @@ Graphics work is licenced under:
 CC-BY 4.0: (https://creativecommons.org/licenses/by/4.0/)
 Copyright Twitter, Inc and other contributors
 
-その他の著作物にはは以下が適用される：
+その他の著作物には以下が適用される：
 
 Other work is licensed under:
 
@@ -85,8 +86,8 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
   * `preload-names=<値>`： 短縮名データベースをパッケージ読込時に一括
     して読み込むか。  
     ※`false` は昔の“メモリ容量が少ない TeX エンジン”向けの設定。
-      - `auto`（既定）： 以下の条件の何れかを満たす場合は（メモリが十分に
-        あると判断して）`true`、それ以外は `false`。
+      - `auto`（既定）： 以下の条件の**何れか**を満たす場合は（メモリが
+        十分にあると判断して）`true`、それ以外は `false`。
           - エンジンが XeLaTeX／LuaLaTeX／upLaTeX である。
           - expl3 が有効である。
           - hyperref が読み込まれている。
@@ -99,6 +100,16 @@ DVI 出力の場合、事前に graphicx パッケージを読み込む必要が
         ※dvipdfmx の場合、`bb` を指定した方が動作が速い。
       - `true`/`false`： 常に指定する／しない。  
         ※`bb` 設定が禁止されているドライバもあるので注意。
+  * `bxghost=<値>`： 和文ゴースト処理のために [bxghost パッケージ]を利用
+    する（読み込む）か。  
+    ※`jatype` が偽の場合は無効（読み込まない）。
+      - `auto`（既定）： 次の条件を**全て**満たす場合に利用する。
+          + エンジンが (u)pLaTeX である、または、LuaLaTeX であってかつ
+            本パッケージ読込時点で LuaTeX-ja が読み込まれている。
+          + bxghost の 0.3.0 版以降がインストールされている。
+      - `true`： 利用する（常に bxghost を読み込もうとする）。  
+        ※LuaLaTeX 上では bxghost は LuaTeX-ja を読み込むことに注意。
+      - `false`： 利用しない。
 
 ### パラメタ設定
 
@@ -374,6 +385,8 @@ twemojis モードに切り替えるには設定パラメタとして `twemojis`
 更新履歴
 --------
 
+  * Version 0.19  〈2024/08/05〉
+      - 和文ゴースト処理のために [bxghost パッケージ]を利用する。
   * Version 0.18  〈2024/08/02〉
       - twemojis モード（`twemojis` オプション）のサポート。
       - `names` オプションを追加。
@@ -461,6 +474,7 @@ twemojis モードに切り替えるには設定パラメタとして `twemojis`
   * Version 0.1  〈2015/09/22〉
       - 最初の公開版。
 
+[bxghost パッケージ]: https://ctan.org/pkg/bxghost
 [coloremoji パッケージ]: https://github.com/doraTeX/coloremoji
 
 --------------------
