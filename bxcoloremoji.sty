@@ -107,6 +107,18 @@
 %% bxce@size@var : image size for *-form
 \let\bxce@size@var\@empty
 
+%% switch bxce@in@command
+% Whether the key process is for command options.
+\newif\ifbxce@in@command
+
+%% \bxce@opt@in@cmd{<name>}{<code>}
+% Process a key that is only valid in command options.
+\def\bxce@opt@in@cmd#1#2{%
+  \ifbxce@in@command #2%
+  \else \bxce@err@naopt{#1}%
+  \fi
+}
+
 %% \bxce@expd{<code>}
 % Fully-expands the code and runs it.
 \def\bxce@expd#1{%
@@ -491,6 +503,15 @@
   #1{#2}%
 }
 
+%% \bxce@with@star{<str>}{<true>}{<false>}
+% Checks whether the string starts with '*'.
+\def\bxce@with@star#1{%
+  \bxce@with@star@a#1.\bxce@end
+}
+\def\bxce@with@star@a#1#2\bxce@end{%
+  \bxce@cond\ifx*#1\fi
+}
+
 %% \bxce@lowercase@edef
 \def\bxce@lowercase@edef#1#2{%
   \edef\bxce@tmp@le{\noexpand\bxce@lowercase@edef@a{#2}}%
@@ -658,40 +679,26 @@
 
 %%<*> \coloremoji*[<option>,...]{<text>}
 \newrobustcmd*{\coloremoji}{%
-  \bxce@enghost\bxce@coloremoji@a
+  \bxce@enghost@with@opt\bxce@coloremoji@a
 }
-\def\bxce@coloremoji@a{%
-  \begingroup
-    \@ifnextchar[%]
-      {\bxce@coloremoji@b}%
-      {\bxce@coloremoji@b[]}%
-}
-\def\bxce@coloremoji@b[#1]#2{%
-    \setkeys{bxce}{#1}%
-    \bxce@parse@text{#2}%
+\def\bxce@coloremoji@a#1{%
+  \bxce@ghost@guarded{%
+    \bxce@parse@text{#1}%
     \bxce@output
-  \endgroup
-  \bxce@postghost
+  }%
 }
 
 % TODO: Make \coloremojiucs an alias to \coloremojicode.
 
 %%<*> \coloremojiucs*[<option>,...]{<codevalue> ...}
 \newrobustcmd*{\coloremojiucs}{%
-  \bxce@enghost\bxce@coloremojicode@a
+  \bxce@enghost@with@opt\bxce@coloremojicode@a
 }
-\def\bxce@coloremojicode@a{%
-  \begingroup
-    \@ifnextchar[%]
-      {\bxce@coloremojicode@b}%
-      {\bxce@coloremojicode@b[]}%
-}
-\def\bxce@coloremojicode@b[#1]#2{%
-    \setkeys{bxce}{#1}%
-    \bxce@parse@text@ccseq{#2}%
+\def\bxce@coloremojicode@a#1{%
+  \bxce@ghost@guarded{%
+    \bxce@parse@text@ccseq{#1}%
     \bxce@output
-  \endgroup
-  \bxce@postghost
+  }%
 }
 
 %%<*> \coloremojicode*[<option>,...]{<codevalue> ...}
@@ -1826,47 +1833,84 @@
 %% \bxce@zspc : zenkaku space
 \let\bxce@zspc\@undefined
 
+%% \bxce@ghost
+\let\bxce@ghost\relax
 %% \bxce@postghost
 \let\bxce@postghost\relax
 
-%% \bxce@enghost\CScont...
-\def\bxce@enghost#1#2#{% brace delimit
-  \bxce@enghost@a{#2}%
-  \@ifstar{#1}{#1}#2%
+%% \bxce@enghost\CScont*...
+% Invokes \CScont..., after resolving the star and building a ghost
+% enclosure.
+% NB. The process starting with \CScont must end with an invocation
+% of \bxce@ghost@guarded.
+\def\bxce@enghost#1{%
+  \@ifstar{%
+    \bxce@vartrue
+    \bxce@enghost@a{#1}%
+  }{%
+    \bxce@varfalse
+    \bxce@enghost@a{#1}%
+  }%
 }
 \def\bxce@enghost@a#1{%
-  \bxce@with@star{#1}{%
-    \bxce@vartrue
-  }{%else
-    \bxce@varfalse
-  }%
-% NB. It could be called before \bxce@resolve@image@metric.
-% Then ghost setting could be inappropriate.
-  \bxce@cond\ifbxce@jaok\fi{%
-    \bxce@cond\ifmmode\fi{%
-      \let\bxce@postghost\relax
-    }{%else
-      \ifbxce@var
-        \bxce@nihil
-        \let\bxce@postghost\bxce@nihil
-      \else
-        \bxce@zspc \kern-1\bxce@unit\relax
-        \def\bxce@postghost{%
-          \kern-1\bxce@unit\relax \bxce@zspc}%
-      \fi
-    }%
-  }{%else
-    \leavevmode
-    \let\bxce@postghost\relax
-  }%
+  \bxce@build@ghost
+  \begingroup
+    #1%
 }
 
-%% \bxce@with@star{<str>}{<true>}{<false>}
-\def\bxce@with@star#1{%
-  \bxce@with@star@a#1.\bxce@end
+%% \bxce@ghost@guarded{<text>}
+\def\bxce@ghost@guarded#1{%
+    \bxce@ghost
+    #1%
+    \bxce@postghost
+  \endgroup
 }
-\def\bxce@with@star@a#1#2\bxce@end{%
-  \bxce@cond\ifx*#1\fi
+
+%% \bxce@build@ghost
+\def\bxce@build@ghost{%
+% NB. It could be called before \bxce@resolve@image@metric.
+% Then ghost setting could be inappropriate.
+  \ifbxce@jaok
+    \ifmmode
+      \let\bxce@ghost\relax
+      \let\bxce@postghost\relax
+    \else\ifbxce@var
+      \let\bxce@ghost\bxce@nihil
+      \let\bxce@postghost\bxce@nihil
+    \else
+      \let\bxce@ghost\bxce@ghost@jachar
+      \let\bxce@postghost\bxce@postghost@jachar
+    \fi\fi
+  \else
+    \let\bxce@ghost\leavevmode
+    \let\bxce@postghost\relax
+  \fi
+}
+
+%% \bxce@ghost@jachar
+%% \bxce@postghost@jachar
+\def\bxce@ghost@jachar{%
+  \bxce@zspc \kern-1\bxce@unit\relax
+}
+\def\bxce@postghost@jachar{%
+  \kern-1\bxce@unit\relax \bxce@zspc
+}
+
+%% \bxce@enghost@with@opt\CScont*[<option>,...]...
+% Invokes \CScont..., after resolving the star and the options
+% and preparing the ghost enclosure.
+\def\bxce@enghost@with@opt#1{%
+  \bxce@enghost{\bxce@enghost@with@opt@a{#1}}%
+}
+\def\bxce@enghost@with@opt@a#1{%
+  \@ifnextchar[%]
+      {\bxce@enghost@with@opt@b{#1}}%
+      {#1}%
+}
+\def\bxce@enghost@with@opt@b#1[#2]{%
+  \bxce@in@commandtrue
+  \setkeys{bxce}{#2}%
+  #1%
 }
 
 %--------------------------------------- preprocess for expansion
