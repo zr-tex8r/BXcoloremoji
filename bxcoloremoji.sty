@@ -108,6 +108,9 @@
 \let\bxce@size\@empty
 %% bxce@size@var : image size for *-form
 \let\bxce@size@var\@empty
+%% \bxce@count@from : starting value of emoji orders
+% (used in \coloremoji(code)successor(of))
+\def\bxce@count@from{1}
 
 %% switch bxce@in@command
 % Whether the key process is for command options.
@@ -283,6 +286,11 @@
   \bxce@check@opt@key{twemojis-skip-tikz}{#1}{bxce@twm@skip@tikz}{%
     \csuse{bxce@twm@skip@tikz#1}%
   }{}%
+}
+
+%% 'count-from=<number>'
+\define@key{bxce}{count-from}{%
+  \def\bxce@count@from{#1}%
 }
 
 %% 'family=<name>'
@@ -486,6 +494,7 @@
 %% variables
 \newbool{bxce@ok}
 \newcount\bxce@cnta
+\newcount\bxce@cnto
 \let\bxce@arg\relax
 % (flags)
 %[bxce@f/ee] : error occurred in input text expansion
@@ -2314,7 +2323,6 @@
 \let\bxce@oehead\relax
 \let\bxce@oeprev\relax
 \let\bxce@oecur\relax
-\newcount\bxce@cnto
 
 \AtBeginDocument{% empty should stay invalid
   \csundef{bxce@oen/}%
@@ -2435,18 +2443,12 @@
 \def\bxce@ctrformat@#1#2{%
   \begingroup
     \bxce@cnto=#2\relax
-    \edef\bxce@oecur{#1}%
-    \@whilenum{\bxce@cnto>\z@}\do{%
-      \letcs\bxce@oecur{bxce@oen/\bxce@oecur}%
-      \unless\ifdefined\bxce@oecur
-        \let\bxce@oecur\@empty
-      \fi
-      \advance\bxce@cnto\m@ne
-    }%
-    \ifx\bxce@oecur\@empty
+    \edef\bxce@text{#1}%
+    \bxce@get@successor
+    \ifx\bxce@text\relax
       \bxce@put@ageta
     \else
-      \coloremojicode*{\bxce@oecur}%
+      \coloremojicode*{\bxce@text}%
     \fi
   \endgroup
 }
@@ -2548,6 +2550,35 @@
 % This macro is needed for \pagenumbering.
 \def\@coloremojikeycap#1{%
   \bxce@keycap@of{}{#1}%
+}
+
+%--------------------------------------- successor something
+
+%% \bxce@get@successor
+% Find the \bxce@cnto-th successor of ccseq \bxce@text and
+% set the result to \bxce@text.
+\def\bxce@get@successor{%
+  \ifnum\bxce@cnto<\z@ \bxce@cnto\z@ \fi
+  \@tempcnta\z@
+  \let\bxce@tmpb\bxce@text
+  \@whilenum{\bxce@cnto>\z@}\do{%
+    \letcs\bxce@tmpb{bxce@oen/\bxce@tmpb}%
+    \advance\bxce@cnto\m@ne
+    \advance\@tempcnta\@ne
+    \unless\ifdefined\bxce@tmpb
+      \bxce@cnto\z@
+    \else\ifx\bxce@text\bxce@tmpb % loop detected
+      % shortcut
+      \@tempcntb\bxce@cnto
+      \divide\@tempcntb\@tempcnta
+      \advance\bxce@cnto-\numexpr\@tempcntb*\@tempcnta\relax
+    \fi\fi
+  }%
+  \ifdefined\bxce@tmpb
+    \let\bxce@text\bxce@tmpb
+  \else
+    \let\bxce@text\relax
+  \fi
 }
 
 %--------------------------------------- emoji order database
