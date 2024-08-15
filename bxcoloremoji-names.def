@@ -405,6 +405,7 @@
 \bxce@do{couple}{1F46B}
 \bxce@do{couple_mm}{1F468 200D 2764 200D 1F468}
 \bxce@do{couple_with_heart}{1F491}
+\bxce@do{couple_with_heart_man_man}{1F468 200D 2764 200D 1F468}
 \bxce@do{couple_with_heart_man_man_tone1}{1F468 1F3FB 200D 2764 200D 1F468 1F3FB}
 \bxce@do{couple_with_heart_man_man_tone1_tone2}{1F468 1F3FB 200D 2764 200D 1F468 1F3FC}
 \bxce@do{couple_with_heart_man_man_tone1_tone3}{1F468 1F3FB 200D 2764 200D 1F468 1F3FD}
@@ -430,22 +431,28 @@
 \bxce@do{couple_with_heart_man_man_tone5_tone2}{1F468 1F3FF 200D 2764 200D 1F468 1F3FC}
 \bxce@do{couple_with_heart_man_man_tone5_tone3}{1F468 1F3FF 200D 2764 200D 1F468 1F3FD}
 \bxce@do{couple_with_heart_man_man_tone5_tone4}{1F468 1F3FF 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_person_person}{1F491}
+\bxce@do{couple_with_heart_person_person_tone1}{1F491 1F3FB}
 \bxce@do{couple_with_heart_person_person_tone1_tone2}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FC}
 \bxce@do{couple_with_heart_person_person_tone1_tone3}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FD}
 \bxce@do{couple_with_heart_person_person_tone1_tone4}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FE}
 \bxce@do{couple_with_heart_person_person_tone1_tone5}{1F9D1 1F3FB 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone2}{1F491 1F3FC}
 \bxce@do{couple_with_heart_person_person_tone2_tone1}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FB}
 \bxce@do{couple_with_heart_person_person_tone2_tone3}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FD}
 \bxce@do{couple_with_heart_person_person_tone2_tone4}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FE}
 \bxce@do{couple_with_heart_person_person_tone2_tone5}{1F9D1 1F3FC 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone3}{1F491 1F3FD}
 \bxce@do{couple_with_heart_person_person_tone3_tone1}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FB}
 \bxce@do{couple_with_heart_person_person_tone3_tone2}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FC}
 \bxce@do{couple_with_heart_person_person_tone3_tone4}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FE}
 \bxce@do{couple_with_heart_person_person_tone3_tone5}{1F9D1 1F3FD 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone4}{1F491 1F3FE}
 \bxce@do{couple_with_heart_person_person_tone4_tone1}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FB}
 \bxce@do{couple_with_heart_person_person_tone4_tone2}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FC}
 \bxce@do{couple_with_heart_person_person_tone4_tone3}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FD}
 \bxce@do{couple_with_heart_person_person_tone4_tone5}{1F9D1 1F3FE 200D 2764 200D 1F9D1 1F3FF}
+\bxce@do{couple_with_heart_person_person_tone5}{1F491 1F3FF}
 \bxce@do{couple_with_heart_person_person_tone5_tone1}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FB}
 \bxce@do{couple_with_heart_person_person_tone5_tone2}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FC}
 \bxce@do{couple_with_heart_person_person_tone5_tone3}{1F9D1 1F3FF 200D 2764 200D 1F9D1 1F3FD}
@@ -481,6 +488,7 @@
 \bxce@do{couple_with_heart_woman_man_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F468 1F3FC}
 \bxce@do{couple_with_heart_woman_man_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F468 1F3FD}
 \bxce@do{couple_with_heart_woman_man_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F468 1F3FE}
+\bxce@do{couple_with_heart_woman_woman}{1F469 200D 2764 200D 1F469}
 \bxce@do{couple_with_heart_woman_woman_tone1}{1F469 1F3FB 200D 2764 200D 1F469 1F3FB}
 \bxce@do{couple_with_heart_woman_woman_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F469 1F3FC}
 \bxce@do{couple_with_heart_woman_woman_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F469 1F3FD}
@@ -1227,6 +1235,7 @@
 \bxce@do{keycap_ten}{1F51F}
 \bxce@do{kimono}{1F458}
 \bxce@do{kiss}{1F48B}
+\bxce@do{kiss_man_man}{1F468 200D 2764 200D 1F48B 200D 1F468}
 \bxce@do{kiss_man_man_tone1}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FB}
 \bxce@do{kiss_man_man_tone1_tone2}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FC}
 \bxce@do{kiss_man_man_tone1_tone3}{1F468 1F3FB 200D 2764 200D 1F48B 200D 1F468 1F3FD}
@@ -1253,22 +1262,28 @@
 \bxce@do{kiss_man_man_tone5_tone3}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FD}
 \bxce@do{kiss_man_man_tone5_tone4}{1F468 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FE}
 \bxce@do{kiss_mm}{1F468 200D 2764 200D 1F48B 200D 1F468}
+\bxce@do{kiss_person_person}{1F48F}
+\bxce@do{kiss_person_person_tone1}{1F48F 1F3FB}
 \bxce@do{kiss_person_person_tone1_tone2}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
 \bxce@do{kiss_person_person_tone1_tone3}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
 \bxce@do{kiss_person_person_tone1_tone4}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
 \bxce@do{kiss_person_person_tone1_tone5}{1F9D1 1F3FB 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone2}{1F48F 1F3FC}
 \bxce@do{kiss_person_person_tone2_tone1}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
 \bxce@do{kiss_person_person_tone2_tone3}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
 \bxce@do{kiss_person_person_tone2_tone4}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
 \bxce@do{kiss_person_person_tone2_tone5}{1F9D1 1F3FC 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone3}{1F48F 1F3FD}
 \bxce@do{kiss_person_person_tone3_tone1}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
 \bxce@do{kiss_person_person_tone3_tone2}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
 \bxce@do{kiss_person_person_tone3_tone4}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FE}
 \bxce@do{kiss_person_person_tone3_tone5}{1F9D1 1F3FD 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone4}{1F48F 1F3FE}
 \bxce@do{kiss_person_person_tone4_tone1}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
 \bxce@do{kiss_person_person_tone4_tone2}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
 \bxce@do{kiss_person_person_tone4_tone3}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
 \bxce@do{kiss_person_person_tone4_tone5}{1F9D1 1F3FE 200D 2764 200D 1F48B 200D 1F9D1 1F3FF}
+\bxce@do{kiss_person_person_tone5}{1F48F 1F3FF}
 \bxce@do{kiss_person_person_tone5_tone1}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FB}
 \bxce@do{kiss_person_person_tone5_tone2}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FC}
 \bxce@do{kiss_person_person_tone5_tone3}{1F9D1 1F3FF 200D 2764 200D 1F48B 200D 1F9D1 1F3FD}
@@ -1304,6 +1319,7 @@
 \bxce@do{kiss_woman_man_tone5_tone2}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FC}
 \bxce@do{kiss_woman_man_tone5_tone3}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FD}
 \bxce@do{kiss_woman_man_tone5_tone4}{1F469 1F3FF 200D 2764 200D 1F48B 200D 1F468 1F3FE}
+\bxce@do{kiss_woman_woman}{1F469 200D 2764 200D 1F48B 200D 1F469}
 \bxce@do{kiss_woman_woman_tone1}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FB}
 \bxce@do{kiss_woman_woman_tone1_tone2}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FC}
 \bxce@do{kiss_woman_woman_tone1_tone3}{1F469 1F3FB 200D 2764 200D 1F48B 200D 1F469 1F3FD}
@@ -1875,6 +1891,7 @@
 \bxce@do{medical_symbol}{2695}
 \bxce@do{mega}{1F4E3}
 \bxce@do{melon}{1F348}
+\bxce@do{men_holding_hands}{1F46C}
 \bxce@do{men_holding_hands_tone1}{1F46C 1F3FB}
 \bxce@do{men_holding_hands_tone1_tone2}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FC}
 \bxce@do{men_holding_hands_tone1_tone3}{1F468 1F3FB 200D 1F91D 200D 1F468 1F3FD}
@@ -2264,6 +2281,7 @@
 \bxce@do{person_golfing_tone3}{1F3CC 1F3FD}
 \bxce@do{person_golfing_tone4}{1F3CC 1F3FE}
 \bxce@do{person_golfing_tone5}{1F3CC 1F3FF}
+\bxce@do{person_in_bed}{1F6CC}
 \bxce@do{person_in_bed_tone1}{1F6CC 1F3FB}
 \bxce@do{person_in_bed_tone2}{1F6CC 1F3FC}
 \bxce@do{person_in_bed_tone3}{1F6CC 1F3FD}
@@ -3074,6 +3092,7 @@
 \bxce@do{wink}{1F609}
 \bxce@do{wolf}{1F43A}
 \bxce@do{woman}{1F469}
+\bxce@do{woman_and_man_holding_hands}{1F46B}
 \bxce@do{woman_and_man_holding_hands_tone1}{1F46B 1F3FB}
 \bxce@do{woman_and_man_holding_hands_tone1_tone2}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FC}
 \bxce@do{woman_and_man_holding_hands_tone1_tone3}{1F469 1F3FB 200D 1F91D 200D 1F468 1F3FD}
@@ -3523,6 +3542,7 @@
 \bxce@do{womans_clothes}{1F45A}
 \bxce@do{womans_flat_shoe}{1F97F}
 \bxce@do{womans_hat}{1F452}
+\bxce@do{women_holding_hands}{1F46D}
 \bxce@do{women_holding_hands_tone1}{1F46D 1F3FB}
 \bxce@do{women_holding_hands_tone1_tone2}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FC}
 \bxce@do{women_holding_hands_tone1_tone3}{1F469 1F3FB 200D 1F91D 200D 1F469 1F3FD}
