@@ -63,6 +63,11 @@ bxcoloremoji パッケージ
 更新履歴
 --------
 
+  * Version 0.20a 〈2024/08/18〉
+      - bxcoloremoji パッケージの解説を PDF 文書に移行した。
+      - 不具合修正。
+      - (試験的) `twemoji-pdf/png` オプションをカスタムファミリ指定の
+        一種として処理する。
   * Version 0.20  〈2024/08/16〉
       - 短縮名を少し追加した。
       - 短縮名一覧のドキュメント bxcoloremoji-shortnames.pdf を追加。

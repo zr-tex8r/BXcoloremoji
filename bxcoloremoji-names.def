@@ -9,7 +9,7 @@
 %%
 
 %% file declaration
-\ProvidesFile{bxcoloremoji-names.def}[2024/08/16 v0.20]
+\ProvidesFile{bxcoloremoji-names.def}[2024/08/18 v0.20a]
 
 %--------------------------------------- name mappings
 \bxce@ndbegin
