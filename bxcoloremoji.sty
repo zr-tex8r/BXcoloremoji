@@ -10,7 +10,7 @@
 
 %% package declarations
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bxcoloremoji}[2024/08/16 v0.20]
+\ProvidesPackage{bxcoloremoji}[2024/08/18 v0.20a]
 \def\bxce@pkgname{bxcoloremoji}
 \providecommand\bxDebug[1]{}
 
@@ -181,18 +181,10 @@
   \bxce@initialize@setup
 }
 \define@key{bxce}{twemoji-pdf}[]{%
-  \let\bxce@output@type\bxce@ot@@std
-  \def\bxce@family{twemoji-pdf}%
-  \def\bxce@bb{0 0 27 27}%
-  \def\bxce@ext{pdf}%
-  \def\bxce@prefix{\coloremojidir twemoji-pdf/twemoji-}%
+  \bxce@use@custom@family{twemoji-pdf}%
 }
 \define@key{bxce}{twemoji-png}[]{%
-  \let\bxce@output@type\bxce@ot@@std
-  \def\bxce@family{twemoji-png}%
-  \def\bxce@bb{0 0 72 72}%
-  \def\bxce@ext{png}%
-  \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
+  \bxce@use@custom@family{twemoji-png}%
 }
 %% 'twemojis'
 \define@key{bxce}{twemojis}[]{%
@@ -2204,11 +2196,18 @@
       \edef\bxce@family{#1}%
       \bxce@read@cfg@file
     }{%else
+      \ifcsdef{bxce@fbconfig/#1}{%
+        \bxce@oktrue
+        \letcs\bxce@config{bxce@fbconfig/#1}%
+        \PackageInfo\bxce@pkgname
+         {Using preset config for '#1'\@gobble}%
+      }{%
       \bxce@okfalse
       \PackageError\bxce@pkgname
        {The custom family '#1' is unavaiable\MessageBreak
         since file '\bxce@cfg@file' is not found}%
        {\@ehc}%
+      }%
     }%
     \ifbxce@ok
       \bxce@check@cfg@values
@@ -2309,6 +2308,17 @@
       \aftergroup\bxce@okfalse
     \fi
   \endgroup
+}
+
+\csdef{bxce@fbconfig/twemoji-pdf}{%
+  \def\bxce@bb{0 0 27 27}%
+  \def\bxce@ext{pdf}%
+  \def\bxce@prefix{\coloremojidir twemoji-pdf/twemoji-}%
+}
+\csdef{bxce@fbconfig/twemoji-png}{%
+  \def\bxce@bb{0 0 72 72}%
+  \def\bxce@ext{png}%
+  \def\bxce@prefix{\coloremojidir twemoji-png/twemoji-}%
 }
 
 %% invoke the custom family set by a package option
