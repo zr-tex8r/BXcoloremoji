@@ -2028,6 +2028,8 @@
   \def\bxce@bad#1{\bxce@hy@geta}%
   \let\bxce@put@geta@do\bxce@geta@char
   \let\bxce@put@ageta\bxce@ageta@char
+  \let\bxce@keycap@of@good\bxce@hy@keycap@of@good
+  \let\bxce@keycap@of@bad\bxce@hy@keycap@of@bad
 }
 
 %% \bxce@hy@coloremoji
@@ -2536,14 +2538,37 @@
   \bxce@hedge@options@with\bxce@keycap@of
 }
 \def\bxce@keycap@of#1#2{%
-  \ifcsname bxce@kcn/\number#2\endcsname
-    \expandafter\expandafter\expandafter\bxce@keycap@of@a\csname
-        bxce@kcn/\number#2\endcsname\bxce@end{#1}%
-  \else \bxce@put@geta@for{#1}%
-  \fi
+  \expandafter\bxce@keycap@of@a\number#2\bxce@mk{#1}%
 }
-\def\bxce@keycap@of@a#1\bxce@end#2{%
-  \coloremojicode#2{#1}%
+\def\bxce@keycap@of@a#1\bxce@mk#2{%
+  \ifnum#1<\z@
+    \bxce@put@geta@for{#2}%
+  \else\ifcsname bxce@kcn/#1\endcsname
+    \expandafter\expandafter\expandafter\bxce@keycap@of@b\csname
+        bxce@kcn/#1\endcsname\bxce@end{#1}{#2}%
+  \else
+    \bxce@keycap@of@bad{#1}%
+  \fi\fi
+}
+\def\bxce@keycap@of@b#1\bxce@end#2#3{%
+  \bxce@keycap@of@good{#3}{#1}{#2}%
+}
+
+%% \bxce@keycap@of@bad{<number>}
+\def\bxce@keycap@of@bad#1{%
+  \begingroup \fboxsep=\z@ \fboxrule=.6\p@
+    \fbox{\rule[-.1em]{0pt}{.85em}#1}% fallback
+  \endgroup
+}
+\def\bxce@hy@keycap@of@bad#1{[#1]}
+%% \bxce@keycap@of@good{...}{<codevalue>}{<number>}
+\def\bxce@keycap@of@good#1#2#3{%
+  \coloremojicode#1{#2}%
+}
+\def\bxce@hy@keycap@of@good#1#2#3{%
+  \ifdefined\ifpdfstringunicode \expandafter\ifpdfstringunicode
+  \else \expandafter\@secondoftwo
+  \fi {\coloremojicode#1{#2}}{\bxce@keycap@of@bad{#3}}%
 }
 
 %%<*> \coloremojikeycap*[<option>,...]{<counter>}
