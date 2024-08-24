@@ -63,6 +63,8 @@ bxcoloremoji パッケージ
 更新履歴
 --------
 
+  * Version 0.21  〈2024/08/24〉
+      - color パッケージも自動的に読み込む。
   * Version 0.20a 〈2024/08/18〉
       - bxcoloremoji パッケージの解説を PDF 文書に移行した。
       - 不具合修正。

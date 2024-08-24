@@ -19,8 +19,8 @@
 \usepackage[twemojis]{bxcoloremoji}
 \newcommand{\CE}[1]{\coloremoji{#1}}
 \newcommand{\CC}[1]{\coloremojicode{#1}}
-\newcommand{\PkgVersion}{0.20a}
-\newcommand{\PkgDate}{2024/08/18}
+\newcommand{\PkgVersion}{0.21}
+\newcommand{\PkgDate}{2024/08/24}
 \newcommand{\Pkg}[1]{\textsf{#1}}
 \newcommand{\Meta}[1]{$\langle$\mbox{}#1\mbox{}$\rangle$}
 \newcommand{\RMeta}[1]{{\Meta{\rmfamily#1}}}
@@ -55,6 +55,7 @@
 
 \tableofcontents
 
+
 %===========================================================
 \section{前提環境}
 \label{sec:Prerequisites}
@@ -78,14 +79,23 @@
 \section{パッケージ読込}
 \label{sec:Loading}
 
-DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要がある。
+DVI出力の場合、事前に\Pkg{graphicx}パッケージと
+\Pkg{color}（または\Pkg{xcolor}）パッケージ
+\footnote{現状では\Pkg{(x)color}パッケージの機能はある種の
+  フォールバック出力の際にのみ用いられる。
+  \Pkg{(x)color}が未読込の場合は色を使わず黒色で出力する。
+  （実際に絵文字画像が出力される場合には影響しない。）}%
+を読み込む必要がある。
 
-※PDF出力の場合、
+\Note PDF出力の場合、
 およびグローバルのドライバオプションが指定されている場合は、
-自動的に\Pkg{graphicx}がオプション無しで読み込まれる。
+自動的に\Pkg{graphicx}と\Pkg{color}%
+\footnote{\Pkg{color}パッケージの自動読込は{\LaTeX}カーネルの版が
+  2021-06-01以降である場合にのみ行われる。}%
+がオプション無しで読み込まれる。
 
 \begin{quote}\small\begin{verbatim}
-\usepackage[dvipdfmx]{graphicx} % dvipdfmx の場合
+\usepackage[dvipdfmx]{graphicx,color} % dvipdfmx の場合
 \end{verbatim}\end{quote}
 
 また、昔の（2018-04-01以前の）(pdf){\LaTeX}および{\pLaTeX}の場合は、
@@ -121,7 +131,7 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
     \Pkg{LuaTeX-ja}が用いられている場合に和文扱いを行う。
   \item |true|\Means
     可能な限り、和文扱いを行うことを試みる。
-    \Note 現状では{\pdfLaTeX}では効果がない。
+    \Note 現状では{\pdfLaTeX}\／{}欧文{\LaTeX}では効果がない。
   \item |false|\Means
     和文扱いを行わない。
   \end{itemize}
@@ -132,7 +142,7 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 \begin{itemize}
 \item |nodvidriver|\Means
   ドライバ依存の動作を抑止する。
-  具体的には、絵文字種別が|no-image|に固定される
+  具体的には、絵文字画像セット種別が|no-image|に固定される
   （絵文字は表示されない）。
 
 \item |resetdvidriver|\Means
@@ -177,23 +187,25 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
   和文ゴースト処理のために\Pkg{bxghost}パッケージ
   \footnote{\Pkg{bxghost}パッケージ\Means
     \url{https://ctan.org/pkg/bxghost}}%
-  を利用する（読み込む）か。
-  \Note |jatype|が偽の場合は無効（読み込まない）。
+  を利用するか。
+  \Note |jatype|が偽の場合は和文ゴースト処理自体が行われないため無効
+  （利用しない）。
   \begin{itemize}
   \item |auto|（既定）\Means
     次の条件を\Strong{全て}満たす場合に利用する。
     \begin{itemize}
     \item エンジンが\EG{(u)\pLaTeX}である、
       または、{\LuaLaTeX}であってかつ
-      本パッケージ読込時点で\Pkg{LuaTeX-ja}が読み込まれている。
+      本パッケージ\Strong{読込時点}で\Pkg{LuaTeX-ja}が読み込まれている。
     \item \Pkg{bxghost}の0.3.0版以降がインストールされている。
     \end{itemize}
   \item |true|\Means
     利用する（常に\Pkg{bxghost}を読み込もうとする）。
     \Note {\LuaLaTeX}上では\Pkg{bxghost}は\Pkg{LuaTeX-ja}を
-    読み込むことに注意。
+    必ず読み込むことに注意。
   \item |false|\Means
     利用しない。
+    \Note この場合、和文ゴースト処理が失敗する可能性がある。
   \end{itemize}
 \end{itemize}
 
@@ -226,35 +238,35 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 利用可能なパラメタは以下の通り。
 
 \begin{itemize}
-\item 絵文字画像セットの種別を指定するもの。
+\item \Strong{絵文字画像セット}の種別を指定するもの。
   （既定値＝|twemoji-pdf|）
   \begin{itemize}
   \item |twemoji-pdf|\Means
     twemojiのSVG画像から変換したPDF画像。
   \item |twemoji-png|\Means
     twemojiの72ピクセルのPNG画像。
-  \item |no-image|\Means
-    絵文字画像を使わず全てフォールバック出力にする。
-  \item |family=|\Meta{名前}\Means
-    カスタムファミリ指定（\ref{sec:Custom-Families}節参照）。
   \item |twemojis|\Means
     画像出力を\Pkg{twemojis}パッケージ
     \footnote{\Pkg{twemojis}パッケージ\Means
       \url{https://ctan.org/pkg/twemojis}}%
     の絵文字出力命令に移譲する（twemojisモード）。
     \Note 詳細は\ref{sec:Twemojis-Mode}節を参照。
+  \item |family=|\Meta{名前}\Means
+    カスタムファミリ指定（\ref{sec:Custom-Families}節参照）。
+  \item |no-image|\Means
+    絵文字画像を使わず全てフォールバック出力にする。
   \end{itemize}
 
 \item |size=|\Meta{長さ}\Means
-  絵文字のサイズ。
+  |*|無命令での絵文字のサイズ。
 \item |size*=|\Meta{長さ}\Means
   |*|付命令での絵文字のサイズ。
   \Note |size|および|size*|の既定値は\EG{(u)\pLaTeX}では1\,zw、
-  {\LuaLaTeX}＋\Pkg{LuaTeX-ja}では 1|\zw|、それ以外は1\,em。
+  {\LuaLaTeX}＋\Pkg{LuaTeX-ja}では 1\,|\zw|、それ以外は1\,em。
   この既定値は|jatype|の設定には影響されない。
 
 \item |scale=|\Meta{実数}\Means
-  絵文字のサイズを、|size|\／|size*|の値からさらに
+  絵文字のサイズを、|size|\／|size*|で指定した値からさらに
   指定の倍率で変更する。
   （既定値＝1）
 \end{itemize}
@@ -264,8 +276,8 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 \section{使い方}
 \label{sec:Usage}
 
-命令・環境名が\EG{[|*|]}付で示されている
-（例えば|\coloremoji|[|*|]）場合、
+命令・環境名が\EG{[|*|]}付
+（例えば|\coloremoji|[|*|]）で示されている場合、
 実際には「|*|無」（|\coloremoji|）と「|*|付」（|\coloremoji*|）の
 変種が存在することを示す。
 両者の違いは以下の通り。
@@ -285,10 +297,13 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 \Note 本パッケージの命令については、
 必須引数を囲む|{}|は\Strong{省略できない}。
 
+%--------
+\subsection{基本的な絵文字出力命令}
+
 \begin{itemize}
 \item |\coloremojisetup{|\Meta{設定}|}|\Means
-  パラメタ設定（\ref{sec:Parameters}）を変更する。
-  \Meta{設定}は\Meta{キー}|=|\Meta{値}|,…|の形のリスト。
+  パラメタ設定（\ref{sec:Parameters}節参照）を変更する。
+  \Note \Meta{設定}は“\Meta{キー}|=|\Meta{値}|,…|”の形のリスト。
   以降も同様。
 \item |\coloremoji|[|*|]|[|\Meta{設定}|]{|\Meta{文字列}|}|\Means
   引数の文字列を絵文字として出力する。
@@ -307,7 +322,7 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
   で規定された短縮名」
   で入力してカラー絵文字を出力する。
   引数は、符号値で指定する場合はその16進表記、
-  短縮名で指定する場合は|:短縮名:|の形式で入力し、
+  短縮名で指定する場合は“|:|\Meta{短縮名}|:|”の形式で入力し、
   複数文字を入力する場合は各文字の指定をを空白区切りで並べる。
   \newcommand*{\ExAB}{%
     \coloremojicode{:sushi: 23 FE0F 20E3 1F643 :snowman:}}
@@ -329,7 +344,7 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 0～10の整数値を、値に対応するキーキャップ絵文字
 （\CE{0️⃣}～\CE{🔟}）
 で出力する。
-\Note 入力値が範囲外の場合はゲタ記号（〓）の出力になる。
+\Note 入力値が範囲外の場合はフォールバック出力になる。
 
 \begin{itemize}
 \item |\coloremojikeycapof|[|*|]|[|\Meta{設定}|]{|\Meta{整数}|}|\Means
@@ -421,41 +436,51 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージを読み込む必要
 「符号値列」中で用いる絵文字の短縮名については
 JoyPixels（旧称EmojiOne）のemoji-toolkitライブラリで
 規定する名前が利用できる。
-その他に以下に定める\Strong{独自短縮名}が利用できる。
+その他に表\ref{tbl:special-names}にある
+\Strong{独自短縮名}が利用できる。
 \Note これらはemoji sequenceの入力の便宜のためのものである。
 
 \newcommand*{\cTC}{\multicolumn{2}{l}}
-\begin{quote}\small\begin{tabular}{@{\quad}llll@{\quad}}
+\begin{table}[!t]
+\centering\small
+\caption{独自短縮名の一覧}\label{tbl:special-names}
+\begin{tabular}{@{\quad}llll@{\quad}}
 \hline
 |+|         & U+200D  & & (ZWJ)\\
-|!/red|     & U+1F9B0 &\CE{🦰}&（|+ !/red|で赤髪のhair style）\\
-|!/curly|   & U+1F9B1 &\CE{🦱}&（|+ !/curly|で巻毛のhair style）\\
-|!/bald|    & U+1F9B2 &\CE{🦲}&（|+ !/bald|で禿頭のhair style）\\
-|!/white|   & U+1F9B3 &\CE{🦳}&（|+ !/white|で白髪のhair style）\\
-|!black|    & U+2B1B  &\CE{⬛}&（|+ !black|で黒色のcolor indicator）\\
-|!white|    & U+2B1C  &\CE{⬜}&（|+ !white|で白色のcolor indicator）\\
-|!red|      & U+1F7E5 &\CE{🟥}&（|+ !red|で赤色のcolor indicator）\\
-|!blue|     & U+1F7E6 &\CE{🟦}&（|+ !blue|で青色のcolor indicator）\\
-|!orange|   & U+1F7E7 &\CE{🟧}&（|+ !orange|で橙色のcolor indicator）\\
-|!yellow|   & U+1F7E8 &\CE{🟨}&（|+ !yellow|で黄色のcolor indicator）\\
-|!green|    & U+1F7E9 &\CE{🟩}&（|+ !green|で緑色のcolor indicator）\\
-|!purple|   & U+1F7EA &\CE{🟪}&（|+ !purple|で紫色のcolor indicator）\\
-|!brown|    & U+1F7EB &\CE{🟫}&（|+ !brown|で茶色のcolor indicator）\\
-|!female|   & U+2640  &\CE{♀}& (|+ !female|で女性のgender indicator)\\
-|!male|     & U+2642  &\CE{♂}& (|+ !male|で男性のgender indicator)\\
+|/1|        & U+1F3FB &\CE{🏻}& (light skin tone修飾子)\\
+|/2|        & U+1F3FC &\CE{🏼}& (medium-light skin tone修飾子)\\
+|/3|        & U+1F3FD &\CE{🏽}& (medium skin tone修飾子)\\
+|/4|        & U+1F3FE &\CE{🏾}& (medium-dark skin tone修飾子)\\
+|/5|        & U+1F3FF &\CE{🏿}& (dark skin tone修飾子)\\
+|!/red|     & U+1F9B0 &\CE{🦰}&（“|+ !/red|”で赤髪のhair style）\\
+|!/curly|   & U+1F9B1 &\CE{🦱}&（“|+ !/curly|”で巻毛のhair style）\\
+|!/bald|    & U+1F9B2 &\CE{🦲}&（“|+ !/bald|”で禿頭のhair style）\\
+|!/white|   & U+1F9B3 &\CE{🦳}&（“|+ !/white|”で白髪のhair style）\\
+|!black|    & U+2B1B  &\CE{⬛}&（“|+ !black|”で黒色のcolor indicator）\\
+|!white|    & U+2B1C  &\CE{⬜}&（“|+ !white|”で白色のcolor indicator）\\
+|!red|      & U+1F7E5 &\CE{🟥}&（“|+ !red|”で赤色のcolor indicator）\\
+|!blue|     & U+1F7E6 &\CE{🟦}&（“|+ !blue|”で青色のcolor indicator）\\
+|!orange|   & U+1F7E7 &\CE{🟧}&（“|+ !orange|”で橙色のcolor indicator）\\
+|!yellow|   & U+1F7E8 &\CE{🟨}&（“|+ !yellow|”で黄色のcolor indicator）\\
+|!green|    & U+1F7E9 &\CE{🟩}&（“|+ !green|”で緑色のcolor indicator）\\
+|!purple|   & U+1F7EA &\CE{🟪}&（“|+ !purple|”で紫色のcolor indicator）\\
+|!brown|    & U+1F7EB &\CE{🟫}&（“|+ !brown|”で茶色のcolor indicator）\\
+|!female|   & U+2640  &\CE{♀}& (“|+ !female|”で女性のgender indicator)\\
+|!male|     & U+2642  &\CE{♂}& (“|+ !male|”で男性のgender indicator)\\
 |!flag|     & U+1F3F4 &\CE{🏴}& (旗を表すtag sequenceのbase文字)\\
-|!<|        & U+2B05  &\CE{⬅}& (|+ !<|で左のdirection indicator)\\
-|!>|        & U+27A1  &\CE{➡}& (|+ !>|で右のdirection indicator)\\
+|!<|        & U+2B05  &\CE{⬅}& (“|+ !<|”で左のdirection indicator)\\
+|!>|        & U+27A1  &\CE{➡}& (“|+ !>|”で右のdirection indicator)\\
 |!A|～|!Z|  &\cTC{U+1F1E6～1F1FF}& (flag sequenceの構成要素)\\
 |@|         & U+E007F & & (tag sequenceの終端)\\
 |@0|～|@9|  &\cTC{U+E0030～E0039}& (tag sequenceの構成要素)\\
 |@a|～|@z|  &\cTC{U+E0061～E007A}& (tag sequenceの構成要素)\\
 \hline
-\end{tabular}\end{quote}
+\end{tabular}
+\end{table}
 
-\Note 独自短縮名については名前を囲む|:～:|は省略可能である。
+\Note 独自短縮名については名前を囲む|:|～|:|は省略可能である。
 \Note 独自短縮名以外の短縮名については、現状では
-「整数の16進表記と解釈できないものは|:～:|が省略可能」
+「整数の16進表記と解釈できないものは|:|～|:|が省略可能」
 という仕様であるが、これは将来変更される可能性がある。
 
 使用例\Means
@@ -506,6 +531,7 @@ PDFのしおりの中では文字として表示される。
   できないため、この場合は対応ができない。
 \end{itemize}
 
+
 %===========================================================
 \section{カスタムファミリ}
 \label{sec:Custom-Families}
@@ -524,7 +550,7 @@ twemoji の画像を使っているが、
 %--------
 \subsection{手順①：設定ファイルを作成する}
 
-カスタムファミリ設定ファイルの名前は
+カスタムファミリの登録には設定ファイルが必要であり、その名前は
 |bxcoloremoji-|\Meta{ファミリ名}|.cfg|%
 である。
 今の例では|bxcoloremoji-notoemoji.cfg|を作成して
@@ -560,14 +586,14 @@ bbox = 0 0 128 128
 パス名の命名規則は以下の通りである。
 
 \begin{itemize}
-\item 絵文字を構成するUnicode文字(※)の符号値の16進表記
-  （0埋め無し、大文字）を順に|-|でつないだものを「符号値列」とする。
+\item 絵文字を構成するUnicode文字の符号値の16進表記
+  （0埋め無し、大文字）を順に“|-|”でつないだものを「符号値列」とする。
   \Note ただしEVS（U+FE0F）は除外される。
   例えば、
-  \CE{2️⃣} 〈0023 FE0F 20E3〉%
-  に対する「符号値列」は|23-20E3|となる。
+  \CE{2️⃣} 〈0032 FE0F 20E3〉%
+  に対する「符号値列」は|32-20E3|となる。
 
-\item \EG{\Meta{prefixの値}\Meta{符号値列}|.|\Meta{extensionの値}}%
+\item “\Meta{prefixの値}\Meta{符号値列}|.|\Meta{extensionの値}”
   がパス名である。
 \end{itemize}
 
@@ -575,13 +601,14 @@ noto-emojiの各々の画像ファイルをこの規則に従って配置する�
 例えば、
 「U+2603\CE{☃}」の画像ファイル
 （元の名前は|emoji_u2603.png|）について、
-|notoemoji/notoemoji-2603.png|のパス名で読める位置(※)に配置する。
+|notoemoji/notoemoji-2603.png|のパス名で読める位置に配置する。
 
 \Note 例えば、Kpathsea変数|$TEXINPUTS|に
 ディレクトリ|~/texmf/tex/latex//|が含まれる場合、
 画像ファイルを
 |~/texmf/tex/latex/custom_images/notoemoji/notoemoji-2603.png|\
 に置くことができる。
+
 
 %===========================================================
 \section{twemojisモード}
