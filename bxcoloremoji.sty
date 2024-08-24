@@ -439,7 +439,6 @@
     \RequirePackage{graphicx}[]%
     % if 'twemojis' option is given auto-load 'twemojis' package
     \ifnum\bxce@output@type=\bxce@ot@@twemojis
-      \IfFileExists{twemojis.sty}{%
         \@ifpackageloaded{tikz}{\bxce@twm@skip@tikzfalse}{}%
         \ifbxce@twm@skip@tikz
           % avoid loading tikz in twemojis
@@ -449,10 +448,8 @@
         \else
           \RequirePackage{twemojis}[]%
         \fi
-      }{%else
-        \PackageError\bxce@pkgname
-         {Package 'twemojis' is not installed}%
-         {\@ehc}
+      \@ifpackageloaded{twemojis}{}{%else
+        % not installed, error is already issued
         \bxce@use@imagefalse
       }
     \fi
