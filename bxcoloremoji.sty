@@ -2342,7 +2342,7 @@
 
 %%<+> \bxcoloremojiDeclareOrder{<ccseq>,...}
 \@onlypreamble\bxcoloremojiDeclareOrder
-\newcommand*\bxcoloremojiDeclareOrder[1]{%
+\newrobustcmd*\bxcoloremojiDeclareOrder[1]{%
   \begingroup
     \@for\bxce@oecur:=#1\do{%
       \bxce@normalize@ccseq\bxce@oecur
@@ -2369,7 +2369,7 @@
 
 %%<+> \bxcoloremojiUndeclareOrder{<ccseq>,...}
 \@onlypreamble\bxcoloremojiUndeclareOrder
-\newcommand*\bxcoloremojiUndeclareOrder[1]{%
+\newrobustcmd*\bxcoloremojiUndeclareOrder[1]{%
   \begingroup
     \@for\bxce@oecur:=#1\do{%
       \bxce@normalize@ccseq\bxce@oecur
@@ -2383,7 +2383,7 @@
 }
 
 %%<+> \bxcoloremojiTestOrder{<count>}{<ccseq_0>}
-\newcommand*\bxcoloremojiTestOrder[2]{%
+\newrobustcmd*\bxcoloremojiTestOrder[2]{%
   \begingroup
     \bxce@normalize@ccseq{#2}%
     \typeout{Order for <\bxce@text>:}%
@@ -2407,11 +2407,11 @@
 %--------------------------------------- pifont-like functions
 
 %%<*> \coloremojifill{<text>}
-\newcommand*{\coloremojifill}{%
+\newrobustcmd*{\coloremojifill}{%
   \bxce@coloremojifill{\coloremoji*}%
 }
 %%<*> \coloremojicodefill{<ccseq>}
-\newcommand*{\coloremojicodefill}{%
+\newrobustcmd*{\coloremojicodefill}{%
   \bxce@coloremojifill{\coloremojicode*}%
 }
 \def\bxce@coloremojifill#1#2{%
@@ -2421,11 +2421,11 @@
 }
 
 %%<*> \coloremojiline{<text>}
-\newcommand*{\coloremojiline}{%
+\newrobustcmd*{\coloremojiline}{%
   \bxce@coloremojiline{\coloremoji*}%
 }
 %%<*> \coloremojicodeline{<ccseq>}
-\newcommand*{\coloremojicodeline}{%
+\newrobustcmd*{\coloremojicodeline}{%
   \bxce@coloremojiline{\coloremojicode*}%
 }
 \def\bxce@coloremojiline#1#2{%
