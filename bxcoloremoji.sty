@@ -437,6 +437,11 @@
         \else\ifx x\bxce@engine \@ne
         \else \bxce@do \fi\fi\fi >\z@
     \RequirePackage{graphicx}[]%
+    \@ifpackageloaded{xcolor}{}{%else
+      \@ifl@t@r\fmtversion{2021/06/01}{%
+        \RequirePackage{color}[]%
+      }{}%
+    }
     % if 'twemojis' option is given auto-load 'twemojis' package
     \ifnum\bxce@output@type=\bxce@ot@@twemojis
         \@ifpackageloaded{tikz}{\bxce@twm@skip@tikzfalse}{}%
