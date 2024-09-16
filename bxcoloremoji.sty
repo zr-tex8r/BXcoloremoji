@@ -140,12 +140,21 @@
   \let\bxce@prefix\relax
 }
 
+%% \bxce@warn@dpcmd
+\def\bxce@warn@dpcmd{%
+  \PackageWarningNoLine\bxce@pkgname
+   {Parameter '\string\coloremojidir' is DEPRECATED\MessageBreak
+    and will be abolished in future, where\MessageBreak
+    the parameter is ignored and regarded as\MessageBreak
+    always empty}%
+}
+
 %% \bxce@warn@dpopt{<name>}
 \def\bxce@warn@dpopt#1{%
-  \PackageWarning\bxce@pkgname
+  \PackageWarningNoLine\bxce@pkgname
    {Option '#1' is DEPRECATED\MessageBreak
-    and may be abolished in future,\MessageBreak
-    reported}%
+    and will be abolished in future.\MessageBreak
+    It might no longer work now}%
 }
 
 %% \bxce@err@ivval{<name>}{<value>}
@@ -326,6 +335,14 @@
 \bxce@invalidate@opt@key{preload-names}
 \bxce@invalidate@opt@key{bxghost}
 \bxce@invalidate@opt@key{twemoji-skip-tikz}
+
+\AtBeginDocument{%
+  \@tempswatrue
+  \def\bxce@do{\ifx\coloremojidir\bxce@tmpa\@tempswafalse\fi}%
+  \def\bxce@tmpa{emoji_images/}\bxce@do
+  \let\bxce@tmpa\@empty\bxce@do \long\def\bxce@tmpa{}\bxce@do
+  \if@tempswa \bxce@warn@dpcmd \fi
+}
 
 %--------------------------------------- environment check
 
