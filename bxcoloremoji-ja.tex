@@ -19,8 +19,8 @@
 \usepackage[twemojis]{bxcoloremoji}
 \newcommand{\CE}[1]{\coloremoji{#1}}
 \newcommand{\CC}[1]{\coloremojicode{#1}}
-\newcommand{\PkgVersion}{0.21}
-\newcommand{\PkgDate}{2024/08/24}
+\newcommand{\PkgVersion}{0.22}
+\newcommand{\PkgDate}{2024/09/16}
 \newcommand{\Pkg}[1]{\textsf{#1}}
 \newcommand{\Meta}[1]{$\langle$\mbox{}#1\mbox{}$\rangle$}
 \newcommand{\RMeta}[1]{{\Meta{\rmfamily#1}}}
@@ -150,6 +150,7 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
 
 \item |names=|\Meta{真偽値}\Means
   短縮名データベースを読み込むか。
+  既定値は|true|。
   \Note |false|を指定した場合、独自短縮名
   （\ref{sec:Short-Names}節参照）のみが使用可能になる。
 
@@ -207,6 +208,10 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
     利用しない。
     \Note この場合、和文ゴースト処理が失敗する可能性がある。
   \end{itemize}
+
+\item |pua=|\Meta{真偽値}\Means
+  Unicode私用領域の文字を絵文字として扱うか。
+  既定値は|false|。
 \end{itemize}
 
 
@@ -396,9 +401,9 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
   引数には何れかの「絵文字順序列」に含まれる絵文字の一つを
   指定する必要がある。
   その文字から始まる順序列に従ってラベルを指定する。
-  例えば、
+  例えば
   |\begin{coloremojiautolist}{|\CE{♠}|}|%
-  の場合、先頭のラベルが「\CE{♠️}」となり、
+  では、先頭のラベルが「\CE{♠️}」となり
   以下「\CE{♥️}」「\CE{♦️}」「\CE{♣️}」と続く。
   \Note 現状の実装では順序列の末尾に達した場合は先頭に戻る
   （つまり「\CE{♣️}」の次は「\CE{♠️}」になる）
