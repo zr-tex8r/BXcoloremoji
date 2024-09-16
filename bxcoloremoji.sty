@@ -91,6 +91,8 @@
 \chardef\bxce@ot@@custom=2 % use custom family
 \chardef\bxce@ot@@twemojis=3 % use twemojis package
 \let\bxce@output@type\bxce@ot@@none
+%% switch bxce@use@pua
+\newbool{bxce@use@pua}
 %% switch bxce@twm@skip@tikz
 \newbool{bxce@twm@skip@tikz}
 \bxce@twm@skip@tikztrue
@@ -279,6 +281,13 @@
 \define@key{bxce}{bxghost}[true]{%
   \bxce@check@opt@key{bxghost}{#1}{bxce@abool@@}{%
     \letcs\bxce@bxghost@opt{bxce@abool@@#1}%
+  }{}%
+}
+
+%% 'pua=<bool>'
+\define@key{bxce}{pua}[true]{%
+  \bxce@check@opt@key{pua}{#1}{bxce@use@pua}{%
+    \csuse{bxce@use@pua#1}%
   }{}%
 }
 
@@ -596,6 +605,21 @@
 %% \bxce@@<codevalue>;
 \let\bxce@@\relax % normally unexpandable
 
+%% \bxce@csn@cp{<codevalue>}
+\def\bxce@csn@cp#1{%
+  bxce@cp/\number#1%
+}
+\ifbxce@use@pua
+  \def\bxce@csn@cp#1{%
+    bxce@cp/%
+    \ifnum#1<"E000 \number#1%
+    \else\ifnum#1<"F900 48%
+    \else\ifnum#1<"F0000 \number#1%
+    \else 48%
+    \fi\fi\fi
+  }
+\fi
+
 %% \bxce@set@cp<cp-value>{<range>,...}
 \@onlypreamble\bxce@set@cp
 \def\bxce@set@cp#1#2{%
@@ -881,7 +905,7 @@
 \def\bxce@parse@first@e#1{%
   \bxce@cnta=`#1\relax
   \bxce@parse@first@trick#1%
-  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \letcs\bxce@tmpa{\bxce@csn@cp\bxce@cnta}%
   \ifdefined\bxce@tmpa
     \eappto\bxce@text{\bxce@E\the\bxce@tmpa{\bxce@hex{\bxce@cnta}}}%
   \else
@@ -890,7 +914,7 @@
 }
 \def\bxce@parse@first@f#1;{%
   \bxce@cnta="#1\relax
-  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \letcs\bxce@tmpa{\bxce@csn@cp\bxce@cnta}%
   \unless\ifdefined\bxce@tmpa
     \chardef\bxce@tmpa\z@
     \bxce@err@intcc{1}{#1}%
@@ -1081,7 +1105,7 @@
 %% \bxce@parse@first@ccseq@do{<code-value>}
 \def\bxce@parse@first@ccseq@do#1{%
   \bxce@cnta"0#1\relax
-  \letcs\bxce@tmpa{bxce@cp/\the\bxce@cnta}%
+  \letcs\bxce@tmpa{\bxce@csn@cp\bxce@cnta}%
   \ifdefined\bxce@tmpa
     \eappto\bxce@text{\bxce@E\the\bxce@tmpa{#1}}%
   \else
