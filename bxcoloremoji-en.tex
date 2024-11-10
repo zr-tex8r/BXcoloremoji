@@ -1,0 +1,503 @@
+%#!xelatex
+\documentclass[a4paper]{article}
+\usepackage[scale=0.75]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\definecolor{myblue}{rgb}{0,0,0.75}
+\definecolor{mygreen}{rgb}{0,0.45,0}
+\usepackage[colorlinks,
+  plainpages, % avoid problems on coloremojikeycap numbering
+  hyperfootnotes=false]{hyperref}
+\hypersetup{linkcolor=myblue,urlcolor=mygreen,
+  pdftitle={The bxcoloremoji Package},
+  pdfauthor={Takayuki YATO}}
+\usepackage{bxtexlogo}
+\bxtexlogoimport{*,TL-e}
+\usepackage{shortvrb,alltt}
+\MakeShortVerb{\|}
+\usepackage[twemojis]{bxcoloremoji}
+\newcommand{\CE}[1]{\coloremoji{#1}}
+\newcommand{\CC}[1]{\coloremojicode{#1}}
+\newcommand{\PkgVersion}{1.0}
+\newcommand{\PkgDate}{2024/11/11}
+\newcommand{\Pkg}[1]{\textsf{#1}}
+\newcommand{\Meta}[1]{$\langle$\textit{#1}$\rangle$}
+\newcommand{\RMeta}[1]{{\rmfamily\Meta{#1}}}
+\newcommand{\Note}{\par\noindent\emph{Note:}\quad}
+\newcommand{\Means}{~:\quad}
+\newcommand{\wbr}{\linebreak[0]}
+\newcommand{\nobr}{\nolinebreak[4]}
+\newcommand{\／}{\mbox{}／\mbox{}}
+\newcommand{\EG}[1]{#1}
+\newcommand{\cs}[1]{\symbol{`\\}#1}
+\newcommand{\Ie}{i.\,e.}
+\newcommand{\Eg}{e.\,g.}
+\providecommand{\Strong}[1]{\strong}
+\pagenumbering{coloremojikeycap}% ;-)
+%% tentative
+\newfontfamily{\fJa}{Source Han Serif}
+\newcommand*{\JAJA}{%
+\fJa
+\XeTeXlinebreaklocale "ja"\relax
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.1pt\relax
+\XeTeXlinebreakpenalty=0\relax
+}
+%-----------------------------------------------------------
+\begin{document}
+\title{Thge \Pkg{bxcoloremoji} Package}
+\author{Takayuki YATO\quad (aka.~``ZR'')}
+\date{v\PkgVersion \quad[\PkgDate]}
+\maketitle
+
+\begin{abstract}
+
+The \Pkg{bxcoloremoji} package lets users output color emojis
+in {\LaTeX} documents.
+Compared to other packages with similar functionality,
+this package has the following merits:
+\begin{itemize}
+\item It supports all major {\LaTeX} engines.
+\item Emojis can be entered as the characters themselves,
+  as their Unicode code values, or as their short names.
+\item It works reasonably well in PDF strings when using \Pkg{hyperref}.
+\item Emojis can be handled properly even
+  in Japanese typesetting environments.
+\end{itemize}
+
+This package has been widely used among the Japanese {\LaTeX} community,
+but there are already many emoji packages on CTAN and {\TeX}~Live.
+To avoid uploading a large amount of emoji image data
+that are essentially identical,
+the package was revised in version 1.0
+so that the image output was delegated to the \Pkg{twmojis} package.
+Therefore, this package now contains no image data.
+
+Nevertheless, this package also supports
+the use of custom image sets (\emph{custom families})
+prepared by the user for output.
+\end{abstract}
+
+\tableofcontents
+
+
+%===========================================================
+\section{System Requirements}
+\label{sec:Prerequisites}
+
+\begin{itemize}
+\item {\TeX} format\Means {\LaTeX}
+\item {\TeX} engine\Means Anything that supports the {\eTeX} extension.
+\item Dependent packages\Means
+  \begin{itemize}
+  \item \Pkg{etoolbox}
+  \item \Pkg{binhex} (when expl3 is not available)
+  \item \Pkg{bxghost} (optionally)
+  \item \Pkg{twemojis}
+  \end{itemize}
+\end{itemize}
+
+\emph{Important note:}
+This English documentation omits much of the information
+that is specific to Japanese typesetting
+and/or Japanese engines (\Ie {(u)\pLaTeX}).
+
+
+%===========================================================
+\section{Package loading}
+\label{sec:Loading}
+
+For older (prior to 2018-04-01) {\pdfLaTeX},
+you need to enable |utf8| input encoding.
+
+\begin{quote}\small\begin{verbatim}
+\usepackage[utf8]{inputenc}% for old systems
+\end{verbatim}\end{quote}
+
+Then load the \Pkg{bxcoloremoji} package.
+
+\begin{quote}\small\begin{alltt}
+\cs{usepackage}[\RMeta{option},…]\{bxcoloremoji\}
+\end{alltt}\end{quote}
+
+\Note For DVI output, you need to specify a global driver option.
+\begin{quote}\small\begin{verbatim}
+\usepackage[dvipdfmx,a4paper]{article}% for dvipdfmx
+\end{verbatim}\end{quote}
+
+%----------
+\subsection{Package Options}
+
+The available options are as follows:
+
+\begin{itemize}
+\item \strong{Configuration parameters}\Means
+The configuration parameters listed in Section~\ref{sec:Parameters}
+(\Eg |size|, |scale|, etc.)
+can also be specified as package options.
+
+\item |names=|\Meta{bool}\Means
+  Whether to load the short name database.
+  \Note If |false| is specified, only special short names
+  (see Section~\ref{sec:Short-Names}) can be used.
+\end{itemize}
+
+The following are for advanced users:
+
+\begin{itemize}
+\item |nodvidriver|\Means
+  Suppresses driver-dependent behavior.
+  Specifically, the emoji image set type is fixed to |no-image|
+  (emojis are not displayed).
+
+\item |resetdvidriver|\Means
+  The negation of |nodvidriver|.
+
+\item |preload-names=|\Meta{value}\Means
+  Whether to load the short name database at once
+  when loading the package.
+  \Note Here |false| is a setting for the old {\TeX} engine
+  with low memory capacity.
+  \begin{itemize}
+  \item |auto| (default)\Means
+    If \emph{any} of the following conditions are met
+    then |true| is used
+    (assuming there is enough memory),
+    otherwise |false| is used.
+    \begin{itemize}
+    \item The engine is either {\XeLaTeX} or {\LuaLaTeX}.
+    \item expl3 is enabled.
+    \item \Pkg{hyperref} is loaded.
+    \end{itemize}
+  \item |true|\Means
+    Loads all data when loading the package.
+  \item |false|\Means
+    Loads on demand.
+  \end{itemize}
+
+\item |bbparam=|\Meta{value}\Means
+  Whether to specify the |bb| parameter for |\includegraphics|
+  for emoji output.
+  \begin{itemize}
+  \item |auto| (default)\Means
+    Specifies |bb| only if the \Pkg{graphicx} driver is dvipdfmx.
+    \Note When using dvipdfmx,
+    specifying |bb| will make the build faster.
+  \item |true|/|false|\Means
+    Always/never specifies |bb|.
+    \Note Some drivers prohibit the |bb| setting.
+  \end{itemize}
+\end{itemize}
+
+
+%===========================================================
+\section{Configuration Parameters}
+\label{sec:Parameters}
+
+Configuration parameters can be used in the following places:
+
+\begin{itemize}
+\item To specify them as package options.
+\begin{quote}\small\begin{verbatim}
+\usepackage[scale=2]{bxcoloremoji}
+\end{verbatim}\end{quote}
+\item To specify them as arguments to the |\coloremojisetup| command.
+  The settings are changed on the spot
+  and applied to subsequent emoji output commands.
+\begin{quote}\small\begin{verbatim}
+\coloremojisetup{scale=2}
+\end{verbatim}\end{quote}
+\item To specify as the first optional argument
+  to an emoji output command.
+  The setting is applied only to that emoji output.
+\begin{quote}\small\begin{alltt}
+\cs{coloremoji}[scale=2]\{\CE{☃}\}
+\end{alltt}\end{quote}
+\end{itemize}
+
+The available configuration parameters are as follows:
+
+\begin{itemize}
+\item \strong{The type of emoji image set.}
+  (default: |twemojis|%
+  \footnote{The default value has been changed to |twemojis|
+    since version 1.0.
+    In addition, |twitter|, |hires| and |lowres|,
+    which were deprecated since version 0.12,
+    have been \emph{abolished}.})
+  \begin{itemize}
+  \item |twemojis|\Means
+    Delegates image output to the command of the \Pkg{twemojis} package
+    (the twemojis mode).
+  \item |family=|\Meta{name}\Means
+    Uses a custom family.
+  \item |no-image|\Means
+    Uses fallback output only without using any emoji images.
+  \end{itemize}
+
+\item |size=|\Meta{length}\Means
+  The size of emojis. (default: 1\,em)
+
+\item |scale=|\Meta{real}\Means
+  Changes the size of emojis by the given factor
+  from |size|.
+  (default: 1)
+\end{itemize}
+
+
+
+%===========================================================
+\section{Usage}
+\label{sec:Usage}
+
+\Note For commands in this package,
+braces around mandatory arguments \emph{cannot} be omitted.
+
+%--------
+\subsection{Basic Emoji Commands}
+
+\begin{itemize}
+\item |\coloremojisetup{|\Meta{parameters}|}|\Means
+  Changes the parameter settings (see Section 3).
+  \Note Here \Meta{parameters} represents a list of the form
+  “\Meta{key}|=|\Meta{value}|,…|”.
+  The same applies below.
+\item |\coloremoji[|\Meta{parameters}|]{|\Meta{string}|}|\Means
+  Outputs the argument string as color emojis.
+  However, if it cannot be output as emojis
+  because the target image is missing,
+  it will fall back to normal text output.
+  \newcommand*{\ExAA}{\coloremoji{🍣3️⃣🙃☃}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremoji}\{\ExAA\}%Output:\ExAA
+\end{alltt}\end{quote}
+
+\item |\coloremojicode[|\Meta{parameters}|]{|%
+\Meta{code value list}|}|\Means
+  Outputs color emojis for the characters
+  input as Unicode code values
+  or short names defined in the JoyPixels emoji-toolkit library.%
+  \footnote{The emoji-toolkit library:
+    \url{https://github.com/joypixels/emoji-toolkit}}
+  A code value is represented by the hexadecimal notation,
+  and a short name is represented by a string
+  of the format “|:|\Meta{short-name}|:|”.
+  When multiple characters are entered,
+  each character must be delimited with a space.
+  \newcommand*{\ExAB}{%
+    \coloremojicode{:sushi: 23 FE0F 20E3 1F643 :snowman:}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojicode}\{:sushi: 23 20E3 1F643 :snowman:\}%Output:\ExAB
+\end{alltt}\end{quote}
+  \Note Hereafter, this input method will be called
+  \emph{code value list}.
+
+\item |\coloremojiucs[|\Meta{parameters}|]{|%
+\Meta{code value list}|}|\Means
+  An alias for |\coloremojicode| in the old version.
+  \Note For other commands and environments with the name
+  |coloremojicode…|,
+  those that existed before version 0.4
+  have the alias |coloremojiucs…| similarly.
+\end{itemize}
+
+%--------
+\subsection{The counter output command for outputting keycap emojis}
+
+The following commands are provided
+to output an integer value between 0 and 10
+as the keycap emoji (\CE{0️⃣}--\CE{🔟})
+that corresponds to the value.
+\Note If the input value is out of range,
+a fallback output will be used.
+
+\begin{itemize}
+\item |\coloremojikeycapof[|\Meta{parameters}|]{|\Meta{number}|}|\Means
+  Outputs the keycap emoji corresponding to the given number.
+  \newcommand*{\ExBA}{\coloremojikeycapof{8}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojikeycapof}\{8\}%Output:\ExBA
+\end{alltt}\end{quote}
+
+\item |\coloremojikeycap[|\Meta{parameters}|]{|%
+\Meta{counter name}|}|\Means
+  Outputs the keycap emoji corresponding to the current value
+  of the given counter.
+
+\item |\pagenumbering{coloremojikeycap}|\Means
+  Changes the page number format to keycap emoji.
+  \Note |\pagenumbering{coloremojikeycap}| is employed
+  in this document.
+\end{itemize}
+
+%--------
+\subsection{Features similar to the \Pkg{pifont} package}
+
+The following commands are provided,
+which are the emoji versions of the \Pkg{pifont} package features
+(such as the |\dingfill| command and the |dingautolist| environment).
+\Note The commands and environments listed here
+cannot have parameter options.
+
+\begin{coloremojiautolist}{1️⃣}
+\item |\coloremojifill{|\Meta{string}|}|\Means
+  A filler command (like |\dotfill|)
+  that fills a line by arranging multiple outputs of
+  |\coloremoji{|\Meta{string}|}|.
+
+\item |\coloremojiline{|\Meta{string}|}|\Means
+  Outputs a decorative border using emojis.
+  That is, it outputs a separate line containing
+  only the output of |\coloremojifill{|\Meta{string}|}|
+  (but with some space on both ends).
+
+\item |\begin{coloremojilist}{|\Meta{string}|}|\ldots
+  |\end{coloremojilist}|\Means
+  Outputs a bulleted list with the output
+  of |\coloremoji{|\Meta{string}|}| as item label.
+
+\item |\begin{coloremojiautolist}{|\Meta{string}|}|\ldots
+  |\end{coloremojiautolist}|\Means
+  This is also an environment
+  that outputs a bulleted list with emojis as item label,
+  but the argument must be one of the emojis
+  in one of the “emoji orders”.
+  It determines the label according to the emoji order
+  starting from that character.
+
+  For example,
+  in the list created by |\begin{coloremojiautolist}{|\CE{♠}|}|
+  the first label is “\CE{♠️}”,
+  and the subsequent labels go
+  “\CE{♥️}”, “\CE{♦️}”, and “\CE{♣️}”.
+  \Note The list you see now is generated by
+  |\begin{coloremojiautolist}{|\CE{1️⃣}|}|.
+
+\item For the commands and environments mentioned above,
+  there are also versions that use a code value list as an argument.
+  \begin{coloremojilist}{✏}
+  \item |\coloremojicodefill{|\Meta{code value list}|}|
+  \item |\coloremojicodeline{|\Meta{code value list}|}|
+  \item |\begin{coloremojicodelist}{|\Meta{code value list}|}|
+  \item |\begin{coloremojicodeautolist}{|\Meta{code value list}|}|
+  \end{coloremojilist}
+\end{coloremojiautolist}
+
+Currently, the following “emoji orders” are defined.
+
+\begin{itemize}
+\item
+  \CE{♈️}→\CE{♉️}→\CE{♊️}→\CE{♋️}→\CE{♌️}→\CE{♍️}→\CE{♎️}→\CE{♏️}→\CE{♐️}→\CE{♑️}→\CE{♒️}→\CE{♓️}
+\item
+  \CE{♠️}→\CE{♥️}→\CE{♦️}→\CE{♣️}
+\item
+  \CE{🕐️}→\CE{🕑️}→\CE{🕒️}→\CE{🕓️}→\CE{🕔️}→\CE{🕕️}→\CE{🕖️}→\CE{🕗️}→\CE{🕘️}→\CE{🕙️}→\CE{🕚️}→\CE{🕛️}
+\item
+  \CE{0️⃣}→\CE{1️⃣}→\CE{2️⃣}→\CE{3️⃣}→\CE{4️⃣}→\CE{5️⃣}→\CE{6️⃣}→\CE{7️⃣}→\CE{8️⃣}→\CE{9️⃣}→\CE{🔟}
+\end{itemize}
+
+
+%===========================================================
+\section{“Short Names” for Emojis}
+\label{sec:Short-Names}
+
+For the short names used in code value lists,
+those declared in the emoji-toolkit library
+of JoyPixels (formerly known as EmojiOne) are available.
+In addition, the \emph{special short names}
+listed in Table~\ref{tbl:special-names} can also be used.
+
+\newcommand*{\cTC}{\multicolumn{2}{l}}
+\begin{table}[!t]
+\centering\small
+\caption{The list of special short names.}\label{tbl:special-names}
+\begin{tabular}{@{\quad}llll@{\quad}}
+\hline
+|+|       & U+200D  & &(ZWJ)\\
+|/1|      & U+1F3FB &\CE{🏻}&(light skin tone modifier)\\
+|/2|      & U+1F3FC &\CE{🏼}&(medium-light skin tone modifier)\\
+|/3|      & U+1F3FD &\CE{🏽}&(medium skin tone modifier)\\
+|/4|      & U+1F3FE &\CE{🏾}&(medium-dark skin tone modifier)\\
+|/5|      & U+1F3FF &\CE{🏿}&(dark skin tone modifier)\\
+|!/red|   & U+1F9B0 &\CE{🦰}&(“|+ !/red|”forms a hair style)\\
+|!/curly| & U+1F9B1 &\CE{🦱}&(“|+ !/curly|”forms a hair style)\\
+|!/bald|  & U+1F9B2 &\CE{🦲}&(“|+ !/bald|”forms a hair style)\\
+|!/white| & U+1F9B3 &\CE{🦳}&(“|+ !/white|”forms a hair style)\\
+|!black|  & U+2B1B  &\CE{⬛}&(“|+ !black|”forms a color indicator)\\
+|!white|  & U+2B1C  &\CE{⬜}&(“|+ !white|”forms a color indicator)\\
+|!red|    & U+1F7E5 &\CE{🟥}&(“|+ !red|”forms a color indicator)\\
+|!blue|   & U+1F7E6 &\CE{🟦}&(“|+ !blue|”forms a color indicator)\\
+|!orange| & U+1F7E7 &\CE{🟧}&(“|+ !orange|”forms a color indicator)\\
+|!yellow| & U+1F7E8 &\CE{🟨}&(“|+ !yellow|”forms a color indicator)\\
+|!green|  & U+1F7E9 &\CE{🟩}&(“|+ !green|”forms a color indicator)\\
+|!purple| & U+1F7EA &\CE{🟪}&(“|+ !purple|”forms a color indicator)\\
+|!brown|  & U+1F7EB &\CE{🟫}&(“|+ !brown|”forms a color indicator)\\
+|!female| & U+2640  &\CE{♀}&(“|+ !female|”forms a gender indicator)\\
+|!male|   & U+2642  &\CE{♂}&(“|+ !male|”forms a gender indicator)\\
+|!flag|   & U+1F3F4 &\CE{🏴}&(the base of tag sequence for flags)\\
+|!<|      & U+2B05  &\CE{⬅}&(“|+ !<|”forms a direction indicator)\\
+|!>|      & U+27A1  &\CE{➡}&(“|+ !>|”forms a direction indicator)\\
+|!A|–|!Z| &\cTC{U+1F1E6–1F1FF}&(flag sequence components)\\
+|@|       & U+E007F & &(the tag sequence terminator)\\
+|@0|–|@9| &\cTC{U+E0030–E0039}&(tag sequence components)\\
+|@a|–|@z| &\cTC{U+E0061–E007A}&(tag sequence components)\\
+\hline
+\end{tabular}
+\end{table}
+
+\Note For special short names, the |:…:| surrounding the name
+can be omitted.
+\Note For short names other than special short names,
+the current behavior is
+that the |:…:| can be omitted
+if it cannot be interpreted as a hexadecimal notation of an integer,
+but this may change in the future.
+
+Examples\Means
+\newcommand*{\ExA}{\CC{:man: + :woman: + :girl: + :girl:}}
+\newcommand*{\ExB}{\CC{!flag @g @b @w @l @s @}}
+\newcommand*{\ExC}{\CC{1F647 + !male}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojicode}\{:man: + :woman: + :girl: + :girl:\}%Output:\ExA
+\cs{coloremojicode}\{!flag @g @b @w @l @s @\}%Output:\ExB
+\cs{coloremojicode}\{1F647 + !male\}%Output:\ExC
+\end{alltt}\end{quote}
+
+
+%===========================================================
+\section{Using emojis in PDF strings}
+\label{sec:PDF-Strings}
+
+You can use commands for outputting emojis
+in the document information string
+(hereafter called \emph{PDF string})
+when using the \Pkg{hyperref} package.
+For example,
+when you include |\coloremoji| in the argument of |\section|,
+it will be output as an emoji (image) on the page,
+and will be displayed as text in the PDF bookmark.
+
+However,
+this is subject to the premise
+that Unicode characters in PDF strings are properly processed.
+Namely, the following condition must be satisfied.
+
+\Note Nothing is required for {\TeX}~Live 2022 or later
+(unless you are using {(u)\pLaTeX}).
+
+\begin{itemize}
+\item 
+  The “PDF encoding” of the \Pkg{hyperref} package is Unicode.
+
+  This is the default in recent versions of \Pkg{hyperref}
+  (version 7.00g and later).
+  In older versions, you need to add the |unicode| option
+  when loading \Pkg{hyperref}.
+\begin{quote}\small\begin{verbatim}
+\usepackage[unicode]{hyperref}
+\end{verbatim}\end{quote}
+\end{itemize}
+
+
+%===========================================================
+\end{document}
+%% EOF

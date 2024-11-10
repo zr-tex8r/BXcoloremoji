@@ -1,0 +1,1953 @@
+\documentclass[a4paper]{article}
+\usepackage[scale={0.84,0.9}]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{sourceserifpro}
+\usepackage{sourcesanspro}
+\usepackage{shortvrb}
+\usepackage{array,xcolor,colortbl}
+\usepackage{longtable}
+\usepackage[twemojis]{bxcoloremoji}
+\colorlet{myback0}{green!20!black!80}
+\colorlet{myback1}{black!20}
+\colorlet{myback2}{black!10}
+\colorlet{myhead}{white}
+\newcommand*{\fCode}{\ttfamily\fontseries{lc}\selectfont}
+\renewcommand*{\familydefault}{\sfdefault}
+\title{List of Emoji Short Names}
+\author{Takayuki YATO\quad (aka.~``ZR'')}
+\date{2024-08-18}
+\begin{document}
+\maketitle
+
+Here is the list of all the short names supported by
+the current bxcoloremoji package.
+\begin{itemize}
+\item Names with * mark support the skin tone,
+  which is indicated by suffix \verb|_toneN|,
+  where \texttt{N} ranges from \texttt{1} to \texttt{5}.
+  For example,
+  \verb|adult_tone1| is \coloremojicode{adult_tone1}, and
+  \verb|adult_tone5| is \coloremojicode{adult_tone5}.
+\item Names with ** mark support single or double skin tone prefixes.
+  For example,
+  \verb|people_holding_hands_tone2| is
+  \coloremojicode{people_holding_hands_tone2}, and
+  \verb|people_holding_hands_tone3_tone4| is
+  \coloremojicode{people_holding_hands_tone3_tone4}.
+\end{itemize}
+
+\MakeShortVerb{\!}
+\setlength{\tabcolsep}{1em}
+\setlength{\arrayrulewidth}{1pt}
+\arrayrulecolor{myback0}
+\rowcolors{2}{myback1}{myback2}
+\newcommand*{\cHead}[2]{%
+  \multicolumn{1}{c}{%
+    \raisebox{0pt}[1.2em][0.5em]{\makebox[#1em][c]{%
+      \small\bfseries\textcolor{myhead}{#2}}}}}
+\newcommand*{\cCE}[1]{%
+  \raisebox{-0.2em}[1.2em][0.6em]{%
+    \scalebox{1.4}{\coloremojicode{:#1:}}}}
+\newcommand*{\cCS}[1]{#1}
+
+\begin{longtable}{%
+  c l >{\fCode}l
+}
+\rowcolor{myback0}
+\cHead{3}{Symbol}&\cHead{15}{Short name}&\cHead{15}{Unicode values}
+\endhead
+%
+\hline
+\endfoot
+%
+\cCE{100}&!100!&1F4AF\\
+\cCE{1234}&!1234!&1F522\\
+\cCE{8ball}&!8ball!&1F3B1\\
+\cCE{a}&!a!&1F170\\
+\cCE{ab}&!ab!&1F18E\\
+\cCE{abacus}&!abacus!&1F9EE\\
+\cCE{abc}&!abc!&1F524\\
+\cCE{abcd}&!abcd!&1F521\\
+\cCE{accept}&!accept!&1F251\\
+\cCE{accordion}&!accordion!&1FA97\\
+\cCE{adhesive_bandage}&!adhesive_bandage!&1FA79\\
+\cCE{adult}&!adult!*&1F9D1\\
+\cCE{aerial_tramway}&!aerial_tramway!&1F6A1\\
+\cCE{airplane}&!airplane!&2708\\
+\cCE{airplane_arriving}&!airplane_arriving!&1F6EC\\
+\cCE{airplane_departure}&!airplane_departure!&1F6EB\\
+\cCE{airplane_small}&!airplane_small!&1F6E9\\
+\cCE{alarm_clock}&!alarm_clock!&23F0\\
+\cCE{alembic}&!alembic!&2697\\
+\cCE{alien}&!alien!&1F47D\\
+\cCE{ambulance}&!ambulance!&1F691\\
+\cCE{amphora}&!amphora!&1F3FA\\
+\cCE{anatomical_heart}&!anatomical_heart!&1FAC0\\
+\cCE{anchor}&!anchor!&2693\\
+\cCE{angel}&!angel!*&1F47C\\
+\cCE{anger}&!anger!&1F4A2\\
+\cCE{anger_right}&!anger_right!&1F5EF\\
+\cCE{angry}&!angry!&1F620\\
+\cCE{anguished}&!anguished!&1F627\\
+\cCE{ant}&!ant!&1F41C\\
+\cCE{apple}&!apple!&1F34E\\
+\cCE{aquarius}&!aquarius!&2652\\
+\cCE{aries}&!aries!&2648\\
+\cCE{arrow_backward}&!arrow_backward!&25C0\\
+\cCE{arrow_double_down}&!arrow_double_down!&23EC\\
+\cCE{arrow_double_up}&!arrow_double_up!&23EB\\
+\cCE{arrow_down}&!arrow_down!&2B07\\
+\cCE{arrow_down_small}&!arrow_down_small!&1F53D\\
+\cCE{arrow_forward}&!arrow_forward!&25B6\\
+\cCE{arrow_heading_down}&!arrow_heading_down!&2935\\
+\cCE{arrow_heading_up}&!arrow_heading_up!&2934\\
+\cCE{arrow_left}&!arrow_left!&2B05\\
+\cCE{arrow_lower_left}&!arrow_lower_left!&2199\\
+\cCE{arrow_lower_right}&!arrow_lower_right!&2198\\
+\cCE{arrow_right}&!arrow_right!&27A1\\
+\cCE{arrow_right_hook}&!arrow_right_hook!&21AA\\
+\cCE{arrow_up}&!arrow_up!&2B06\\
+\cCE{arrow_up_down}&!arrow_up_down!&2195\\
+\cCE{arrow_up_small}&!arrow_up_small!&1F53C\\
+\cCE{arrow_upper_left}&!arrow_upper_left!&2196\\
+\cCE{arrow_upper_right}&!arrow_upper_right!&2197\\
+\cCE{arrows_clockwise}&!arrows_clockwise!&1F503\\
+\cCE{arrows_counterclockwise}&!arrows_counterclockwise!&1F504\\
+\cCE{art}&!art!&1F3A8\\
+\cCE{articulated_lorry}&!articulated_lorry!&1F69B\\
+\cCE{artist}&!artist!*&1F9D1 200D 1F3A8\\
+\cCE{asterisk}&!asterisk!&2A 20E3\\
+\cCE{astonished}&!astonished!&1F632\\
+\cCE{astronaut}&!astronaut!*&1F9D1 200D 1F680\\
+\cCE{athletic_shoe}&!athletic_shoe!&1F45F\\
+\cCE{atm}&!atm!&1F3E7\\
+\cCE{atom}&!atom!&269B\\
+\cCE{auto_rickshaw}&!auto_rickshaw!&1F6FA\\
+\cCE{avocado}&!avocado!&1F951\\
+\cCE{axe}&!axe!&1FA93\\
+\cCE{b}&!b!&1F171\\
+\cCE{baby}&!baby!*&1F476\\
+\cCE{baby_bottle}&!baby_bottle!&1F37C\\
+\cCE{baby_chick}&!baby_chick!&1F424\\
+\cCE{baby_symbol}&!baby_symbol!&1F6BC\\
+\cCE{back}&!back!&1F519\\
+\cCE{bacon}&!bacon!&1F953\\
+\cCE{badger}&!badger!&1F9A1\\
+\cCE{badminton}&!badminton!&1F3F8\\
+\cCE{bagel}&!bagel!&1F96F\\
+\cCE{baggage_claim}&!baggage_claim!&1F6C4\\
+\cCE{bald}&!bald!&1F9B2\\
+\cCE{ballet_shoes}&!ballet_shoes!&1FA70\\
+\cCE{balloon}&!balloon!&1F388\\
+\cCE{ballot_box}&!ballot_box!&1F5F3\\
+\cCE{ballot_box_with_check}&!ballot_box_with_check!&2611\\
+\cCE{bamboo}&!bamboo!&1F38D\\
+\cCE{banana}&!banana!&1F34C\\
+\cCE{bangbang}&!bangbang!&203C\\
+\cCE{banjo}&!banjo!&1FA95\\
+\cCE{bank}&!bank!&1F3E6\\
+\cCE{bar_chart}&!bar_chart!&1F4CA\\
+\cCE{barber}&!barber!&1F488\\
+\cCE{baseball}&!baseball!&26BE\\
+\cCE{basket}&!basket!&1F9FA\\
+\cCE{basketball}&!basketball!&1F3C0\\
+\cCE{bat}&!bat!&1F987\\
+\cCE{bath}&!bath!*&1F6C0\\
+\cCE{bathtub}&!bathtub!&1F6C1\\
+\cCE{battery}&!battery!&1F50B\\
+\cCE{beach}&!beach!&1F3D6\\
+\cCE{beach_umbrella}&!beach_umbrella!&26F1\\
+\cCE{bear}&!bear!&1F43B\\
+\cCE{bearded_person}&!bearded_person!*&1F9D4\\
+\cCE{beaver}&!beaver!&1F9AB\\
+\cCE{bed}&!bed!&1F6CF\\
+\cCE{bee}&!bee!&1F41D\\
+\cCE{beer}&!beer!&1F37A\\
+\cCE{beers}&!beers!&1F37B\\
+\cCE{beetle}&!beetle!&1FAB2\\
+\cCE{beginner}&!beginner!&1F530\\
+\cCE{bell}&!bell!&1F514\\
+\cCE{bell_pepper}&!bell_pepper!&1FAD1\\
+\cCE{bellhop}&!bellhop!&1F6CE\\
+\cCE{bento}&!bento!&1F371\\
+\cCE{beverage_box}&!beverage_box!&1F9C3\\
+\cCE{bike}&!bike!&1F6B2\\
+\cCE{bikini}&!bikini!&1F459\\
+\cCE{billed_cap}&!billed_cap!&1F9E2\\
+\cCE{biohazard}&!biohazard!&2623\\
+\cCE{bird}&!bird!&1F426\\
+\cCE{birthday}&!birthday!&1F382\\
+\cCE{bison}&!bison!&1F9AC\\
+\cCE{black_cat}&!black_cat!&1F408 200D 2B1B\\
+\cCE{black_circle}&!black_circle!&26AB\\
+\cCE{black_heart}&!black_heart!&1F5A4\\
+\cCE{black_joker}&!black_joker!&1F0CF\\
+\cCE{black_large_square}&!black_large_square!&2B1B\\
+\cCE{black_medium_small_square}&!black_medium_small_square!&25FE\\
+\cCE{black_medium_square}&!black_medium_square!&25FC\\
+\cCE{black_nib}&!black_nib!&2712\\
+\cCE{black_small_square}&!black_small_square!&25AA\\
+\cCE{black_square_button}&!black_square_button!&1F532\\
+\cCE{blond-haired_man}&!blond-haired_man!*&1F471 200D 2642\\
+\cCE{blond-haired_woman}&!blond-haired_woman!*&1F471 200D 2640\\
+\cCE{blond_haired_person}&!blond_haired_person!*&1F471\\
+\cCE{blossom}&!blossom!&1F33C\\
+\cCE{blowfish}&!blowfish!&1F421\\
+\cCE{blue_book}&!blue_book!&1F4D8\\
+\cCE{blue_car}&!blue_car!&1F699\\
+\cCE{blue_circle}&!blue_circle!&1F535\\
+\cCE{blue_heart}&!blue_heart!&1F499\\
+\cCE{blue_square}&!blue_square!&1F7E6\\
+\cCE{blueberries}&!blueberries!&1FAD0\\
+\cCE{blush}&!blush!&1F60A\\
+\cCE{boar}&!boar!&1F417\\
+\cCE{bomb}&!bomb!&1F4A3\\
+\cCE{bone}&!bone!&1F9B4\\
+\cCE{book}&!book!&1F4D6\\
+\cCE{bookmark}&!bookmark!&1F516\\
+\cCE{bookmark_tabs}&!bookmark_tabs!&1F4D1\\
+\cCE{books}&!books!&1F4DA\\
+\cCE{boom}&!boom!&1F4A5\\
+\cCE{boomerang}&!boomerang!&1FA83\\
+\cCE{boot}&!boot!&1F462\\
+\cCE{bouquet}&!bouquet!&1F490\\
+\cCE{bow_and_arrow}&!bow_and_arrow!&1F3F9\\
+\cCE{bowl_with_spoon}&!bowl_with_spoon!&1F963\\
+\cCE{bowling}&!bowling!&1F3B3\\
+\cCE{boxing_glove}&!boxing_glove!&1F94A\\
+\cCE{boy}&!boy!*&1F466\\
+\cCE{brain}&!brain!&1F9E0\\
+\cCE{bread}&!bread!&1F35E\\
+\cCE{breast_feeding}&!breast_feeding!*&1F931\\
+\cCE{bricks}&!bricks!&1F9F1\\
+\cCE{bridge_at_night}&!bridge_at_night!&1F309\\
+\cCE{briefcase}&!briefcase!&1F4BC\\
+\cCE{briefs}&!briefs!&1FA72\\
+\cCE{broccoli}&!broccoli!&1F966\\
+\cCE{broken_heart}&!broken_heart!&1F494\\
+\cCE{broom}&!broom!&1F9F9\\
+\cCE{brown_circle}&!brown_circle!&1F7E4\\
+\cCE{brown_heart}&!brown_heart!&1F90E\\
+\cCE{brown_square}&!brown_square!&1F7EB\\
+\cCE{bubble_tea}&!bubble_tea!&1F9CB\\
+\cCE{bucket}&!bucket!&1FAA3\\
+\cCE{bug}&!bug!&1F41B\\
+\cCE{bulb}&!bulb!&1F4A1\\
+\cCE{bullettrain_front}&!bullettrain_front!&1F685\\
+\cCE{bullettrain_side}&!bullettrain_side!&1F684\\
+\cCE{burrito}&!burrito!&1F32F\\
+\cCE{bus}&!bus!&1F68C\\
+\cCE{busstop}&!busstop!&1F68F\\
+\cCE{bust_in_silhouette}&!bust_in_silhouette!&1F464\\
+\cCE{busts_in_silhouette}&!busts_in_silhouette!&1F465\\
+\cCE{butter}&!butter!&1F9C8\\
+\cCE{butterfly}&!butterfly!&1F98B\\
+\cCE{cactus}&!cactus!&1F335\\
+\cCE{cake}&!cake!&1F370\\
+\cCE{calendar}&!calendar!&1F4C6\\
+\cCE{calendar_spiral}&!calendar_spiral!&1F5D3\\
+\cCE{call_me}&!call_me!*&1F919\\
+\cCE{calling}&!calling!&1F4F2\\
+\cCE{camel}&!camel!&1F42B\\
+\cCE{camera}&!camera!&1F4F7\\
+\cCE{camera_with_flash}&!camera_with_flash!&1F4F8\\
+\cCE{camping}&!camping!&1F3D5\\
+\cCE{cancer}&!cancer!&264B\\
+\cCE{candle}&!candle!&1F56F\\
+\cCE{candy}&!candy!&1F36C\\
+\cCE{canned_food}&!canned_food!&1F96B\\
+\cCE{canoe}&!canoe!&1F6F6\\
+\cCE{capital_abcd}&!capital_abcd!&1F520\\
+\cCE{capricorn}&!capricorn!&2651\\
+\cCE{card_box}&!card_box!&1F5C3\\
+\cCE{card_index}&!card_index!&1F4C7\\
+\cCE{carousel_horse}&!carousel_horse!&1F3A0\\
+\cCE{carpentry_saw}&!carpentry_saw!&1FA9A\\
+\cCE{carrot}&!carrot!&1F955\\
+\cCE{cat}&!cat!&1F431\\
+\cCE{cat2}&!cat2!&1F408\\
+\cCE{cd}&!cd!&1F4BF\\
+\cCE{chains}&!chains!&26D3\\
+\cCE{chair}&!chair!&1FA91\\
+\cCE{champagne}&!champagne!&1F37E\\
+\cCE{champagne_glass}&!champagne_glass!&1F942\\
+\cCE{chart}&!chart!&1F4B9\\
+\cCE{chart_with_downwards_trend}&!chart_with_downwards_trend!&1F4C9\\
+\cCE{chart_with_upwards_trend}&!chart_with_upwards_trend!&1F4C8\\
+\cCE{checkered_flag}&!checkered_flag!&1F3C1\\
+\cCE{cheese}&!cheese!&1F9C0\\
+\cCE{cherries}&!cherries!&1F352\\
+\cCE{cherry_blossom}&!cherry_blossom!&1F338\\
+\cCE{chess_pawn}&!chess_pawn!&265F\\
+\cCE{chestnut}&!chestnut!&1F330\\
+\cCE{chicken}&!chicken!&1F414\\
+\cCE{child}&!child!*&1F9D2\\
+\cCE{children_crossing}&!children_crossing!&1F6B8\\
+\cCE{chipmunk}&!chipmunk!&1F43F\\
+\cCE{chocolate_bar}&!chocolate_bar!&1F36B\\
+\cCE{chopsticks}&!chopsticks!&1F962\\
+\cCE{christmas_tree}&!christmas_tree!&1F384\\
+\cCE{church}&!church!&26EA\\
+\cCE{cinema}&!cinema!&1F3A6\\
+\cCE{circus_tent}&!circus_tent!&1F3AA\\
+\cCE{city_dusk}&!city_dusk!&1F306\\
+\cCE{city_sunset}&!city_sunset!&1F307\\
+\cCE{cityscape}&!cityscape!&1F3D9\\
+\cCE{cl}&!cl!&1F191\\
+\cCE{clap}&!clap!*&1F44F\\
+\cCE{clapper}&!clapper!&1F3AC\\
+\cCE{classical_building}&!classical_building!&1F3DB\\
+\cCE{clipboard}&!clipboard!&1F4CB\\
+\cCE{clock}&!clock!&1F570\\
+\cCE{clock1}&!clock1!&1F550\\
+\cCE{clock10}&!clock10!&1F559\\
+\cCE{clock1030}&!clock1030!&1F565\\
+\cCE{clock11}&!clock11!&1F55A\\
+\cCE{clock1130}&!clock1130!&1F566\\
+\cCE{clock12}&!clock12!&1F55B\\
+\cCE{clock1230}&!clock1230!&1F567\\
+\cCE{clock130}&!clock130!&1F55C\\
+\cCE{clock2}&!clock2!&1F551\\
+\cCE{clock230}&!clock230!&1F55D\\
+\cCE{clock3}&!clock3!&1F552\\
+\cCE{clock330}&!clock330!&1F55E\\
+\cCE{clock4}&!clock4!&1F553\\
+\cCE{clock430}&!clock430!&1F55F\\
+\cCE{clock5}&!clock5!&1F554\\
+\cCE{clock530}&!clock530!&1F560\\
+\cCE{clock6}&!clock6!&1F555\\
+\cCE{clock630}&!clock630!&1F561\\
+\cCE{clock7}&!clock7!&1F556\\
+\cCE{clock730}&!clock730!&1F562\\
+\cCE{clock8}&!clock8!&1F557\\
+\cCE{clock830}&!clock830!&1F563\\
+\cCE{clock9}&!clock9!&1F558\\
+\cCE{clock930}&!clock930!&1F564\\
+\cCE{closed_book}&!closed_book!&1F4D5\\
+\cCE{closed_lock_with_key}&!closed_lock_with_key!&1F510\\
+\cCE{closed_umbrella}&!closed_umbrella!&1F302\\
+\cCE{cloud}&!cloud!&2601\\
+\cCE{cloud_lightning}&!cloud_lightning!&1F329\\
+\cCE{cloud_rain}&!cloud_rain!&1F327\\
+\cCE{cloud_snow}&!cloud_snow!&1F328\\
+\cCE{cloud_tornado}&!cloud_tornado!&1F32A\\
+\cCE{clown}&!clown!&1F921\\
+\cCE{clubs}&!clubs!&2663\\
+\cCE{coat}&!coat!&1F9E5\\
+\cCE{cockroach}&!cockroach!&1FAB3\\
+\cCE{cocktail}&!cocktail!&1F378\\
+\cCE{coconut}&!coconut!&1F965\\
+\cCE{coffee}&!coffee!&2615\\
+\cCE{coffin}&!coffin!&26B0\\
+\cCE{coin}&!coin!&1FA99\\
+\cCE{cold_face}&!cold_face!&1F976\\
+\cCE{cold_sweat}&!cold_sweat!&1F630\\
+\cCE{comet}&!comet!&2604\\
+\cCE{compass}&!compass!&1F9ED\\
+\cCE{compression}&!compression!&1F5DC\\
+\cCE{computer}&!computer!&1F4BB\\
+\cCE{confetti_ball}&!confetti_ball!&1F38A\\
+\cCE{confounded}&!confounded!&1F616\\
+\cCE{confused}&!confused!&1F615\\
+\cCE{congratulations}&!congratulations!&3297\\
+\cCE{construction}&!construction!&1F6A7\\
+\cCE{construction_site}&!construction_site!&1F3D7\\
+\cCE{construction_worker}&!construction_worker!*&1F477\\
+\cCE{control_knobs}&!control_knobs!&1F39B\\
+\cCE{convenience_store}&!convenience_store!&1F3EA\\
+\cCE{cook}&!cook!*&1F9D1 200D 1F373\\
+\cCE{cookie}&!cookie!&1F36A\\
+\cCE{cooking}&!cooking!&1F373\\
+\cCE{cool}&!cool!&1F192\\
+\cCE{copyright}&!copyright!&A9\\
+\cCE{corn}&!corn!&1F33D\\
+\cCE{couch}&!couch!&1F6CB\\
+\cCE{couple}&!couple!&1F46B\\
+\cCE{couple_mm}&!couple_mm!&1F468 200D 2764 200D 1F468\\
+\cCE{couple_with_heart}&!couple_with_heart!*&1F491\\
+\cCE{couple_with_heart_man_man}&!couple_with_heart_man_man!**&1F468 200D 2764 200D 1F468\\
+\cCE{couple_with_heart_person_person}&!couple_with_heart_person_person!**&1F491\\
+\cCE{couple_with_heart_woman_man}&!couple_with_heart_woman_man!**&1F469 200D 2764 200D 1F468\\
+\cCE{couple_with_heart_woman_woman}&!couple_with_heart_woman_woman!**&1F469 200D 2764 200D 1F469\\
+\cCE{couple_ww}&!couple_ww!&1F469 200D 2764 200D 1F469\\
+\cCE{couplekiss}&!couplekiss!&1F48F\\
+\cCE{cow}&!cow!&1F42E\\
+\cCE{cow2}&!cow2!&1F404\\
+\cCE{cowboy}&!cowboy!&1F920\\
+\cCE{crab}&!crab!&1F980\\
+\cCE{crayon}&!crayon!&1F58D\\
+\cCE{credit_card}&!credit_card!&1F4B3\\
+\cCE{crescent_moon}&!crescent_moon!&1F319\\
+\cCE{cricket}&!cricket!&1F997\\
+\cCE{cricket_game}&!cricket_game!&1F3CF\\
+\cCE{crocodile}&!crocodile!&1F40A\\
+\cCE{croissant}&!croissant!&1F950\\
+\cCE{cross}&!cross!&271D\\
+\cCE{crossed_flags}&!crossed_flags!&1F38C\\
+\cCE{crossed_swords}&!crossed_swords!&2694\\
+\cCE{crown}&!crown!&1F451\\
+\cCE{cruise_ship}&!cruise_ship!&1F6F3\\
+\cCE{cry}&!cry!&1F622\\
+\cCE{crying_cat_face}&!crying_cat_face!&1F63F\\
+\cCE{crystal_ball}&!crystal_ball!&1F52E\\
+\cCE{cucumber}&!cucumber!&1F952\\
+\cCE{cup_with_straw}&!cup_with_straw!&1F964\\
+\cCE{cupcake}&!cupcake!&1F9C1\\
+\cCE{cupid}&!cupid!&1F498\\
+\cCE{curling_stone}&!curling_stone!&1F94C\\
+\cCE{curly_haired}&!curly_haired!&1F9B1\\
+\cCE{curly_loop}&!curly_loop!&27B0\\
+\cCE{currency_exchange}&!currency_exchange!&1F4B1\\
+\cCE{curry}&!curry!&1F35B\\
+\cCE{custard}&!custard!&1F36E\\
+\cCE{customs}&!customs!&1F6C3\\
+\cCE{cut_of_meat}&!cut_of_meat!&1F969\\
+\cCE{cyclone}&!cyclone!&1F300\\
+\cCE{dagger}&!dagger!&1F5E1\\
+\cCE{dancer}&!dancer!*&1F483\\
+\cCE{dango}&!dango!&1F361\\
+\cCE{dark_sunglasses}&!dark_sunglasses!&1F576\\
+\cCE{dart}&!dart!&1F3AF\\
+\cCE{dash}&!dash!&1F4A8\\
+\cCE{date}&!date!&1F4C5\\
+\cCE{deaf_man}&!deaf_man!*&1F9CF 200D 2642\\
+\cCE{deaf_person}&!deaf_person!*&1F9CF\\
+\cCE{deaf_woman}&!deaf_woman!*&1F9CF 200D 2640\\
+\cCE{deciduous_tree}&!deciduous_tree!&1F333\\
+\cCE{deer}&!deer!&1F98C\\
+\cCE{department_store}&!department_store!&1F3EC\\
+\cCE{desert}&!desert!&1F3DC\\
+\cCE{desktop}&!desktop!&1F5A5\\
+\cCE{detective}&!detective!*&1F575\\
+\cCE{diamond_shape_with_a_dot_inside}&!diamond_shape_with_a_dot_inside!&1F4A0\\
+\cCE{diamonds}&!diamonds!&2666\\
+\cCE{disappointed}&!disappointed!&1F61E\\
+\cCE{disappointed_relieved}&!disappointed_relieved!&1F625\\
+\cCE{disguised_face}&!disguised_face!&1F978\\
+\cCE{dividers}&!dividers!&1F5C2\\
+\cCE{diving_mask}&!diving_mask!&1F93F\\
+\cCE{diya_lamp}&!diya_lamp!&1FA94\\
+\cCE{dizzy}&!dizzy!&1F4AB\\
+\cCE{dizzy_face}&!dizzy_face!&1F635\\
+\cCE{dna}&!dna!&1F9EC\\
+\cCE{do_not_litter}&!do_not_litter!&1F6AF\\
+\cCE{dodo}&!dodo!&1F9A4\\
+\cCE{dog}&!dog!&1F436\\
+\cCE{dog2}&!dog2!&1F415\\
+\cCE{dollar}&!dollar!&1F4B5\\
+\cCE{dolls}&!dolls!&1F38E\\
+\cCE{dolphin}&!dolphin!&1F42C\\
+\cCE{door}&!door!&1F6AA\\
+\cCE{doughnut}&!doughnut!&1F369\\
+\cCE{dove}&!dove!&1F54A\\
+\cCE{dragon}&!dragon!&1F409\\
+\cCE{dragon_face}&!dragon_face!&1F432\\
+\cCE{dress}&!dress!&1F457\\
+\cCE{dromedary_camel}&!dromedary_camel!&1F42A\\
+\cCE{drooling_face}&!drooling_face!&1F924\\
+\cCE{drop_of_blood}&!drop_of_blood!&1FA78\\
+\cCE{droplet}&!droplet!&1F4A7\\
+\cCE{drum}&!drum!&1F941\\
+\cCE{duck}&!duck!&1F986\\
+\cCE{dumpling}&!dumpling!&1F95F\\
+\cCE{dvd}&!dvd!&1F4C0\\
+\cCE{e-mail}&!e-mail!&1F4E7\\
+\cCE{eagle}&!eagle!&1F985\\
+\cCE{ear}&!ear!*&1F442\\
+\cCE{ear_of_rice}&!ear_of_rice!&1F33E\\
+\cCE{ear_with_hearing_aid}&!ear_with_hearing_aid!*&1F9BB\\
+\cCE{earth_africa}&!earth_africa!&1F30D\\
+\cCE{earth_americas}&!earth_americas!&1F30E\\
+\cCE{earth_asia}&!earth_asia!&1F30F\\
+\cCE{egg}&!egg!&1F95A\\
+\cCE{eggplant}&!eggplant!&1F346\\
+\cCE{eight}&!eight!&38 20E3\\
+\cCE{eight_pointed_black_star}&!eight_pointed_black_star!&2734\\
+\cCE{eight_spoked_asterisk}&!eight_spoked_asterisk!&2733\\
+\cCE{eject}&!eject!&23CF\\
+\cCE{electric_plug}&!electric_plug!&1F50C\\
+\cCE{elephant}&!elephant!&1F418\\
+\cCE{elevator}&!elevator!&1F6D7\\
+\cCE{elf}&!elf!*&1F9DD\\
+\cCE{end}&!end!&1F51A\\
+\cCE{england}&!england!&1F3F4 E0067 E0062 E0065 E006E E0067 E007F\\
+\cCE{envelope}&!envelope!&2709\\
+\cCE{envelope_with_arrow}&!envelope_with_arrow!&1F4E9\\
+\cCE{euro}&!euro!&1F4B6\\
+\cCE{european_castle}&!european_castle!&1F3F0\\
+\cCE{european_post_office}&!european_post_office!&1F3E4\\
+\cCE{evergreen_tree}&!evergreen_tree!&1F332\\
+\cCE{exclamation}&!exclamation!&2757\\
+\cCE{exploding_head}&!exploding_head!&1F92F\\
+\cCE{expressionless}&!expressionless!&1F611\\
+\cCE{eye}&!eye!&1F441\\
+\cCE{eye_in_speech_bubble}&!eye_in_speech_bubble!&1F441 200D 1F5E8\\
+\cCE{eyeglasses}&!eyeglasses!&1F453\\
+\cCE{eyes}&!eyes!&1F440\\
+\cCE{face_exhaling}&!face_exhaling!&1F62E 200D 1F4A8\\
+\cCE{face_in_clouds}&!face_in_clouds!&1F636 200D 1F32B\\
+\cCE{face_vomiting}&!face_vomiting!&1F92E\\
+\cCE{face_with_hand_over_mouth}&!face_with_hand_over_mouth!&1F92D\\
+\cCE{face_with_monocle}&!face_with_monocle!&1F9D0\\
+\cCE{face_with_raised_eyebrow}&!face_with_raised_eyebrow!&1F928\\
+\cCE{face_with_spiral_eyes}&!face_with_spiral_eyes!&1F635 200D 1F4AB\\
+\cCE{face_with_symbols_over_mouth}&!face_with_symbols_over_mouth!&1F92C\\
+\cCE{factory}&!factory!&1F3ED\\
+\cCE{factory_worker}&!factory_worker!*&1F9D1 200D 1F3ED\\
+\cCE{fairy}&!fairy!*&1F9DA\\
+\cCE{falafel}&!falafel!&1F9C6\\
+\cCE{fallen_leaf}&!fallen_leaf!&1F342\\
+\cCE{family}&!family!&1F46A\\
+\cCE{family_man_boy}&!family_man_boy!&1F468 200D 1F466\\
+\cCE{family_man_boy_boy}&!family_man_boy_boy!&1F468 200D 1F466 200D 1F466\\
+\cCE{family_man_girl}&!family_man_girl!&1F468 200D 1F467\\
+\cCE{family_man_girl_boy}&!family_man_girl_boy!&1F468 200D 1F467 200D 1F466\\
+\cCE{family_man_girl_girl}&!family_man_girl_girl!&1F468 200D 1F467 200D 1F467\\
+\cCE{family_man_woman_boy}&!family_man_woman_boy!&1F468 200D 1F469 200D 1F466\\
+\cCE{family_mmb}&!family_mmb!&1F468 200D 1F468 200D 1F466\\
+\cCE{family_mmbb}&!family_mmbb!&1F468 200D 1F468 200D 1F466 200D 1F466\\
+\cCE{family_mmg}&!family_mmg!&1F468 200D 1F468 200D 1F467\\
+\cCE{family_mmgb}&!family_mmgb!&1F468 200D 1F468 200D 1F467 200D 1F466\\
+\cCE{family_mmgg}&!family_mmgg!&1F468 200D 1F468 200D 1F467 200D 1F467\\
+\cCE{family_mwbb}&!family_mwbb!&1F468 200D 1F469 200D 1F466 200D 1F466\\
+\cCE{family_mwg}&!family_mwg!&1F468 200D 1F469 200D 1F467\\
+\cCE{family_mwgb}&!family_mwgb!&1F468 200D 1F469 200D 1F467 200D 1F466\\
+\cCE{family_mwgg}&!family_mwgg!&1F468 200D 1F469 200D 1F467 200D 1F467\\
+\cCE{family_woman_boy}&!family_woman_boy!&1F469 200D 1F466\\
+\cCE{family_woman_boy_boy}&!family_woman_boy_boy!&1F469 200D 1F466 200D 1F466\\
+\cCE{family_woman_girl}&!family_woman_girl!&1F469 200D 1F467\\
+\cCE{family_woman_girl_boy}&!family_woman_girl_boy!&1F469 200D 1F467 200D 1F466\\
+\cCE{family_woman_girl_girl}&!family_woman_girl_girl!&1F469 200D 1F467 200D 1F467\\
+\cCE{family_wwb}&!family_wwb!&1F469 200D 1F469 200D 1F466\\
+\cCE{family_wwbb}&!family_wwbb!&1F469 200D 1F469 200D 1F466 200D 1F466\\
+\cCE{family_wwg}&!family_wwg!&1F469 200D 1F469 200D 1F467\\
+\cCE{family_wwgb}&!family_wwgb!&1F469 200D 1F469 200D 1F467 200D 1F466\\
+\cCE{family_wwgg}&!family_wwgg!&1F469 200D 1F469 200D 1F467 200D 1F467\\
+\cCE{farmer}&!farmer!*&1F9D1 200D 1F33E\\
+\cCE{fast_forward}&!fast_forward!&23E9\\
+\cCE{fax}&!fax!&1F4E0\\
+\cCE{fearful}&!fearful!&1F628\\
+\cCE{feather}&!feather!&1FAB6\\
+\cCE{feet}&!feet!&1F43E\\
+\cCE{female_sign}&!female_sign!&2640\\
+\cCE{ferris_wheel}&!ferris_wheel!&1F3A1\\
+\cCE{ferry}&!ferry!&26F4\\
+\cCE{field_hockey}&!field_hockey!&1F3D1\\
+\cCE{file_cabinet}&!file_cabinet!&1F5C4\\
+\cCE{file_folder}&!file_folder!&1F4C1\\
+\cCE{film_frames}&!film_frames!&1F39E\\
+\cCE{fingers_crossed}&!fingers_crossed!*&1F91E\\
+\cCE{fire}&!fire!&1F525\\
+\cCE{fire_engine}&!fire_engine!&1F692\\
+\cCE{fire_extinguisher}&!fire_extinguisher!&1F9EF\\
+\cCE{firecracker}&!firecracker!&1F9E8\\
+\cCE{firefighter}&!firefighter!*&1F9D1 200D 1F692\\
+\cCE{fireworks}&!fireworks!&1F386\\
+\cCE{first_place}&!first_place!&1F947\\
+\cCE{first_quarter_moon}&!first_quarter_moon!&1F313\\
+\cCE{first_quarter_moon_with_face}&!first_quarter_moon_with_face!&1F31B\\
+\cCE{fish}&!fish!&1F41F\\
+\cCE{fish_cake}&!fish_cake!&1F365\\
+\cCE{fishing_pole_and_fish}&!fishing_pole_and_fish!&1F3A3\\
+\cCE{fist}&!fist!*&270A\\
+\cCE{five}&!five!&35 20E3\\
+\cCE{flag_ac}&!flag_ac!&1F1E6 1F1E8\\
+\cCE{flag_ad}&!flag_ad!&1F1E6 1F1E9\\
+\cCE{flag_ae}&!flag_ae!&1F1E6 1F1EA\\
+\cCE{flag_af}&!flag_af!&1F1E6 1F1EB\\
+\cCE{flag_ag}&!flag_ag!&1F1E6 1F1EC\\
+\cCE{flag_ai}&!flag_ai!&1F1E6 1F1EE\\
+\cCE{flag_al}&!flag_al!&1F1E6 1F1F1\\
+\cCE{flag_am}&!flag_am!&1F1E6 1F1F2\\
+\cCE{flag_ao}&!flag_ao!&1F1E6 1F1F4\\
+\cCE{flag_aq}&!flag_aq!&1F1E6 1F1F6\\
+\cCE{flag_ar}&!flag_ar!&1F1E6 1F1F7\\
+\cCE{flag_as}&!flag_as!&1F1E6 1F1F8\\
+\cCE{flag_at}&!flag_at!&1F1E6 1F1F9\\
+\cCE{flag_au}&!flag_au!&1F1E6 1F1FA\\
+\cCE{flag_aw}&!flag_aw!&1F1E6 1F1FC\\
+\cCE{flag_ax}&!flag_ax!&1F1E6 1F1FD\\
+\cCE{flag_az}&!flag_az!&1F1E6 1F1FF\\
+\cCE{flag_ba}&!flag_ba!&1F1E7 1F1E6\\
+\cCE{flag_bb}&!flag_bb!&1F1E7 1F1E7\\
+\cCE{flag_bd}&!flag_bd!&1F1E7 1F1E9\\
+\cCE{flag_be}&!flag_be!&1F1E7 1F1EA\\
+\cCE{flag_bf}&!flag_bf!&1F1E7 1F1EB\\
+\cCE{flag_bg}&!flag_bg!&1F1E7 1F1EC\\
+\cCE{flag_bh}&!flag_bh!&1F1E7 1F1ED\\
+\cCE{flag_bi}&!flag_bi!&1F1E7 1F1EE\\
+\cCE{flag_bj}&!flag_bj!&1F1E7 1F1EF\\
+\cCE{flag_bl}&!flag_bl!&1F1E7 1F1F1\\
+\cCE{flag_black}&!flag_black!&1F3F4\\
+\cCE{flag_bm}&!flag_bm!&1F1E7 1F1F2\\
+\cCE{flag_bn}&!flag_bn!&1F1E7 1F1F3\\
+\cCE{flag_bo}&!flag_bo!&1F1E7 1F1F4\\
+\cCE{flag_bq}&!flag_bq!&1F1E7 1F1F6\\
+\cCE{flag_br}&!flag_br!&1F1E7 1F1F7\\
+\cCE{flag_bs}&!flag_bs!&1F1E7 1F1F8\\
+\cCE{flag_bt}&!flag_bt!&1F1E7 1F1F9\\
+\cCE{flag_bv}&!flag_bv!&1F1E7 1F1FB\\
+\cCE{flag_bw}&!flag_bw!&1F1E7 1F1FC\\
+\cCE{flag_by}&!flag_by!&1F1E7 1F1FE\\
+\cCE{flag_bz}&!flag_bz!&1F1E7 1F1FF\\
+\cCE{flag_ca}&!flag_ca!&1F1E8 1F1E6\\
+\cCE{flag_cc}&!flag_cc!&1F1E8 1F1E8\\
+\cCE{flag_cd}&!flag_cd!&1F1E8 1F1E9\\
+\cCE{flag_cf}&!flag_cf!&1F1E8 1F1EB\\
+\cCE{flag_cg}&!flag_cg!&1F1E8 1F1EC\\
+\cCE{flag_ch}&!flag_ch!&1F1E8 1F1ED\\
+\cCE{flag_ci}&!flag_ci!&1F1E8 1F1EE\\
+\cCE{flag_ck}&!flag_ck!&1F1E8 1F1F0\\
+\cCE{flag_cl}&!flag_cl!&1F1E8 1F1F1\\
+\cCE{flag_cm}&!flag_cm!&1F1E8 1F1F2\\
+\cCE{flag_cn}&!flag_cn!&1F1E8 1F1F3\\
+\cCE{flag_co}&!flag_co!&1F1E8 1F1F4\\
+\cCE{flag_cp}&!flag_cp!&1F1E8 1F1F5\\
+\cCE{flag_cr}&!flag_cr!&1F1E8 1F1F7\\
+\cCE{flag_cu}&!flag_cu!&1F1E8 1F1FA\\
+\cCE{flag_cv}&!flag_cv!&1F1E8 1F1FB\\
+\cCE{flag_cw}&!flag_cw!&1F1E8 1F1FC\\
+\cCE{flag_cx}&!flag_cx!&1F1E8 1F1FD\\
+\cCE{flag_cy}&!flag_cy!&1F1E8 1F1FE\\
+\cCE{flag_cz}&!flag_cz!&1F1E8 1F1FF\\
+\cCE{flag_de}&!flag_de!&1F1E9 1F1EA\\
+\cCE{flag_dg}&!flag_dg!&1F1E9 1F1EC\\
+\cCE{flag_dj}&!flag_dj!&1F1E9 1F1EF\\
+\cCE{flag_dk}&!flag_dk!&1F1E9 1F1F0\\
+\cCE{flag_dm}&!flag_dm!&1F1E9 1F1F2\\
+\cCE{flag_do}&!flag_do!&1F1E9 1F1F4\\
+\cCE{flag_dz}&!flag_dz!&1F1E9 1F1FF\\
+\cCE{flag_ea}&!flag_ea!&1F1EA 1F1E6\\
+\cCE{flag_ec}&!flag_ec!&1F1EA 1F1E8\\
+\cCE{flag_ee}&!flag_ee!&1F1EA 1F1EA\\
+\cCE{flag_eg}&!flag_eg!&1F1EA 1F1EC\\
+\cCE{flag_eh}&!flag_eh!&1F1EA 1F1ED\\
+\cCE{flag_er}&!flag_er!&1F1EA 1F1F7\\
+\cCE{flag_es}&!flag_es!&1F1EA 1F1F8\\
+\cCE{flag_et}&!flag_et!&1F1EA 1F1F9\\
+\cCE{flag_eu}&!flag_eu!&1F1EA 1F1FA\\
+\cCE{flag_fi}&!flag_fi!&1F1EB 1F1EE\\
+\cCE{flag_fj}&!flag_fj!&1F1EB 1F1EF\\
+\cCE{flag_fk}&!flag_fk!&1F1EB 1F1F0\\
+\cCE{flag_fm}&!flag_fm!&1F1EB 1F1F2\\
+\cCE{flag_fo}&!flag_fo!&1F1EB 1F1F4\\
+\cCE{flag_fr}&!flag_fr!&1F1EB 1F1F7\\
+\cCE{flag_ga}&!flag_ga!&1F1EC 1F1E6\\
+\cCE{flag_gb}&!flag_gb!&1F1EC 1F1E7\\
+\cCE{flag_gd}&!flag_gd!&1F1EC 1F1E9\\
+\cCE{flag_ge}&!flag_ge!&1F1EC 1F1EA\\
+\cCE{flag_gf}&!flag_gf!&1F1EC 1F1EB\\
+\cCE{flag_gg}&!flag_gg!&1F1EC 1F1EC\\
+\cCE{flag_gh}&!flag_gh!&1F1EC 1F1ED\\
+\cCE{flag_gi}&!flag_gi!&1F1EC 1F1EE\\
+\cCE{flag_gl}&!flag_gl!&1F1EC 1F1F1\\
+\cCE{flag_gm}&!flag_gm!&1F1EC 1F1F2\\
+\cCE{flag_gn}&!flag_gn!&1F1EC 1F1F3\\
+\cCE{flag_gp}&!flag_gp!&1F1EC 1F1F5\\
+\cCE{flag_gq}&!flag_gq!&1F1EC 1F1F6\\
+\cCE{flag_gr}&!flag_gr!&1F1EC 1F1F7\\
+\cCE{flag_gs}&!flag_gs!&1F1EC 1F1F8\\
+\cCE{flag_gt}&!flag_gt!&1F1EC 1F1F9\\
+\cCE{flag_gu}&!flag_gu!&1F1EC 1F1FA\\
+\cCE{flag_gw}&!flag_gw!&1F1EC 1F1FC\\
+\cCE{flag_gy}&!flag_gy!&1F1EC 1F1FE\\
+\cCE{flag_hk}&!flag_hk!&1F1ED 1F1F0\\
+\cCE{flag_hm}&!flag_hm!&1F1ED 1F1F2\\
+\cCE{flag_hn}&!flag_hn!&1F1ED 1F1F3\\
+\cCE{flag_hr}&!flag_hr!&1F1ED 1F1F7\\
+\cCE{flag_ht}&!flag_ht!&1F1ED 1F1F9\\
+\cCE{flag_hu}&!flag_hu!&1F1ED 1F1FA\\
+\cCE{flag_ic}&!flag_ic!&1F1EE 1F1E8\\
+\cCE{flag_id}&!flag_id!&1F1EE 1F1E9\\
+\cCE{flag_ie}&!flag_ie!&1F1EE 1F1EA\\
+\cCE{flag_il}&!flag_il!&1F1EE 1F1F1\\
+\cCE{flag_im}&!flag_im!&1F1EE 1F1F2\\
+\cCE{flag_in}&!flag_in!&1F1EE 1F1F3\\
+\cCE{flag_io}&!flag_io!&1F1EE 1F1F4\\
+\cCE{flag_iq}&!flag_iq!&1F1EE 1F1F6\\
+\cCE{flag_ir}&!flag_ir!&1F1EE 1F1F7\\
+\cCE{flag_is}&!flag_is!&1F1EE 1F1F8\\
+\cCE{flag_it}&!flag_it!&1F1EE 1F1F9\\
+\cCE{flag_je}&!flag_je!&1F1EF 1F1EA\\
+\cCE{flag_jm}&!flag_jm!&1F1EF 1F1F2\\
+\cCE{flag_jo}&!flag_jo!&1F1EF 1F1F4\\
+\cCE{flag_jp}&!flag_jp!&1F1EF 1F1F5\\
+\cCE{flag_ke}&!flag_ke!&1F1F0 1F1EA\\
+\cCE{flag_kg}&!flag_kg!&1F1F0 1F1EC\\
+\cCE{flag_kh}&!flag_kh!&1F1F0 1F1ED\\
+\cCE{flag_ki}&!flag_ki!&1F1F0 1F1EE\\
+\cCE{flag_km}&!flag_km!&1F1F0 1F1F2\\
+\cCE{flag_kn}&!flag_kn!&1F1F0 1F1F3\\
+\cCE{flag_kp}&!flag_kp!&1F1F0 1F1F5\\
+\cCE{flag_kr}&!flag_kr!&1F1F0 1F1F7\\
+\cCE{flag_kw}&!flag_kw!&1F1F0 1F1FC\\
+\cCE{flag_ky}&!flag_ky!&1F1F0 1F1FE\\
+\cCE{flag_kz}&!flag_kz!&1F1F0 1F1FF\\
+\cCE{flag_la}&!flag_la!&1F1F1 1F1E6\\
+\cCE{flag_lb}&!flag_lb!&1F1F1 1F1E7\\
+\cCE{flag_lc}&!flag_lc!&1F1F1 1F1E8\\
+\cCE{flag_li}&!flag_li!&1F1F1 1F1EE\\
+\cCE{flag_lk}&!flag_lk!&1F1F1 1F1F0\\
+\cCE{flag_lr}&!flag_lr!&1F1F1 1F1F7\\
+\cCE{flag_ls}&!flag_ls!&1F1F1 1F1F8\\
+\cCE{flag_lt}&!flag_lt!&1F1F1 1F1F9\\
+\cCE{flag_lu}&!flag_lu!&1F1F1 1F1FA\\
+\cCE{flag_lv}&!flag_lv!&1F1F1 1F1FB\\
+\cCE{flag_ly}&!flag_ly!&1F1F1 1F1FE\\
+\cCE{flag_ma}&!flag_ma!&1F1F2 1F1E6\\
+\cCE{flag_mc}&!flag_mc!&1F1F2 1F1E8\\
+\cCE{flag_md}&!flag_md!&1F1F2 1F1E9\\
+\cCE{flag_me}&!flag_me!&1F1F2 1F1EA\\
+\cCE{flag_mf}&!flag_mf!&1F1F2 1F1EB\\
+\cCE{flag_mg}&!flag_mg!&1F1F2 1F1EC\\
+\cCE{flag_mh}&!flag_mh!&1F1F2 1F1ED\\
+\cCE{flag_mk}&!flag_mk!&1F1F2 1F1F0\\
+\cCE{flag_ml}&!flag_ml!&1F1F2 1F1F1\\
+\cCE{flag_mm}&!flag_mm!&1F1F2 1F1F2\\
+\cCE{flag_mn}&!flag_mn!&1F1F2 1F1F3\\
+\cCE{flag_mo}&!flag_mo!&1F1F2 1F1F4\\
+\cCE{flag_mp}&!flag_mp!&1F1F2 1F1F5\\
+\cCE{flag_mq}&!flag_mq!&1F1F2 1F1F6\\
+\cCE{flag_mr}&!flag_mr!&1F1F2 1F1F7\\
+\cCE{flag_ms}&!flag_ms!&1F1F2 1F1F8\\
+\cCE{flag_mt}&!flag_mt!&1F1F2 1F1F9\\
+\cCE{flag_mu}&!flag_mu!&1F1F2 1F1FA\\
+\cCE{flag_mv}&!flag_mv!&1F1F2 1F1FB\\
+\cCE{flag_mw}&!flag_mw!&1F1F2 1F1FC\\
+\cCE{flag_mx}&!flag_mx!&1F1F2 1F1FD\\
+\cCE{flag_my}&!flag_my!&1F1F2 1F1FE\\
+\cCE{flag_mz}&!flag_mz!&1F1F2 1F1FF\\
+\cCE{flag_na}&!flag_na!&1F1F3 1F1E6\\
+\cCE{flag_nc}&!flag_nc!&1F1F3 1F1E8\\
+\cCE{flag_ne}&!flag_ne!&1F1F3 1F1EA\\
+\cCE{flag_nf}&!flag_nf!&1F1F3 1F1EB\\
+\cCE{flag_ng}&!flag_ng!&1F1F3 1F1EC\\
+\cCE{flag_ni}&!flag_ni!&1F1F3 1F1EE\\
+\cCE{flag_nl}&!flag_nl!&1F1F3 1F1F1\\
+\cCE{flag_no}&!flag_no!&1F1F3 1F1F4\\
+\cCE{flag_np}&!flag_np!&1F1F3 1F1F5\\
+\cCE{flag_nr}&!flag_nr!&1F1F3 1F1F7\\
+\cCE{flag_nu}&!flag_nu!&1F1F3 1F1FA\\
+\cCE{flag_nz}&!flag_nz!&1F1F3 1F1FF\\
+\cCE{flag_om}&!flag_om!&1F1F4 1F1F2\\
+\cCE{flag_pa}&!flag_pa!&1F1F5 1F1E6\\
+\cCE{flag_pe}&!flag_pe!&1F1F5 1F1EA\\
+\cCE{flag_pf}&!flag_pf!&1F1F5 1F1EB\\
+\cCE{flag_pg}&!flag_pg!&1F1F5 1F1EC\\
+\cCE{flag_ph}&!flag_ph!&1F1F5 1F1ED\\
+\cCE{flag_pk}&!flag_pk!&1F1F5 1F1F0\\
+\cCE{flag_pl}&!flag_pl!&1F1F5 1F1F1\\
+\cCE{flag_pm}&!flag_pm!&1F1F5 1F1F2\\
+\cCE{flag_pn}&!flag_pn!&1F1F5 1F1F3\\
+\cCE{flag_pr}&!flag_pr!&1F1F5 1F1F7\\
+\cCE{flag_ps}&!flag_ps!&1F1F5 1F1F8\\
+\cCE{flag_pt}&!flag_pt!&1F1F5 1F1F9\\
+\cCE{flag_pw}&!flag_pw!&1F1F5 1F1FC\\
+\cCE{flag_py}&!flag_py!&1F1F5 1F1FE\\
+\cCE{flag_qa}&!flag_qa!&1F1F6 1F1E6\\
+\cCE{flag_re}&!flag_re!&1F1F7 1F1EA\\
+\cCE{flag_ro}&!flag_ro!&1F1F7 1F1F4\\
+\cCE{flag_rs}&!flag_rs!&1F1F7 1F1F8\\
+\cCE{flag_ru}&!flag_ru!&1F1F7 1F1FA\\
+\cCE{flag_rw}&!flag_rw!&1F1F7 1F1FC\\
+\cCE{flag_sa}&!flag_sa!&1F1F8 1F1E6\\
+\cCE{flag_sb}&!flag_sb!&1F1F8 1F1E7\\
+\cCE{flag_sc}&!flag_sc!&1F1F8 1F1E8\\
+\cCE{flag_sd}&!flag_sd!&1F1F8 1F1E9\\
+\cCE{flag_se}&!flag_se!&1F1F8 1F1EA\\
+\cCE{flag_sg}&!flag_sg!&1F1F8 1F1EC\\
+\cCE{flag_sh}&!flag_sh!&1F1F8 1F1ED\\
+\cCE{flag_si}&!flag_si!&1F1F8 1F1EE\\
+\cCE{flag_sj}&!flag_sj!&1F1F8 1F1EF\\
+\cCE{flag_sk}&!flag_sk!&1F1F8 1F1F0\\
+\cCE{flag_sl}&!flag_sl!&1F1F8 1F1F1\\
+\cCE{flag_sm}&!flag_sm!&1F1F8 1F1F2\\
+\cCE{flag_sn}&!flag_sn!&1F1F8 1F1F3\\
+\cCE{flag_so}&!flag_so!&1F1F8 1F1F4\\
+\cCE{flag_sr}&!flag_sr!&1F1F8 1F1F7\\
+\cCE{flag_ss}&!flag_ss!&1F1F8 1F1F8\\
+\cCE{flag_st}&!flag_st!&1F1F8 1F1F9\\
+\cCE{flag_sv}&!flag_sv!&1F1F8 1F1FB\\
+\cCE{flag_sx}&!flag_sx!&1F1F8 1F1FD\\
+\cCE{flag_sy}&!flag_sy!&1F1F8 1F1FE\\
+\cCE{flag_sz}&!flag_sz!&1F1F8 1F1FF\\
+\cCE{flag_ta}&!flag_ta!&1F1F9 1F1E6\\
+\cCE{flag_tc}&!flag_tc!&1F1F9 1F1E8\\
+\cCE{flag_td}&!flag_td!&1F1F9 1F1E9\\
+\cCE{flag_tf}&!flag_tf!&1F1F9 1F1EB\\
+\cCE{flag_tg}&!flag_tg!&1F1F9 1F1EC\\
+\cCE{flag_th}&!flag_th!&1F1F9 1F1ED\\
+\cCE{flag_tj}&!flag_tj!&1F1F9 1F1EF\\
+\cCE{flag_tk}&!flag_tk!&1F1F9 1F1F0\\
+\cCE{flag_tl}&!flag_tl!&1F1F9 1F1F1\\
+\cCE{flag_tm}&!flag_tm!&1F1F9 1F1F2\\
+\cCE{flag_tn}&!flag_tn!&1F1F9 1F1F3\\
+\cCE{flag_to}&!flag_to!&1F1F9 1F1F4\\
+\cCE{flag_tr}&!flag_tr!&1F1F9 1F1F7\\
+\cCE{flag_tt}&!flag_tt!&1F1F9 1F1F9\\
+\cCE{flag_tv}&!flag_tv!&1F1F9 1F1FB\\
+\cCE{flag_tw}&!flag_tw!&1F1F9 1F1FC\\
+\cCE{flag_tz}&!flag_tz!&1F1F9 1F1FF\\
+\cCE{flag_ua}&!flag_ua!&1F1FA 1F1E6\\
+\cCE{flag_ug}&!flag_ug!&1F1FA 1F1EC\\
+\cCE{flag_um}&!flag_um!&1F1FA 1F1F2\\
+\cCE{flag_us}&!flag_us!&1F1FA 1F1F8\\
+\cCE{flag_uy}&!flag_uy!&1F1FA 1F1FE\\
+\cCE{flag_uz}&!flag_uz!&1F1FA 1F1FF\\
+\cCE{flag_va}&!flag_va!&1F1FB 1F1E6\\
+\cCE{flag_vc}&!flag_vc!&1F1FB 1F1E8\\
+\cCE{flag_ve}&!flag_ve!&1F1FB 1F1EA\\
+\cCE{flag_vg}&!flag_vg!&1F1FB 1F1EC\\
+\cCE{flag_vi}&!flag_vi!&1F1FB 1F1EE\\
+\cCE{flag_vn}&!flag_vn!&1F1FB 1F1F3\\
+\cCE{flag_vu}&!flag_vu!&1F1FB 1F1FA\\
+\cCE{flag_wf}&!flag_wf!&1F1FC 1F1EB\\
+\cCE{flag_white}&!flag_white!&1F3F3\\
+\cCE{flag_ws}&!flag_ws!&1F1FC 1F1F8\\
+\cCE{flag_xk}&!flag_xk!&1F1FD 1F1F0\\
+\cCE{flag_ye}&!flag_ye!&1F1FE 1F1EA\\
+\cCE{flag_yt}&!flag_yt!&1F1FE 1F1F9\\
+\cCE{flag_za}&!flag_za!&1F1FF 1F1E6\\
+\cCE{flag_zm}&!flag_zm!&1F1FF 1F1F2\\
+\cCE{flag_zw}&!flag_zw!&1F1FF 1F1FC\\
+\cCE{flags}&!flags!&1F38F\\
+\cCE{flamingo}&!flamingo!&1F9A9\\
+\cCE{flashlight}&!flashlight!&1F526\\
+\cCE{flatbread}&!flatbread!&1FAD3\\
+\cCE{fleur-de-lis}&!fleur-de-lis!&269C\\
+\cCE{floppy_disk}&!floppy_disk!&1F4BE\\
+\cCE{flower_playing_cards}&!flower_playing_cards!&1F3B4\\
+\cCE{flushed}&!flushed!&1F633\\
+\cCE{fly}&!fly!&1FAB0\\
+\cCE{flying_disc}&!flying_disc!&1F94F\\
+\cCE{flying_saucer}&!flying_saucer!&1F6F8\\
+\cCE{fog}&!fog!&1F32B\\
+\cCE{foggy}&!foggy!&1F301\\
+\cCE{fondue}&!fondue!&1FAD5\\
+\cCE{foot}&!foot!*&1F9B6\\
+\cCE{football}&!football!&1F3C8\\
+\cCE{footprints}&!footprints!&1F463\\
+\cCE{fork_and_knife}&!fork_and_knife!&1F374\\
+\cCE{fork_knife_plate}&!fork_knife_plate!&1F37D\\
+\cCE{fortune_cookie}&!fortune_cookie!&1F960\\
+\cCE{fountain}&!fountain!&26F2\\
+\cCE{four}&!four!&34 20E3\\
+\cCE{four_leaf_clover}&!four_leaf_clover!&1F340\\
+\cCE{fox}&!fox!&1F98A\\
+\cCE{frame_photo}&!frame_photo!&1F5BC\\
+\cCE{free}&!free!&1F193\\
+\cCE{french_bread}&!french_bread!&1F956\\
+\cCE{fried_shrimp}&!fried_shrimp!&1F364\\
+\cCE{fries}&!fries!&1F35F\\
+\cCE{frog}&!frog!&1F438\\
+\cCE{frowning}&!frowning!&1F626\\
+\cCE{frowning2}&!frowning2!&2639\\
+\cCE{fuelpump}&!fuelpump!&26FD\\
+\cCE{full_moon}&!full_moon!&1F315\\
+\cCE{full_moon_with_face}&!full_moon_with_face!&1F31D\\
+\cCE{game_die}&!game_die!&1F3B2\\
+\cCE{garlic}&!garlic!&1F9C4\\
+\cCE{gear}&!gear!&2699\\
+\cCE{gem}&!gem!&1F48E\\
+\cCE{gemini}&!gemini!&264A\\
+\cCE{genie}&!genie!&1F9DE\\
+\cCE{ghost}&!ghost!&1F47B\\
+\cCE{gift}&!gift!&1F381\\
+\cCE{gift_heart}&!gift_heart!&1F49D\\
+\cCE{giraffe}&!giraffe!&1F992\\
+\cCE{girl}&!girl!*&1F467\\
+\cCE{globe_with_meridians}&!globe_with_meridians!&1F310\\
+\cCE{gloves}&!gloves!&1F9E4\\
+\cCE{goal}&!goal!&1F945\\
+\cCE{goat}&!goat!&1F410\\
+\cCE{goggles}&!goggles!&1F97D\\
+\cCE{golf}&!golf!&26F3\\
+\cCE{gorilla}&!gorilla!&1F98D\\
+\cCE{grapes}&!grapes!&1F347\\
+\cCE{green_apple}&!green_apple!&1F34F\\
+\cCE{green_book}&!green_book!&1F4D7\\
+\cCE{green_circle}&!green_circle!&1F7E2\\
+\cCE{green_heart}&!green_heart!&1F49A\\
+\cCE{green_square}&!green_square!&1F7E9\\
+\cCE{grey_exclamation}&!grey_exclamation!&2755\\
+\cCE{grey_question}&!grey_question!&2754\\
+\cCE{grimacing}&!grimacing!&1F62C\\
+\cCE{grin}&!grin!&1F601\\
+\cCE{grinning}&!grinning!&1F600\\
+\cCE{guard}&!guard!*&1F482\\
+\cCE{guide_dog}&!guide_dog!&1F9AE\\
+\cCE{guitar}&!guitar!&1F3B8\\
+\cCE{gun}&!gun!&1F52B\\
+\cCE{hamburger}&!hamburger!&1F354\\
+\cCE{hammer}&!hammer!&1F528\\
+\cCE{hammer_pick}&!hammer_pick!&2692\\
+\cCE{hamster}&!hamster!&1F439\\
+\cCE{hand_splayed}&!hand_splayed!*&1F590\\
+\cCE{handbag}&!handbag!&1F45C\\
+\cCE{handshake}&!handshake!&1F91D\\
+\cCE{hash}&!hash!&23 20E3\\
+\cCE{hatched_chick}&!hatched_chick!&1F425\\
+\cCE{hatching_chick}&!hatching_chick!&1F423\\
+\cCE{head_bandage}&!head_bandage!&1F915\\
+\cCE{headphones}&!headphones!&1F3A7\\
+\cCE{headstone}&!headstone!&1FAA6\\
+\cCE{health_worker}&!health_worker!*&1F9D1 200D 2695\\
+\cCE{hear_no_evil}&!hear_no_evil!&1F649\\
+\cCE{heart}&!heart!&2764\\
+\cCE{heart_decoration}&!heart_decoration!&1F49F\\
+\cCE{heart_exclamation}&!heart_exclamation!&2763\\
+\cCE{heart_eyes}&!heart_eyes!&1F60D\\
+\cCE{heart_eyes_cat}&!heart_eyes_cat!&1F63B\\
+\cCE{heart_on_fire}&!heart_on_fire!&2764 200D 1F525\\
+\cCE{heartbeat}&!heartbeat!&1F493\\
+\cCE{heartpulse}&!heartpulse!&1F497\\
+\cCE{hearts}&!hearts!&2665\\
+\cCE{heavy_check_mark}&!heavy_check_mark!&2714\\
+\cCE{heavy_division_sign}&!heavy_division_sign!&2797\\
+\cCE{heavy_dollar_sign}&!heavy_dollar_sign!&1F4B2\\
+\cCE{heavy_minus_sign}&!heavy_minus_sign!&2796\\
+\cCE{heavy_multiplication_x}&!heavy_multiplication_x!&2716\\
+\cCE{heavy_plus_sign}&!heavy_plus_sign!&2795\\
+\cCE{hedgehog}&!hedgehog!&1F994\\
+\cCE{helicopter}&!helicopter!&1F681\\
+\cCE{helmet_with_cross}&!helmet_with_cross!&26D1\\
+\cCE{herb}&!herb!&1F33F\\
+\cCE{hibiscus}&!hibiscus!&1F33A\\
+\cCE{high_brightness}&!high_brightness!&1F506\\
+\cCE{high_heel}&!high_heel!&1F460\\
+\cCE{hiking_boot}&!hiking_boot!&1F97E\\
+\cCE{hindu_temple}&!hindu_temple!&1F6D5\\
+\cCE{hippopotamus}&!hippopotamus!&1F99B\\
+\cCE{hockey}&!hockey!&1F3D2\\
+\cCE{hole}&!hole!&1F573\\
+\cCE{homes}&!homes!&1F3D8\\
+\cCE{honey_pot}&!honey_pot!&1F36F\\
+\cCE{hook}&!hook!&1FA9D\\
+\cCE{horse}&!horse!&1F434\\
+\cCE{horse_racing}&!horse_racing!*&1F3C7\\
+\cCE{hospital}&!hospital!&1F3E5\\
+\cCE{hot_face}&!hot_face!&1F975\\
+\cCE{hot_pepper}&!hot_pepper!&1F336\\
+\cCE{hotdog}&!hotdog!&1F32D\\
+\cCE{hotel}&!hotel!&1F3E8\\
+\cCE{hotsprings}&!hotsprings!&2668\\
+\cCE{hourglass}&!hourglass!&231B\\
+\cCE{hourglass_flowing_sand}&!hourglass_flowing_sand!&23F3\\
+\cCE{house}&!house!&1F3E0\\
+\cCE{house_abandoned}&!house_abandoned!&1F3DA\\
+\cCE{house_with_garden}&!house_with_garden!&1F3E1\\
+\cCE{hugging}&!hugging!&1F917\\
+\cCE{hushed}&!hushed!&1F62F\\
+\cCE{hut}&!hut!&1F6D6\\
+\cCE{ice_cream}&!ice_cream!&1F368\\
+\cCE{ice_cube}&!ice_cube!&1F9CA\\
+\cCE{ice_skate}&!ice_skate!&26F8\\
+\cCE{icecream}&!icecream!&1F366\\
+\cCE{id}&!id!&1F194\\
+\cCE{ideograph_advantage}&!ideograph_advantage!&1F250\\
+\cCE{imp}&!imp!&1F47F\\
+\cCE{inbox_tray}&!inbox_tray!&1F4E5\\
+\cCE{incoming_envelope}&!incoming_envelope!&1F4E8\\
+\cCE{infinity}&!infinity!&267E\\
+\cCE{information_source}&!information_source!&2139\\
+\cCE{innocent}&!innocent!&1F607\\
+\cCE{interrobang}&!interrobang!&2049\\
+\cCE{island}&!island!&1F3DD\\
+\cCE{izakaya_lantern}&!izakaya_lantern!&1F3EE\\
+\cCE{jack_o_lantern}&!jack_o_lantern!&1F383\\
+\cCE{japan}&!japan!&1F5FE\\
+\cCE{japanese_castle}&!japanese_castle!&1F3EF\\
+\cCE{japanese_goblin}&!japanese_goblin!&1F47A\\
+\cCE{japanese_ogre}&!japanese_ogre!&1F479\\
+\cCE{jeans}&!jeans!&1F456\\
+\cCE{jigsaw}&!jigsaw!&1F9E9\\
+\cCE{joy}&!joy!&1F602\\
+\cCE{joy_cat}&!joy_cat!&1F639\\
+\cCE{joystick}&!joystick!&1F579\\
+\cCE{judge}&!judge!*&1F9D1 200D 2696\\
+\cCE{kaaba}&!kaaba!&1F54B\\
+\cCE{kangaroo}&!kangaroo!&1F998\\
+\cCE{key}&!key!&1F511\\
+\cCE{key2}&!key2!&1F5DD\\
+\cCE{keyboard}&!keyboard!&2328\\
+\cCE{keycap_ten}&!keycap_ten!&1F51F\\
+\cCE{kimono}&!kimono!&1F458\\
+\cCE{kiss}&!kiss!*&1F48B\\
+\cCE{kiss_man_man}&!kiss_man_man!**&1F468 200D 2764 200D 1F48B 200D 1F468\\
+\cCE{kiss_mm}&!kiss_mm!&1F468 200D 2764 200D 1F48B 200D 1F468\\
+\cCE{kiss_person_person}&!kiss_person_person!**&1F48F\\
+\cCE{kiss_woman_man}&!kiss_woman_man!**&1F469 200D 2764 200D 1F48B 200D 1F468\\
+\cCE{kiss_woman_woman}&!kiss_woman_woman!**&1F469 200D 2764 200D 1F48B 200D 1F469\\
+\cCE{kiss_ww}&!kiss_ww!&1F469 200D 2764 200D 1F48B 200D 1F469\\
+\cCE{kissing}&!kissing!&1F617\\
+\cCE{kissing_cat}&!kissing_cat!&1F63D\\
+\cCE{kissing_closed_eyes}&!kissing_closed_eyes!&1F61A\\
+\cCE{kissing_heart}&!kissing_heart!&1F618\\
+\cCE{kissing_smiling_eyes}&!kissing_smiling_eyes!&1F619\\
+\cCE{kite}&!kite!&1FA81\\
+\cCE{kiwi}&!kiwi!&1F95D\\
+\cCE{knife}&!knife!&1F52A\\
+\cCE{knot}&!knot!&1FAA2\\
+\cCE{koala}&!koala!&1F428\\
+\cCE{koko}&!koko!&1F201\\
+\cCE{lab_coat}&!lab_coat!&1F97C\\
+\cCE{label}&!label!&1F3F7\\
+\cCE{lacrosse}&!lacrosse!&1F94D\\
+\cCE{ladder}&!ladder!&1FA9C\\
+\cCE{lady_beetle}&!lady_beetle!&1F41E\\
+\cCE{large_blue_diamond}&!large_blue_diamond!&1F537\\
+\cCE{large_orange_diamond}&!large_orange_diamond!&1F536\\
+\cCE{last_quarter_moon}&!last_quarter_moon!&1F317\\
+\cCE{last_quarter_moon_with_face}&!last_quarter_moon_with_face!&1F31C\\
+\cCE{laughing}&!laughing!&1F606\\
+\cCE{leafy_green}&!leafy_green!&1F96C\\
+\cCE{leaves}&!leaves!&1F343\\
+\cCE{ledger}&!ledger!&1F4D2\\
+\cCE{left_facing_fist}&!left_facing_fist!*&1F91B\\
+\cCE{left_luggage}&!left_luggage!&1F6C5\\
+\cCE{left_right_arrow}&!left_right_arrow!&2194\\
+\cCE{leftwards_arrow_with_hook}&!leftwards_arrow_with_hook!&21A9\\
+\cCE{leg}&!leg!*&1F9B5\\
+\cCE{lemon}&!lemon!&1F34B\\
+\cCE{leo}&!leo!&264C\\
+\cCE{leopard}&!leopard!&1F406\\
+\cCE{level_slider}&!level_slider!&1F39A\\
+\cCE{levitate}&!levitate!*&1F574\\
+\cCE{libra}&!libra!&264E\\
+\cCE{light_rail}&!light_rail!&1F688\\
+\cCE{link}&!link!&1F517\\
+\cCE{lion_face}&!lion_face!&1F981\\
+\cCE{lips}&!lips!&1F444\\
+\cCE{lipstick}&!lipstick!&1F484\\
+\cCE{lizard}&!lizard!&1F98E\\
+\cCE{llama}&!llama!&1F999\\
+\cCE{lobster}&!lobster!&1F99E\\
+\cCE{lock}&!lock!&1F512\\
+\cCE{lock_with_ink_pen}&!lock_with_ink_pen!&1F50F\\
+\cCE{lollipop}&!lollipop!&1F36D\\
+\cCE{long_drum}&!long_drum!&1FA98\\
+\cCE{loop}&!loop!&27BF\\
+\cCE{loud_sound}&!loud_sound!&1F50A\\
+\cCE{loudspeaker}&!loudspeaker!&1F4E2\\
+\cCE{love_hotel}&!love_hotel!&1F3E9\\
+\cCE{love_letter}&!love_letter!&1F48C\\
+\cCE{love_you_gesture}&!love_you_gesture!*&1F91F\\
+\cCE{low_brightness}&!low_brightness!&1F505\\
+\cCE{luggage}&!luggage!&1F9F3\\
+\cCE{lungs}&!lungs!&1FAC1\\
+\cCE{lying_face}&!lying_face!&1F925\\
+\cCE{m}&!m!&24C2\\
+\cCE{mag}&!mag!&1F50D\\
+\cCE{mag_right}&!mag_right!&1F50E\\
+\cCE{mage}&!mage!*&1F9D9\\
+\cCE{magic_wand}&!magic_wand!&1FA84\\
+\cCE{magnet}&!magnet!&1F9F2\\
+\cCE{mahjong}&!mahjong!&1F004\\
+\cCE{mailbox}&!mailbox!&1F4EB\\
+\cCE{mailbox_closed}&!mailbox_closed!&1F4EA\\
+\cCE{mailbox_with_mail}&!mailbox_with_mail!&1F4EC\\
+\cCE{mailbox_with_no_mail}&!mailbox_with_no_mail!&1F4ED\\
+\cCE{male_sign}&!male_sign!&2642\\
+\cCE{mammoth}&!mammoth!&1F9A3\\
+\cCE{man}&!man!*&1F468\\
+\cCE{man_artist}&!man_artist!*&1F468 200D 1F3A8\\
+\cCE{man_astronaut}&!man_astronaut!*&1F468 200D 1F680\\
+\cCE{man_bald}&!man_bald!*&1F468 200D 1F9B2\\
+\cCE{man_beard}&!man_beard!&1F9D4 200D 2642\\
+\cCE{man_biking}&!man_biking!*&1F6B4 200D 2642\\
+\cCE{man_bouncing_ball}&!man_bouncing_ball!*&26F9 200D 2642\\
+\cCE{man_bowing}&!man_bowing!*&1F647 200D 2642\\
+\cCE{man_cartwheeling}&!man_cartwheeling!*&1F938 200D 2642\\
+\cCE{man_climbing}&!man_climbing!*&1F9D7 200D 2642\\
+\cCE{man_construction_worker}&!man_construction_worker!*&1F477 200D 2642\\
+\cCE{man_cook}&!man_cook!*&1F468 200D 1F373\\
+\cCE{man_curly_haired}&!man_curly_haired!*&1F468 200D 1F9B1\\
+\cCE{man_dancing}&!man_dancing!*&1F57A\\
+\cCE{man_detective}&!man_detective!*&1F575 200D 2642\\
+\cCE{man_elf}&!man_elf!*&1F9DD 200D 2642\\
+\cCE{man_facepalming}&!man_facepalming!*&1F926 200D 2642\\
+\cCE{man_factory_worker}&!man_factory_worker!*&1F468 200D 1F3ED\\
+\cCE{man_fairy}&!man_fairy!*&1F9DA 200D 2642\\
+\cCE{man_farmer}&!man_farmer!*&1F468 200D 1F33E\\
+\cCE{man_feeding_baby}&!man_feeding_baby!*&1F468 200D 1F37C\\
+\cCE{man_firefighter}&!man_firefighter!*&1F468 200D 1F692\\
+\cCE{man_frowning}&!man_frowning!*&1F64D 200D 2642\\
+\cCE{man_genie}&!man_genie!&1F9DE 200D 2642\\
+\cCE{man_gesturing_no}&!man_gesturing_no!*&1F645 200D 2642\\
+\cCE{man_gesturing_ok}&!man_gesturing_ok!*&1F646 200D 2642\\
+\cCE{man_getting_face_massage}&!man_getting_face_massage!*&1F486 200D 2642\\
+\cCE{man_getting_haircut}&!man_getting_haircut!*&1F487 200D 2642\\
+\cCE{man_golfing}&!man_golfing!*&1F3CC 200D 2642\\
+\cCE{man_guard}&!man_guard!*&1F482 200D 2642\\
+\cCE{man_health_worker}&!man_health_worker!*&1F468 200D 2695\\
+\cCE{man_in_lotus_position}&!man_in_lotus_position!*&1F9D8 200D 2642\\
+\cCE{man_in_manual_wheelchair}&!man_in_manual_wheelchair!*&1F468 200D 1F9BD\\
+\cCE{man_in_motorized_wheelchair}&!man_in_motorized_wheelchair!*&1F468 200D 1F9BC\\
+\cCE{man_in_steamy_room}&!man_in_steamy_room!*&1F9D6 200D 2642\\
+\cCE{man_in_tuxedo}&!man_in_tuxedo!*&1F935 200D 2642\\
+\cCE{man_judge}&!man_judge!*&1F468 200D 2696\\
+\cCE{man_juggling}&!man_juggling!*&1F939 200D 2642\\
+\cCE{man_kneeling}&!man_kneeling!*&1F9CE 200D 2642\\
+\cCE{man_lifting_weights}&!man_lifting_weights!*&1F3CB 200D 2642\\
+\cCE{man_mage}&!man_mage!*&1F9D9 200D 2642\\
+\cCE{man_mechanic}&!man_mechanic!*&1F468 200D 1F527\\
+\cCE{man_mountain_biking}&!man_mountain_biking!*&1F6B5 200D 2642\\
+\cCE{man_office_worker}&!man_office_worker!*&1F468 200D 1F4BC\\
+\cCE{man_pilot}&!man_pilot!*&1F468 200D 2708\\
+\cCE{man_playing_handball}&!man_playing_handball!*&1F93E 200D 2642\\
+\cCE{man_playing_water_polo}&!man_playing_water_polo!*&1F93D 200D 2642\\
+\cCE{man_police_officer}&!man_police_officer!*&1F46E 200D 2642\\
+\cCE{man_pouting}&!man_pouting!*&1F64E 200D 2642\\
+\cCE{man_raising_hand}&!man_raising_hand!*&1F64B 200D 2642\\
+\cCE{man_red_haired}&!man_red_haired!*&1F468 200D 1F9B0\\
+\cCE{man_rowing_boat}&!man_rowing_boat!*&1F6A3 200D 2642\\
+\cCE{man_running}&!man_running!*&1F3C3 200D 2642\\
+\cCE{man_scientist}&!man_scientist!*&1F468 200D 1F52C\\
+\cCE{man_shrugging}&!man_shrugging!*&1F937 200D 2642\\
+\cCE{man_singer}&!man_singer!*&1F468 200D 1F3A4\\
+\cCE{man_standing}&!man_standing!*&1F9CD 200D 2642\\
+\cCE{man_student}&!man_student!*&1F468 200D 1F393\\
+\cCE{man_superhero}&!man_superhero!*&1F9B8 200D 2642\\
+\cCE{man_supervillain}&!man_supervillain!*&1F9B9 200D 2642\\
+\cCE{man_surfing}&!man_surfing!*&1F3C4 200D 2642\\
+\cCE{man_swimming}&!man_swimming!*&1F3CA 200D 2642\\
+\cCE{man_teacher}&!man_teacher!*&1F468 200D 1F3EB\\
+\cCE{man_technologist}&!man_technologist!*&1F468 200D 1F4BB\\
+\cCE{man_tipping_hand}&!man_tipping_hand!*&1F481 200D 2642\\
+\cCE{man_tone1_beard}&!man_tone1_beard!&1F9D4 1F3FB 200D 2642\\
+\cCE{man_tone2_beard}&!man_tone2_beard!&1F9D4 1F3FC 200D 2642\\
+\cCE{man_tone3_beard}&!man_tone3_beard!&1F9D4 1F3FD 200D 2642\\
+\cCE{man_tone4_beard}&!man_tone4_beard!&1F9D4 1F3FE 200D 2642\\
+\cCE{man_tone5_beard}&!man_tone5_beard!&1F9D4 1F3FF 200D 2642\\
+\cCE{man_vampire}&!man_vampire!*&1F9DB 200D 2642\\
+\cCE{man_walking}&!man_walking!*&1F6B6 200D 2642\\
+\cCE{man_wearing_turban}&!man_wearing_turban!*&1F473 200D 2642\\
+\cCE{man_white_haired}&!man_white_haired!*&1F468 200D 1F9B3\\
+\cCE{man_with_chinese_cap}&!man_with_chinese_cap!*&1F472\\
+\cCE{man_with_probing_cane}&!man_with_probing_cane!*&1F468 200D 1F9AF\\
+\cCE{man_with_veil}&!man_with_veil!*&1F470 200D 2642\\
+\cCE{man_zombie}&!man_zombie!&1F9DF 200D 2642\\
+\cCE{mango}&!mango!&1F96D\\
+\cCE{mans_shoe}&!mans_shoe!&1F45E\\
+\cCE{manual_wheelchair}&!manual_wheelchair!&1F9BD\\
+\cCE{map}&!map!&1F5FA\\
+\cCE{maple_leaf}&!maple_leaf!&1F341\\
+\cCE{martial_arts_uniform}&!martial_arts_uniform!&1F94B\\
+\cCE{mask}&!mask!&1F637\\
+\cCE{mate}&!mate!&1F9C9\\
+\cCE{meat_on_bone}&!meat_on_bone!&1F356\\
+\cCE{mechanic}&!mechanic!*&1F9D1 200D 1F527\\
+\cCE{mechanical_arm}&!mechanical_arm!&1F9BE\\
+\cCE{mechanical_leg}&!mechanical_leg!&1F9BF\\
+\cCE{medal}&!medal!&1F3C5\\
+\cCE{medical_symbol}&!medical_symbol!&2695\\
+\cCE{mega}&!mega!&1F4E3\\
+\cCE{melon}&!melon!&1F348\\
+\cCE{men_holding_hands}&!men_holding_hands!**&1F46C\\
+\cCE{men_with_bunny_ears_partying}&!men_with_bunny_ears_partying!&1F46F 200D 2642\\
+\cCE{men_wrestling}&!men_wrestling!&1F93C 200D 2642\\
+\cCE{mending_heart}&!mending_heart!&2764 200D 1FA79\\
+\cCE{menorah}&!menorah!&1F54E\\
+\cCE{mens}&!mens!&1F6B9\\
+\cCE{mermaid}&!mermaid!*&1F9DC 200D 2640\\
+\cCE{merman}&!merman!*&1F9DC 200D 2642\\
+\cCE{merperson}&!merperson!*&1F9DC\\
+\cCE{metal}&!metal!*&1F918\\
+\cCE{metro}&!metro!&1F687\\
+\cCE{microbe}&!microbe!&1F9A0\\
+\cCE{microphone}&!microphone!&1F3A4\\
+\cCE{microphone2}&!microphone2!&1F399\\
+\cCE{microscope}&!microscope!&1F52C\\
+\cCE{middle_finger}&!middle_finger!*&1F595\\
+\cCE{military_helmet}&!military_helmet!&1FA96\\
+\cCE{military_medal}&!military_medal!&1F396\\
+\cCE{milk}&!milk!&1F95B\\
+\cCE{milky_way}&!milky_way!&1F30C\\
+\cCE{minibus}&!minibus!&1F690\\
+\cCE{minidisc}&!minidisc!&1F4BD\\
+\cCE{mirror}&!mirror!&1FA9E\\
+\cCE{mobile_phone}&!mobile_phone!&1F4F1\\
+\cCE{mobile_phone_off}&!mobile_phone_off!&1F4F4\\
+\cCE{money_mouth}&!money_mouth!&1F911\\
+\cCE{money_with_wings}&!money_with_wings!&1F4B8\\
+\cCE{moneybag}&!moneybag!&1F4B0\\
+\cCE{monkey}&!monkey!&1F412\\
+\cCE{monkey_face}&!monkey_face!&1F435\\
+\cCE{monorail}&!monorail!&1F69D\\
+\cCE{moon_cake}&!moon_cake!&1F96E\\
+\cCE{mortar_board}&!mortar_board!&1F393\\
+\cCE{mosque}&!mosque!&1F54C\\
+\cCE{mosquito}&!mosquito!&1F99F\\
+\cCE{motor_scooter}&!motor_scooter!&1F6F5\\
+\cCE{motorboat}&!motorboat!&1F6E5\\
+\cCE{motorcycle}&!motorcycle!&1F3CD\\
+\cCE{motorized_wheelchair}&!motorized_wheelchair!&1F9BC\\
+\cCE{motorway}&!motorway!&1F6E3\\
+\cCE{mount_fuji}&!mount_fuji!&1F5FB\\
+\cCE{mountain}&!mountain!&26F0\\
+\cCE{mountain_cableway}&!mountain_cableway!&1F6A0\\
+\cCE{mountain_railway}&!mountain_railway!&1F69E\\
+\cCE{mountain_snow}&!mountain_snow!&1F3D4\\
+\cCE{mouse}&!mouse!&1F42D\\
+\cCE{mouse2}&!mouse2!&1F401\\
+\cCE{mouse_three_button}&!mouse_three_button!&1F5B1\\
+\cCE{mouse_trap}&!mouse_trap!&1FAA4\\
+\cCE{movie_camera}&!movie_camera!&1F3A5\\
+\cCE{moyai}&!moyai!&1F5FF\\
+\cCE{mrs_claus}&!mrs_claus!*&1F936\\
+\cCE{muscle}&!muscle!*&1F4AA\\
+\cCE{mushroom}&!mushroom!&1F344\\
+\cCE{musical_keyboard}&!musical_keyboard!&1F3B9\\
+\cCE{musical_note}&!musical_note!&1F3B5\\
+\cCE{musical_score}&!musical_score!&1F3BC\\
+\cCE{mute}&!mute!&1F507\\
+\cCE{mx_claus}&!mx_claus!*&1F9D1 200D 1F384\\
+\cCE{nail_care}&!nail_care!*&1F485\\
+\cCE{name_badge}&!name_badge!&1F4DB\\
+\cCE{nauseated_face}&!nauseated_face!&1F922\\
+\cCE{nazar_amulet}&!nazar_amulet!&1F9FF\\
+\cCE{necktie}&!necktie!&1F454\\
+\cCE{negative_squared_cross_mark}&!negative_squared_cross_mark!&274E\\
+\cCE{nerd}&!nerd!&1F913\\
+\cCE{nesting_dolls}&!nesting_dolls!&1FA86\\
+\cCE{neutral_face}&!neutral_face!&1F610\\
+\cCE{new}&!new!&1F195\\
+\cCE{new_moon}&!new_moon!&1F311\\
+\cCE{new_moon_with_face}&!new_moon_with_face!&1F31A\\
+\cCE{newspaper}&!newspaper!&1F4F0\\
+\cCE{newspaper2}&!newspaper2!&1F5DE\\
+\cCE{ng}&!ng!&1F196\\
+\cCE{night_with_stars}&!night_with_stars!&1F303\\
+\cCE{nine}&!nine!&39 20E3\\
+\cCE{ninja}&!ninja!*&1F977\\
+\cCE{no_bell}&!no_bell!&1F515\\
+\cCE{no_bicycles}&!no_bicycles!&1F6B3\\
+\cCE{no_entry}&!no_entry!&26D4\\
+\cCE{no_entry_sign}&!no_entry_sign!&1F6AB\\
+\cCE{no_mobile_phones}&!no_mobile_phones!&1F4F5\\
+\cCE{no_mouth}&!no_mouth!&1F636\\
+\cCE{no_pedestrians}&!no_pedestrians!&1F6B7\\
+\cCE{no_smoking}&!no_smoking!&1F6AD\\
+\cCE{non-potable_water}&!non-potable_water!&1F6B1\\
+\cCE{nose}&!nose!*&1F443\\
+\cCE{notebook}&!notebook!&1F4D3\\
+\cCE{notebook_with_decorative_cover}&!notebook_with_decorative_cover!&1F4D4\\
+\cCE{notepad_spiral}&!notepad_spiral!&1F5D2\\
+\cCE{notes}&!notes!&1F3B6\\
+\cCE{nut_and_bolt}&!nut_and_bolt!&1F529\\
+\cCE{o}&!o!&2B55\\
+\cCE{o2}&!o2!&1F17E\\
+\cCE{ocean}&!ocean!&1F30A\\
+\cCE{octagonal_sign}&!octagonal_sign!&1F6D1\\
+\cCE{octopus}&!octopus!&1F419\\
+\cCE{oden}&!oden!&1F362\\
+\cCE{office}&!office!&1F3E2\\
+\cCE{office_worker}&!office_worker!*&1F9D1 200D 1F4BC\\
+\cCE{oil}&!oil!&1F6E2\\
+\cCE{ok}&!ok!&1F197\\
+\cCE{ok_hand}&!ok_hand!*&1F44C\\
+\cCE{older_adult}&!older_adult!*&1F9D3\\
+\cCE{older_man}&!older_man!*&1F474\\
+\cCE{older_woman}&!older_woman!*&1F475\\
+\cCE{olive}&!olive!&1FAD2\\
+\cCE{om_symbol}&!om_symbol!&1F549\\
+\cCE{on}&!on!&1F51B\\
+\cCE{oncoming_automobile}&!oncoming_automobile!&1F698\\
+\cCE{oncoming_bus}&!oncoming_bus!&1F68D\\
+\cCE{oncoming_police_car}&!oncoming_police_car!&1F694\\
+\cCE{oncoming_taxi}&!oncoming_taxi!&1F696\\
+\cCE{one}&!one!&31 20E3\\
+\cCE{one_piece_swimsuit}&!one_piece_swimsuit!&1FA71\\
+\cCE{onion}&!onion!&1F9C5\\
+\cCE{open_file_folder}&!open_file_folder!&1F4C2\\
+\cCE{open_hands}&!open_hands!*&1F450\\
+\cCE{open_mouth}&!open_mouth!&1F62E\\
+\cCE{ophiuchus}&!ophiuchus!&26CE\\
+\cCE{orange_book}&!orange_book!&1F4D9\\
+\cCE{orange_circle}&!orange_circle!&1F7E0\\
+\cCE{orange_heart}&!orange_heart!&1F9E1\\
+\cCE{orange_square}&!orange_square!&1F7E7\\
+\cCE{orangutan}&!orangutan!&1F9A7\\
+\cCE{orthodox_cross}&!orthodox_cross!&2626\\
+\cCE{otter}&!otter!&1F9A6\\
+\cCE{outbox_tray}&!outbox_tray!&1F4E4\\
+\cCE{owl}&!owl!&1F989\\
+\cCE{ox}&!ox!&1F402\\
+\cCE{oyster}&!oyster!&1F9AA\\
+\cCE{package}&!package!&1F4E6\\
+\cCE{page_facing_up}&!page_facing_up!&1F4C4\\
+\cCE{page_with_curl}&!page_with_curl!&1F4C3\\
+\cCE{pager}&!pager!&1F4DF\\
+\cCE{paintbrush}&!paintbrush!&1F58C\\
+\cCE{palm_tree}&!palm_tree!&1F334\\
+\cCE{palms_up_together}&!palms_up_together!*&1F932\\
+\cCE{pancakes}&!pancakes!&1F95E\\
+\cCE{panda_face}&!panda_face!&1F43C\\
+\cCE{paperclip}&!paperclip!&1F4CE\\
+\cCE{paperclips}&!paperclips!&1F587\\
+\cCE{parachute}&!parachute!&1FA82\\
+\cCE{park}&!park!&1F3DE\\
+\cCE{parking}&!parking!&1F17F\\
+\cCE{parrot}&!parrot!&1F99C\\
+\cCE{part_alternation_mark}&!part_alternation_mark!&303D\\
+\cCE{partly_sunny}&!partly_sunny!&26C5\\
+\cCE{partying_face}&!partying_face!&1F973\\
+\cCE{passport_control}&!passport_control!&1F6C2\\
+\cCE{pause_button}&!pause_button!&23F8\\
+\cCE{peace}&!peace!&262E\\
+\cCE{peach}&!peach!&1F351\\
+\cCE{peacock}&!peacock!&1F99A\\
+\cCE{peanuts}&!peanuts!&1F95C\\
+\cCE{pear}&!pear!&1F350\\
+\cCE{pen_ballpoint}&!pen_ballpoint!&1F58A\\
+\cCE{pen_fountain}&!pen_fountain!&1F58B\\
+\cCE{pencil}&!pencil!&1F4DD\\
+\cCE{pencil2}&!pencil2!&270F\\
+\cCE{penguin}&!penguin!&1F427\\
+\cCE{pensive}&!pensive!&1F614\\
+\cCE{people_holding_hands}&!people_holding_hands!**&1F9D1 200D 1F91D 200D 1F9D1\\
+\cCE{people_hugging}&!people_hugging!&1FAC2\\
+\cCE{people_with_bunny_ears_partying}&!people_with_bunny_ears_partying!&1F46F\\
+\cCE{people_wrestling}&!people_wrestling!&1F93C\\
+\cCE{performing_arts}&!performing_arts!&1F3AD\\
+\cCE{persevere}&!persevere!&1F623\\
+\cCE{person_bald}&!person_bald!&1F9D1 200D 1F9B2\\
+\cCE{person_biking}&!person_biking!*&1F6B4\\
+\cCE{person_bouncing_ball}&!person_bouncing_ball!*&26F9\\
+\cCE{person_bowing}&!person_bowing!*&1F647\\
+\cCE{person_climbing}&!person_climbing!*&1F9D7\\
+\cCE{person_curly_hair}&!person_curly_hair!&1F9D1 200D 1F9B1\\
+\cCE{person_doing_cartwheel}&!person_doing_cartwheel!*&1F938\\
+\cCE{person_facepalming}&!person_facepalming!*&1F926\\
+\cCE{person_feeding_baby}&!person_feeding_baby!*&1F9D1 200D 1F37C\\
+\cCE{person_fencing}&!person_fencing!&1F93A\\
+\cCE{person_frowning}&!person_frowning!*&1F64D\\
+\cCE{person_gesturing_no}&!person_gesturing_no!*&1F645\\
+\cCE{person_gesturing_ok}&!person_gesturing_ok!*&1F646\\
+\cCE{person_getting_haircut}&!person_getting_haircut!*&1F487\\
+\cCE{person_getting_massage}&!person_getting_massage!*&1F486\\
+\cCE{person_golfing}&!person_golfing!*&1F3CC\\
+\cCE{person_in_bed}&!person_in_bed!*&1F6CC\\
+\cCE{person_in_lotus_position}&!person_in_lotus_position!*&1F9D8\\
+\cCE{person_in_manual_wheelchair}&!person_in_manual_wheelchair!*&1F9D1 200D 1F9BD\\
+\cCE{person_in_motorized_wheelchair}&!person_in_motorized_wheelchair!*&1F9D1 200D 1F9BC\\
+\cCE{person_in_steamy_room}&!person_in_steamy_room!*&1F9D6\\
+\cCE{person_in_tuxedo}&!person_in_tuxedo!*&1F935\\
+\cCE{person_juggling}&!person_juggling!*&1F939\\
+\cCE{person_kneeling}&!person_kneeling!*&1F9CE\\
+\cCE{person_lifting_weights}&!person_lifting_weights!*&1F3CB\\
+\cCE{person_mountain_biking}&!person_mountain_biking!*&1F6B5\\
+\cCE{person_playing_handball}&!person_playing_handball!*&1F93E\\
+\cCE{person_playing_water_polo}&!person_playing_water_polo!*&1F93D\\
+\cCE{person_pouting}&!person_pouting!*&1F64E\\
+\cCE{person_raising_hand}&!person_raising_hand!*&1F64B\\
+\cCE{person_red_hair}&!person_red_hair!&1F9D1 200D 1F9B0\\
+\cCE{person_rowing_boat}&!person_rowing_boat!*&1F6A3\\
+\cCE{person_running}&!person_running!*&1F3C3\\
+\cCE{person_shrugging}&!person_shrugging!*&1F937\\
+\cCE{person_standing}&!person_standing!*&1F9CD\\
+\cCE{person_surfing}&!person_surfing!*&1F3C4\\
+\cCE{person_swimming}&!person_swimming!*&1F3CA\\
+\cCE{person_tipping_hand}&!person_tipping_hand!*&1F481\\
+\cCE{person_tone1_bald}&!person_tone1_bald!&1F9D1 1F3FB 200D 1F9B2\\
+\cCE{person_tone1_curly_hair}&!person_tone1_curly_hair!&1F9D1 1F3FB 200D 1F9B1\\
+\cCE{person_tone1_red_hair}&!person_tone1_red_hair!&1F9D1 1F3FB 200D 1F9B0\\
+\cCE{person_tone1_white_hair}&!person_tone1_white_hair!&1F9D1 1F3FB 200D 1F9B3\\
+\cCE{person_tone2_bald}&!person_tone2_bald!&1F9D1 1F3FC 200D 1F9B2\\
+\cCE{person_tone2_curly_hair}&!person_tone2_curly_hair!&1F9D1 1F3FC 200D 1F9B1\\
+\cCE{person_tone2_red_hair}&!person_tone2_red_hair!&1F9D1 1F3FC 200D 1F9B0\\
+\cCE{person_tone2_white_hair}&!person_tone2_white_hair!&1F9D1 1F3FC 200D 1F9B3\\
+\cCE{person_tone3_bald}&!person_tone3_bald!&1F9D1 1F3FD 200D 1F9B2\\
+\cCE{person_tone3_curly_hair}&!person_tone3_curly_hair!&1F9D1 1F3FD 200D 1F9B1\\
+\cCE{person_tone3_red_hair}&!person_tone3_red_hair!&1F9D1 1F3FD 200D 1F9B0\\
+\cCE{person_tone3_white_hair}&!person_tone3_white_hair!&1F9D1 1F3FD 200D 1F9B3\\
+\cCE{person_tone4_bald}&!person_tone4_bald!&1F9D1 1F3FE 200D 1F9B2\\
+\cCE{person_tone4_curly_hair}&!person_tone4_curly_hair!&1F9D1 1F3FE 200D 1F9B1\\
+\cCE{person_tone4_red_hair}&!person_tone4_red_hair!&1F9D1 1F3FE 200D 1F9B0\\
+\cCE{person_tone4_white_hair}&!person_tone4_white_hair!&1F9D1 1F3FE 200D 1F9B3\\
+\cCE{person_tone5_bald}&!person_tone5_bald!&1F9D1 1F3FF 200D 1F9B2\\
+\cCE{person_tone5_curly_hair}&!person_tone5_curly_hair!&1F9D1 1F3FF 200D 1F9B1\\
+\cCE{person_tone5_red_hair}&!person_tone5_red_hair!&1F9D1 1F3FF 200D 1F9B0\\
+\cCE{person_tone5_white_hair}&!person_tone5_white_hair!&1F9D1 1F3FF 200D 1F9B3\\
+\cCE{person_walking}&!person_walking!*&1F6B6\\
+\cCE{person_wearing_turban}&!person_wearing_turban!*&1F473\\
+\cCE{person_white_hair}&!person_white_hair!&1F9D1 200D 1F9B3\\
+\cCE{person_with_probing_cane}&!person_with_probing_cane!*&1F9D1 200D 1F9AF\\
+\cCE{person_with_veil}&!person_with_veil!*&1F470\\
+\cCE{petri_dish}&!petri_dish!&1F9EB\\
+\cCE{pick}&!pick!&26CF\\
+\cCE{pickup_truck}&!pickup_truck!&1F6FB\\
+\cCE{pie}&!pie!&1F967\\
+\cCE{pig}&!pig!&1F437\\
+\cCE{pig2}&!pig2!&1F416\\
+\cCE{pig_nose}&!pig_nose!&1F43D\\
+\cCE{pill}&!pill!&1F48A\\
+\cCE{pilot}&!pilot!*&1F9D1 200D 2708\\
+\cCE{pinched_fingers}&!pinched_fingers!*&1F90C\\
+\cCE{pinching_hand}&!pinching_hand!*&1F90F\\
+\cCE{pineapple}&!pineapple!&1F34D\\
+\cCE{ping_pong}&!ping_pong!&1F3D3\\
+\cCE{pirate_flag}&!pirate_flag!&1F3F4 200D 2620\\
+\cCE{pisces}&!pisces!&2653\\
+\cCE{pizza}&!pizza!&1F355\\
+\cCE{pinata}&!pinata!&1FA85\\
+\cCE{placard}&!placard!&1FAA7\\
+\cCE{place_of_worship}&!place_of_worship!&1F6D0\\
+\cCE{play_pause}&!play_pause!&23EF\\
+\cCE{pleading_face}&!pleading_face!&1F97A\\
+\cCE{plunger}&!plunger!&1FAA0\\
+\cCE{point_down}&!point_down!*&1F447\\
+\cCE{point_left}&!point_left!*&1F448\\
+\cCE{point_right}&!point_right!*&1F449\\
+\cCE{point_up}&!point_up!*&261D\\
+\cCE{point_up_2}&!point_up_2!*&1F446\\
+\cCE{polar_bear}&!polar_bear!&1F43B 200D 2744\\
+\cCE{police_car}&!police_car!&1F693\\
+\cCE{police_officer}&!police_officer!*&1F46E\\
+\cCE{poodle}&!poodle!&1F429\\
+\cCE{poop}&!poop!&1F4A9\\
+\cCE{popcorn}&!popcorn!&1F37F\\
+\cCE{post_office}&!post_office!&1F3E3\\
+\cCE{postal_horn}&!postal_horn!&1F4EF\\
+\cCE{postbox}&!postbox!&1F4EE\\
+\cCE{potable_water}&!potable_water!&1F6B0\\
+\cCE{potato}&!potato!&1F954\\
+\cCE{potted_plant}&!potted_plant!&1FAB4\\
+\cCE{pouch}&!pouch!&1F45D\\
+\cCE{poultry_leg}&!poultry_leg!&1F357\\
+\cCE{pound}&!pound!&1F4B7\\
+\cCE{pouting_cat}&!pouting_cat!&1F63E\\
+\cCE{pray}&!pray!*&1F64F\\
+\cCE{prayer_beads}&!prayer_beads!&1F4FF\\
+\cCE{pregnant_woman}&!pregnant_woman!*&1F930\\
+\cCE{pretzel}&!pretzel!&1F968\\
+\cCE{prince}&!prince!*&1F934\\
+\cCE{princess}&!princess!*&1F478\\
+\cCE{printer}&!printer!&1F5A8\\
+\cCE{probing_cane}&!probing_cane!&1F9AF\\
+\cCE{projector}&!projector!&1F4FD\\
+\cCE{punch}&!punch!*&1F44A\\
+\cCE{purple_circle}&!purple_circle!&1F7E3\\
+\cCE{purple_heart}&!purple_heart!&1F49C\\
+\cCE{purple_square}&!purple_square!&1F7EA\\
+\cCE{purse}&!purse!&1F45B\\
+\cCE{pushpin}&!pushpin!&1F4CC\\
+\cCE{put_litter_in_its_place}&!put_litter_in_its_place!&1F6AE\\
+\cCE{question}&!question!&2753\\
+\cCE{rabbit}&!rabbit!&1F430\\
+\cCE{rabbit2}&!rabbit2!&1F407\\
+\cCE{raccoon}&!raccoon!&1F99D\\
+\cCE{race_car}&!race_car!&1F3CE\\
+\cCE{racehorse}&!racehorse!&1F40E\\
+\cCE{radio}&!radio!&1F4FB\\
+\cCE{radio_button}&!radio_button!&1F518\\
+\cCE{radioactive}&!radioactive!&2622\\
+\cCE{rage}&!rage!&1F621\\
+\cCE{railway_car}&!railway_car!&1F683\\
+\cCE{railway_track}&!railway_track!&1F6E4\\
+\cCE{rainbow}&!rainbow!&1F308\\
+\cCE{rainbow_flag}&!rainbow_flag!&1F3F3 200D 1F308\\
+\cCE{raised_back_of_hand}&!raised_back_of_hand!*&1F91A\\
+\cCE{raised_hand}&!raised_hand!*&270B\\
+\cCE{raised_hands}&!raised_hands!*&1F64C\\
+\cCE{ram}&!ram!&1F40F\\
+\cCE{ramen}&!ramen!&1F35C\\
+\cCE{rat}&!rat!&1F400\\
+\cCE{razor}&!razor!&1FA92\\
+\cCE{receipt}&!receipt!&1F9FE\\
+\cCE{record_button}&!record_button!&23FA\\
+\cCE{recycle}&!recycle!&267B\\
+\cCE{red_car}&!red_car!&1F697\\
+\cCE{red_circle}&!red_circle!&1F534\\
+\cCE{red_envelope}&!red_envelope!&1F9E7\\
+\cCE{red_haired}&!red_haired!&1F9B0\\
+\cCE{red_square}&!red_square!&1F7E5\\
+\cCE{regional_indicator_a}&!regional_indicator_a!&1F1E6\\
+\cCE{regional_indicator_b}&!regional_indicator_b!&1F1E7\\
+\cCE{regional_indicator_c}&!regional_indicator_c!&1F1E8\\
+\cCE{regional_indicator_d}&!regional_indicator_d!&1F1E9\\
+\cCE{regional_indicator_e}&!regional_indicator_e!&1F1EA\\
+\cCE{regional_indicator_f}&!regional_indicator_f!&1F1EB\\
+\cCE{regional_indicator_g}&!regional_indicator_g!&1F1EC\\
+\cCE{regional_indicator_h}&!regional_indicator_h!&1F1ED\\
+\cCE{regional_indicator_i}&!regional_indicator_i!&1F1EE\\
+\cCE{regional_indicator_j}&!regional_indicator_j!&1F1EF\\
+\cCE{regional_indicator_k}&!regional_indicator_k!&1F1F0\\
+\cCE{regional_indicator_l}&!regional_indicator_l!&1F1F1\\
+\cCE{regional_indicator_m}&!regional_indicator_m!&1F1F2\\
+\cCE{regional_indicator_n}&!regional_indicator_n!&1F1F3\\
+\cCE{regional_indicator_o}&!regional_indicator_o!&1F1F4\\
+\cCE{regional_indicator_p}&!regional_indicator_p!&1F1F5\\
+\cCE{regional_indicator_q}&!regional_indicator_q!&1F1F6\\
+\cCE{regional_indicator_r}&!regional_indicator_r!&1F1F7\\
+\cCE{regional_indicator_s}&!regional_indicator_s!&1F1F8\\
+\cCE{regional_indicator_t}&!regional_indicator_t!&1F1F9\\
+\cCE{regional_indicator_u}&!regional_indicator_u!&1F1FA\\
+\cCE{regional_indicator_v}&!regional_indicator_v!&1F1FB\\
+\cCE{regional_indicator_w}&!regional_indicator_w!&1F1FC\\
+\cCE{regional_indicator_x}&!regional_indicator_x!&1F1FD\\
+\cCE{regional_indicator_y}&!regional_indicator_y!&1F1FE\\
+\cCE{regional_indicator_z}&!regional_indicator_z!&1F1FF\\
+\cCE{registered}&!registered!&AE\\
+\cCE{relaxed}&!relaxed!&263A\\
+\cCE{relieved}&!relieved!&1F60C\\
+\cCE{reminder_ribbon}&!reminder_ribbon!&1F397\\
+\cCE{repeat}&!repeat!&1F501\\
+\cCE{repeat_one}&!repeat_one!&1F502\\
+\cCE{restroom}&!restroom!&1F6BB\\
+\cCE{revolving_hearts}&!revolving_hearts!&1F49E\\
+\cCE{rewind}&!rewind!&23EA\\
+\cCE{rhino}&!rhino!&1F98F\\
+\cCE{ribbon}&!ribbon!&1F380\\
+\cCE{rice}&!rice!&1F35A\\
+\cCE{rice_ball}&!rice_ball!&1F359\\
+\cCE{rice_cracker}&!rice_cracker!&1F358\\
+\cCE{rice_scene}&!rice_scene!&1F391\\
+\cCE{right_facing_fist}&!right_facing_fist!*&1F91C\\
+\cCE{ring}&!ring!&1F48D\\
+\cCE{ringed_planet}&!ringed_planet!&1FA90\\
+\cCE{robot}&!robot!&1F916\\
+\cCE{rock}&!rock!&1FAA8\\
+\cCE{rocket}&!rocket!&1F680\\
+\cCE{rofl}&!rofl!&1F923\\
+\cCE{roll_of_paper}&!roll_of_paper!&1F9FB\\
+\cCE{roller_coaster}&!roller_coaster!&1F3A2\\
+\cCE{roller_skate}&!roller_skate!&1F6FC\\
+\cCE{rolling_eyes}&!rolling_eyes!&1F644\\
+\cCE{rooster}&!rooster!&1F413\\
+\cCE{rose}&!rose!&1F339\\
+\cCE{rosette}&!rosette!&1F3F5\\
+\cCE{rotating_light}&!rotating_light!&1F6A8\\
+\cCE{round_pushpin}&!round_pushpin!&1F4CD\\
+\cCE{rugby_football}&!rugby_football!&1F3C9\\
+\cCE{running_shirt_with_sash}&!running_shirt_with_sash!&1F3BD\\
+\cCE{sa}&!sa!&1F202\\
+\cCE{safety_pin}&!safety_pin!&1F9F7\\
+\cCE{safety_vest}&!safety_vest!&1F9BA\\
+\cCE{sagittarius}&!sagittarius!&2650\\
+\cCE{sailboat}&!sailboat!&26F5\\
+\cCE{sake}&!sake!&1F376\\
+\cCE{salad}&!salad!&1F957\\
+\cCE{salt}&!salt!&1F9C2\\
+\cCE{sandal}&!sandal!&1F461\\
+\cCE{sandwich}&!sandwich!&1F96A\\
+\cCE{santa}&!santa!*&1F385\\
+\cCE{sari}&!sari!&1F97B\\
+\cCE{satellite}&!satellite!&1F4E1\\
+\cCE{satellite_orbital}&!satellite_orbital!&1F6F0\\
+\cCE{sauropod}&!sauropod!&1F995\\
+\cCE{saxophone}&!saxophone!&1F3B7\\
+\cCE{scales}&!scales!&2696\\
+\cCE{scarf}&!scarf!&1F9E3\\
+\cCE{school}&!school!&1F3EB\\
+\cCE{school_satchel}&!school_satchel!&1F392\\
+\cCE{scientist}&!scientist!*&1F9D1 200D 1F52C\\
+\cCE{scissors}&!scissors!&2702\\
+\cCE{scooter}&!scooter!&1F6F4\\
+\cCE{scorpion}&!scorpion!&1F982\\
+\cCE{scorpius}&!scorpius!&264F\\
+\cCE{scotland}&!scotland!&1F3F4 E0067 E0062 E0073 E0063 E0074 E007F\\
+\cCE{scream}&!scream!&1F631\\
+\cCE{scream_cat}&!scream_cat!&1F640\\
+\cCE{screwdriver}&!screwdriver!&1FA9B\\
+\cCE{scroll}&!scroll!&1F4DC\\
+\cCE{seal}&!seal!&1F9AD\\
+\cCE{seat}&!seat!&1F4BA\\
+\cCE{second_place}&!second_place!&1F948\\
+\cCE{secret}&!secret!&3299\\
+\cCE{see_no_evil}&!see_no_evil!&1F648\\
+\cCE{seedling}&!seedling!&1F331\\
+\cCE{selfie}&!selfie!*&1F933\\
+\cCE{service_dog}&!service_dog!&1F415 200D 1F9BA\\
+\cCE{seven}&!seven!&37 20E3\\
+\cCE{sewing_needle}&!sewing_needle!&1FAA1\\
+\cCE{shallow_pan_of_food}&!shallow_pan_of_food!&1F958\\
+\cCE{shamrock}&!shamrock!&2618\\
+\cCE{shark}&!shark!&1F988\\
+\cCE{shaved_ice}&!shaved_ice!&1F367\\
+\cCE{sheep}&!sheep!&1F411\\
+\cCE{shell}&!shell!&1F41A\\
+\cCE{shield}&!shield!&1F6E1\\
+\cCE{shinto_shrine}&!shinto_shrine!&26E9\\
+\cCE{ship}&!ship!&1F6A2\\
+\cCE{shirt}&!shirt!&1F455\\
+\cCE{shopping_bags}&!shopping_bags!&1F6CD\\
+\cCE{shopping_cart}&!shopping_cart!&1F6D2\\
+\cCE{shorts}&!shorts!&1FA73\\
+\cCE{shower}&!shower!&1F6BF\\
+\cCE{shrimp}&!shrimp!&1F990\\
+\cCE{shushing_face}&!shushing_face!&1F92B\\
+\cCE{signal_strength}&!signal_strength!&1F4F6\\
+\cCE{singer}&!singer!*&1F9D1 200D 1F3A4\\
+\cCE{six}&!six!&36 20E3\\
+\cCE{six_pointed_star}&!six_pointed_star!&1F52F\\
+\cCE{skateboard}&!skateboard!&1F6F9\\
+\cCE{ski}&!ski!&1F3BF\\
+\cCE{skier}&!skier!&26F7\\
+\cCE{skull}&!skull!&1F480\\
+\cCE{skull_crossbones}&!skull_crossbones!&2620\\
+\cCE{skunk}&!skunk!&1F9A8\\
+\cCE{sled}&!sled!&1F6F7\\
+\cCE{sleeping}&!sleeping!&1F634\\
+\cCE{sleeping_accommodation}&!sleeping_accommodation!&1F6CC\\
+\cCE{sleepy}&!sleepy!&1F62A\\
+\cCE{slight_frown}&!slight_frown!&1F641\\
+\cCE{slight_smile}&!slight_smile!&1F642\\
+\cCE{slot_machine}&!slot_machine!&1F3B0\\
+\cCE{sloth}&!sloth!&1F9A5\\
+\cCE{small_blue_diamond}&!small_blue_diamond!&1F539\\
+\cCE{small_orange_diamond}&!small_orange_diamond!&1F538\\
+\cCE{small_red_triangle}&!small_red_triangle!&1F53A\\
+\cCE{small_red_triangle_down}&!small_red_triangle_down!&1F53B\\
+\cCE{smile}&!smile!&1F604\\
+\cCE{smile_cat}&!smile_cat!&1F638\\
+\cCE{smiley}&!smiley!&1F603\\
+\cCE{smiley_cat}&!smiley_cat!&1F63A\\
+\cCE{smiling_face_with_3_hearts}&!smiling_face_with_3_hearts!&1F970\\
+\cCE{smiling_face_with_tear}&!smiling_face_with_tear!&1F972\\
+\cCE{smiling_imp}&!smiling_imp!&1F608\\
+\cCE{smirk}&!smirk!&1F60F\\
+\cCE{smirk_cat}&!smirk_cat!&1F63C\\
+\cCE{smoking}&!smoking!&1F6AC\\
+\cCE{snail}&!snail!&1F40C\\
+\cCE{snake}&!snake!&1F40D\\
+\cCE{sneezing_face}&!sneezing_face!&1F927\\
+\cCE{snowboarder}&!snowboarder!*&1F3C2\\
+\cCE{snowflake}&!snowflake!&2744\\
+\cCE{snowman}&!snowman!&26C4\\
+\cCE{snowman2}&!snowman2!&2603\\
+\cCE{soap}&!soap!&1F9FC\\
+\cCE{sob}&!sob!&1F62D\\
+\cCE{soccer}&!soccer!&26BD\\
+\cCE{socks}&!socks!&1F9E6\\
+\cCE{softball}&!softball!&1F94E\\
+\cCE{soon}&!soon!&1F51C\\
+\cCE{sos}&!sos!&1F198\\
+\cCE{sound}&!sound!&1F509\\
+\cCE{space_invader}&!space_invader!&1F47E\\
+\cCE{spades}&!spades!&2660\\
+\cCE{spaghetti}&!spaghetti!&1F35D\\
+\cCE{sparkle}&!sparkle!&2747\\
+\cCE{sparkler}&!sparkler!&1F387\\
+\cCE{sparkles}&!sparkles!&2728\\
+\cCE{sparkling_heart}&!sparkling_heart!&1F496\\
+\cCE{speak_no_evil}&!speak_no_evil!&1F64A\\
+\cCE{speaker}&!speaker!&1F508\\
+\cCE{speaking_head}&!speaking_head!&1F5E3\\
+\cCE{speech_balloon}&!speech_balloon!&1F4AC\\
+\cCE{speech_left}&!speech_left!&1F5E8\\
+\cCE{speedboat}&!speedboat!&1F6A4\\
+\cCE{spider}&!spider!&1F577\\
+\cCE{spider_web}&!spider_web!&1F578\\
+\cCE{sponge}&!sponge!&1F9FD\\
+\cCE{spoon}&!spoon!&1F944\\
+\cCE{squeeze_bottle}&!squeeze_bottle!&1F9F4\\
+\cCE{squid}&!squid!&1F991\\
+\cCE{stadium}&!stadium!&1F3DF\\
+\cCE{star}&!star!&2B50\\
+\cCE{star2}&!star2!&1F31F\\
+\cCE{star_and_crescent}&!star_and_crescent!&262A\\
+\cCE{star_of_david}&!star_of_david!&2721\\
+\cCE{star_struck}&!star_struck!&1F929\\
+\cCE{stars}&!stars!&1F320\\
+\cCE{station}&!station!&1F689\\
+\cCE{statue_of_liberty}&!statue_of_liberty!&1F5FD\\
+\cCE{steam_locomotive}&!steam_locomotive!&1F682\\
+\cCE{stethoscope}&!stethoscope!&1FA7A\\
+\cCE{stew}&!stew!&1F372\\
+\cCE{stop_button}&!stop_button!&23F9\\
+\cCE{stopwatch}&!stopwatch!&23F1\\
+\cCE{straight_ruler}&!straight_ruler!&1F4CF\\
+\cCE{strawberry}&!strawberry!&1F353\\
+\cCE{stuck_out_tongue}&!stuck_out_tongue!&1F61B\\
+\cCE{stuck_out_tongue_closed_eyes}&!stuck_out_tongue_closed_eyes!&1F61D\\
+\cCE{stuck_out_tongue_winking_eye}&!stuck_out_tongue_winking_eye!&1F61C\\
+\cCE{student}&!student!*&1F9D1 200D 1F393\\
+\cCE{stuffed_flatbread}&!stuffed_flatbread!&1F959\\
+\cCE{sun_with_face}&!sun_with_face!&1F31E\\
+\cCE{sunflower}&!sunflower!&1F33B\\
+\cCE{sunglasses}&!sunglasses!&1F60E\\
+\cCE{sunny}&!sunny!&2600\\
+\cCE{sunrise}&!sunrise!&1F305\\
+\cCE{sunrise_over_mountains}&!sunrise_over_mountains!&1F304\\
+\cCE{superhero}&!superhero!*&1F9B8\\
+\cCE{supervillain}&!supervillain!*&1F9B9\\
+\cCE{sushi}&!sushi!&1F363\\
+\cCE{suspension_railway}&!suspension_railway!&1F69F\\
+\cCE{swan}&!swan!&1F9A2\\
+\cCE{sweat}&!sweat!&1F613\\
+\cCE{sweat_drops}&!sweat_drops!&1F4A6\\
+\cCE{sweat_smile}&!sweat_smile!&1F605\\
+\cCE{sweet_potato}&!sweet_potato!&1F360\\
+\cCE{symbols}&!symbols!&1F523\\
+\cCE{synagogue}&!synagogue!&1F54D\\
+\cCE{syringe}&!syringe!&1F489\\
+\cCE{t_rex}&!t_rex!&1F996\\
+\cCE{taco}&!taco!&1F32E\\
+\cCE{tada}&!tada!&1F389\\
+\cCE{takeout_box}&!takeout_box!&1F961\\
+\cCE{tamale}&!tamale!&1FAD4\\
+\cCE{tanabata_tree}&!tanabata_tree!&1F38B\\
+\cCE{tangerine}&!tangerine!&1F34A\\
+\cCE{taurus}&!taurus!&2649\\
+\cCE{taxi}&!taxi!&1F695\\
+\cCE{tea}&!tea!&1F375\\
+\cCE{teacher}&!teacher!*&1F9D1 200D 1F3EB\\
+\cCE{teapot}&!teapot!&1FAD6\\
+\cCE{technologist}&!technologist!*&1F9D1 200D 1F4BB\\
+\cCE{teddy_bear}&!teddy_bear!&1F9F8\\
+\cCE{telephone}&!telephone!&260E\\
+\cCE{telephone_receiver}&!telephone_receiver!&1F4DE\\
+\cCE{telescope}&!telescope!&1F52D\\
+\cCE{tennis}&!tennis!&1F3BE\\
+\cCE{tent}&!tent!&26FA\\
+\cCE{test_tube}&!test_tube!&1F9EA\\
+\cCE{thermometer}&!thermometer!&1F321\\
+\cCE{thermometer_face}&!thermometer_face!&1F912\\
+\cCE{thinking}&!thinking!&1F914\\
+\cCE{third_place}&!third_place!&1F949\\
+\cCE{thong_sandal}&!thong_sandal!&1FA74\\
+\cCE{thought_balloon}&!thought_balloon!&1F4AD\\
+\cCE{thread}&!thread!&1F9F5\\
+\cCE{three}&!three!&33 20E3\\
+\cCE{thumbsdown}&!thumbsdown!*&1F44E\\
+\cCE{thumbsup}&!thumbsup!*&1F44D\\
+\cCE{thunder_cloud_rain}&!thunder_cloud_rain!&26C8\\
+\cCE{ticket}&!ticket!&1F3AB\\
+\cCE{tickets}&!tickets!&1F39F\\
+\cCE{tiger}&!tiger!&1F42F\\
+\cCE{tiger2}&!tiger2!&1F405\\
+\cCE{timer}&!timer!&23F2\\
+\cCE{tired_face}&!tired_face!&1F62B\\
+\cCE{tm}&!tm!&2122\\
+\cCE{toilet}&!toilet!&1F6BD\\
+\cCE{tokyo_tower}&!tokyo_tower!&1F5FC\\
+\cCE{tomato}&!tomato!&1F345\\
+\cCE{tone1}&!tone1!&1F3FB\\
+\cCE{tone2}&!tone2!&1F3FC\\
+\cCE{tone3}&!tone3!&1F3FD\\
+\cCE{tone4}&!tone4!&1F3FE\\
+\cCE{tone5}&!tone5!&1F3FF\\
+\cCE{tongue}&!tongue!&1F445\\
+\cCE{toolbox}&!toolbox!&1F9F0\\
+\cCE{tools}&!tools!&1F6E0\\
+\cCE{tooth}&!tooth!&1F9B7\\
+\cCE{toothbrush}&!toothbrush!&1FAA5\\
+\cCE{top}&!top!&1F51D\\
+\cCE{tophat}&!tophat!&1F3A9\\
+\cCE{track_next}&!track_next!&23ED\\
+\cCE{track_previous}&!track_previous!&23EE\\
+\cCE{trackball}&!trackball!&1F5B2\\
+\cCE{tractor}&!tractor!&1F69C\\
+\cCE{traffic_light}&!traffic_light!&1F6A5\\
+\cCE{train}&!train!&1F68B\\
+\cCE{train2}&!train2!&1F686\\
+\cCE{tram}&!tram!&1F68A\\
+\cCE{transgender_flag}&!transgender_flag!&1F3F3 200D 26A7\\
+\cCE{transgender_symbol}&!transgender_symbol!&26A7\\
+\cCE{triangular_flag_on_post}&!triangular_flag_on_post!&1F6A9\\
+\cCE{triangular_ruler}&!triangular_ruler!&1F4D0\\
+\cCE{trident}&!trident!&1F531\\
+\cCE{triumph}&!triumph!&1F624\\
+\cCE{trolleybus}&!trolleybus!&1F68E\\
+\cCE{trophy}&!trophy!&1F3C6\\
+\cCE{tropical_drink}&!tropical_drink!&1F379\\
+\cCE{tropical_fish}&!tropical_fish!&1F420\\
+\cCE{truck}&!truck!&1F69A\\
+\cCE{trumpet}&!trumpet!&1F3BA\\
+\cCE{tulip}&!tulip!&1F337\\
+\cCE{tumbler_glass}&!tumbler_glass!&1F943\\
+\cCE{turkey}&!turkey!&1F983\\
+\cCE{turtle}&!turtle!&1F422\\
+\cCE{tv}&!tv!&1F4FA\\
+\cCE{twisted_rightwards_arrows}&!twisted_rightwards_arrows!&1F500\\
+\cCE{two}&!two!&32 20E3\\
+\cCE{two_hearts}&!two_hearts!&1F495\\
+\cCE{two_men_holding_hands}&!two_men_holding_hands!&1F46C\\
+\cCE{two_women_holding_hands}&!two_women_holding_hands!&1F46D\\
+\cCE{u5272}&!u5272!&1F239\\
+\cCE{u5408}&!u5408!&1F234\\
+\cCE{u55b6}&!u55b6!&1F23A\\
+\cCE{u6307}&!u6307!&1F22F\\
+\cCE{u6708}&!u6708!&1F237\\
+\cCE{u6709}&!u6709!&1F236\\
+\cCE{u6e80}&!u6e80!&1F235\\
+\cCE{u7121}&!u7121!&1F21A\\
+\cCE{u7533}&!u7533!&1F238\\
+\cCE{u7981}&!u7981!&1F232\\
+\cCE{u7a7a}&!u7a7a!&1F233\\
+\cCE{umbrella}&!umbrella!&2614\\
+\cCE{umbrella2}&!umbrella2!&2602\\
+\cCE{unamused}&!unamused!&1F612\\
+\cCE{underage}&!underage!&1F51E\\
+\cCE{unicorn}&!unicorn!&1F984\\
+\cCE{united_nations}&!united_nations!&1F1FA 1F1F3\\
+\cCE{unlock}&!unlock!&1F513\\
+\cCE{up}&!up!&1F199\\
+\cCE{upside_down}&!upside_down!&1F643\\
+\cCE{urn}&!urn!&26B1\\
+\cCE{v}&!v!*&270C\\
+\cCE{vampire}&!vampire!*&1F9DB\\
+\cCE{vertical_traffic_light}&!vertical_traffic_light!&1F6A6\\
+\cCE{vhs}&!vhs!&1F4FC\\
+\cCE{vibration_mode}&!vibration_mode!&1F4F3\\
+\cCE{video_camera}&!video_camera!&1F4F9\\
+\cCE{video_game}&!video_game!&1F3AE\\
+\cCE{violin}&!violin!&1F3BB\\
+\cCE{virgo}&!virgo!&264D\\
+\cCE{volcano}&!volcano!&1F30B\\
+\cCE{volleyball}&!volleyball!&1F3D0\\
+\cCE{vs}&!vs!&1F19A\\
+\cCE{vulcan}&!vulcan!*&1F596\\
+\cCE{waffle}&!waffle!&1F9C7\\
+\cCE{wales}&!wales!&1F3F4 E0067 E0062 E0077 E006C E0073 E007F\\
+\cCE{waning_crescent_moon}&!waning_crescent_moon!&1F318\\
+\cCE{waning_gibbous_moon}&!waning_gibbous_moon!&1F316\\
+\cCE{warning}&!warning!&26A0\\
+\cCE{wastebasket}&!wastebasket!&1F5D1\\
+\cCE{watch}&!watch!&231A\\
+\cCE{water_buffalo}&!water_buffalo!&1F403\\
+\cCE{watermelon}&!watermelon!&1F349\\
+\cCE{wave}&!wave!*&1F44B\\
+\cCE{wavy_dash}&!wavy_dash!&3030\\
+\cCE{waxing_crescent_moon}&!waxing_crescent_moon!&1F312\\
+\cCE{waxing_gibbous_moon}&!waxing_gibbous_moon!&1F314\\
+\cCE{wc}&!wc!&1F6BE\\
+\cCE{weary}&!weary!&1F629\\
+\cCE{wedding}&!wedding!&1F492\\
+\cCE{whale}&!whale!&1F433\\
+\cCE{whale2}&!whale2!&1F40B\\
+\cCE{wheel_of_dharma}&!wheel_of_dharma!&2638\\
+\cCE{wheelchair}&!wheelchair!&267F\\
+\cCE{white_check_mark}&!white_check_mark!&2705\\
+\cCE{white_circle}&!white_circle!&26AA\\
+\cCE{white_flower}&!white_flower!&1F4AE\\
+\cCE{white_haired}&!white_haired!&1F9B3\\
+\cCE{white_heart}&!white_heart!&1F90D\\
+\cCE{white_large_square}&!white_large_square!&2B1C\\
+\cCE{white_medium_small_square}&!white_medium_small_square!&25FD\\
+\cCE{white_medium_square}&!white_medium_square!&25FB\\
+\cCE{white_small_square}&!white_small_square!&25AB\\
+\cCE{white_square_button}&!white_square_button!&1F533\\
+\cCE{white_sun_cloud}&!white_sun_cloud!&1F325\\
+\cCE{white_sun_rain_cloud}&!white_sun_rain_cloud!&1F326\\
+\cCE{white_sun_small_cloud}&!white_sun_small_cloud!&1F324\\
+\cCE{wilted_rose}&!wilted_rose!&1F940\\
+\cCE{wind_blowing_face}&!wind_blowing_face!&1F32C\\
+\cCE{wind_chime}&!wind_chime!&1F390\\
+\cCE{window}&!window!&1FA9F\\
+\cCE{wine_glass}&!wine_glass!&1F377\\
+\cCE{wink}&!wink!&1F609\\
+\cCE{wolf}&!wolf!&1F43A\\
+\cCE{woman}&!woman!*&1F469\\
+\cCE{woman_and_man_holding_hands}&!woman_and_man_holding_hands!**&1F46B\\
+\cCE{woman_artist}&!woman_artist!*&1F469 200D 1F3A8\\
+\cCE{woman_astronaut}&!woman_astronaut!*&1F469 200D 1F680\\
+\cCE{woman_bald}&!woman_bald!*&1F469 200D 1F9B2\\
+\cCE{woman_beard}&!woman_beard!&1F9D4 200D 2640\\
+\cCE{woman_biking}&!woman_biking!*&1F6B4 200D 2640\\
+\cCE{woman_bouncing_ball}&!woman_bouncing_ball!*&26F9 200D 2640\\
+\cCE{woman_bowing}&!woman_bowing!*&1F647 200D 2640\\
+\cCE{woman_cartwheeling}&!woman_cartwheeling!*&1F938 200D 2640\\
+\cCE{woman_climbing}&!woman_climbing!*&1F9D7 200D 2640\\
+\cCE{woman_construction_worker}&!woman_construction_worker!*&1F477 200D 2640\\
+\cCE{woman_cook}&!woman_cook!*&1F469 200D 1F373\\
+\cCE{woman_curly_haired}&!woman_curly_haired!*&1F469 200D 1F9B1\\
+\cCE{woman_detective}&!woman_detective!*&1F575 200D 2640\\
+\cCE{woman_elf}&!woman_elf!*&1F9DD 200D 2640\\
+\cCE{woman_facepalming}&!woman_facepalming!*&1F926 200D 2640\\
+\cCE{woman_factory_worker}&!woman_factory_worker!*&1F469 200D 1F3ED\\
+\cCE{woman_fairy}&!woman_fairy!*&1F9DA 200D 2640\\
+\cCE{woman_farmer}&!woman_farmer!*&1F469 200D 1F33E\\
+\cCE{woman_feeding_baby}&!woman_feeding_baby!*&1F469 200D 1F37C\\
+\cCE{woman_firefighter}&!woman_firefighter!*&1F469 200D 1F692\\
+\cCE{woman_frowning}&!woman_frowning!*&1F64D 200D 2640\\
+\cCE{woman_genie}&!woman_genie!&1F9DE 200D 2640\\
+\cCE{woman_gesturing_no}&!woman_gesturing_no!*&1F645 200D 2640\\
+\cCE{woman_gesturing_ok}&!woman_gesturing_ok!*&1F646 200D 2640\\
+\cCE{woman_getting_face_massage}&!woman_getting_face_massage!*&1F486 200D 2640\\
+\cCE{woman_getting_haircut}&!woman_getting_haircut!*&1F487 200D 2640\\
+\cCE{woman_golfing}&!woman_golfing!*&1F3CC 200D 2640\\
+\cCE{woman_guard}&!woman_guard!*&1F482 200D 2640\\
+\cCE{woman_health_worker}&!woman_health_worker!*&1F469 200D 2695\\
+\cCE{woman_in_lotus_position}&!woman_in_lotus_position!*&1F9D8 200D 2640\\
+\cCE{woman_in_manual_wheelchair}&!woman_in_manual_wheelchair!*&1F469 200D 1F9BD\\
+\cCE{woman_in_motorized_wheelchair}&!woman_in_motorized_wheelchair!*&1F469 200D 1F9BC\\
+\cCE{woman_in_steamy_room}&!woman_in_steamy_room!*&1F9D6 200D 2640\\
+\cCE{woman_in_tuxedo}&!woman_in_tuxedo!*&1F935 200D 2640\\
+\cCE{woman_judge}&!woman_judge!*&1F469 200D 2696\\
+\cCE{woman_juggling}&!woman_juggling!*&1F939 200D 2640\\
+\cCE{woman_kneeling}&!woman_kneeling!*&1F9CE 200D 2640\\
+\cCE{woman_lifting_weights}&!woman_lifting_weights!*&1F3CB 200D 2640\\
+\cCE{woman_mage}&!woman_mage!*&1F9D9 200D 2640\\
+\cCE{woman_mechanic}&!woman_mechanic!*&1F469 200D 1F527\\
+\cCE{woman_mountain_biking}&!woman_mountain_biking!*&1F6B5 200D 2640\\
+\cCE{woman_office_worker}&!woman_office_worker!*&1F469 200D 1F4BC\\
+\cCE{woman_pilot}&!woman_pilot!*&1F469 200D 2708\\
+\cCE{woman_playing_handball}&!woman_playing_handball!*&1F93E 200D 2640\\
+\cCE{woman_playing_water_polo}&!woman_playing_water_polo!*&1F93D 200D 2640\\
+\cCE{woman_police_officer}&!woman_police_officer!*&1F46E 200D 2640\\
+\cCE{woman_pouting}&!woman_pouting!*&1F64E 200D 2640\\
+\cCE{woman_raising_hand}&!woman_raising_hand!*&1F64B 200D 2640\\
+\cCE{woman_red_haired}&!woman_red_haired!*&1F469 200D 1F9B0\\
+\cCE{woman_rowing_boat}&!woman_rowing_boat!*&1F6A3 200D 2640\\
+\cCE{woman_running}&!woman_running!*&1F3C3 200D 2640\\
+\cCE{woman_scientist}&!woman_scientist!*&1F469 200D 1F52C\\
+\cCE{woman_shrugging}&!woman_shrugging!*&1F937 200D 2640\\
+\cCE{woman_singer}&!woman_singer!*&1F469 200D 1F3A4\\
+\cCE{woman_standing}&!woman_standing!*&1F9CD 200D 2640\\
+\cCE{woman_student}&!woman_student!*&1F469 200D 1F393\\
+\cCE{woman_superhero}&!woman_superhero!*&1F9B8 200D 2640\\
+\cCE{woman_supervillain}&!woman_supervillain!*&1F9B9 200D 2640\\
+\cCE{woman_surfing}&!woman_surfing!*&1F3C4 200D 2640\\
+\cCE{woman_swimming}&!woman_swimming!*&1F3CA 200D 2640\\
+\cCE{woman_teacher}&!woman_teacher!*&1F469 200D 1F3EB\\
+\cCE{woman_technologist}&!woman_technologist!*&1F469 200D 1F4BB\\
+\cCE{woman_tipping_hand}&!woman_tipping_hand!*&1F481 200D 2640\\
+\cCE{woman_tone1_beard}&!woman_tone1_beard!&1F9D4 1F3FB 200D 2640\\
+\cCE{woman_tone2_beard}&!woman_tone2_beard!&1F9D4 1F3FC 200D 2640\\
+\cCE{woman_tone3_beard}&!woman_tone3_beard!&1F9D4 1F3FD 200D 2640\\
+\cCE{woman_tone4_beard}&!woman_tone4_beard!&1F9D4 1F3FE 200D 2640\\
+\cCE{woman_tone5_beard}&!woman_tone5_beard!&1F9D4 1F3FF 200D 2640\\
+\cCE{woman_vampire}&!woman_vampire!*&1F9DB 200D 2640\\
+\cCE{woman_walking}&!woman_walking!*&1F6B6 200D 2640\\
+\cCE{woman_wearing_turban}&!woman_wearing_turban!*&1F473 200D 2640\\
+\cCE{woman_white_haired}&!woman_white_haired!*&1F469 200D 1F9B3\\
+\cCE{woman_with_headscarf}&!woman_with_headscarf!*&1F9D5\\
+\cCE{woman_with_probing_cane}&!woman_with_probing_cane!*&1F469 200D 1F9AF\\
+\cCE{woman_with_veil}&!woman_with_veil!*&1F470 200D 2640\\
+\cCE{woman_zombie}&!woman_zombie!&1F9DF 200D 2640\\
+\cCE{womans_clothes}&!womans_clothes!&1F45A\\
+\cCE{womans_flat_shoe}&!womans_flat_shoe!&1F97F\\
+\cCE{womans_hat}&!womans_hat!&1F452\\
+\cCE{women_holding_hands}&!women_holding_hands!**&1F46D\\
+\cCE{women_with_bunny_ears_partying}&!women_with_bunny_ears_partying!&1F46F 200D 2640\\
+\cCE{women_wrestling}&!women_wrestling!&1F93C 200D 2640\\
+\cCE{womens}&!womens!&1F6BA\\
+\cCE{wood}&!wood!&1FAB5\\
+\cCE{woozy_face}&!woozy_face!&1F974\\
+\cCE{worm}&!worm!&1FAB1\\
+\cCE{worried}&!worried!&1F61F\\
+\cCE{wrench}&!wrench!&1F527\\
+\cCE{writing_hand}&!writing_hand!*&270D\\
+\cCE{x}&!x!&274C\\
+\cCE{yarn}&!yarn!&1F9F6\\
+\cCE{yawning_face}&!yawning_face!&1F971\\
+\cCE{yellow_circle}&!yellow_circle!&1F7E1\\
+\cCE{yellow_heart}&!yellow_heart!&1F49B\\
+\cCE{yellow_square}&!yellow_square!&1F7E8\\
+\cCE{yen}&!yen!&1F4B4\\
+\cCE{yin_yang}&!yin_yang!&262F\\
+\cCE{yo_yo}&!yo_yo!&1FA80\\
+\cCE{yum}&!yum!&1F60B\\
+\cCE{zany_face}&!zany_face!&1F92A\\
+\cCE{zap}&!zap!&26A1\\
+\cCE{zebra}&!zebra!&1F993\\
+\cCE{zero}&!zero!&30 20E3\\
+\cCE{zipper_mouth}&!zipper_mouth!&1F910\\
+\cCE{zombie}&!zombie!&1F9DF\\
+\cCE{zzz}&!zzz!&1F4A4\\
+\end{longtable}
+
+\end{document}

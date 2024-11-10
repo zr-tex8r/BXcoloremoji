@@ -1,0 +1,696 @@
+% 文字コードは UTF-8
+% lualatex で組版する
+\documentclass[a4paper]{ltjsarticle}
+\renewcommand{\headfont}{\romanseries{sbc}\sffamily}
+\usepackage{xcolor}
+\definecolor{myblue}{rgb}{0,0,0.75}
+\definecolor{mygreen}{rgb}{0,0.45,0}
+\usepackage[colorlinks,
+  plainpages, % avoid problems on coloremojikeycap numbering
+  hyperfootnotes=false]{hyperref}
+\hypersetup{linkcolor=myblue,urlcolor=mygreen,
+  pdftitle={bxcoloremojiパッケージ},
+  pdfauthor={八登崇之}}
+\usepackage{bxtexlogo}
+\bxtexlogoimport{*,TL-e}
+\usepackage{shortvrb,alltt}
+\MakeShortVerb{\|}
+\usepackage[verb]{bxghost}
+\usepackage[twemojis]{bxcoloremoji}
+\newcommand{\CE}[1]{\coloremoji{#1}}
+\newcommand{\CC}[1]{\coloremojicode{#1}}
+\newcommand{\PkgVersion}{1.0}
+\newcommand{\PkgDate}{2024/11/11}
+\newcommand{\Pkg}[1]{\textsf{#1}}
+\newcommand{\Meta}[1]{$\langle$\mbox{}#1\mbox{}$\rangle$}
+\newcommand{\RMeta}[1]{{\Meta{\rmfamily#1}}}
+\newcommand{\Note}{\par\noindent ※}
+\newcommand{\Means}{：\quad}
+\newcommand{\wbr}{\linebreak[0]}
+\newcommand{\nobr}{\nolinebreak[4]}
+\newcommand{\／}{\mbox{}／\mbox{}}
+\newcommand{\EG}{\eghostguarded}
+\newcommand{\cs}[1]{\symbol{`\\}#1}
+\providecommand{\Strong}[1]{{\headfont#1}}
+\pagenumbering{coloremojikeycap}% ;-)
+%-----------------------------------------------------------
+\begin{document}
+\title{\Pkg{bxcoloremoji} パッケージ}
+\author{八登崇之\ （Takayuki YATO; aka.~“ZR”）}
+\date{v\PkgVersion\quad[\PkgDate]}
+\maketitle
+
+\begin{abstract}
+\Pkg{bxcoloremoji}パッケージは{\LaTeX}文書において
+カラー絵文字を出力するためのものである。
+他の類似の機能をもつパッケージと比較すると、
+本パッケージは以下の特徴をもつ。
+\begin{itemize}
+\item 全ての主要な{\LaTeX}エンジンをサポートする。
+\item 文字自体、Unicode符号値、短縮名での入力が可能。
+\item \Pkg{hyperref}使用時にPDF文字列の中でも妥当に動作する。
+\item 和文組版環境でも絵文字を適切に取り扱える。
+\end{itemize}
+
+配布物の容量を抑えるため、
+1.0版からは最終的な画像出力を\Pkg{twemojis}パッケージに
+移譲することを既定の動作としているが、
+旧版で用いていた画像セットを用いる設定もできる。
+また、ユーザが用意した独自の画像セット（カスタムファミリ）を
+出力に利用する設定もサポートされている。
+\end{abstract}
+
+\tableofcontents
+
+
+%===========================================================
+\section{前提環境}
+\label{sec:Prerequisites}
+
+\begin{itemize}
+\item フォーマット\Means {\LaTeX}
+\item エンジン\Means {\eTeX}拡張をサポートするもの
+\item DVIウェア（DVI出力時）\Means
+  用いる画像形式に対応したもの
+\item 依存パッケージ\Means
+  \begin{itemize}
+  \item \Pkg{etoolbox}
+  \item \Pkg{binhex}（expl3が有効でない場合）
+  \item \Pkg{bxghost}（条件により）
+  \item \Pkg{twemojis}
+  \end{itemize}
+\end{itemize}
+
+\Note 0.x版からのアップデートについては
+\ref{sec:Old-Standard}節を参照してほしい。
+
+%===========================================================
+\section{パッケージ読込}
+\label{sec:Loading}
+
+DVI出力の場合、事前に\Pkg{graphicx}パッケージと
+\Pkg{color}（または\Pkg{xcolor}）パッケージ
+\footnote{現状では\Pkg{(x)color}パッケージの機能はある種の
+  フォールバック出力の際にのみ用いられる。
+  \Pkg{(x)color}が未読込の場合は色を使わず黒色で出力する。
+  （実際に絵文字画像が出力される場合には影響しない。）}%
+と\Pkg{twemojis}パッケージ
+\footnote{\Pkg{twemojis}パッケージ\Means
+  \url{https://ctan.org/pkg/twemojis}}%
+を読み込む必要がある。
+
+\Note PDF出力の場合、
+およびグローバルのドライバオプションが指定されている場合は、
+自動的に\Pkg{graphicx}と\Pkg{color}%
+\footnote{\Pkg{color}パッケージの自動読込は{\LaTeX}カーネルの版が
+  2021-06-01以降である場合にのみ行われる。}%
+と\Pkg{twemojis}%
+\footnote{パッケージオプションにおいてカスタムファミリの使用を
+  設定している場合は\Pkg{twemojis}は読み込まれない。}%
+がオプション無しで読み込まれる。
+\Note 絵文字画像出力にカスタムファミリのみを利用する場合は、
+\Pkg{twemojis}の読込は不要である。
+
+\begin{quote}\small\begin{verbatim}
+\usepackage[dvipdfmx]{graphicx,color} % dvipdfmx の場合
+\usepackage{twemojis}
+\end{verbatim}\end{quote}
+
+また、昔の（2018-04-01以前の）(pdf){\LaTeX}および{\pLaTeX}の場合は、
+|utf8|入力エンコーディングを有効化する必要がある。
+
+\begin{quote}\small\begin{verbatim}
+\usepackage[utf8]{inputenc}
+\end{verbatim}\end{quote}
+
+その後に\Pkg{bxcoloremoji}パッケージを読み込む。
+
+\begin{quote}\small\begin{alltt}
+\cs{usepackage}[\RMeta{オプション}]\{bxcoloremoji\}
+\end{alltt}\end{quote}
+
+利用可能なオプションは以下の通り。
+
+\begin{itemize}
+\item \Strong{設定パラメタ}\Means
+  \ref{sec:Parameters}節に挙げる設定パラメタ
+  （例えば|twemoji-png|や|scale|等）
+  はパッケージオプションとしても指定できる。
+
+\item |jatype=|\Meta{値}\Means
+  絵文字を和文文字として扱うか。
+  \Note この値に関わらず、|*|付の命令
+  （|\coloremoji*|等）は常に和欧文中立な“画像”として扱われる。
+  \Note 和文扱いを行わない場合は|*|無と|*|付はどちらも
+  “画像扱い”になるが|size|/|size*|指定時は異なる出力になりうる。
+  \begin{itemize}
+  \item |auto|（既定）\Means
+    (u){\pLaTeX}であるかまたは{\LuaLaTeX}で
+    \Pkg{LuaTeX-ja}が用いられている場合に和文扱いを行う。
+  \item |true|\Means
+    可能な限り、和文扱いを行うことを試みる。
+    \Note 現状では{\pdfLaTeX}\／{}欧文{\LaTeX}では効果がない。
+  \item |false|\Means
+    和文扱いを行わない。
+  \end{itemize}
+\end{itemize}
+
+以下は上級者向けの設定。
+
+\begin{itemize}
+\item |nodvidriver|\Means
+  ドライバ依存の動作を抑止する。
+  具体的には、絵文字画像セット種別が|no-image|に固定される
+  （絵文字は表示されない）。
+
+\item |resetdvidriver|\Means
+  |nodvidriver|の否定。
+
+\item |names=|\Meta{真偽値}\Means
+  短縮名データベースを読み込むか。
+  既定値は|true|。
+  \Note |false|を指定した場合、独自短縮名
+  （\ref{sec:Short-Names}節参照）のみが使用可能になる。
+
+\item |preload-names=|\Meta{値}\Means
+  短縮名データベースをパッケージ読込時に一括して読み込むか。
+  \Note |false|は昔の“メモリ容量が少ない{\TeX}エンジン”向けの設定。
+  \begin{itemize}
+  \item |auto|（既定）\Means
+    以下の条件の\Strong{何れか}を満たす場合は
+    （メモリが十分にあると判断して）
+    |true|、それ以外は|false|。
+    \begin{itemize}
+    \item エンジンが{\XeLaTeX}\／{\LuaLaTeX}\／{\upLaTeX}である。
+    \item expl3が有効である。
+    \item \Pkg{hyperref}が読み込まれている。
+    \end{itemize}
+  \item |true|\Means
+    パッケージ読込時に全てのデータを読み込む。
+  \item |false|\Means
+    必要に応じて読み込む。
+  \end{itemize}
+
+\item |bbparam=|\Meta{値}\Means
+  絵文字出力の|\includegraphics|に|bb|パラメタを指定するか。
+  \begin{itemize}
+  \item |auto|（既定）\Means
+    \Pkg{graphicx}のドライバがdvipdfmxである場合にのみ指定する。
+    \Note dvipdfmxの場合、|bb|を指定した方が動作が速い。
+  \item |true|\／|false|\Means
+    常に指定する／しない。
+    \Note |bb|設定が禁止されているドライバもあるので注意。
+  \end{itemize}
+
+\item |bxghost=|\Meta{値}\Means
+  和文ゴースト処理のために\Pkg{bxghost}パッケージ
+  \footnote{\Pkg{bxghost}パッケージ\Means
+    \url{https://ctan.org/pkg/bxghost}}%
+  を利用するか。
+  \Note |jatype|が偽の場合は和文ゴースト処理自体が行われないため無効
+  （利用しない）。
+  \begin{itemize}
+  \item |auto|（既定）\Means
+    次の条件を\Strong{全て}満たす場合に利用する。
+    \begin{itemize}
+    \item エンジンが\EG{(u)\pLaTeX}である、
+      または、{\LuaLaTeX}であってかつ
+      本パッケージ\Strong{読込時点}で\Pkg{LuaTeX-ja}が読み込まれている。
+    \item \Pkg{bxghost}の0.3.0版以降がインストールされている。
+    \end{itemize}
+  \item |true|\Means
+    利用する（常に\Pkg{bxghost}を読み込もうとする）。
+    \Note {\LuaLaTeX}上では\Pkg{bxghost}は\Pkg{LuaTeX-ja}を
+    必ず読み込むことに注意。
+  \item |false|\Means
+    利用しない。
+    \Note この場合、和文ゴースト処理が失敗する可能性がある。
+  \end{itemize}
+
+\item |pua=|\Meta{真偽値}\Means
+  Unicode私用領域の文字を絵文字として扱うか。
+  既定値は|false|。
+\end{itemize}
+
+
+%===========================================================
+\section{パラメタ設定}
+\label{sec:Parameters}
+
+パラメタ設定は以下の方法で利用できる。
+
+\begin{itemize}
+\item パッケージオプションに指定する。
+\begin{quote}\small\begin{verbatim}
+\usepackage[twemoji-png,scale=2]{bxcoloremoji}
+\end{verbatim}\end{quote}
+\item
+  |\coloremojisetup|命令の引数に指定する。
+  その場で設定が変更されて、以降の絵文字出力命令に適用される。
+\begin{quote}\small\begin{verbatim}
+\coloremojisetup{twemoji-png,scale=2}
+\end{verbatim}\end{quote}
+\item
+  絵文字出力命令の先頭のオプション引数に指定する。
+  その絵文字出力にのみ設定が適用される。
+\begin{quote}\small\begin{alltt}
+\cs{coloremoji}[twemoji-png,scale=2]\{\CE{☃}\}
+\end{alltt}\end{quote}
+\end{itemize}
+
+利用可能なパラメタは以下の通り。
+
+\begin{itemize}
+\item \Strong{絵文字画像セット}の種別を指定するもの。
+  （既定値＝|twemojis|%
+  \footnote{1.0版より既定値が|twemojis|に変更された。
+    また0.12版から非推奨となっていた
+    |twitter|、|hires|、|lowres|は\Strong{廃止}された。}）
+  \begin{itemize}
+  \item |twemojis|\Means
+    画像出力を\Pkg{twemojis}パッケージ
+    の絵文字出力命令に移譲する（twemojisモード）。
+    %\Note 詳細は\ref{sec:Twemojis-Mode}節を参照。
+  \item |family=|\Meta{名前}\Means
+    カスタムファミリ指定（\ref{sec:Custom-Families}節参照）。
+  \item |no-image|\Means
+    絵文字画像を使わず全てフォールバック出力にする。
+  \item |twemoji-pdf|\／|twemoji-png|\Means
+    これらは0.x版の「標準の画像セット」を指定するオプションであったが、
+    1.0版以降ではこれらは
+    「その名前のカスタムファミリの指定」
+    と見なされる。
+    つまり、|twemoji-pdf|は|family=twemoji-pdf|と同等である。
+    \Note 0.x版の「標準の画像セット」の利用については
+    \ref{sec:Old-Standard}節を参照。
+  \end{itemize}
+
+\item |size=|\Meta{長さ}\Means
+  |*|無命令での絵文字のサイズ。
+\item |size*=|\Meta{長さ}\Means
+  |*|付命令での絵文字のサイズ。
+  \Note |size|および|size*|の既定値は\EG{(u)\pLaTeX}では1\,zw、
+  {\LuaLaTeX}＋\Pkg{LuaTeX-ja}では 1\,|\zw|、それ以外は1\,em。
+  この既定値は|jatype|の設定には影響されない。
+
+\item |scale=|\Meta{実数}\Means
+  絵文字のサイズを、|size|\／|size*|で指定した値からさらに
+  指定の倍率で変更する。
+  （既定値＝1）
+\end{itemize}
+
+
+%===========================================================
+\section{使い方}
+\label{sec:Usage}
+
+命令・環境名が\EG{[|*|]}付
+（例えば|\coloremoji|[|*|]）で示されている場合、
+実際には「|*|無」（|\coloremoji|）と「|*|付」（|\coloremoji*|）の
+変種が存在することを示す。
+両者の違いは以下の通り。
+
+\begin{itemize}
+\item |jatype|オプションにより和文扱いが有効になっている場合は、
+  |*|無は和文扱いで、|*|付は和欧文中立な“画像扱い”になる。
+  ただし数式中は両者ともに“画像扱い”になる。
+\item |size|は|*|無にのみ、|size*|は|*|付にのみ
+  適用される。
+  （|scale|は両方に適用される。）
+\end{itemize}
+
+\EG{[|*|]}以外の|[...]|表記はオプション引数で、
+これは実際に|[ ]|で囲った形で指定する。
+
+\Note 本パッケージの命令については、
+必須引数を囲む|{}|は\Strong{省略できない}。
+
+%--------
+\subsection{基本的な絵文字出力命令}
+
+\begin{itemize}
+\item |\coloremojisetup{|\Meta{設定}|}|\Means
+  パラメタ設定（\ref{sec:Parameters}節参照）を変更する。
+  \Note \Meta{設定}は“\Meta{キー}|=|\Meta{値}|,…|”の形のリスト。
+  以降も同様。
+\item |\coloremoji|[|*|]|[|\Meta{設定}|]{|\Meta{文字列}|}|\Means
+  引数の文字列を絵文字として出力する。
+  ただし、対象の画像がないなどの理由で絵文字として出力できない場合は、
+  通常のテキスト出力にフォールバックする。
+  \newcommand*{\ExAA}{\coloremoji{🍣3️⃣🙃☃}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremoji}\{\ExAA\}%出力:\ExAA
+\end{alltt}\end{quote}
+
+\item |\coloremojicode|[|*|]|[|\Meta{設定}|]{|\Meta{符号値列}|}|\Means
+  文字を「Unicode符号値」または
+  「JoyPixelsのemoji-toolkitライブラリ
+  \footnote{emoji-toolkitライブラリ\Means
+    \url{https://github.com/joypixels/emoji-toolkit}}%
+  で規定された短縮名」
+  で入力してカラー絵文字を出力する。
+  引数は、符号値で指定する場合はその16進表記、
+  短縮名で指定する場合は“|:|\Meta{短縮名}|:|”の形式で入力し、
+  複数文字を入力する場合は各文字の指定をを空白区切りで並べる。
+  \newcommand*{\ExAB}{%
+    \coloremojicode{:sushi: 23 FE0F 20E3 1F643 :snowman:}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojicode}\{:sushi: 23 20E3 1F643 :snowman:\}%出力:\ExAB
+\end{alltt}\end{quote}
+  \Note 以降、この入力方式を「\Strong{符号値列}」と呼称する。
+
+\item |\coloremojiucs|[|*|]|[|\Meta{設定}|]{|\Meta{符号値列}|}|\Means
+  |\coloremojicode|の旧版における別名。
+  \Note 他の|coloremojicode～|の名前の命令・環境については、
+  0.4版以前から存在するものについては、同様に
+  |coloremojiucs～|という別名が用意されている。
+\end{itemize}
+
+%--------
+\subsection{キーキャップ絵文字を出力するカウンタ出力命令}
+
+0～10の整数値を、値に対応するキーキャップ絵文字
+（\CE{0️⃣}～\CE{🔟}）
+で出力する。
+\Note 入力値が範囲外の場合はフォールバック出力になる。
+
+\begin{itemize}
+\item |\coloremojikeycapof|[|*|]|[|\Meta{設定}|]{|\Meta{整数}|}|\Means
+  入力の整数値に対応するキーキャップ絵文字を出力する。
+  \newcommand*{\ExBA}{\coloremojikeycapof{8}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojikeycapof}\{8\}%出力:\ExBA
+\end{alltt}\end{quote}
+
+\item |\coloremojikeycap|[|*|]|[|\Meta{設定}|]{|\Meta{カウンタ名}|}|\Means
+  指定のカウンタの現在の値に対応するキーキャップ絵文字を出力する。
+
+\item |\pagenumbering{coloremojikeycap}|\Means
+  ページ番号の形式をキーキャップ絵文字に変更する。
+  \Note 本文書で実際に|\pagenumbering{coloremojikeycap}|が
+  指定されている。
+\end{itemize}
+
+%--------
+\subsection{pifontパッケージ類似の機能}
+
+\Pkg{pifont}パッケージの機能
+（|\dingfill|命令、|dingautolist|環境など）
+の絵文字版に相当する、以下の命令が提供される。
+
+\Note この小節で挙げる機能の絵文字出力は、
+常に|*|付命令であるかのように動作する。
+また、|*|やパラメタ設定オプションを付けることはできない。
+
+\begin{coloremojiautolist}{1️⃣}
+\item |\coloremojifill{|\Meta{文字列}|}|\Means
+  充填命令（|\dotfill|の類）の一種で、
+  |\coloremoji*{|\Meta{文字列}|}| の出力を複数並べて行を充填する。
+
+\item |\coloremojiline{|\Meta{文字列}|}|\Means
+  絵文字による飾り罫を出力する。
+  すなわち|\coloremojifill{|\Meta{文字列}|}|の出力
+  （ただし両端に若干の空きを入れる）
+  のみを含む独立した行を出力する。
+
+\item |\begin{coloremojilist}{|\Meta{文字列}|}|～%
+  |\end{coloremojilist}|\Means
+  |\coloremoji{|\Meta{文字列}|}|の出力を項目ラベルとする
+  箇条書きを出力する。
+
+\item |\begin{coloremojiautolist}{|\Meta{文字列}|}|～%
+  |\end{coloremojiautolist}|\Means
+  これも絵文字を項目ラベルとする箇条書きを出力する環境であるが、
+  引数には何れかの「絵文字順序列」に含まれる絵文字の一つを
+  指定する必要がある。
+  その文字から始まる順序列に従ってラベルを指定する。
+  例えば
+  |\begin{coloremojiautolist}{|\CE{♠}|}|%
+  では、先頭のラベルが「\CE{♠️}」となり
+  以下「\CE{♥️}」「\CE{♦️}」「\CE{♣️}」と続く。
+  \Note 現状の実装では順序列の末尾に達した場合は先頭に戻る
+  （つまり「\CE{♣️}」の次は「\CE{♠️}」になる）
+  が、これは将来的に変更される可能性がある。
+  \Note この箇条書きは
+  |\begin{coloremojiautolist}{|\CE{1️⃣}|}|で生成されている。
+
+\item 以上の命令・環境について、引数に符号値列を指定する版も存在する。
+  \begin{coloremojilist}{✏}
+  \item |\coloremojicodefill{|\Meta{符号値列}|}|
+  \item |\coloremojicodeline{|\Meta{符号値列}|}|
+  \item |\begin{coloremojicodelist}{|\Meta{符号値列}|}|
+  \item |\begin{coloremojicodeautolist}{|\Meta{符号値列}|}|
+  \end{coloremojilist}
+\end{coloremojiautolist}
+
+現状では、以下に挙げる「絵文字順序列」が定められている。
+
+\begin{itemize}
+\item
+  \CE{♈️}→\CE{♉️}→\CE{♊️}→\CE{♋️}→\CE{♌️}→\CE{♍️}→\CE{♎️}→\CE{♏️}→\CE{♐️}→\CE{♑️}→\CE{♒️}→\CE{♓️}
+\item
+  \CE{♠️}→\CE{♥️}→\CE{♦️}→\CE{♣️}
+\item
+  \CE{🕐️}→\CE{🕑️}→\CE{🕒️}→\CE{🕓️}→\CE{🕔️}→\CE{🕕️}→\CE{🕖️}→\CE{🕗️}→\CE{🕘️}→\CE{🕙️}→\CE{🕚️}→\CE{🕛️}
+\item
+  \CE{0️⃣}→\CE{1️⃣}→\CE{2️⃣}→\CE{3️⃣}→\CE{4️⃣}→\CE{5️⃣}→\CE{6️⃣}→\CE{7️⃣}→\CE{8️⃣}→\CE{9️⃣}→\CE{🔟}
+\end{itemize}
+
+
+%===========================================================
+\section{絵文字の“短縮名”}
+\label{sec:Short-Names}
+
+「符号値列」中で用いる絵文字の短縮名については
+JoyPixels（旧称EmojiOne）のemoji-toolkitライブラリで
+規定する名前が利用できる。
+その他に表\ref{tbl:special-names}にある
+\Strong{独自短縮名}が利用できる。
+\Note これらはemoji sequenceの入力の便宜のためのものである。
+
+\newcommand*{\cTC}{\multicolumn{2}{l}}
+\begin{table}[!t]
+\centering\small
+\caption{独自短縮名の一覧}\label{tbl:special-names}
+\begin{tabular}{@{\quad}llll@{\quad}}
+\hline
+|+|         & U+200D  & & (ZWJ)\\
+|/1|        & U+1F3FB &\CE{🏻}& (light skin tone修飾子)\\
+|/2|        & U+1F3FC &\CE{🏼}& (medium-light skin tone修飾子)\\
+|/3|        & U+1F3FD &\CE{🏽}& (medium skin tone修飾子)\\
+|/4|        & U+1F3FE &\CE{🏾}& (medium-dark skin tone修飾子)\\
+|/5|        & U+1F3FF &\CE{🏿}& (dark skin tone修飾子)\\
+|!/red|     & U+1F9B0 &\CE{🦰}&（“|+ !/red|”で赤髪のhair style）\\
+|!/curly|   & U+1F9B1 &\CE{🦱}&（“|+ !/curly|”で巻毛のhair style）\\
+|!/bald|    & U+1F9B2 &\CE{🦲}&（“|+ !/bald|”で禿頭のhair style）\\
+|!/white|   & U+1F9B3 &\CE{🦳}&（“|+ !/white|”で白髪のhair style）\\
+|!black|    & U+2B1B  &\CE{⬛}&（“|+ !black|”で黒色のcolor indicator）\\
+|!white|    & U+2B1C  &\CE{⬜}&（“|+ !white|”で白色のcolor indicator）\\
+|!red|      & U+1F7E5 &\CE{🟥}&（“|+ !red|”で赤色のcolor indicator）\\
+|!blue|     & U+1F7E6 &\CE{🟦}&（“|+ !blue|”で青色のcolor indicator）\\
+|!orange|   & U+1F7E7 &\CE{🟧}&（“|+ !orange|”で橙色のcolor indicator）\\
+|!yellow|   & U+1F7E8 &\CE{🟨}&（“|+ !yellow|”で黄色のcolor indicator）\\
+|!green|    & U+1F7E9 &\CE{🟩}&（“|+ !green|”で緑色のcolor indicator）\\
+|!purple|   & U+1F7EA &\CE{🟪}&（“|+ !purple|”で紫色のcolor indicator）\\
+|!brown|    & U+1F7EB &\CE{🟫}&（“|+ !brown|”で茶色のcolor indicator）\\
+|!female|   & U+2640  &\CE{♀}& (“|+ !female|”で女性のgender indicator)\\
+|!male|     & U+2642  &\CE{♂}& (“|+ !male|”で男性のgender indicator)\\
+|!flag|     & U+1F3F4 &\CE{🏴}& (旗を表すtag sequenceのbase文字)\\
+|!<|        & U+2B05  &\CE{⬅}& (“|+ !<|”で左のdirection indicator)\\
+|!>|        & U+27A1  &\CE{➡}& (“|+ !>|”で右のdirection indicator)\\
+|!A|～|!Z|  &\cTC{U+1F1E6～1F1FF}& (flag sequenceの構成要素)\\
+|@|         & U+E007F & & (tag sequenceの終端)\\
+|@0|～|@9|  &\cTC{U+E0030～E0039}& (tag sequenceの構成要素)\\
+|@a|～|@z|  &\cTC{U+E0061～E007A}& (tag sequenceの構成要素)\\
+\hline
+\end{tabular}
+\end{table}
+
+\Note 独自短縮名については名前を囲む|:|～|:|は省略可能である。
+\Note 独自短縮名以外の短縮名については、現状では
+「整数の16進表記と解釈できないものは|:|～|:|が省略可能」
+という仕様であるが、これは将来変更される可能性がある。
+
+使用例\Means
+\newcommand*{\ExA}{\CC{:man: + :woman: + :girl: + :girl:}}
+\newcommand*{\ExB}{\CC{!flag @g @b @w @l @s @}}
+\newcommand*{\ExC}{\CC{1F647 + !male}}
+\begin{quote}\small\begin{alltt}
+\cs{coloremojicode}\{:man: + :woman: + :girl: + :girl:\}%出力:\ExA
+\cs{coloremojicode}\{!flag @g @b @w @l @s @\}%出力:\ExB
+\cs{coloremojicode}\{1F647 + !male\}%出力:\ExC
+\end{alltt}\end{quote}
+
+
+%===========================================================
+\section{PDF文字列中での絵文字の利用}
+\label{sec:PDF-Strings}
+
+\Pkg{hyperref}パッケージ使用時の文書情報文字列
+（以降では「\Strong{PDF文字列}」と呼ぶ）
+の入力の中でも絵文字出力用の命令を使用できる。
+例えば、|\section|の引数の中で|\coloremoji|を含めた場合、
+版面の上では絵文字（の画像）として出力され、
+PDFのしおりの中では文字として表示される。
+
+ただし
+「PDF文字列中のUnicode文字が正しく処理される」
+状態が担保されていることが前提となる。
+具体的には、次の何れかが満たされる必要がある。
+
+\Note {\TeX}~Live 2022以降を前提とすると、要するに
+「{(u)\pLaTeX}では\Pkg{pxjahyper}の併用が必要、それ以外は何も要らない」
+ということである。
+
+\begin{itemize}
+\item \Pkg{hyperref}の“PDFエンコーディング”がUnicodeである。
+
+  最近（7.00g版以降）の\Pkg{hyperref}では既定でそうなっている。
+  それより古い版では\Pkg{hyperref}の読込時に
+  |unicode|オプションを付ける必要がある。
+  \EG{(u)\pLaTeX}では\Pkg{pxjahyper}パッケージを併用する必要がある。
+\begin{quote}\small\begin{verbatim}
+\usepackage[unicode]{hyperref}
+\end{verbatim}\end{quote}
+
+\item （\Pkg{hyperref}の“PDFエンコーディング”がUnicode ではないが）
+  エンジンが{\upLaTeX}であり、\Pkg{pxjahyper}パッケージを併用している。
+  \Note {\pLaTeX}ではそもそもPDF文字列中にJIS外の文字を含ませることが
+  できないため、この場合は対応ができない。
+\end{itemize}
+
+
+%===========================================================
+\section{カスタムファミリ}
+\label{sec:Custom-Families}
+
+\Pkg{bxcoloremoji}では実際の絵文字画像の出力に
+\Pkg{twemojis}の機能を使っているが、
+その代わりに、ユーザが用意した一連の画像ファイル群を
+「\Strong{カスタムファミリ}」として登録して表示に使うことができる。
+
+例として、noto-emojiレポジトリ
+\footnote{noto-emojiレポジトリ\Means
+  \url{https://github.com/googlefonts/noto-emoji}}%
+の中（|png/128/|以下）に含まれる一連のPNG画像を
+|notoemoji|ファミリとして登録する手順を示す。
+
+%--------
+\subsection{手順①：設定ファイルを作成する}
+
+カスタムファミリの登録には設定ファイルが必要であり、その名前は
+|bxcoloremoji-|\Meta{ファミリ名}|.cfg|%
+である。
+今の例では|bxcoloremoji-notoemoji.cfg|を作成して
+{\TeX}から見える位置に配置することになる。
+設定ファイルの書式は以下の通りである。
+
+\begin{quote}\small\begin{verbatim}
+% prefix: 画像ファイルのパス名接頭辞
+prefix = notoemoji/notoemoji-
+% extension: 画像ファイルの拡張子
+extension = png
+% bbox = 画像の bounding box の値 (省略可)
+bbox = 0 0 128 128
+\end{verbatim}\end{quote}
+
+|bbox|は dipdfmxでの画像の読込を高速化するための指定であり、
+省略することもできる。
+全ての画像ファイルのbounding boxが一致しているのではない場合は
+省略するしかない。
+
+\Note |bbox|が使われるかは実際には|bbparam|パッケージオプションの
+指定により決められる。
+
+|prefix|は画像ファイルの（Kpathsea上の）パス名を決定するのに使われる。
+上の設定の場合、例えば、
+「U+2603\CE{☃}|:snowman2:|」
+の画像ファイルのパス名は
+|notoemoji/notoemoji-2603.png|となる。
+
+%--------
+\subsection{手順②：画像ファイルを改名して配置する}
+
+パス名の命名規則は以下の通りである。
+
+\begin{itemize}
+\item 絵文字を構成するUnicode文字の符号値の16進表記
+  （0埋め無し、大文字）を順に“|-|”でつないだものを「符号値列」とする。
+  \Note ただしEVS（U+FE0F）は除外される。
+  例えば、
+  \CE{2️⃣} 〈0032 FE0F 20E3〉%
+  に対する「符号値列」は|32-20E3|となる。
+
+\item “\Meta{prefixの値}\Meta{符号値列}|.|\Meta{extensionの値}”
+  がパス名である。
+\end{itemize}
+
+noto-emojiの各々の画像ファイルをこの規則に従って配置する。
+例えば、
+「U+2603\CE{☃}」の画像ファイル
+（元の名前は|emoji_u2603.png|）について、
+|notoemoji/notoemoji-2603.png|のパス名で読める位置に配置する。
+
+\Note 例えば、Kpathsea変数|$TEXINPUTS|に
+ディレクトリ|~/texmf/tex/latex//|が含まれる場合、
+画像ファイルを
+|~/texmf/tex/latex/custom_images/notoemoji/notoemoji-2603.png|\
+に置くことができる。
+
+
+%===========================================================
+\section{0.x版のユーザのための情報}
+\label{sec:Old-Standard}
+
+%--------
+\subsection{0.x版からのアップデート}
+
+1.0版より画像出力の部分を\Pkg{twemojis}パッケージに
+（既定で）移譲するようになったため、
+本パッケージの配布物には画像ファイル
+（|emoji_images/|ディレクトリ下にあった）
+は含まれなくなった。
+本パッケージを0.x版から1.0版以降にアップデートする場合、
+既存の|emoji_images/|ディレクトリの画像ファイル群については、
+削除してもそのまま残してもかまわない。
+
+もし画像ファイル群を\Strong{残した場合}は、
+画像セット指定オプションの
+|twemoji-pdf|（0.x版での既定値）と|twemoji-png|%
+\footnote{|twemoji-pdf|\／|twemoji-png|のオプションは現在では
+  カスタムファミリ指定の一種と見なされる。
+  従って|family=twemoji-pdf|等と書いても同じ動作になる。}%
+は0.x版のときと同じように機能する。
+\Note ただしこの場合でも画像セットの既定値は|twemojis|である
+ことに注意。
+\Note |twemoji-pdf|と現在の既定値の|twemojis|が扱う画像セットは
+どちらも
+「TwemojiのSVG画像をPDF形式に変換したもの」
+に由来するため、両者の出力結果はほぼ同一である。
+
+%--------
+\subsection{bxcoloremoji-oldstdパッケージ}
+
+本パッケージの0.x版の配布物に含まれていた画像ファイル群は、
+現在では\Pkg{bxcoloremoji-oldstd}パッケージ
+\footnote{\Pkg{bxcoloremoji-oldstd}パッケージ\Means
+  \url{https://github.com/zr-tex8r/bxcoloremoji-oldstd}}%
+で配布されている。
+インストール方法はそちらの説明資料を参照してほしい。
+
+\Pkg{bxcoloremoji-oldstd}パッケージは
+「公式が用意しているカスタムファミリ」
+という位置づけである。
+インストールすると、
+|twemoji-pdf|と|twemoji-png|の2つのカスタムファミリが
+使用可能になる。%
+\footnote{従って、例えば|twemoji-pdf|のカスタムファミリを使うには
+  |family=twemoji-pdf|と指定すればよいが、
+  先述の通り、これは|twemoji-pdf|と書いてもよい。}
+\Note \Pkg{bxcoloremoji-oldstd}をインストールする場合には、
+0.x版の画像ファイル群は削除する必要がある。
+
+
+%===========================================================
+\end{document}
+%% EOF
