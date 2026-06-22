@@ -44,7 +44,7 @@ bxcoloremoji パッケージは LaTeX 文書においてカラー絵文字を出
 本パッケージは MIT ライセンスの下で配布される。
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2024 Takayuki YATO (aka. "ZR")
+Copyright 2017-2026 Takayuki YATO (aka. "ZR")
 
 
 bxcoloremoji パッケージ
@@ -58,6 +58,11 @@ bxcoloremoji パッケージ
 更新履歴v1
 ----------
 
+  * Version 1.1   〈2026/06/22〉
+      - dvisvgm ドライバのサポートを改善した。
+      - より広範なエンジンのサポート。
+      - (試験的) `\coloremojiSetAbsolutePath` 命令。
+      - バグ修正
   * Version 1.0a  〈2024/11/18〉
       - バグ修正
   * Version 1.0   〈2024/11/11〉

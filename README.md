@@ -6,7 +6,6 @@ LaTeX: To use color emojis more conveniently
 Overview
 --------
 
-
 The bxcoloremoji package lets users output color emojis in LaTeX
 documents. Compared to other packages with similar functionality, this
 package has the following merits:
@@ -29,7 +28,7 @@ now contains no image data.
 
   * TeX format: LaTeX.
   * TeX engine: Anything that supports the e-TeX extension.
-  * DVI-ware (in DVI output): dvipdfmx.
+  * DVI-ware (in DVI output): dvipdfmx / dvisvgm.
   * Dependent packages:
       - etoolbox
       - binhex (if expl3 is not available)
@@ -45,7 +44,7 @@ now contains no image data.
 This package is distributed under the MIT License.
 
 the MIT License: (http://opensource.org/licenses/MIT)
-Copyright 2017-2024 Takayuki YATO (aka. "ZR")
+Copyright 2017-2026 Takayuki YATO (aka. "ZR")
 
 
 The bxcoloremoji package
@@ -59,6 +58,11 @@ Please refer to the manual [bxcoloremoji-en.pdf] for detail.
 Revision History
 ----------------
 
+  * Version 1.1   〈2026/06/22〉
+      - Better support for dvisvgm driver.
+      - Support for more (minor) engines.
+      - (Experimental) `\coloremojiSetAbsolutePath` command.
+      - Bug fix.
   * Version 1.0a  〈2024/11/18〉
       - Bug fix.
   * Version 1.0   〈2024/11/11〉

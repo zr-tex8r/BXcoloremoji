@@ -18,8 +18,8 @@
 \usepackage[twemojis]{bxcoloremoji}
 \newcommand{\CE}[1]{\coloremoji{#1}}
 \newcommand{\CC}[1]{\coloremojicode{#1}}
-\newcommand{\PkgVersion}{1.0a}
-\newcommand{\PkgDate}{2024/11/18}
+\newcommand{\PkgVersion}{1.1}
+\newcommand{\PkgDate}{2026/06/22}
 \newcommand{\Pkg}[1]{\textsf{#1}}
 \newcommand{\Meta}[1]{$\langle$\textit{#1}$\rangle$}
 \newcommand{\RMeta}[1]{{\rmfamily\Meta{#1}}}
@@ -179,8 +179,9 @@ The following are for advanced users:
   for emoji output.
   \begin{itemize}
   \item |auto| (default)\Means
-    Specifies |bb| only if the \Pkg{graphicx} driver is dvipdfmx.
-    \Note When using dvipdfmx,
+    Specifies |bb| only if the \Pkg{graphicx} driver is
+    dvipdfmx or dvisvgm.
+    \Note When using these drivers,
     specifying |bb| will make the build faster.
   \item |true|/|false|\Means
     Always/never specifies |bb|.

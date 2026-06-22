@@ -19,8 +19,8 @@
 \usepackage[twemojis]{bxcoloremoji}
 \newcommand{\CE}[1]{\coloremoji{#1}}
 \newcommand{\CC}[1]{\coloremojicode{#1}}
-\newcommand{\PkgVersion}{1.0a}
-\newcommand{\PkgDate}{2024/11/18}
+\newcommand{\PkgVersion}{1.1}
+\newcommand{\PkgDate}{2026/06/22}
 \newcommand{\Pkg}[1]{\textsf{#1}}
 \newcommand{\Meta}[1]{$\langle$\mbox{}#1\mbox{}$\rangle$}
 \newcommand{\RMeta}[1]{{\Meta{\rmfamily#1}}}
@@ -153,6 +153,12 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
   \item |false|\Means
     和文扱いを行わない。
   \end{itemize}
+
+\item |names=|\Meta{真偽値}\Means
+  短縮名データベースを読み込むか。
+  既定値は|true|。
+  \Note |false|を指定した場合、独自短縮名
+  （\ref{sec:Short-Names}節参照）のみが使用可能になる。
 \end{itemize}
 
 以下は上級者向けの設定。
@@ -165,12 +171,6 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
 
 \item |resetdvidriver|\Means
   |nodvidriver|の否定。
-
-\item |names=|\Meta{真偽値}\Means
-  短縮名データベースを読み込むか。
-  既定値は|true|。
-  \Note |false|を指定した場合、独自短縮名
-  （\ref{sec:Short-Names}節参照）のみが使用可能になる。
 
 \item |preload-names=|\Meta{値}\Means
   短縮名データベースをパッケージ読込時に一括して読み込むか。
@@ -195,8 +195,8 @@ DVI出力の場合、事前に\Pkg{graphicx}パッケージと
   絵文字出力の|\includegraphics|に|bb|パラメタを指定するか。
   \begin{itemize}
   \item |auto|（既定）\Means
-    \Pkg{graphicx}のドライバがdvipdfmxである場合にのみ指定する。
-    \Note dvipdfmxの場合、|bb|を指定した方が動作が速い。
+    \Pkg{graphicx}のドライバがdvipdfmxかdvisvgmである場合にのみ指定する。
+    \Note dvipdfmx／dvisvgmの場合、|bb|を指定した方が動作が速い。
   \item |true|\／|false|\Means
     常に指定する／しない。
     \Note |bb|設定が禁止されているドライバもあるので注意。
