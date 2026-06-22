@@ -1565,6 +1565,8 @@
 \newdimen\bxce@cwd
 \newdimen\bxce@disp@dim
 \newskip\bxce@inter@skip
+\let\bxce@image@name\relax
+\let\bxce@image@argpath\relax
 
 %% \bxce@image@path{<name>}
 \def\bxce@image@path#1{%
@@ -1697,19 +1699,115 @@
   \bxce@cond\ifnum\bxce@output@type=\bxce@ot@@twemojis\fi{%
     \bxce@twm@put@image
   }{%else
-    \bxce@put@image@
+    \bxce@put@image@a
   }%
 }
-\def\bxce@put@image@#1{%
+\def\bxce@put@image@a#1{%
+  \def\bxce@image@name{#1}%
+  \ifcsdef{bxce@fabs/\bxce@family}{%
+    \bxce@set@image@abs@argpath
+  }{%else
+    \edef\bxce@image@argpath{\bxce@image@path{\bxce@image@name}}%
+  }%
+  \ifdef\bxce@raw@put@image{%
+    \bxce@raw@put@image
+  }{%else
+    \bxce@std@put@image
+  }%
+  \hskip\bxce@inter@skip
+}
+
+%% \bxce@std@put@image
+\def\bxce@std@put@image{%
   \bxce@expd{%
     \lower\bxce@disp@dim\hbox{%
       \ifbxce@ctdir\noexpand\rotatebox[origin=c]{90}\fi{%
       \noexpand\includegraphics
       [width=\bxce@cwd
       \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
-      {\bxce@image@path{#1}}}}}%
-  \hskip\bxce@inter@skip
+      {\bxce@image@argpath}}}}%
 }
+
+%--------------------------------------- image absolute path
+
+% Some engines/drivers do not handle well relative paths based on
+% kpsewhich search in their backend process. The package employs
+% absolute paths to avoid this problem.
+
+%% varaibles
+\let\bxce@image@abspath\relax
+%\[bxce@fabs/<prefix>]% absolute dir for family (setting)
+%\[bxce@pabs/<prefix>]% absolute dir for prefix (cache)
+
+%%<+> \coloremojiSetAbsolutePath{<family>}{<directory>}
+% Sets the absolute directory for a family.
+\newrobustcmd*\coloremojiSetAbsolutePath[2]{%
+  \global\csdef{bxce@fabs/#1}{#2}%
+}
+
+%% \bxce@set@image@abs@argpath
+% Returns to \bxce@image@argpath.
+\def\bxce@set@image@abs@argpath{%
+  \edef\bxce@image@argpath{%
+    \csuse{bxce@fabs/\bxce@family}/\bxce@image@path{\bxce@image@name}}%
+}
+
+%% \bxce@set@image@abspath{<path>}
+% Returns to \bxce@image@abspath.
+\def\bxce@set@image@abspath#1{%
+  \ifcsdef{bxce@fabs/\bxce@family}{%
+    % argpath is already absolute
+    \let\bxce@image@abspath\bxce@image@argpath
+  }{%else
+    \ifcsdef{bxce@pabs/\bxce@prefix}{}{%else
+      % find absolute dir for prefix
+      \bxce@kpsewhich{#1}%
+      \ifx\bxce@image@abspath\relax
+        \PackageWarning\bxce@pkgname
+         {Cannot find absolute path for prefix\MessageBreak
+          \@spaces'\bxce@prefix',\MessageBreak reported}%
+        \global\cslet{bxce@pabs/\bxce@prefix}\@empty
+      \else
+        \bxDebug{abspath:\bxce@prefix->\bxce@image@abspath}%
+        \global\cslet{bxce@pabs/\bxce@prefix}\bxce@image@abspath
+      \fi
+    }%
+    \edef\bxce@image@abspath{%
+      \csuse{bxce@pabs/\bxce@prefix}\bxce@image@name.\bxce@ext}%
+  }%
+}
+
+%% \bxce@shell@avail
+\chardef\bxce@shell@avail=%
+    \ifdefined\pdfshellescape \pdfshellescape
+    \else\ifdefined\shellescape \shellescape
+    \else \z@ \fi\fi
+
+%% \bxce@kpsewhich{<path>}
+% Returns to \bxce@image@abspath.
+\ifnum\bxce@shell@avail=\z@
+\def\bxce@kpsewhich#1{%
+  \let\bxce@image@abspath\relax
+}
+\else
+\def\bxce@kpsewhich{%
+  \edef\bxce@tmpa{\bxce@image@name.\bxce@ext}%
+  \expandafter\bxce@kpsewhich@a\detokenize\expandafter{\bxce@tmpa}\bxce@mk
+}
+\def\bxce@kpsewhich@a#1\bxce@mk#2{%
+  \let\bxce@image@abspath\relax
+  \bxce@cnto\endlinechar \endlinechar\m@ne
+  \openin\@inputcheck="|kpsewhich #2"\relax
+  \unless\ifeof\@inputcheck
+    \readline\@inputcheck to\bxce@tmpb
+    \def\bxce@tmpa##1#1\bxce@mk##2\bxce@end{%
+      \ifstrempty{##2}{}{\def\bxce@image@abspath{##1}}}%
+    \expandafter\bxce@tmpa\bxce@tmpb\bxce@mk#1\bxce@mk\bxce@end
+  \fi
+  \closein\@inputcheck
+  \endlinechar\bxce@cnto
+}
+\fi
 
 %--------------------------------------- fallback ZWJ
 
