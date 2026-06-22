@@ -371,6 +371,12 @@
 \newbool{bxce@jaok}
 %% switch 'bxce@ptex' : engine is pTeX-ish?
 \newbool{bxce@ptex}
+%% switch 'bxce@hitex' : engine is HiTeX-ish?
+\newbool{bxce@hitex}
+%% switch 'bxce@raw@graphics@avail' : raw graphics is available?
+\newbool{bxce@raw@graphics@avail}
+%% \bxce@raw@put@image : raw graphics handler
+\let\bxce@raw@put@image\@undefined
 %% switch 'bxce@ucs@avail' : '\ucs' (of pTeX) is available?
 \newbool{bxce@ucs@avail}
 %% switch 'bxce@luatexja' : LuaTeX-ja is loaded?
@@ -393,6 +399,7 @@
   \ifx\bxce@tmpa\bxce@tmpb #2\fi
 }
 \let\bxce@engine=d
+\bxce@if@primitive\Uchar{\let\bxce@engine=w}
 \bxce@if@primitive\kanjiskip{\let\bxce@engine=p}
 \bxce@if@primitive\enablecjktoken{\let\bxce@engine=u}
 \bxce@if@primitive\XeTeXversion{\let\bxce@engine=x}
@@ -414,6 +421,13 @@
 \ifbxce@ptex
   \bxce@if@primitive\ucs{\bxce@ucs@availtrue}
 \fi
+
+%% set switch 'bxce@hitex'
+% NB. Currently HiTeX does not support PDF inclusion.
+\bxce@if@primitive\HINTversion{\bxce@hitextrue}
+
+%% set switch 'bxce@raw@graphics@avail'
+\ifbxce@hitex \bxce@raw@graphics@availtrue \fi
 
 %% \bxce@check@inputenc
 \let\bxce@check@inputenc\relax
@@ -440,14 +454,25 @@
 \bxce@use@bbfalse
 \def\bxce@resolve@image@setup{%
   \global\let\bxce@resolve@image@setup\relax
-  \ifbxce@use@image
+  \ifbxce@use@image \unless\ifbxce@raw@graphics@avail
     \@ifpackageloaded{graphicx}{}{%else
       \PackageError\bxce@pkgname
        {Package 'graphicx' is not loaded}\@ehc
       \global\bxce@use@imagefalse
     }%
-  \fi
+  \fi\fi
   \unless\ifbxce@use@image
+  \else\ifbxce@hitex
+    \bxce@okfalse
+    \ifx\Gin@driver\@undefined \bxce@oktrue \fi
+    \def\bxce@tmpa{dvips.def}%
+    \ifx\Gin@driver\bxce@tmpa \bxce@oktrue \fi
+    \unless\ifnum\bxce@bbparam@opt=\bxce@abool@@false
+      \global\bxce@use@bbtrue
+    \fi
+    \ifbxce@ok
+      \global\let\bxce@raw@put@image\bxce@raw@put@image@hitex
+    \fi
   \else\ifnum\bxce@bbparam@opt=\bxce@abool@@true
     \global\bxce@use@bbtrue
   \else\ifnum\bxce@bbparam@opt=\bxce@abool@@auto
@@ -463,7 +488,7 @@
         \global\let\bxce@Ginclude@bitmap\bxce@Ginclude@bitmap@dvisvgm
       \fi
     \fi
-  \fi\fi\fi
+  \fi\fi\fi\fi
   \bxce@resolve@image@metric
 }
 \AtBeginDocument{\bxce@resolve@image@setup}
@@ -1189,7 +1214,8 @@
 %% \bxce@err@nltwm
 \def\bxce@err@nltwm{%
   \PackageError\bxce@pkgname
-   {Package 'twemojis' is not loaded}%
+   {Package 'twemojis' is not
+    \ifdefined\bxce@raw@put@image available\else loaded\fi}%
    {\@ehc}%
 }
 
@@ -1225,7 +1251,9 @@
 
 %% \bxce@twm@check@image@setup
 \def\bxce@twm@check@image@setup{%
-  \ifdefined\defineTwemoji
+  \ifnum0%
+      \ifdefined\defineTwemoji\unless\ifdefined\bxce@raw@put@image1\fi\fi
+      >\z@
     \global\let\bxce@twm@check@image@setup\bxce@oktrue
     \bxce@oktrue
   \else
@@ -1768,6 +1796,15 @@
   \special{dvisvgm:img
       \the\Gin@req@width\GPT@space\the\Gin@req@height\GPT@space
       \bxce@image@abspath}%
+}
+
+%% \bxce@raw@put@image@hitex
+\@onlypreamble\bxce@raw@put@image@hitex
+\def\bxce@raw@put@image@hitex{%
+  \lower\bxce@disp@dim\hbox{%
+    \HINTimage \bxce@image@argpath
+      \space width \bxce@cwd
+      \space height \bxce@cwd}%
 }
 
 %--------------------------------------- image absolute path
