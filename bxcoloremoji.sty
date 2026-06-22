@@ -458,10 +458,11 @@
       \ifx\bxce@tmpa\bxce@tmpb \chardef\bxce@do\@ne \fi
     }
   }
-  \ifnum\ifdefined\pdfoutput \pdfoutput
+  \ifnum\ifnum\bxce@do>\z@ \@ne
+        \else\ifdefined\pdfoutput \pdfoutput
         \else\ifdefined\outputmode \outputmode
         \else\ifx x\bxce@engine \@ne
-        \else \bxce@do \fi\fi\fi >\z@
+        \else \z@ \fi\fi\fi\fi >\z@
     \RequirePackage{graphicx}[]%
     \@ifpackageloaded{xcolor}{}{%else
       \@ifl@t@r\fmtversion{2021/06/01}{%
