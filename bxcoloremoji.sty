@@ -96,6 +96,9 @@
 %% switch bxce@twm@skip@tikz
 \newbool{bxce@twm@skip@tikz}
 \bxce@twm@skip@tikztrue
+%% switch bxce@dvisvgm@adjust
+\newbool{bxce@dvisvgm@adjust}
+\bxce@dvisvgm@adjusttrue
 %% bxce@family : image family
 \let\bxce@family\@undefined
 %% bxce@bb : image bbox
@@ -298,6 +301,13 @@
   }{}%
 }
 
+%% 'dvisvgm-adjust=<bool>'
+\define@key{bxce}{dvisvgm-adjust}[true]{%
+  \bxce@check@opt@key{dvisvgm-adjust}{#1}{bxce@dvisvgm@adjust}{%
+    \csuse{bxce@dvisvgm@adjust#1}%
+  }{}%
+}
+
 %% 'count-from=<number>'
 \define@key{bxce}{count-from}{%
   \def\bxce@count@from{#1}%
@@ -445,6 +455,14 @@
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
     \def\bxce@tmpa{dvipdfm.def}%
     \ifx\Gin@driver\bxce@tmpa \global\bxce@use@bbtrue \fi
+    \def\bxce@tmpa{dvisvgm.def}%
+    \ifx\Gin@driver\bxce@tmpa
+      \global\bxce@use@bbtrue
+      \ifbxce@dvisvgm@adjust
+        \global\let\bxce@driver@hook\bxce@driver@hook@dvisvgm
+        \global\let\bxce@Ginclude@bitmap\bxce@Ginclude@bitmap@dvisvgm
+      \fi
+    \fi
   \fi\fi\fi
   \bxce@resolve@image@metric
 }
@@ -454,7 +472,7 @@
   % check if a global driver option is given
   \chardef\bxce@do\z@
   \@for\bxce@tmpa:=\@classoptionslist\do{%
-    \@for\bxce@tmpb:={dvipdfmx,dvipdfm,dvips}\do{%
+    \@for\bxce@tmpb:={dvipdfmx,dvipdfm,dvisvgm,dvips}\do{%
       \ifx\bxce@tmpa\bxce@tmpb \chardef\bxce@do\@ne \fi
     }
   }
@@ -1587,6 +1605,7 @@
 \def\bxce@output@a{%
   \bxce@resolve@image@setup
   \bxce@check@image@setup
+  \bxce@driver@hook
   \bxce@iftdir{\bxce@ctdirtrue}{\bxce@ctdirfalse}%
   \bxce@set@cwd
   \bxce@disp@dim=\bxce@disp\bxce@cwd\relax
@@ -1594,6 +1613,9 @@
   \bxce@text
   \unskip
 }
+
+%% \bxce@driver@hook
+\let\bxce@driver@hook\relax
 
 %% \bxce@check@image@setup
 \def\bxce@check@image@setup{%
@@ -1726,6 +1748,26 @@
       [width=\bxce@cwd
       \ifbxce@use@bb\unless\ifx\bxce@bb\relax ,bb=\bxce@bb \fi\fi]%
       {\bxce@image@argpath}}}}%
+}
+
+%--------------------------------------- driver hooks
+
+%% \bxce@driver@hook@dvisvgm
+\@onlypreamble\bxce@driver@hook@dvisvgm
+\def\bxce@driver@hook@dvisvgm{%
+  \let\Ginclude@bitmap\bxce@Ginclude@bitmap
+}
+
+%% \bxce@Ginclude@bitmap@dvisvgm
+% An alternative Ginclude routine for bitmaps on dvisvgm.
+% It will enable dvisvgm's '--embed-bitmaps' options to work.
+% NB: It does not support the dvipdfmx options 'viewport'/'trim'.
+\@onlypreamble\bxce@Ginclude@bitmap@dvisvgm
+\def\bxce@Ginclude@bitmap@dvisvgm#1{%
+  \bxce@set@image@abspath{#1}%
+  \special{dvisvgm:img
+      \the\Gin@req@width\GPT@space\the\Gin@req@height\GPT@space
+      \bxce@image@abspath}%
 }
 
 %--------------------------------------- image absolute path
